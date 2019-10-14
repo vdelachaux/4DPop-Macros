@@ -1,0 +1,4503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Translation file for 4D products.
+   Copyright (C) 2008-2010 4D SAS.
+   This file is distributed under the same license as the 4D product package.
+-->
+
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN"
+"http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+
+<xliff version="1.0">
+   <file datatype="x-STR#" original="undefined" source-language="en" target-language="fr" product-version="v11">
+      <header>
+         <note>The character &quot;%&quot; (out of a numerical context) is a meta-character that will be replaced (often by a numeric value) before the string is displayed</note>
+         <note>Text between less than (&lt;) and greater than (&gt;) symbols is a variable&apos;s name and must not be localised</note>
+         <note>\r, \t and \n are meta-characters.</note>
+      </header>
+      <body>
+           <group resname="STR# ID 8" id="8"> 
+            <trans-unit id="1">
+               <source>Sum</source>
+               <target>Somme</target>
+            </trans-unit>
+            <trans-unit id="2">
+               <source>Average</source>
+               <target>Moyenne</target>
+            </trans-unit>
+            <trans-unit id="3">
+               <source>Max</source>
+               <target>Max</target>
+            </trans-unit>
+            <trans-unit id="4">
+               <source>Min</source>
+               <target>Min</target>
+            </trans-unit>
+            <trans-unit id="5">
+               <source>Print form</source>
+               <target>Imprimer ligne</target>
+            </trans-unit>
+            <trans-unit id="6">
+               <source>PAGE BREAK</source>
+               <target>SAUT DE PAGE</target>
+            </trans-unit>
+            <trans-unit id="7">
+               <source>Records in subselection</source>
+               <target>Sous enregistrements trouves</target>
+            </trans-unit>
+            <trans-unit id="8">
+               <source>Int</source>
+               <target>Ent</target>
+            </trans-unit>
+            <trans-unit id="9">
+               <source>Dec</source>
+               <target>Dec</target>
+            </trans-unit>
+            <trans-unit id="10">
+               <source>String</source>
+               <target>Chaine</target>
+            </trans-unit>
+            <trans-unit id="11">
+               <source>Num</source>
+               <target>Num</target>
+            </trans-unit>
+            <trans-unit id="12.2">
+               <source>Substring</source>
+               <target>Sous chaine</target>
+            </trans-unit>
+            <trans-unit id="13">
+               <source>Uppercase</source>
+               <target>Majusc</target>
+            </trans-unit>
+            <trans-unit id="14">
+               <source>Lowercase</source>
+               <target>Minusc</target>
+            </trans-unit>
+            <trans-unit id="15">
+               <source>Position</source>
+               <target>Position</target>
+            </trans-unit>
+            <trans-unit id="16">
+               <source>Length</source>
+               <target>Longueur</target>
+            </trans-unit>
+            <trans-unit id="17">
+               <source>Sin</source>
+               <target>Sin</target>
+            </trans-unit>
+            <trans-unit id="18">
+               <source>Cos</source>
+               <target>Cos</target>
+            </trans-unit>
+            <trans-unit id="19">
+               <source>Tan</source>
+               <target>Tan</target>
+            </trans-unit>
+            <trans-unit id="20">
+               <source>Arctan</source>
+               <target>Arctan</target>
+            </trans-unit>
+            <trans-unit id="21">
+               <source>Exp</source>
+               <target>Exp</target>
+            </trans-unit>
+            <trans-unit id="22">
+               <source>Log</source>
+               <target>Log</target>
+            </trans-unit>
+            <trans-unit id="23">
+               <source>Day of</source>
+               <target>Jour de</target>
+            </trans-unit>
+            <trans-unit id="24">
+               <source>Month of</source>
+               <target>Mois de</target>
+            </trans-unit>
+            <trans-unit id="25">
+               <source>Year of</source>
+               <target>Annee de</target>
+            </trans-unit>
+            <trans-unit id="26">
+               <source>Std deviation</source>
+               <target>Ecart type</target>
+            </trans-unit>
+            <trans-unit id="27">
+               <source>Variance</source>
+               <target>Variance</target>
+            </trans-unit>
+            <trans-unit id="28">
+               <source>Sum squares</source>
+               <target>Somme des carres</target>
+            </trans-unit>
+            <trans-unit id="29">
+               <source>Before</source>
+               <target>Avant</target>
+            </trans-unit>
+            <trans-unit id="30">
+               <source>During</source>
+               <target>Pendant</target>
+            </trans-unit>
+            <trans-unit id="31">
+               <source>After</source>
+               <target>Apres</target>
+            </trans-unit>
+            <trans-unit id="32">
+               <source>Modified</source>
+               <target>Modifie</target>
+            </trans-unit>
+            <trans-unit id="33">
+               <source>Current date</source>
+               <target>Date du jour</target>
+            </trans-unit>
+            <trans-unit id="34">
+               <source>Not</source>
+               <target>Non</target>
+            </trans-unit>
+            <trans-unit id="35">
+               <source>Old</source>
+               <target>Ancien</target>
+            </trans-unit>
+            <trans-unit id="36">
+               <source>End selection</source>
+               <target>Fin de selection</target>
+            </trans-unit>
+            <trans-unit id="37">
+               <source>End subselection</source>
+               <target>Fin sous enregistrement</target>
+            </trans-unit>
+            <trans-unit id="38">
+               <source>REJECT</source>
+               <target>REFUSER</target>
+            </trans-unit>
+            <trans-unit id="39">
+               <source>PRINT LABEL</source>
+               <target>IMPRIMER ETIQUETTES</target>
+            </trans-unit>
+            <trans-unit id="40">
+               <source>DIALOG</source>
+               <target>DIALOGUE</target>
+            </trans-unit>
+            <trans-unit id="41">
+               <source>ALERT</source>
+               <target>ALERTE</target>
+            </trans-unit>
+            <trans-unit id="42">
+               <source>RELATE ONE</source>
+               <target>CHARGER SUR LIEN</target>
+            </trans-unit>
+            <trans-unit id="43">
+               <source>SAVE RELATED ONE</source>
+               <target>STOCKER SUR LIEN</target>
+            </trans-unit>
+            <trans-unit id="44">
+               <source>OLD RELATED ONE</source>
+               <target>CHARGER ANCIEN</target>
+            </trans-unit>
+            <trans-unit id="45">
+               <source>@SAVE OLD RELATED ONE</source>
+               <target>@STOCKER ANCIEN</target>
+            </trans-unit>
+            <trans-unit id="46">
+               <source>DEFAULT TABLE</source>
+               <target>TABLE PAR DEFAUT</target>
+            </trans-unit>
+            <trans-unit id="47">
+               <source>ALL RECORDS</source>
+               <target>TOUT SELECTIONNER</target>
+            </trans-unit>
+            <trans-unit id="48">
+               <source>QUERY BY FORMULA</source>
+               <target>CHERCHER PAR FORMULE</target>
+            </trans-unit>
+            <trans-unit id="49">
+               <source>ORDER BY</source>
+               <target>TRIER</target>
+            </trans-unit>
+            <trans-unit id="50">
+               <source>FIRST RECORD</source>
+               <target>DEBUT SELECTION</target>
+            </trans-unit>
+            <trans-unit id="51">
+               <source>NEXT RECORD</source>
+               <target>ENREGISTREMENT SUIVANT</target>
+            </trans-unit>
+            <trans-unit id="52">
+               <source>LOAD RECORD</source>
+               <target>CHARGER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="53">
+               <source>SAVE RECORD</source>
+               <target>STOCKER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="54">
+               <source>OUTPUT FORM</source>
+               <target>FORMULAIRE SORTIE</target>
+            </trans-unit>
+            <trans-unit id="55">
+               <source>INPUT FORM</source>
+               <target>FORMULAIRE ENTREE</target>
+            </trans-unit>
+            <trans-unit id="56">
+               <source>ADD RECORD</source>
+               <target>AJOUTER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="57">
+               <source>MODIFY RECORD</source>
+               <target>MODIFIER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="58">
+               <source>DELETE RECORD</source>
+               <target>SUPPRIMER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="59">
+               <source>DISPLAY SELECTION</source>
+               <target>VISUALISER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="60">
+               <source>PRINT SELECTION</source>
+               <target>IMPRIMER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="61">
+               <source>FIRST SUBRECORD</source>
+               <target>DEBUT SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="62">
+               <source>NEXT SUBRECORD</source>
+               <target>SOUS ENREGISTREMENT SUIVANT</target>
+            </trans-unit>
+            <trans-unit id="63">
+               <source>EXECUTE FORMULA</source>
+               <target>EXECUTER FORMULE</target>
+            </trans-unit>
+            <trans-unit id="64">
+               <source>@SEARCH BY INDEX</source>
+               <target>@CHERCHER SUR CLE</target>
+            </trans-unit>
+            <trans-unit id="65">
+               <source>CREATE RELATED ONE</source>
+               <target>CREER SUR LIEN</target>
+            </trans-unit>
+            <trans-unit id="66">
+               <source>DELETE SELECTION</source>
+               <target>SUPPRIMER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="67">
+               <source>SET MENU BAR</source>
+               <target>FIXER BARRE MENUS</target>
+            </trans-unit>
+            <trans-unit id="68">
+               <source>CREATE RECORD</source>
+               <target>CREER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="69">
+               <source>@Free cache</source>
+               <target>@Liberer cache</target>
+            </trans-unit>
+            <trans-unit id="70">
+               <source>APPLY TO SELECTION</source>
+               <target>APPLIQUER A SELECTION</target>
+            </trans-unit>
+            <trans-unit id="71">
+               <source>PRINT RECORD</source>
+               <target>IMPRIMER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="72">
+               <source>CREATE SUBRECORD</source>
+               <target>CREER SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="73">
+               <source>APPLY TO SUBSELECTION</source>
+               <target>APPLIQUER A SOUS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="74">
+               <source>LOAD VARIABLES</source>
+               <target>LIRE VARIABLES</target>
+            </trans-unit>
+            <trans-unit id="75">
+               <source>SAVE VARIABLES</source>
+               <target>ECRIRE VARIABLES</target>
+            </trans-unit>
+            <trans-unit id="76">
+               <source>Records in selection</source>
+               <target>Enregistrements trouves</target>
+            </trans-unit>
+            <trans-unit id="77">
+               <source>SET CHANNEL</source>
+               <target>REGLER SERIE</target>
+            </trans-unit>
+            <trans-unit id="78">
+               <source>SEND RECORD</source>
+               <target>ENVOYER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="79">
+               <source>RECEIVE RECORD</source>
+               <target>RECEVOIR ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="80">
+               <source>SEND VARIABLE</source>
+               <target>ENVOYER VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="81">
+               <source>RECEIVE VARIABLE</source>
+               <target>RECEVOIR VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="82">
+               <source>Undefined</source>
+               <target>Indefinie</target>
+            </trans-unit>
+            <trans-unit id="83">
+               <source>Records in table</source>
+               <target>Enregistrements dans table</target>
+            </trans-unit>
+            <trans-unit id="84">
+               <source>EXPORT DIF</source>
+               <target>ECRITURE DIF</target>
+            </trans-unit>
+            <trans-unit id="85">
+               <source>EXPORT SYLK</source>
+               <target>ECRITURE SYLK</target>
+            </trans-unit>
+            <trans-unit id="86">
+               <source>IMPORT DIF</source>
+               <target>LECTURE DIF</target>
+            </trans-unit>
+            <trans-unit id="87">
+               <source>IMPORT SYLK</source>
+               <target>LECTURE SYLK</target>
+            </trans-unit>
+            <trans-unit id="88">
+               <source>MESSAGE</source>
+               <target>MESSAGE</target>
+            </trans-unit>
+            <trans-unit id="89">
+               <source>CLEAR VARIABLE</source>
+               <target>EFFACER VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="90">
+               <source>Char</source>
+               <target>Caractere</target>
+            </trans-unit>
+            <trans-unit id="91">
+               <source>Character code</source>
+               <target>Code de caractere</target>
+            </trans-unit>
+            <trans-unit id="92">
+               <source>@PRINT DIALOG</source>
+               <target>@IMPRIMER DIALOGUE</target>
+            </trans-unit>
+            <trans-unit id="93">
+               <source>INVERT BACKGROUND</source>
+               <target>INVERSER FOND</target>
+            </trans-unit>
+            <trans-unit id="94">
+               <source>Round</source>
+               <target>Arrondi</target>
+            </trans-unit>
+            <trans-unit id="95">
+               <source>Trunc</source>
+               <target>Troncature</target>
+            </trans-unit>
+            <trans-unit id="96">
+               <source>DELETE SUBRECORD</source>
+               <target>SUPPRIMER SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="97">
+               <source>Subtotal</source>
+               <target>Sous total</target>
+            </trans-unit>
+            <trans-unit id="98">
+               <source>Mod</source>
+               <target>Modulo</target>
+            </trans-unit>
+            <trans-unit id="99">
+               <source>Abs</source>
+               <target>Abs</target>
+            </trans-unit>
+            <trans-unit id="100">
+               <source>Random</source>
+               <target>Hasard</target>
+            </trans-unit>
+            <trans-unit id="101">
+               <source>Level</source>
+               <target>Niveau</target>
+            </trans-unit>
+            <trans-unit id="102">
+               <source>Date</source>
+               <target>Date</target>
+            </trans-unit>
+            <trans-unit id="103">
+               <source>SEND PACKET</source>
+               <target>ENVOYER PAQUET</target>
+            </trans-unit>
+            <trans-unit id="104">
+               <source>RECEIVE PACKET</source>
+               <target>RECEVOIR PAQUET</target>
+            </trans-unit>
+            <trans-unit id="105">
+               <source>DISPLAY RECORD</source>
+               <target>AFFICHER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="106">
+               <source>PRINT SETTINGS</source>
+               <target>PARAMETRES IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="107">
+               <source>ORDER SUBRECORDS BY</source>
+               <target>TRIER SOUS ENREGISTREMENTS</target>
+            </trans-unit>
+            <trans-unit id="108">
+               <source>QUERY SUBRECORDS</source>
+               <target>CHERCHER SOUS ENREGISTREMENTS</target>
+            </trans-unit>
+            <trans-unit id="109">
+               <source>ALL SUBRECORDS</source>
+               <target>TOUS LES SOUS ENREGISTREMENTS</target>
+            </trans-unit>
+            <trans-unit id="110">
+               <source>PREVIOUS RECORD</source>
+               <target>ENREGISTREMENT PRECEDENT</target>
+            </trans-unit>
+            <trans-unit id="111">
+               <source>PREVIOUS SUBRECORD</source>
+               <target>SOUS ENREGISTREMENT PRECEDENT</target>
+            </trans-unit>
+            <trans-unit id="112">
+               <source>In header</source>
+               <target>En entete</target>
+            </trans-unit>
+            <trans-unit id="113">
+               <source>In break</source>
+               <target>En rupture</target>
+            </trans-unit>
+            <trans-unit id="114">
+               <source>Day number</source>
+               <target>Numero du jour</target>
+            </trans-unit>
+            <trans-unit id="115">
+               <source>@COPY PICTURE</source>
+               <target>@COPIER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="116">
+               <source>CREATE SET</source>
+               <target>NOMMER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="117">
+               <source>CLEAR SET</source>
+               <target>EFFACER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="118">
+               <source>USE SET</source>
+               <target>UTILISER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="119">
+               <source>ADD TO SET</source>
+               <target>ADJOINDRE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="120">
+               <source>UNION</source>
+               <target>REUNION</target>
+            </trans-unit>
+            <trans-unit id="121">
+               <source>INTERSECTION</source>
+               <target>INTERSECTION</target>
+            </trans-unit>
+            <trans-unit id="122">
+               <source>DIFFERENCE</source>
+               <target>DIFFERENCE</target>
+            </trans-unit>
+            <trans-unit id="123">
+               <source>@LIRE COMPTE</source>
+               <target>@LIRE COMPTE</target>
+            </trans-unit>
+            <trans-unit id="124">
+               <source>@LIRE AUXILIAIRE</source>
+               <target>@LIRE AUXILIAIRE</target>
+            </trans-unit>
+            <trans-unit id="125">
+               <source>@LIRE ECRITURE</source>
+               <target>@LIRE ECRITURE</target>
+            </trans-unit>
+            <trans-unit id="126">
+               <source>@AJOUTER COMPTE</source>
+               <target>@AJOUTER COMPTE</target>
+            </trans-unit>
+            <trans-unit id="127">
+               <source>@AJOUTER AUXILIAIRE</source>
+               <target>@AJOUTER AUXILIAIRE</target>
+            </trans-unit>
+            <trans-unit id="128">
+               <source>@AJOUTER ECRITURE</source>
+               <target>@AJOUTER ECRITURE</target>
+            </trans-unit>
+            <trans-unit id="129">
+               <source>@OUVRIR COMPTA</source>
+               <target>@OUVRIR COMPTA</target>
+            </trans-unit>
+            <trans-unit id="130">
+               <source>@FERMER COMPTA</source>
+               <target>@FERMER COMPTA</target>
+            </trans-unit>
+            <trans-unit id="131">
+               <source>@AUXILIAIRE SUIVANT</source>
+               <target>@AUXILIAIRE SUIVANT</target>
+            </trans-unit>
+            <trans-unit id="132">
+               <source>@ECRITURE SUIVANTE</source>
+               <target>@ECRITURE SUIVANTE</target>
+            </trans-unit>
+            <trans-unit id="133">
+               <source>@DEBUT AUXILIAIRE</source>
+               <target>@DEBUT AUXILIAIRE</target>
+            </trans-unit>
+            <trans-unit id="134">
+               <source>@DEBUT ECRITURE</source>
+               <target>@DEBUT ECRITURE</target>
+            </trans-unit>
+            <trans-unit id="135">
+               <source>@COMPTE SUIVANT</source>
+               <target>@COMPTE SUIVANT</target>
+            </trans-unit>
+            <trans-unit id="136">
+               <source>@DEBUT COMPTE</source>
+               <target>@DEBUT COMPTE</target>
+            </trans-unit>
+            <trans-unit id="137">
+               <source>@Fin compte</source>
+               <target>@Fin compte</target>
+            </trans-unit>
+            <trans-unit id="138">
+               <source>@Fin auxiliaire</source>
+               <target>@Fin auxiliaire</target>
+            </trans-unit>
+            <trans-unit id="139">
+               <source>@Fin ecriture</source>
+               <target>@Fin ecriture</target>
+            </trans-unit>
+            <trans-unit id="140">
+               <source>CREATE EMPTY SET</source>
+               <target>ENSEMBLE VIDE</target>
+            </trans-unit>
+            <trans-unit id="141">
+               <source>@Derniere lettre</source>
+               <target>@Prochaine lettre</target>
+            </trans-unit>
+            <trans-unit id="142">
+               <source>@CHANGER LETTRE</source>
+               <target>@CHANGER LETTRE</target>
+            </trans-unit>
+            <trans-unit id="143">
+               <source>Semaphore</source>
+               <target>Semaphore</target>
+            </trans-unit>
+            <trans-unit id="144">
+               <source>CLEAR SEMAPHORE</source>
+               <target>EFFACER SEMAPHORE</target>
+            </trans-unit>
+            <trans-unit id="145">
+               <source>READ ONLY</source>
+               <target>LECTURE SEULEMENT</target>
+            </trans-unit>
+            <trans-unit id="146">
+               <source>READ WRITE</source>
+               <target>LECTURE ECRITURE</target>
+            </trans-unit>
+            <trans-unit id="147">
+               <source>Locked</source>
+               <target>Enregistrement verrouille</target>
+            </trans-unit>
+            <trans-unit id="148">
+               <source>GRAPH TABLE</source>
+               <target>GRAPHE SUR SELECTION</target>
+            </trans-unit>
+            <trans-unit id="149">
+               <source>ENABLE MENU ITEM</source>
+               <target>ACTIVER LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="150">
+               <source>DISABLE MENU ITEM</source>
+               <target>INACTIVER LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="151">
+               <source>BEEP</source>
+               <target>BEEP</target>
+            </trans-unit>
+            <trans-unit id="152">
+               <source>Menu selected</source>
+               <target>Menu choisi</target>
+            </trans-unit>
+            <trans-unit id="153">
+               <source>Open window</source>
+               <target>Creer fenetre</target>
+            </trans-unit>
+            <trans-unit id="154">
+               <source>CLOSE WINDOW</source>
+               <target>FERMER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="155">
+               <source>ON ERR CALL</source>
+               <target>APPELER SUR ERREUR</target>
+            </trans-unit>
+            <trans-unit id="156">
+               <source>ABORT</source>
+               <target>STOP</target>
+            </trans-unit>
+            <trans-unit id="157">
+               <source>TRACE</source>
+               <target>TRACE</target>
+            </trans-unit>
+            <trans-unit id="158">
+               <source>NO TRACE</source>
+               <target>PAS DE TRACE</target>
+            </trans-unit>
+            <trans-unit id="159">
+               <source>DELETE DOCUMENT</source>
+               <target>SUPPRIMER DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="160">
+               <source>ERASE WINDOW</source>
+               <target>EFFACER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="161">
+               <source>GOTO XY</source>
+               <target>POSITION MESSAGE</target>
+            </trans-unit>
+            <trans-unit id="162">
+               <source>CONFIRM</source>
+               <target>CONFIRMER</target>
+            </trans-unit>
+            <trans-unit id="163">
+               <source>Request</source>
+               <target>Demander</target>
+            </trans-unit>
+            <trans-unit id="164">
+               <source>FONT</source>
+               <target>CHANGER JEU DE CARACTERES</target>
+            </trans-unit>
+            <trans-unit id="165">
+               <source>FONT SIZE</source>
+               <target>CHANGER TAILLE</target>
+            </trans-unit>
+            <trans-unit id="166">
+               <source>FONT STYLE</source>
+               <target>CHANGER STYLE</target>
+            </trans-unit>
+            <trans-unit id="167">
+               <source>EXPORT TEXT</source>
+               <target>EXPORTER TEXTE</target>
+            </trans-unit>
+            <trans-unit id="168">
+               <source>IMPORT TEXT</source>
+               <target>IMPORTER TEXTE</target>
+            </trans-unit>
+            <trans-unit id="169">
+               <source>GRAPH</source>
+               <target>GRAPHE</target>
+            </trans-unit>
+            <trans-unit id="170">
+               <source>@SORT BY INDEX</source>
+               <target>@TRIER SUR INDEX</target>
+            </trans-unit>
+            <trans-unit id="171">
+               <source>@ON SERIAL PORT CALL</source>
+               <target>@APPELER SUR PORT SERIE</target>
+            </trans-unit>
+            <trans-unit id="172">
+               <source>RECEIVE BUFFER</source>
+               <target>RECEVOIR BUFFER</target>
+            </trans-unit>
+            <trans-unit id="173">
+               <source>@BACKUP</source>
+               <target>@BACKUP</target>
+            </trans-unit>
+            <trans-unit id="174">
+               <source>REDRAW</source>
+               <target>REDESSINER</target>
+            </trans-unit>
+            <trans-unit id="175">
+               <source>MESSAGES OFF</source>
+               <target>SUPPRIMER MESSAGES</target>
+            </trans-unit>
+            <trans-unit id="176">
+               <source>PUSH RECORD</source>
+               <target>EMPILER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="177">
+               <source>POP RECORD</source>
+               <target>DEPILER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="178">
+               <source>Current time</source>
+               <target>Heure courante</target>
+            </trans-unit>
+            <trans-unit id="179">
+               <source>Time</source>
+               <target>Heure</target>
+            </trans-unit>
+            <trans-unit id="180">
+               <source>Time string</source>
+               <target>Chaine heure</target>
+            </trans-unit>
+            <trans-unit id="181">
+               <source>MESSAGES ON</source>
+               <target>LAISSER MESSAGES</target>
+            </trans-unit>
+            <trans-unit id="182">
+               <source>Current user</source>
+               <target>Utilisateur courant</target>
+            </trans-unit>
+            <trans-unit id="183">
+               <source>@YIELD MAIN</source>
+               <target>@YIELD MAIN</target>
+            </trans-unit>
+            <trans-unit id="184">
+               <source>SAVE SET</source>
+               <target>STOCKER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="185">
+               <source>LOAD SET</source>
+               <target>CHARGER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="186">
+               <source>CHANGE PASSWORD</source>
+               <target>CHANGER MOT DE PASSE</target>
+            </trans-unit>
+            <trans-unit id="187">
+               <source>Screen width</source>
+               <target>Largeur ecran</target>
+            </trans-unit>
+            <trans-unit id="188">
+               <source>Screen height</source>
+               <target>Hauteur ecran</target>
+            </trans-unit>
+            <trans-unit id="189">
+               <source>ONE RECORD SELECT</source>
+               <target>ENREGISTREMENT SELECTION</target>
+            </trans-unit>
+            <trans-unit id="190">
+               <source>ON EVENT CALL</source>
+               <target>APPELER SUR EVENEMENT</target>
+            </trans-unit>
+            <trans-unit id="191">
+               <source>In footer</source>
+               <target>En pied</target>
+            </trans-unit>
+            <trans-unit id="192">
+               <source>ENABLE BUTTON</source>
+               <target>ACTIVER BOUTON</target>
+            </trans-unit>
+            <trans-unit id="193">
+               <source>DISABLE BUTTON</source>
+               <target>INACTIVER BOUTON</target>
+            </trans-unit>
+            <trans-unit id="194">
+               <source>BUTTON TEXT</source>
+               <target>TITRE BOUTON</target>
+            </trans-unit>
+            <trans-unit id="195">
+               <source>Records in set</source>
+               <target>Enregistrements dans ensemble</target>
+            </trans-unit>
+            <trans-unit id="196">
+               <source>@XOR</source>
+               <target>@XOR</target>
+            </trans-unit>
+            <trans-unit id="197">
+               <source>QR REPORT</source>
+               <target>QR ETAT</target>
+            </trans-unit>
+            <trans-unit id="198">
+               <source>Before selection</source>
+               <target>Avant selection</target>
+            </trans-unit>
+            <trans-unit id="199">
+               <source>Before subselection</source>
+               <target>Avant sous enregistrement</target>
+            </trans-unit>
+            <trans-unit id="200">
+               <source>LAST RECORD</source>
+               <target>ALLER A DERNIER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="201">
+               <source>LAST SUBRECORD</source>
+               <target>ALLER A DERNIER SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="202">
+               <source>ADD SUBRECORD</source>
+               <target>AJOUTER SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="203">
+               <source>MODIFY SUBRECORD</source>
+               <target>MODIFIER SOUS ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="204">
+               <source>MODIFY SELECTION</source>
+               <target>MODIFIER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="205">
+               <source>USE CHARACTER SET</source>
+               <target>UTILISER FILTRE</target>
+            </trans-unit>
+            <trans-unit id="206">
+               <source>GOTO AREA</source>
+               <target>ALLER A CHAMP</target>
+            </trans-unit>
+            <trans-unit id="207">
+               <source>QUERY SELECTION BY FORMULA</source>
+               <target>CHERCHER PAR FORMULE DANS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="208">
+               <source>SET MENU ITEM MARK</source>
+               <target>FIXER MARQUE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="209">
+               <source>GET HIGHLIGHT</source>
+               <target>TEXTE SELECTIONNE</target>
+            </trans-unit>
+            <trans-unit id="210">
+               <source>HIGHLIGHT TEXT</source>
+               <target>SELECTIONNER TEXTE</target>
+            </trans-unit>
+            <trans-unit id="211">
+               <source>@ACTIVATE LINK</source>
+               <target>@ACTIVER LIEN</target>
+            </trans-unit>
+            <trans-unit id="212">
+               <source>UNLOAD RECORD</source>
+               <target>LIBERER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="213">
+               <source>SET WINDOW TITLE</source>
+               <target>CHANGER TITRE FENETRE</target>
+            </trans-unit>
+            <trans-unit id="214">
+               <source>True</source>
+               <target>Vrai</target>
+            </trans-unit>
+            <trans-unit id="215">
+               <source>False</source>
+               <target>Faux</target>
+            </trans-unit>
+            <trans-unit id="216">
+               <source>@MERGE SELECTION</source>
+               <target>@MAILING SUR SELECTION</target>
+            </trans-unit>
+            <trans-unit id="217">
+               <source>@Automatic Number</source>
+               <target>@automatic number</target>
+            </trans-unit>
+            <trans-unit id="218">
+               <source>ARRAY STRING</source>
+               <target>TABLEAU ALPHA</target>
+            </trans-unit>
+            <trans-unit id="219">
+               <source>ARRAY REAL</source>
+               <target>TABLEAU REEL</target>
+            </trans-unit>
+            <trans-unit id="220">
+               <source>ARRAY INTEGER</source>
+               <target>TABLEAU ENTIER</target>
+            </trans-unit>
+            <trans-unit id="221">
+               <source>ARRAY LONGINT</source>
+               <target>TABLEAU ENTIER LONG</target>
+            </trans-unit>
+            <trans-unit id="222">
+               <source>ARRAY TEXT</source>
+               <target>TABLEAU TEXTE</target>
+            </trans-unit>
+            <trans-unit id="223">
+               <source>ARRAY BOOLEAN</source>
+               <target>TABLEAU BOOLEEN</target>
+            </trans-unit>
+            <trans-unit id="224">
+               <source>ARRAY DATE</source>
+               <target>TABLEAU DATE</target>
+            </trans-unit>
+            <trans-unit id="225">
+               <source>DUPLICATE RECORD</source>
+               <target>DUPLIQUER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="226">
+               <source>COPY ARRAY</source>
+               <target>COPIER TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="227">
+               <source>INSERT IN ARRAY</source>
+               <target>INSERER DANS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="228">
+               <source>DELETE FROM ARRAY</source>
+               <target>SUPPRIMER DANS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="229">
+               <source>SORT ARRAY</source>
+               <target>TRIER TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="230">
+               <source>Find in array</source>
+               <target>Chercher dans tableau</target>
+            </trans-unit>
+            <trans-unit id="231">
+               <source>Insert string</source>
+               <target>Inserer chaine</target>
+            </trans-unit>
+            <trans-unit id="232">
+               <source>Delete string</source>
+               <target>Supprimer chaine</target>
+            </trans-unit>
+            <trans-unit id="233">
+               <source>Replace string</source>
+               <target>Remplacer chaine</target>
+            </trans-unit>
+            <trans-unit id="234">
+               <source>Change string</source>
+               <target>Remplacer caracteres</target>
+            </trans-unit>
+            <trans-unit id="235">
+               <source>SET FILTER</source>
+               <target>CHOIX FILTRE SAISIE</target>
+            </trans-unit>
+            <trans-unit id="236">
+               <source>SET FORMAT</source>
+               <target>CHOIX FORMATAGE</target>
+            </trans-unit>
+            <trans-unit id="237">
+               <source>SET CHOICE LIST</source>
+               <target>CHOIX ENUMERATION</target>
+            </trans-unit>
+            <trans-unit id="238">
+               <source>SET ENTERABLE</source>
+               <target>CHOIX SAISISSABLE</target>
+            </trans-unit>
+            <trans-unit id="239">
+               <source>START TRANSACTION</source>
+               <target>DEBUT TRANSACTION</target>
+            </trans-unit>
+            <trans-unit id="240">
+               <source>VALIDATE TRANSACTION</source>
+               <target>VALIDER TRANSACTION</target>
+            </trans-unit>
+            <trans-unit id="241">
+               <source>CANCEL TRANSACTION</source>
+               <target>ANNULER TRANSACTION</target>
+            </trans-unit>
+            <trans-unit id="242">
+               <source>GOTO RECORD</source>
+               <target>ALLER A ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="243">
+               <source>Record number</source>
+               <target>Numero enregistrement</target>
+            </trans-unit>
+            <trans-unit id="244">
+               <source>Sequence number</source>
+               <target>Numerotation automatique</target>
+            </trans-unit>
+            <trans-unit id="245">
+               <source>GOTO SELECTED RECORD</source>
+               <target>ALLER DANS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="246">
+               <source>Selected record number</source>
+               <target>Numero dans selection</target>
+            </trans-unit>
+            <trans-unit id="247">
+               <source>GOTO PAGE</source>
+               <target>ALLER A PAGE</target>
+            </trans-unit>
+            <trans-unit id="248">
+               <source>NEXT PAGE</source>
+               <target>PAGE SUIVANTE</target>
+            </trans-unit>
+            <trans-unit id="249">
+               <source>PREVIOUS PAGE</source>
+               <target>PAGE PRECEDENTE</target>
+            </trans-unit>
+            <trans-unit id="250">
+               <source>FIRST PAGE</source>
+               <target>PREMIERE PAGE</target>
+            </trans-unit>
+            <trans-unit id="251">
+               <source>LAST PAGE</source>
+               <target>DERNIERE PAGE</target>
+            </trans-unit>
+            <trans-unit id="252">
+               <source>Table</source>
+               <target>Table</target>
+            </trans-unit>
+            <trans-unit id="253">
+               <source>Field</source>
+               <target>Champ</target>
+            </trans-unit>
+            <trans-unit id="254">
+               <source>Get last table number</source>
+               <target>Lire numero derniere table</target>
+            </trans-unit>
+            <trans-unit id="255">
+               <source>Get last field number</source>
+               <target>Lire numero dernier champ</target>
+            </trans-unit>
+            <trans-unit id="256">
+               <source>Table name</source>
+               <target>Nom de la table</target>
+            </trans-unit>
+            <trans-unit id="257">
+               <source>Field name</source>
+               <target>Nom du champ</target>
+            </trans-unit>
+            <trans-unit id="258">
+               <source>GET FIELD PROPERTIES</source>
+               <target>LIRE PROPRIETES CHAMP</target>
+            </trans-unit>
+            <trans-unit id="259">
+               <source>Count parameters</source>
+               <target>Nombre de parametres</target>
+            </trans-unit>
+            <trans-unit id="260">
+               <source>SELECTION TO ARRAY</source>
+               <target>SELECTION VERS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="261">
+               <source>ARRAY TO SELECTION</source>
+               <target>TABLEAU VERS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="262">
+               <source>RELATE MANY</source>
+               <target>LIEN RETOUR</target>
+            </trans-unit>
+            <trans-unit id="263">
+               <source>OLD RELATED MANY</source>
+               <target>ANCIEN LIEN RETOUR</target>
+            </trans-unit>
+            <trans-unit id="264">
+               <source>Open document</source>
+               <target>Ouvrir document</target>
+            </trans-unit>
+            <trans-unit id="265">
+               <source>Append document</source>
+               <target>Ajouter a document</target>
+            </trans-unit>
+            <trans-unit id="266">
+               <source>Create document</source>
+               <target>Creer document</target>
+            </trans-unit>
+            <trans-unit id="267">
+               <source>CLOSE DOCUMENT</source>
+               <target>FERMER DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="268">
+               <source>SET TIMEOUT</source>
+               <target>FIXER TIMEOUT</target>
+            </trans-unit>
+            <trans-unit id="269">
+               <source>ACCEPT</source>
+               <target>VALIDER</target>
+            </trans-unit>
+            <trans-unit id="270">
+               <source>CANCEL</source>
+               <target>NE PAS VALIDER</target>
+            </trans-unit>
+            <trans-unit id="271">
+               <source>SET COLOR</source>
+               <target>CHOIX COULEUR</target>
+            </trans-unit>
+            <trans-unit id="272">
+               <source>@Records in set</source>
+               <target>@Records in set</target>
+            </trans-unit>
+            <trans-unit id="273">
+               <source>Is in set</source>
+               <target>Appartient a ensemble</target>
+            </trans-unit>
+            <trans-unit id="274">
+               <source>Size of array</source>
+               <target>Taille tableau</target>
+            </trans-unit>
+            <trans-unit id="275">
+               <source>Printing page</source>
+               <target>Page impression</target>
+            </trans-unit>
+            <trans-unit id="276">
+               <source>Current form page</source>
+               <target>Page formulaire courante</target>
+            </trans-unit>
+            <trans-unit id="277">
+               <source>QUERY</source>
+               <target>CHERCHER</target>
+            </trans-unit>
+            <trans-unit id="278">
+               <source>Focus object</source>
+               <target>Objet focus</target>
+            </trans-unit>
+            <trans-unit id="279">
+               <source>ARRAY PICTURE</source>
+               <target>TABLEAU IMAGE</target>
+            </trans-unit>
+            <trans-unit id="280">
+               <source>ARRAY POINTER</source>
+               <target>TABLEAU POINTEUR</target>
+            </trans-unit>
+            <trans-unit id="281">
+               <source>EDIT ACCESS</source>
+               <target>CHANGER PRIVILEGES</target>
+            </trans-unit>
+            <trans-unit id="282">
+               <source>C_INTEGER</source>
+               <target>C_ENTIER</target>
+            </trans-unit>
+            <trans-unit id="283">
+               <source>C_LONGINT</source>
+               <target>C_ENTIER LONG</target>
+            </trans-unit>
+            <trans-unit id="284">
+               <source>C_TEXT</source>
+               <target>C_TEXTE</target>
+            </trans-unit>
+            <trans-unit id="285">
+               <source>C_REAL</source>
+               <target>C_REEL</target>
+            </trans-unit>
+            <trans-unit id="286">
+               <source>C_PICTURE</source>
+               <target>C_IMAGE</target>
+            </trans-unit>
+            <trans-unit id="287">
+               <source>ARRAY TO LIST</source>
+               <target>TABLEAU VERS ENUMERATION</target>
+            </trans-unit>
+            <trans-unit id="288">
+               <source>LIST TO ARRAY</source>
+               <target>ENUMERATION VERS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="289">
+               <source>CHANGE CURRENT USER</source>
+               <target>CHANGER UTILISATEUR COURANT</target>
+            </trans-unit>
+            <trans-unit id="290">
+               <source>PLAY</source>
+               <target>JOUER SON</target>
+            </trans-unit>
+            <trans-unit id="291">
+               <source>QUIT 4D</source>
+               <target>QUITTER 4D</target>
+            </trans-unit>
+            <trans-unit id="292">
+               <source>QUERY BY EXAMPLE</source>
+               <target>CHERCHER PAR EXEMPLE</target>
+            </trans-unit>
+            <trans-unit id="293">
+               <source>C_STRING</source>
+               <target>C_ALPHA</target>
+            </trans-unit>
+            <trans-unit id="294">
+               <source>Is a variable</source>
+               <target>Est une variable</target>
+            </trans-unit>
+            <trans-unit id="295">
+               <source>Type</source>
+               <target>Type</target>
+            </trans-unit>
+            <trans-unit id="296">
+               <source>@SORT TABLE</source>
+               <target>@TRI PERMANENT</target>
+            </trans-unit>
+            <trans-unit id="297">
+               <source>FLUSH BUFFERS</source>
+               <target>ECRIRE CACHE</target>
+            </trans-unit>
+            <trans-unit id="298">
+               <source>GRAPH SETTINGS</source>
+               <target>PARAMETRES DU GRAPHE</target>
+            </trans-unit>
+            <trans-unit id="299">
+               <source>PAGE SETUP</source>
+               <target>UTILISER PARAMETRES IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="300">
+               <source>ORDER BY FORMULA</source>
+               <target>TRIER PAR FORMULE</target>
+            </trans-unit>
+            <trans-unit id="301">
+               <source>C_POINTER</source>
+               <target>C_POINTEUR</target>
+            </trans-unit>
+            <trans-unit id="302">
+               <source>BREAK LEVEL</source>
+               <target>NIVEAUX DE RUPTURES</target>
+            </trans-unit>
+            <trans-unit id="303">
+               <source>ACCUMULATE</source>
+               <target>CUMULER SUR</target>
+            </trans-unit>
+            <trans-unit id="304">
+               <source>Get pointer</source>
+               <target>Pointeur vers</target>
+            </trans-unit>
+            <trans-unit id="305">
+               <source>C_BOOLEAN</source>
+               <target>C_BOOLEEN</target>
+            </trans-unit>
+            <trans-unit id="306">
+               <source>C_TIME</source>
+               <target>C_HEURE</target>
+            </trans-unit>
+            <trans-unit id="307">
+               <source>C_DATE</source>
+               <target>C_DATE</target>
+            </trans-unit>
+            <trans-unit id="308">
+               <source>Self</source>
+               <target>Self</target>
+            </trans-unit>
+            <trans-unit id="309">
+               <source>Open external window</source>
+               <target>Creer fenetre externe</target>
+            </trans-unit>
+            <trans-unit id="310">
+               <source>SET AUTOMATIC RELATIONS</source>
+               <target>FIXER LIENS AUTOMATIQUES</target>
+            </trans-unit>
+            <trans-unit id="311">
+               <source>IDLE</source>
+               <target>APPELER 4D</target>
+            </trans-unit>
+            <trans-unit id="312">
+               <source>OPEN DATA FILE</source>
+               <target>OUVRIR FICHIER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="313">
+               <source>CREATE DATA FILE</source>
+               <target>CREER FICHIER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="314">
+               <source>Modified record</source>
+               <target>Enregistrement modifie</target>
+            </trans-unit>
+            <trans-unit id="315">
+               <source>Nil</source>
+               <target>Nil</target>
+            </trans-unit>
+            <trans-unit id="316">
+               <source>SET ABOUT</source>
+               <target>APPELER SUR A PROPOS</target>
+            </trans-unit>
+            <trans-unit id="317">
+               <source>New process</source>
+               <target>Nouveau process</target>
+            </trans-unit>
+            <trans-unit id="318">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="319">
+               <source>PAUSE PROCESS</source>
+               <target>SUSPENDRE PROCESS</target>
+            </trans-unit>
+            <trans-unit id="320">
+               <source>RESUME PROCESS</source>
+               <target>REACTIVER PROCESS</target>
+            </trans-unit>
+            <trans-unit id="321">
+               <source>FILTER EVENT</source>
+               <target>FILTRER EVENEMENT</target>
+            </trans-unit>
+            <trans-unit id="322">
+               <source>Current process</source>
+               <target>Numero du process courant</target>
+            </trans-unit>
+            <trans-unit id="323">
+               <source>DELAY PROCESS</source>
+               <target>ENDORMIR PROCESS</target>
+            </trans-unit>
+            <trans-unit id="324">
+               <source>HIDE PROCESS</source>
+               <target>CACHER PROCESS</target>
+            </trans-unit>
+            <trans-unit id="325">
+               <source>SHOW PROCESS</source>
+               <target>MONTRER PROCESS</target>
+            </trans-unit>
+            <trans-unit id="326">
+               <source>BRING TO FRONT</source>
+               <target>PASSER AU PREMIER PLAN</target>
+            </trans-unit>
+            <trans-unit id="327">
+               <source>Frontmost process</source>
+               <target>Process de premier plan</target>
+            </trans-unit>
+            <trans-unit id="328">
+               <source>Outside call</source>
+               <target>Appel exterieur</target>
+            </trans-unit>
+            <trans-unit id="329">
+               <source>CALL PROCESS</source>
+               <target>APPELER PROCESS</target>
+            </trans-unit>
+            <trans-unit id="330">
+               <source>Process state</source>
+               <target>Statut du process</target>
+            </trans-unit>
+            <trans-unit id="331">
+               <source>COPY NAMED SELECTION</source>
+               <target>COPIER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="332">
+               <source>USE NAMED SELECTION</source>
+               <target>UTILISER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="333">
+               <source>CLEAR NAMED SELECTION</source>
+               <target>EFFACER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="334">
+               <source>CUT NAMED SELECTION</source>
+               <target>DEPLACER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="335">
+               <source>Count tasks</source>
+               <target>Nombre de process</target>
+            </trans-unit>
+            <trans-unit id="336">
+               <source>PROCESS PROPERTIES</source>
+               <target>INFORMATIONS PROCESS</target>
+            </trans-unit>
+            <trans-unit id="337">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="338">
+               <source>User in group</source>
+               <target>Appartient au groupe</target>
+            </trans-unit>
+            <trans-unit id="339">
+               <source>DISTINCT VALUES</source>
+               <target>VALEURS DISTINCTES</target>
+            </trans-unit>
+            <trans-unit id="340">
+               <source>RELATE MANY SELECTION</source>
+               <target>SELECTION RETOUR</target>
+            </trans-unit>
+            <trans-unit id="341">
+               <source>QUERY SELECTION</source>
+               <target>CHERCHER DANS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="342">
+               <source>Count users</source>
+               <target>Nombre utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="343">
+               <source>Count user processes</source>
+               <target>Nombre de process utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="344">
+               <source>SET INDEX</source>
+               <target>FIXER INDEX</target>
+            </trans-unit>
+            <trans-unit id="345">
+               <source>SELECT LOG FILE</source>
+               <target>FIXER FICHIER HISTORIQUE</target>
+            </trans-unit>
+            <trans-unit id="346">
+               <source>Activated</source>
+               <target>Activation</target>
+            </trans-unit>
+            <trans-unit id="347">
+               <source>Deactivated</source>
+               <target>Desactivation</target>
+            </trans-unit>
+            <trans-unit id="348">
+               <source>SET MENU ITEM</source>
+               <target>FIXER TEXTE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="349">
+               <source>RELATE ONE SELECTION</source>
+               <target>JOINTURE</target>
+            </trans-unit>
+            <trans-unit id="350">
+               <source>SCAN INDEX</source>
+               <target>SCAN INDEX</target>
+            </trans-unit>
+            <trans-unit id="351">
+               <source>REDUCE SELECTION</source>
+               <target>REDUIRE SELECTION</target>
+            </trans-unit>
+            <trans-unit id="352">
+               <source>C_GRAPH</source>
+               <target>C_GRAPHE</target>
+            </trans-unit>
+            <trans-unit id="353">
+               <source>LOCKED ATTRIBUTES</source>
+               <target>VERROUILLE PAR</target>
+            </trans-unit>
+              <trans-unit id="354">
+                 <source>@C_LONG8</source>
+                 <target>@C_LONG8</target>
+               </trans-unit>
+            <trans-unit id="355">
+               <source>COMPRESS PICTURE</source>
+               <target>COMPRESSER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="356">
+               <source>Picture size</source>
+               <target>Taille image</target>
+            </trans-unit>
+            <trans-unit id="357">
+               <source>LOAD COMPRESS PICTURE FROM FILE</source>
+               <target>CHARGER ET COMPRESSER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="358">
+               <source>SAVE PICTURE TO FILE</source>
+               <target>ENREGISTRER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="359">
+               <source>COMPRESS PICTURE FILE</source>
+               <target>COMPRESSER FICHIER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="360">
+               <source>Convert case</source>
+               <target>Convertir caracteres</target>
+            </trans-unit>
+            <trans-unit id="361">
+               <source>ADD DATA SEGMENT</source>
+               <target>AJOUTER SEGMENT DE DONNEES</target>
+            </trans-unit>
+            <trans-unit id="362">
+               <source>Read only state</source>
+               <target>Etat lecture seulement</target>
+            </trans-unit>
+            <trans-unit id="363">
+               <source>Current default table</source>
+               <target>Table par defaut courante</target>
+            </trans-unit>
+            <trans-unit id="364">
+               <source>SET PRINT PREVIEW</source>
+               <target>FIXER APERCU IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="365">
+               <source>PLATFORM PROPERTIES</source>
+               <target>PROPRIETES PLATE FORME</target>
+            </trans-unit>
+            <trans-unit id="366">
+               <source>MAP FILE TYPES</source>
+               <target>ASSOCIER TYPES FICHIER</target>
+            </trans-unit>
+            <trans-unit id="367">
+               <source>SET PLATFORM INTERFACE</source>
+               <target>FIXER INTERFACE</target>
+            </trans-unit>
+            <trans-unit id="368">
+               <source>SELECTION RANGE TO ARRAY</source>
+               <target>SELECTION LIMITEE VERS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="369">
+               <source>Database event</source>
+               <target>Evenement moteur</target>
+            </trans-unit>
+            <trans-unit id="370">
+               <source>SET PROCESS VARIABLE</source>
+               <target>ECRIRE VARIABLE PROCESS</target>
+            </trans-unit>
+            <trans-unit id="371">
+               <source>GET PROCESS VARIABLE</source>
+               <target>LIRE VARIABLE PROCESS</target>
+            </trans-unit>
+            <trans-unit id="372">
+               <source>Process number</source>
+               <target>Chercher process</target>
+            </trans-unit>
+            <trans-unit id="373">
+               <source>Execute on server</source>
+               <target>Executer sur serveur</target>
+            </trans-unit>
+            <trans-unit id="374">
+               <source>@CLEAR TABLE</source>
+               <target>@SUPPRIMER TABLE</target>
+            </trans-unit>
+            <trans-unit id="375">
+               <source>New list</source>
+               <target>Nouvelle liste</target>
+            </trans-unit>
+            <trans-unit id="376">
+               <source>APPEND TO LIST</source>
+               <target>AJOUTER A LISTE</target>
+            </trans-unit>
+            <trans-unit id="377">
+               <source>CLEAR LIST</source>
+               <target>SUPPRIMER LISTE</target>
+            </trans-unit>
+            <trans-unit id="378">
+               <source>GET LIST ITEM</source>
+               <target>INFORMATION ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="379">
+               <source>Selected list items</source>
+               <target>Elements selectionnes</target>
+            </trans-unit>
+            <trans-unit id="380">
+               <source>Count list items</source>
+               <target>Nombre elements</target>
+            </trans-unit>
+            <trans-unit id="381">
+               <source>SELECT LIST ITEMS BY POSITION</source>
+               <target>SELECTIONNER ELEMENTS PAR POSITION</target>
+            </trans-unit>
+            <trans-unit id="382">
+               <source>REDRAW LIST</source>
+               <target>REDESSINER LISTE</target>
+            </trans-unit>
+            <trans-unit id="383">
+               <source>Load list</source>
+               <target>Charger liste</target>
+            </trans-unit>
+            <trans-unit id="384">
+               <source>SAVE LIST</source>
+               <target>STOCKER LISTE</target>
+            </trans-unit>
+            <trans-unit id="385">
+               <source>SET LIST ITEM</source>
+               <target>CHANGER ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="386">
+               <source>SET LIST ITEM PROPERTIES</source>
+               <target>CHANGER PROPRIETES ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="387">
+               <source>SET LIST PROPERTIES</source>
+               <target>CHANGER PROPRIETES LISTE</target>
+            </trans-unit>
+            <trans-unit id="388">
+               <source>Form event</source>
+               <target>Evenement formulaire</target>
+            </trans-unit>
+            <trans-unit id="389">
+               <source>FILTER KEYSTROKE</source>
+               <target>FILTRER FRAPPE CLAVIER</target>
+            </trans-unit>
+            <trans-unit id="390">
+               <source>Keystroke</source>
+               <target>Frappe clavier</target>
+            </trans-unit>
+            <trans-unit id="391">
+               <source>SORT LIST</source>
+               <target>TRIER LISTE</target>
+            </trans-unit>
+            <trans-unit id="392">
+               <source>SET DEFAULT CENTURY</source>
+               <target>SIECLE PAR DEFAUT</target>
+            </trans-unit>
+            <trans-unit id="393">
+               <source>Add to date</source>
+               <target>Ajouter a date</target>
+            </trans-unit>
+            <trans-unit id="394">
+               <source>RESOLVE POINTER</source>
+               <target>RESOUDRE POINTEUR</target>
+            </trans-unit>
+            <trans-unit id="395">
+               <source>SET QUERY LIMIT</source>
+               <target>FIXER LIMITE RECHERCHE</target>
+            </trans-unit>
+            <trans-unit id="396">
+               <source>SET QUERY DESTINATION</source>
+               <target>FIXER DESTINATION RECHERCHE</target>
+            </trans-unit>
+            <trans-unit id="397">
+               <source>In transaction</source>
+               <target>Transaction en cours</target>
+            </trans-unit>
+            <trans-unit id="398">
+               <source>Trigger level</source>
+               <target>Niveau du trigger</target>
+            </trans-unit>
+            <trans-unit id="399">
+               <source>TRIGGER PROPERTIES</source>
+               <target>PROPRIETES DU TRIGGER</target>
+            </trans-unit>
+            <trans-unit id="400">
+               <source>Pasteboard data size</source>
+               <target>Tester conteneur</target>
+            </trans-unit>
+            <trans-unit id="401">
+               <source>GET PASTEBOARD DATA</source>
+               <target>LIRE DONNEES CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="402">
+               <source>CLEAR PASTEBOARD</source>
+               <target>EFFACER CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="403">
+               <source>APPEND DATA TO PASTEBOARD</source>
+               <target>AJOUTER DONNEES AU CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="404">
+               <source>Count menus</source>
+               <target>Nombre de menus</target>
+            </trans-unit>
+            <trans-unit id="405">
+               <source>Count menu items</source>
+               <target>Nombre de lignes de menu</target>
+            </trans-unit>
+            <trans-unit id="406">
+               <source>@MENU LIST</source>
+               <target>@LISTE MENUS</target>
+            </trans-unit>
+            <trans-unit id="407">
+               <source>@Menu number</source>
+               <target>@Numero du menu</target>
+            </trans-unit>
+            <trans-unit id="408">
+               <source>Create menu</source>
+               <target>Creer menu</target>
+            </trans-unit>
+            <trans-unit id="409">
+               <source>@LIST TO MENU</source>
+               <target>@ENUMERATION VERS MENU</target>
+            </trans-unit>
+            <trans-unit id="410">
+               <source>@ARRAY TO MENU</source>
+               <target>@TABLEAU VERS MENU</target>
+            </trans-unit>
+            <trans-unit id="411">
+               <source>APPEND MENU ITEM</source>
+               <target>AJOUTER LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="412">
+               <source>INSERT MENU ITEM</source>
+               <target>INSERER LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="413">
+               <source>DELETE MENU ITEM</source>
+               <target>SUPPRIMER LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="414">
+               <source>@Create picture menu</source>
+               <target>@Creer menu image</target>
+            </trans-unit>
+            <trans-unit id="415">
+               <source>@PICTURE MENU HIGHLIGHT</source>
+               <target>@ACTIVATION MENU IMAGE</target>
+            </trans-unit>
+            <trans-unit id="416">
+               <source>@PICTURE MENU BORDERS</source>
+               <target>@BORDS MENU IMAGE</target>
+            </trans-unit>
+            <trans-unit id="417">
+               <source>@PICTURE MENU LEGEND</source>
+               <target>@LEGENDE MENU IMAGE</target>
+            </trans-unit>
+            <trans-unit id="418">
+               <source>@SET PICTURE MENU SELECTION</source>
+               <target>@SELECTIONNER MENU IMAGE</target>
+            </trans-unit>
+            <trans-unit id="419">
+               <source>@DELETE MENU</source>
+               <target>@SUPPRIMER MENU</target>
+            </trans-unit>
+            <trans-unit id="420">
+               <source>@ATTACH MENU</source>
+               <target>@ATTACHER MENU</target>
+            </trans-unit>
+            <trans-unit id="421">
+               <source>@DETACH MENU</source>
+               <target>@DETACHER MENU</target>
+            </trans-unit>
+            <trans-unit id="422">
+               <source>Get menu item</source>
+               <target>Lire texte ligne menu</target>
+            </trans-unit>
+            <trans-unit id="423">
+               <source>SET MENU ITEM SHORTCUT</source>
+               <target>FIXER RACCOURCI LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="424">
+               <source>Get menu item key</source>
+               <target>Lire touche ligne menu</target>
+            </trans-unit>
+            <trans-unit id="425">
+               <source>SET MENU ITEM STYLE</source>
+               <target>FIXER STYLE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="426">
+               <source>Get menu item style</source>
+               <target>Lire style ligne menu</target>
+            </trans-unit>
+            <trans-unit id="427">
+               <source>@SET MENU ITEM MARK</source>
+               <target>@MARQUER LIGNE</target>
+            </trans-unit>
+            <trans-unit id="428">
+               <source>Get menu item mark</source>
+               <target>Lire marque ligne menu</target>
+            </trans-unit>
+            <trans-unit id="429">
+               <source>@SET MENU TITLE</source>
+               <target>@CHANGER TITRE MENU</target>
+            </trans-unit>
+            <trans-unit id="430">
+               <source>Get menu title</source>
+               <target>Lire titre menu</target>
+            </trans-unit>
+            <trans-unit id="431">
+               <source>SHOW MENU BAR</source>
+               <target>AFFICHER BARRE MENUS</target>
+            </trans-unit>
+            <trans-unit id="432">
+               <source>HIDE MENU BAR</source>
+               <target>CACHER BARRE MENUS</target>
+            </trans-unit>
+            <trans-unit id="433">
+               <source>SHOW TOOL BAR</source>
+               <target>AFFICHER BARRE OUTILS</target>
+            </trans-unit>
+            <trans-unit id="434">
+               <source>HIDE TOOL BAR</source>
+               <target>CACHER BARRE OUTILS</target>
+            </trans-unit>
+            <trans-unit id="435">
+               <source>SHOW WINDOW</source>
+               <target>AFFICHER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="436">
+               <source>HIDE WINDOW</source>
+               <target>CACHER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="437">
+               <source>Count screens</source>
+               <target>Nombre ecrans</target>
+            </trans-unit>
+            <trans-unit id="438">
+               <source>SCREEN COORDINATES</source>
+               <target>COORDONNEES ECRAN</target>
+            </trans-unit>
+            <trans-unit id="439">
+               <source>SCREEN DEPTH</source>
+               <target>PROFONDEUR ECRAN</target>
+            </trans-unit>
+            <trans-unit id="440">
+               <source>Menu bar height</source>
+               <target>Hauteur barre de menus</target>
+            </trans-unit>
+            <trans-unit id="441">
+               <source>Menu bar screen</source>
+               <target>Ecran principal</target>
+            </trans-unit>
+            <trans-unit id="442">
+               <source>WINDOW LIST</source>
+               <target>LISTE FENETRES</target>
+            </trans-unit>
+            <trans-unit id="443">
+               <source>GET WINDOW RECT</source>
+               <target>COORDONNEES FENETRE</target>
+            </trans-unit>
+            <trans-unit id="444">
+               <source>SET WINDOW RECT</source>
+               <target>CHANGER COORDONNEES FENETRE</target>
+            </trans-unit>
+            <trans-unit id="445">
+               <source>Window kind</source>
+               <target>Type fenetre</target>
+            </trans-unit>
+            <trans-unit id="446">
+               <source>Window process</source>
+               <target>Process de la fenetre</target>
+            </trans-unit>
+            <trans-unit id="447">
+               <source>Frontmost window</source>
+               <target>Fenetre premier plan</target>
+            </trans-unit>
+            <trans-unit id="448">
+               <source>Next window</source>
+               <target>Fenetre suivante</target>
+            </trans-unit>
+            <trans-unit id="449">
+               <source>Find window</source>
+               <target>Chercher fenetre</target>
+            </trans-unit>
+            <trans-unit id="450">
+               <source>Get window title</source>
+               <target>Titre fenetre</target>
+            </trans-unit>
+            <trans-unit id="451">
+               <source>@SET WINDOW TITLE</source>
+               <target>@CHANGER TITRE FENETRE</target>
+            </trans-unit>
+            <trans-unit id="452">
+               <source>DRAG WINDOW</source>
+               <target>DEPLACER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="453">
+               <source>MAXIMIZE WINDOW</source>
+               <target>MAXIMISER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="454">
+               <source>MINIMIZE WINDOW</source>
+               <target>MINIMISER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="455">
+               <source>@SET WINDOW ICON</source>
+               <target>@CHANGER ICONE FENETRE</target>
+            </trans-unit>
+            <trans-unit id="456">
+               <source>REDRAW WINDOW</source>
+               <target>REDESSINER FENETRE</target>
+            </trans-unit>
+            <trans-unit id="457">
+               <source>PICTURE PROPERTIES</source>
+               <target>PROPRIETES IMAGE</target>
+            </trans-unit>
+            <trans-unit id="458">
+               <source>Tickcount</source>
+               <target>Nombre de ticks</target>
+            </trans-unit>
+            <trans-unit id="459">
+               <source>Milliseconds</source>
+               <target>Nombre de millisecondes</target>
+            </trans-unit>
+            <trans-unit id="460">
+               <source>FONT LIST</source>
+               <target>LISTE DES POLICES</target>
+            </trans-unit>
+            <trans-unit id="461">
+               <source>Font number</source>
+               <target>Numero de police</target>
+            </trans-unit>
+            <trans-unit id="462">
+               <source>Font name</source>
+               <target>Nom de police</target>
+            </trans-unit>
+            <trans-unit id="463">
+               <source>Mac to Win</source>
+               <target>Mac vers Windows</target>
+            </trans-unit>
+            <trans-unit id="464">
+               <source>Win to Mac</source>
+               <target>Windows vers Mac</target>
+            </trans-unit>
+            <trans-unit id="465">
+               <source>POST KEY</source>
+               <target>GENERER FRAPPE CLAVIER</target>
+            </trans-unit>
+            <trans-unit id="466">
+               <source>POST CLICK</source>
+               <target>GENERER CLIC</target>
+            </trans-unit>
+            <trans-unit id="467">
+               <source>POST EVENT</source>
+               <target>GENERER EVENEMENT</target>
+            </trans-unit>
+            <trans-unit id="468">
+               <source>GET MOUSE</source>
+               <target>POSITION SOURIS</target>
+            </trans-unit>
+            <trans-unit id="469">
+               <source>SET CURSOR</source>
+               <target>CHANGER POINTEUR SOURIS</target>
+            </trans-unit>
+            <trans-unit id="470">
+               <source>Get platform interface</source>
+               <target>Lire interface</target>
+            </trans-unit>
+            <trans-unit id="471">
+               <source>VOLUME LIST</source>
+               <target>LISTE DES VOLUMES</target>
+            </trans-unit>
+            <trans-unit id="472">
+               <source>VOLUME ATTRIBUTES</source>
+               <target>PROPRIETES DU VOLUME</target>
+            </trans-unit>
+            <trans-unit id="473">
+               <source>FOLDER LIST</source>
+               <target>LISTE DES DOSSIERS</target>
+            </trans-unit>
+            <trans-unit id="474">
+               <source>DOCUMENT LIST</source>
+               <target>LISTE DES DOCUMENTS</target>
+            </trans-unit>
+            <trans-unit id="475">
+               <source>CREATE FOLDER</source>
+               <target>CREER DOSSIER</target>
+            </trans-unit>
+            <trans-unit id="476">
+               <source>Test path name</source>
+               <target>Tester chemin acces</target>
+            </trans-unit>
+            <trans-unit id="477">
+               <source>GET DOCUMENT PROPERTIES</source>
+               <target>PROPRIETES DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="478">
+               <source>SET DOCUMENT PROPERTIES</source>
+               <target>CHANGER PROPRIETES DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="479">
+               <source>Get document size</source>
+               <target>Taille document</target>
+            </trans-unit>
+            <trans-unit id="480">
+               <source>SET DOCUMENT SIZE</source>
+               <target>CHANGER TAILLE DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="481">
+               <source>Get document position</source>
+               <target>Position dans document</target>
+            </trans-unit>
+            <trans-unit id="482">
+               <source>SET DOCUMENT POSITION</source>
+               <target>CHANGER POSITION DANS DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="483">
+               <source>Current machine</source>
+               <target>Nom de la machine</target>
+            </trans-unit>
+            <trans-unit id="484">
+               <source>Current machine owner</source>
+               <target>Nom du possesseur</target>
+            </trans-unit>
+            <trans-unit id="485">
+               <source>Get 4D folder</source>
+               <target>Dossier 4D</target>
+            </trans-unit>
+            <trans-unit id="486">
+               <source>Temporary folder</source>
+               <target>Dossier temporaire</target>
+            </trans-unit>
+            <trans-unit id="487">
+               <source>System folder</source>
+               <target>Dossier systeme</target>
+            </trans-unit>
+            <trans-unit id="488">
+               <source>Gestalt</source>
+               <target>Gestalt</target>
+            </trans-unit>
+            <trans-unit id="489">
+               <source>Structure file</source>
+               <target>Fichier structure</target>
+            </trans-unit>
+            <trans-unit id="490">
+               <source>Data file</source>
+               <target>Fichier donnees</target>
+            </trans-unit>
+            <trans-unit id="491">
+               <source>Application file</source>
+               <target>Fichier application</target>
+            </trans-unit>
+            <trans-unit id="492">
+               <source>Is compiled mode</source>
+               <target>Mode compile</target>
+            </trans-unit>
+            <trans-unit id="493">
+               <source>Application version</source>
+               <target>Version application</target>
+            </trans-unit>
+            <trans-unit id="494">
+               <source>Application type</source>
+               <target>Type application</target>
+            </trans-unit>
+            <trans-unit id="495">
+               <source>Version type</source>
+               <target>Type version</target>
+            </trans-unit>
+            <trans-unit id="496">
+               <source>Create resource file</source>
+               <target>Creer fichier ressources</target>
+            </trans-unit>
+            <trans-unit id="497">
+               <source>Open resource file</source>
+               <target>Ouvrir fichier ressources</target>
+            </trans-unit>
+            <trans-unit id="498">
+               <source>CLOSE RESOURCE FILE</source>
+               <target>FERMER FICHIER RESSOURCES</target>
+            </trans-unit>
+            <trans-unit id="499">
+               <source>RESOURCE TYPE LIST</source>
+               <target>LISTE TYPES RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="500">
+               <source>RESOURCE LIST</source>
+               <target>LISTE RESSOURCES</target>
+            </trans-unit>
+            <trans-unit id="501">
+               <source>DELETE RESOURCE</source>
+               <target>SUPPRIMER RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="502">
+               <source>GET PICTURE RESOURCE</source>
+               <target>LIRE RESSOURCE IMAGE</target>
+            </trans-unit>
+            <trans-unit id="503">
+               <source>SET PICTURE RESOURCE</source>
+               <target>ECRIRE RESSOURCE IMAGE</target>
+            </trans-unit>
+            <trans-unit id="504">
+               <source>Get text resource</source>
+               <target>Lire ressource texte</target>
+            </trans-unit>
+            <trans-unit id="505">
+               <source>SET TEXT RESOURCE</source>
+               <target>ECRIRE RESSOURCE TEXTE</target>
+            </trans-unit>
+            <trans-unit id="506">
+               <source>Get string resource</source>
+               <target>Lire ressource chaine</target>
+            </trans-unit>
+            <trans-unit id="507">
+               <source>SET STRING RESOURCE</source>
+               <target>ECRIRE RESSOURCE CHAINE</target>
+            </trans-unit>
+            <trans-unit id="508">
+               <source>GET RESOURCE</source>
+               <target>LIRE RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="509">
+               <source>SET RESOURCE</source>
+               <target>ECRIRE RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="510">
+               <source>Get indexed string</source>
+               <target>Lire chaine dans liste</target>
+            </trans-unit>
+            <trans-unit id="511">
+               <source>STRING LIST TO ARRAY</source>
+               <target>LISTE DE CHAINES VERS TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="512">
+               <source>ARRAY TO STRING LIST</source>
+               <target>TABLEAU VERS LISTE DE CHAINES</target>
+            </trans-unit>
+            <trans-unit id="513">
+               <source>Get resource name</source>
+               <target>Lire nom ressource</target>
+            </trans-unit>
+            <trans-unit id="514">
+               <source>SET RESOURCE NAME</source>
+               <target>ECRIRE NOM RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="515">
+               <source>Get resource properties</source>
+               <target>Lire proprietes ressource</target>
+            </trans-unit>
+            <trans-unit id="516">
+               <source>SET RESOURCE PROPERTIES</source>
+               <target>ECRIRE PROPRIETES RESSOURCE</target>
+            </trans-unit>
+            <trans-unit id="517">
+               <source>GET ICON RESOURCE</source>
+               <target>LIRE RESSOURCE ICONE</target>
+            </trans-unit>
+            <trans-unit id="518">
+               <source>@RELATION PROPERTIES</source>
+               <target>@PROPRIETES LIEN</target>
+            </trans-unit>
+            <trans-unit id="519">
+               <source>Mac to ISO</source>
+               <target>Mac vers ISO</target>
+            </trans-unit>
+            <trans-unit id="520">
+               <source>ISO to Mac</source>
+               <target>ISO vers Mac</target>
+            </trans-unit>
+            <trans-unit id="521">
+               <source>SET PICTURE TO PASTEBOARD</source>
+               <target>FIXER IMAGE DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="522">
+               <source>GET PICTURE FROM PASTEBOARD</source>
+               <target>LIRE IMAGE DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="523">
+               <source>SET TEXT TO PASTEBOARD</source>
+               <target>FIXER TEXTE DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="524">
+               <source>Get text from pasteboard</source>
+               <target>Lire texte dans conteneur</target>
+            </trans-unit>
+            <trans-unit id="525">
+               <source>DOCUMENT TO BLOB</source>
+               <target>DOCUMENT VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="526">
+               <source>BLOB TO DOCUMENT</source>
+               <target>BLOB VERS DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="527">
+               <source>DATA SEGMENT LIST</source>
+               <target>LISTE SEGMENTS DE DONNEES</target>
+            </trans-unit>
+            <trans-unit id="528">
+               <source>Document type</source>
+               <target>Type document</target>
+            </trans-unit>
+            <trans-unit id="529">
+               <source>Document creator</source>
+               <target>Createur document</target>
+            </trans-unit>
+            <trans-unit id="530">
+               <source>SET DOCUMENT TYPE</source>
+               <target>CHANGER TYPE DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="531">
+               <source>SET DOCUMENT CREATOR</source>
+               <target>CHANGER CREATEUR DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="532">
+               <source>VARIABLE TO BLOB</source>
+               <target>VARIABLE VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="533">
+               <source>BLOB TO VARIABLE</source>
+               <target>BLOB VERS VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="534">
+               <source>COMPRESS BLOB</source>
+               <target>COMPRESSER BLOB</target>
+            </trans-unit>
+            <trans-unit id="535">
+               <source>EXPAND BLOB</source>
+               <target>DECOMPRESSER BLOB</target>
+            </trans-unit>
+            <trans-unit id="536">
+               <source>BLOB PROPERTIES</source>
+               <target>LIRE PROPRIETES BLOB</target>
+            </trans-unit>
+            <trans-unit id="537">
+               <source>SET SCREEN DEPTH</source>
+               <target>FIXER PROFONDEUR ECRAN</target>
+            </trans-unit>
+            <trans-unit id="538">
+               <source>Command name</source>
+               <target>Nom commande</target>
+            </trans-unit>
+            <trans-unit id="539">
+               <source>Square root</source>
+               <target>Racine carree</target>
+            </trans-unit>
+            <trans-unit id="540">
+               <source>MOVE DOCUMENT</source>
+               <target>DEPLACER DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="541">
+               <source>COPY DOCUMENT</source>
+               <target>COPIER DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="542">
+               <source>Pop up menu</source>
+               <target>Pop up menu</target>
+            </trans-unit>
+            <trans-unit id="543">
+               <source>Shift down</source>
+               <target>Majuscule enfoncee</target>
+            </trans-unit>
+            <trans-unit id="544">
+               <source>Macintosh control down</source>
+               <target>Macintosh control enfoncee</target>
+            </trans-unit>
+            <trans-unit id="545">
+               <source>Macintosh option down</source>
+               <target>Macintosh option enfoncee</target>
+            </trans-unit>
+            <trans-unit id="546">
+               <source>Macintosh command down</source>
+               <target>Macintosh commande enfoncee</target>
+            </trans-unit>
+            <trans-unit id="547">
+               <source>Caps lock down</source>
+               <target>Verrouillage majuscule enfoncee</target>
+            </trans-unit>
+            <trans-unit id="548">
+               <source>INTEGER TO BLOB</source>
+               <target>ENTIER VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="549">
+               <source>BLOB to integer</source>
+               <target>BLOB vers entier</target>
+            </trans-unit>
+            <trans-unit id="550">
+               <source>LONGINT TO BLOB</source>
+               <target>ENTIER LONG VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="551">
+               <source>BLOB to longint</source>
+               <target>BLOB vers entier long</target>
+            </trans-unit>
+            <trans-unit id="552">
+               <source>REAL TO BLOB</source>
+               <target>REEL VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="553">
+               <source>BLOB to real</source>
+               <target>BLOB vers reel</target>
+            </trans-unit>
+            <trans-unit id="554">
+               <source>TEXT TO BLOB</source>
+               <target>TEXTE VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="555">
+               <source>BLOB to text</source>
+               <target>BLOB vers texte</target>
+            </trans-unit>
+            <trans-unit id="556">
+               <source>LIST TO BLOB</source>
+               <target>LISTE VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="557">
+               <source>BLOB to list</source>
+               <target>BLOB vers liste</target>
+            </trans-unit>
+            <trans-unit id="558">
+               <source>COPY BLOB</source>
+               <target>COPIER BLOB</target>
+            </trans-unit>
+            <trans-unit id="559">
+               <source>INSERT IN BLOB</source>
+               <target>INSERER DANS BLOB</target>
+            </trans-unit>
+            <trans-unit id="560">
+               <source>DELETE FROM BLOB</source>
+               <target>SUPPRIMER DANS BLOB</target>
+            </trans-unit>
+            <trans-unit id="561">
+               <source>REMOVE FROM SET</source>
+               <target>ENLEVER ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="562">
+               <source>Windows Ctrl down</source>
+               <target>Windows Ctrl enfoncee</target>
+            </trans-unit>
+            <trans-unit id="563">
+               <source>Windows Alt down</source>
+               <target>Windows Alt enfoncee</target>
+            </trans-unit>
+            <trans-unit id="564">
+               <source>PICTURE LIBRARY LIST</source>
+               <target>LISTE IMAGES DANS BIBLIOTHEQUE</target>
+            </trans-unit>
+            <trans-unit id="565">
+               <source>GET PICTURE FROM LIBRARY</source>
+               <target>LIRE IMAGE DANS BIBLIOTHEQUE</target>
+            </trans-unit>
+            <trans-unit id="566">
+               <source>SET PICTURE TO LIBRARY</source>
+               <target>ECRIRE IMAGE DANS BIBLIOTHEQUE</target>
+            </trans-unit>
+            <trans-unit id="567">
+               <source>REMOVE PICTURE FROM LIBRARY</source>
+               <target>SUPPRIMER IMAGE DANS BIBLIOTHEQUE</target>
+            </trans-unit>
+            <trans-unit id="568">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="569">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="570">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="571">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="572">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="573">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="574">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="575">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="576">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="577">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="578">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="579">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="580">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="581">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="582">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="583">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="584">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="585">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="586">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="587">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="588">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="589">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="590">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="591">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="592">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="593">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="594">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="595">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="596">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="597">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="598">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="599">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="600">
+               <source>COPY SET</source>
+               <target>COPIER ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="601">
+               <source>SET TABLE TITLES</source>
+               <target>FIXER TITRES TABLES</target>
+            </trans-unit>
+            <trans-unit id="602">
+               <source>SET FIELD TITLES</source>
+               <target>FIXER TITRES CHAMPS</target>
+            </trans-unit>
+            <trans-unit id="603">
+               <source>SET VISIBLE</source>
+               <target>CHOIX VISIBLE</target>
+            </trans-unit>
+            <trans-unit id="604">
+               <source>C_BLOB</source>
+               <target>C_BLOB</target>
+            </trans-unit>
+            <trans-unit id="605">
+               <source>BLOB size</source>
+               <target>Taille BLOB</target>
+            </trans-unit>
+            <trans-unit id="606">
+               <source>SET BLOB SIZE</source>
+               <target>FIXER TAILLE BLOB</target>
+            </trans-unit>
+            <trans-unit id="607">
+               <source>DRAG AND DROP PROPERTIES</source>
+               <target>PROPRIETES GLISSER DEPOSER</target>
+            </trans-unit>
+            <trans-unit id="608">
+               <source>Drop position</source>
+               <target>Position deposer</target>
+            </trans-unit>
+            <trans-unit id="609">
+               <source>GET USER LIST</source>
+               <target>LIRE LISTE UTILISATEURS</target>
+            </trans-unit>
+            <trans-unit id="610">
+               <source>GET GROUP LIST</source>
+               <target>LIRE LISTE GROUPE</target>
+            </trans-unit>
+            <trans-unit id="611">
+               <source>GET USER PROPERTIES</source>
+               <target>LIRE PROPRIETES UTILISATEUR</target>
+            </trans-unit>
+            <trans-unit id="612">
+               <source>Set user properties</source>
+               <target>Ecrire proprietes utilisateur</target>
+            </trans-unit>
+            <trans-unit id="613">
+               <source>GET GROUP PROPERTIES</source>
+               <target>LIRE PROPRIETES GROUPE</target>
+            </trans-unit>
+            <trans-unit id="614">
+               <source>Set group properties</source>
+               <target>Ecrire proprietes groupe</target>
+            </trans-unit>
+            <trans-unit id="615">
+               <source>DELETE USER</source>
+               <target>SUPPRIMER UTILISATEUR</target>
+            </trans-unit>
+            <trans-unit id="616">
+               <source>Is user deleted</source>
+               <target>Utilisateur supprime</target>
+            </trans-unit>
+            <trans-unit id="617">
+               <source>START WEB SERVER</source>
+               <target>LANCER SERVEUR WEB</target>
+            </trans-unit>
+            <trans-unit id="618">
+               <source>STOP WEB SERVER</source>
+               <target>ARRETER SERVEUR WEB</target>
+            </trans-unit>
+            <trans-unit id="619">
+               <source>SEND HTML FILE</source>
+               <target>ENVOYER FICHIER HTML</target>
+            </trans-unit>
+            <trans-unit id="620">
+               <source>SET WEB DISPLAY LIMITS</source>
+               <target>FIXER LIMITES AFFICHAGE WEB</target>
+            </trans-unit>
+            <trans-unit id="621">
+               <source>Is a list</source>
+               <target>Liste existante</target>
+            </trans-unit>
+            <trans-unit id="622">
+               <source>SET WEB TIMEOUT</source>
+               <target>FIXER TEMPORISATION WEB</target>
+            </trans-unit>
+            <trans-unit id="623">
+               <source>SET REAL COMPARISON LEVEL</source>
+               <target>FIXER NIVEAU COMPARAISON REEL</target>
+            </trans-unit>
+            <trans-unit id="624">
+               <source>DELETE FROM LIST</source>
+               <target>SUPPRIMER DANS LISTE</target>
+            </trans-unit>
+            <trans-unit id="625">
+               <source>INSERT IN LIST</source>
+               <target>INSERER DANS LISTE</target>
+            </trans-unit>
+            <trans-unit id="626">
+               <source>Copy list</source>
+               <target>Copier liste</target>
+            </trans-unit>
+            <trans-unit id="627">
+               <source>Current form table</source>
+               <target>Table du formulaire courant</target>
+            </trans-unit>
+            <trans-unit id="628">
+               <source>SET RGB COLORS</source>
+               <target>FIXER COULEURS RVB</target>
+            </trans-unit>
+            <trans-unit id="629">
+               <source>List item position</source>
+               <target>Position element liste</target>
+            </trans-unit>
+            <trans-unit id="630">
+               <source>SELECT LIST ITEMS BY REFERENCE</source>
+               <target>SELECTIONNER ELEMENTS PAR REFERENCE</target>
+            </trans-unit>
+            <trans-unit id="631">
+               <source>GET LIST ITEM PROPERTIES</source>
+               <target>LIRE PROPRIETES ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="632">
+               <source>GET LIST PROPERTIES</source>
+               <target>LIRE PROPRIETES LISTE</target>
+            </trans-unit>
+            <trans-unit id="633">
+               <source>List item parent</source>
+               <target>Element parent</target>
+            </trans-unit>
+            <trans-unit id="634">
+               <source>SET HTML ROOT</source>
+               <target>FIXER RACINE HTML</target>
+            </trans-unit>
+            <trans-unit id="635">
+               <source>VARIABLE TO VARIABLE</source>
+               <target>VARIABLE VERS VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="636">
+               <source>@CHANGE STYLE SHEET</source>
+               <target>@CHANGER FEUILLE DE STYLE</target>
+            </trans-unit>
+            <trans-unit id="637">
+               <source>CHANGE LICENSES</source>
+               <target>CHANGER LICENCES</target>
+            </trans-unit>
+            <trans-unit id="638">
+               <source>Validate password</source>
+               <target>Valider mot de passe</target>
+            </trans-unit>
+            <trans-unit id="639">
+               <source>SET HOME PAGE</source>
+               <target>FIXER PAGE ACCUEIL</target>
+            </trans-unit>
+            <trans-unit id="640">
+               <source>CREATE SELECTION FROM ARRAY</source>
+               <target>CREER SELECTION SUR TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="641">
+               <source>CREATE SET FROM ARRAY</source>
+               <target>CREER ENSEMBLE SUR TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="642">
+               <source>SET DATABASE PARAMETER</source>
+               <target>FIXER PARAMETRE BASE</target>
+            </trans-unit>
+            <trans-unit id="643">
+               <source>Get database parameter</source>
+               <target>Lire parametre base</target>
+            </trans-unit>
+            <trans-unit id="644">
+               <source>QUERY WITH ARRAY</source>
+               <target>CHERCHER PAR TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="645">
+               <source>SET TIMER</source>
+               <target>FIXER MINUTEUR</target>
+            </trans-unit>
+            <trans-unit id="646">
+               <source>BOOLEAN ARRAY FROM SET</source>
+               <target>TABLEAU BOOLEEN SUR ENSEMBLE</target>
+            </trans-unit>
+            <trans-unit id="647">
+               <source>LONGINT ARRAY FROM SELECTION</source>
+               <target>TABLEAU ENTIER LONG SUR SELECTION</target>
+            </trans-unit>
+            <trans-unit id="648">
+               <source>REGISTER CLIENT</source>
+               <target>INSCRIRE CLIENT</target>
+            </trans-unit>
+            <trans-unit id="649">
+               <source>UNREGISTER CLIENT</source>
+               <target>DESINSCRIRE CLIENT</target>
+            </trans-unit>
+            <trans-unit id="650">
+               <source>GET REGISTERED CLIENTS</source>
+               <target>LIRE CLIENTS INSCRITS</target>
+            </trans-unit>
+            <trans-unit id="651">
+               <source>EXECUTE ON CLIENT</source>
+               <target>EXECUTER SUR CLIENT</target>
+            </trans-unit>
+            <trans-unit id="652">
+               <source>Test semaphore</source>
+               <target>Tester semaphore</target>
+            </trans-unit>
+            <trans-unit id="653">
+               <source>Find in field</source>
+               <target>Trouver dans champ</target>
+            </trans-unit>
+            <trans-unit id="654">
+               <source>SEND HTML BLOB</source>
+               <target>ENVOYER BLOB HTML</target>
+            </trans-unit>
+            <trans-unit id="655">
+               <source>Get edited text</source>
+               <target>Lire texte edite</target>
+            </trans-unit>
+            <trans-unit id="656">
+               <source>HIGHLIGHT RECORDS</source>
+               <target>MARQUER ENREGISTREMENTS</target>
+            </trans-unit>
+            <trans-unit id="657">
+               <source>Web Context</source>
+               <target>Contexte Web</target>
+            </trans-unit>
+            <trans-unit id="658">
+               <source>WEB CACHE STATISTICS</source>
+               <target>STATISTIQUES DU CACHE WEB</target>
+            </trans-unit>
+            <trans-unit id="659">
+               <source>SEND HTTP REDIRECT</source>
+               <target>ENVOYER REDIRECTION HTTP</target>
+            </trans-unit>
+            <trans-unit id="660">
+               <source>SET HTTP HEADER</source>
+               <target>FIXER ENTETE HTTP</target>
+            </trans-unit>
+            <trans-unit id="661">
+               <source>SET QUERY AND LOCK</source>
+               <target>FIXER RECHERCHE ET VERROUILLAGE</target>
+            </trans-unit>
+            <trans-unit id="662">
+               <source>@UNLOCK RECORDS</source>
+               <target>@DEVERROUILLER ENREGISTREMENTS</target>
+            </trans-unit>
+            <trans-unit id="663">
+               <source>GET OBJECT RECT</source>
+               <target>LIRE RECT OBJET</target>
+            </trans-unit>
+            <trans-unit id="664">
+               <source>MOVE OBJECT</source>
+               <target>DEPLACER OBJET</target>
+            </trans-unit>
+            <trans-unit id="665">
+               <source>IMPORT DATA</source>
+               <target>IMPORTER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="666">
+               <source>EXPORT DATA</source>
+               <target>EXPORTER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="667">
+               <source>LOG EVENT</source>
+               <target>ENREGISTRER EVENEMENT</target>
+            </trans-unit>
+            <trans-unit id="668">
+               <source>Is new record</source>
+               <target>Nouvel enregistrement</target>
+            </trans-unit>
+            <trans-unit id="669">
+               <source>Is record loaded</source>
+               <target>Enregistrement charge</target>
+            </trans-unit>
+            <trans-unit id="670">
+               <source>Select folder</source>
+               <target>Selectionner dossier</target>
+            </trans-unit>
+            <trans-unit id="671">
+               <source>PICTURE TO GIF</source>
+               <target>IMAGE VERS GIF</target>
+            </trans-unit>
+            <trans-unit id="672">
+               <source>Process aborted</source>
+               <target>Process interrompu</target>
+            </trans-unit>
+            <trans-unit id="673">
+               <source>OPEN WEB URL</source>
+               <target>OUVRIR URL WEB</target>
+            </trans-unit>
+            <trans-unit id="674">
+               <source>GET FORM PROPERTIES</source>
+               <target>LIRE PROPRIETES FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="675">
+               <source>Open form window</source>
+               <target>Creer fenetre formulaire</target>
+            </trans-unit>
+            <trans-unit id="676">
+               <source>Euro converter</source>
+               <target>Convertisseur Euro</target>
+            </trans-unit>
+            <trans-unit id="677">
+               <source>SEND HTML TEXT</source>
+               <target>ENVOYER TEXTE HTML</target>
+            </trans-unit>
+            <trans-unit id="678">
+               <source>READ PICTURE FILE</source>
+               <target>LIRE FICHIER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="679">
+               <source>CREATE THUMBNAIL</source>
+               <target>CREER IMAGETTE</target>
+            </trans-unit>
+            <trans-unit id="680">
+               <source>WRITE PICTURE FILE</source>
+               <target>ECRIRE FICHIER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="681">
+               <source>PICTURE TYPE LIST</source>
+               <target>LISTE TYPES IMAGES</target>
+            </trans-unit>
+            <trans-unit id="682">
+               <source>BLOB TO PICTURE</source>
+               <target>BLOB VERS IMAGE</target>
+            </trans-unit>
+            <trans-unit id="683">
+               <source>GET WEB FORM VARIABLES</source>
+               <target>LIRE VARIABLES FORMULAIRE WEB</target>
+            </trans-unit>
+            <trans-unit id="684">
+               <source>Current method name</source>
+               <target>Nom methode courante</target>
+            </trans-unit>
+            <trans-unit id="685">
+               <source>GET FIELD ENTRY PROPERTIES</source>
+               <target>LIRE PROPRIETES SAISIE CHAMP</target>
+            </trans-unit>
+            <trans-unit id="686">
+               <source>GET RELATION PROPERTIES</source>
+               <target>LIRE PROPRIETES LIEN</target>
+            </trans-unit>
+            <trans-unit id="687">
+               <source>GET TABLE PROPERTIES</source>
+               <target>LIRE PROPRIETES TABLE</target>
+            </trans-unit>
+            <trans-unit id="688">
+               <source>GENERATE ENCRYPTION KEYPAIR</source>
+               <target>GENERER CLES CRYPTAGE</target>
+            </trans-unit>
+            <trans-unit id="689">
+               <source>ENCRYPT BLOB</source>
+               <target>CRYPTER BLOB</target>
+            </trans-unit>
+            <trans-unit id="690">
+               <source>DECRYPT BLOB</source>
+               <target>DECRYPTER BLOB</target>
+            </trans-unit>
+            <trans-unit id="691">
+               <source>GENERATE CERTIFICATE REQUEST</source>
+               <target>GENERER DEMANDE CERTIFICAT</target>
+            </trans-unit>
+            <trans-unit id="692">
+               <source>PICTURE TO BLOB</source>
+               <target>IMAGE VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="693">
+               <source>DELETE FOLDER</source>
+               <target>SUPPRIMER DOSSIER</target>
+            </trans-unit>
+            <trans-unit id="694">
+               <source>CREATE ALIAS</source>
+               <target>CREER ALIAS</target>
+            </trans-unit>
+            <trans-unit id="695">
+               <source>RESOLVE ALIAS</source>
+               <target>RESOUDRE ALIAS</target>
+            </trans-unit>
+            <trans-unit id="696">
+               <source>GET SERIAL INFORMATION</source>
+               <target>LIRE INFORMATIONS SERIALISATION</target>
+            </trans-unit>
+            <trans-unit id="697">
+               <source>GET HTTP HEADER</source>
+               <target>LIRE ENTETE HTTP</target>
+            </trans-unit>
+            <trans-unit id="698">
+               <source>Secured Web connection</source>
+               <target>Connexion Web securisee</target>
+            </trans-unit>
+            <trans-unit id="699">
+               <source>Get component resource ID</source>
+               <target>Lire ID ressource composant</target>
+            </trans-unit>
+            <trans-unit id="700">
+               <source>GET DOCUMENT ICON</source>
+               <target>LIRE ICONE DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="701">
+               <source>@CHECK INDEX</source>
+               <target>@VERIFIER INDEX</target>
+            </trans-unit>
+            <trans-unit id="702">
+               <source>Get printed height</source>
+               <target>Lire hauteur imprimee</target>
+            </trans-unit>
+            <trans-unit id="703">
+               <source>GET PRINTABLE AREA</source>
+               <target>LIRE ZONE IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="704">
+               <source>Method called on error</source>
+               <target>Methode appelee sur erreur</target>
+            </trans-unit>
+            <trans-unit id="705">
+               <source>Method called on event</source>
+               <target>Methode appelee sur evenement</target>
+            </trans-unit>
+            <trans-unit id="706">
+               <source>SET ALIGNMENT</source>
+               <target>FIXER ALIGNEMENT</target>
+            </trans-unit>
+            <trans-unit id="707">
+               <source>Get alignment</source>
+               <target>Lire alignement</target>
+            </trans-unit>
+            <trans-unit id="708">
+               <source>Get print marker</source>
+               <target>Lire taquet impression</target>
+            </trans-unit>
+            <trans-unit id="709">
+               <source>SET PRINT MARKER</source>
+               <target>FIXER TAQUET IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="710">
+               <source>SET PRINTABLE MARGIN</source>
+               <target>FIXER MARGE IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="711">
+               <source>GET PRINTABLE MARGIN</source>
+               <target>LIRE MARGE IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="712">
+               <source>Right click</source>
+               <target>Clic droit</target>
+            </trans-unit>
+            <trans-unit id="713">
+               <source>Contextual click</source>
+               <target>Clic contextuel</target>
+            </trans-unit>
+            <trans-unit id="714">
+               <source>Is license available</source>
+               <target>Licence disponible</target>
+            </trans-unit>
+            <trans-unit id="715">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="716">
+               <source>Is data file locked</source>
+               <target>Fichier donnees verrouille</target>
+            </trans-unit>
+            <trans-unit id="717">
+               <source>BEST OBJECT SIZE</source>
+               <target>TAILLE OBJET OPTIMALE</target>
+            </trans-unit>
+            <trans-unit id="718">
+               <source>MULTI SORT ARRAY</source>
+               <target>TABLEAU MULTI TRI</target>
+            </trans-unit>
+            <trans-unit id="719">
+               <source>DOM Parse XML source</source>
+               <target>DOM Analyser source XML</target>
+            </trans-unit>
+            <trans-unit id="720">
+               <source>DOM Parse XML variable</source>
+               <target>DOM Analyser variable XML</target>
+            </trans-unit>
+            <trans-unit id="721">
+               <source>DOM Get XML information</source>
+               <target>DOM Lire informations XML</target>
+            </trans-unit>
+            <trans-unit id="722">
+               <source>DOM CLOSE XML</source>
+               <target>DOM FERMER XML</target>
+            </trans-unit>
+            <trans-unit id="723">
+               <source>DOM Get first child XML element</source>
+               <target>DOM Lire premier element XML enfant</target>
+            </trans-unit>
+            <trans-unit id="724">
+               <source>DOM Get next sibling XML element</source>
+               <target>DOM Lire element XML frere suivant</target>
+            </trans-unit>
+            <trans-unit id="725">
+               <source>DOM Get XML element</source>
+               <target>DOM Lire element XML</target>
+            </trans-unit>
+            <trans-unit id="726">
+               <source>DOM Count XML elements</source>
+               <target>DOM Compter elements XML</target>
+            </trans-unit>
+            <trans-unit id="727">
+               <source>DOM Count XML attributes</source>
+               <target>DOM Compter attributs XML</target>
+            </trans-unit>
+            <trans-unit id="728">
+               <source>DOM GET XML ATTRIBUTE BY NAME</source>
+               <target>DOM LIRE ATTRIBUT XML PAR NOM</target>
+            </trans-unit>
+            <trans-unit id="729">
+               <source>DOM GET XML ATTRIBUTE BY INDEX</source>
+               <target>DOM LIRE ATTRIBUT XML PAR INDEX</target>
+            </trans-unit>
+            <trans-unit id="730">
+               <source>DOM GET XML ELEMENT NAME</source>
+               <target>DOM LIRE NOM ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="731">
+               <source>DOM GET XML ELEMENT VALUE</source>
+               <target>DOM LIRE VALEUR ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="732">
+               <source>GET XML ERROR</source>
+               <target>LIRE ERREUR XML</target>
+            </trans-unit>
+            <trans-unit id="733">
+               <source>SET PRINT OPTION</source>
+               <target>FIXER OPTION IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="734">
+               <source>GET PRINT OPTION</source>
+               <target>LIRE OPTION IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="735">
+               <source>QR New offscreen area</source>
+               <target>QR Creer zone hors ecran</target>
+            </trans-unit>
+            <trans-unit id="736">
+               <source>@QR SET COLUMN TITLE</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="737">
+               <source>@QR SET COLUMN DATA</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="738">
+               <source>QR SET REPORT KIND</source>
+               <target>QR FIXER TYPE ETAT</target>
+            </trans-unit>
+            <trans-unit id="739">
+               <source>@QR SET LINE TITLE</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="740">
+               <source>@QR SET LINE DATA</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="741">
+               <source>@QR SET CELL DATA</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="742">
+               <source>@QR SET CELL COMPUTATION</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="743">
+               <source>@QR SET LINE COMPUTATION</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="744">
+               <source>@QR SET COLUMN COMPUTATION</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="745">
+               <source>QR SET DESTINATION</source>
+               <target>QR FIXER DESTINATION</target>
+            </trans-unit>
+            <trans-unit id="746">
+               <source>QR RUN</source>
+               <target>QR EXECUTER</target>
+            </trans-unit>
+            <trans-unit id="747">
+               <source>QR Get drop column</source>
+               <target>QR Lire colonne deposee</target>
+            </trans-unit>
+            <trans-unit id="748">
+               <source>QR INSERT COLUMN</source>
+               <target>QR INSERER COLONNE</target>
+            </trans-unit>
+            <trans-unit id="749">
+               <source>QR DELETE COLUMN</source>
+               <target>QR SUPPRIMER COLONNE</target>
+            </trans-unit>
+            <trans-unit id="750">
+               <source>QR SET HTML TEMPLATE</source>
+               <target>QR FIXER MODELE HTML</target>
+            </trans-unit>
+            <trans-unit id="751">
+               <source>QR Get HTML template</source>
+               <target>QR Lire modele HTML</target>
+            </trans-unit>
+            <trans-unit id="752">
+               <source>QR SET SORTS</source>
+               <target>QR FIXER TRIS</target>
+            </trans-unit>
+            <trans-unit id="753">
+               <source>QR GET SORTS</source>
+               <target>QR LIRE TRIS</target>
+            </trans-unit>
+            <trans-unit id="754">
+               <source>QR DELETE OFFSCREEN AREA</source>
+               <target>QR SUPPRIMER ZONE HORS ECRAN</target>
+            </trans-unit>
+            <trans-unit id="755">
+               <source>QR Get report kind</source>
+               <target>QR Lire type etat</target>
+            </trans-unit>
+            <trans-unit id="756">
+               <source>QR GET DESTINATION</source>
+               <target>QR LIRE DESTINATION</target>
+            </trans-unit>
+            <trans-unit id="757">
+               <source>QR SET REPORT TABLE</source>
+               <target>QR FIXER TABLE ETAT</target>
+            </trans-unit>
+            <trans-unit id="758">
+               <source>QR Get report table</source>
+               <target>QR Lire table etat</target>
+            </trans-unit>
+            <trans-unit id="759">
+               <source>QR SET TEXT PROPERTY</source>
+               <target>QR FIXER PROPRIETE TEXTE</target>
+            </trans-unit>
+            <trans-unit id="760">
+               <source>QR Get text property</source>
+               <target>QR Lire propriete texte</target>
+            </trans-unit>
+            <trans-unit id="761">
+               <source>QR SET TOTALS SPACING</source>
+               <target>QR FIXER ESPACEMENT TOTAUX</target>
+            </trans-unit>
+            <trans-unit id="762">
+               <source>QR GET TOTALS SPACING</source>
+               <target>QR LIRE ESPACEMENT TOTAUX</target>
+            </trans-unit>
+            <trans-unit id="763">
+               <source>QR SET INFO ROW</source>
+               <target>QR FIXER INFO LIGNE</target>
+            </trans-unit>
+            <trans-unit id="764">
+               <source>QR Count columns</source>
+               <target>QR Nombre de colonnes</target>
+            </trans-unit>
+            <trans-unit id="765">
+               <source>QR SET INFO COLUMN</source>
+               <target>QR FIXER INFO COLONNE</target>
+            </trans-unit>
+            <trans-unit id="766">
+               <source>QR GET INFO COLUMN</source>
+               <target>QR LIRE INFO COLONNE</target>
+            </trans-unit>
+            <trans-unit id="767">
+               <source>QR SET TOTALS DATA</source>
+               <target>QR FIXER DONNEES TOTAUX</target>
+            </trans-unit>
+            <trans-unit id="768">
+               <source>QR GET TOTALS DATA</source>
+               <target>QR LIRE DONNEES TOTAUX</target>
+            </trans-unit>
+            <trans-unit id="769">
+               <source>QR Get info row</source>
+               <target>QR Lire info ligne</target>
+            </trans-unit>
+            <trans-unit id="770">
+               <source>QR REPORT TO BLOB</source>
+               <target>QR ETAT VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="771">
+               <source>QR BLOB TO REPORT</source>
+               <target>QR BLOB VERS ETAT</target>
+            </trans-unit>
+            <trans-unit id="772">
+               <source>QR SET DOCUMENT PROPERTY</source>
+               <target>QR FIXER PROPRIETE DOCUMENT</target>
+            </trans-unit>
+            <trans-unit id="773">
+               <source>QR Get document property</source>
+               <target>QR Lire propriete document</target>
+            </trans-unit>
+            <trans-unit id="774">
+               <source>QR SET HEADER AND FOOTER</source>
+               <target>QR FIXER ENTETE ET PIED DE PAGE</target>
+            </trans-unit>
+            <trans-unit id="775">
+               <source>QR GET HEADER AND FOOTER</source>
+               <target>QR LIRE ENTETE ET PIED DE PAGE</target>
+            </trans-unit>
+            <trans-unit id="776">
+               <source>QR Find column</source>
+               <target>QR Chercher colonne</target>
+            </trans-unit>
+            <trans-unit id="777">
+               <source>SET WEB SERVICE PARAMETER</source>
+               <target>FIXER PARAMETRE WEB SERVICE</target>
+            </trans-unit>
+            <trans-unit id="778">
+               <source>CALL WEB SERVICE</source>
+               <target>APPELER WEB SERVICE</target>
+            </trans-unit>
+            <trans-unit id="779">
+               <source>GET WEB SERVICE RESULT</source>
+               <target>LIRE RESULTAT WEB SERVICE</target>
+            </trans-unit>
+            <trans-unit id="780">
+               <source>Get Web Service error info</source>
+               <target>Lire infos erreur Web Service</target>
+            </trans-unit>
+            <trans-unit id="781">
+               <source>SEND SOAP FAULT</source>
+               <target>ENVOYER ERREUR SOAP</target>
+            </trans-unit>
+            <trans-unit id="782">
+               <source>SOAP DECLARATION</source>
+               <target>DECLARATION SOAP</target>
+            </trans-unit>
+            <trans-unit id="783">
+               <source>Is SOAP request</source>
+               <target>Est une requete SOAP</target>
+            </trans-unit>
+            <trans-unit id="784">
+               <source>Get SOAP info</source>
+               <target>Lire informations SOAP</target>
+            </trans-unit>
+            <trans-unit id="785">
+               <source>PRINT OPTION VALUES</source>
+               <target>VALEURS OPTION IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="786">
+               <source>AUTHENTICATE WEB SERVICE</source>
+               <target>AUTHENTIFIER WEB SERVICE</target>
+            </trans-unit>
+            <trans-unit id="787">
+               <source>SET CURRENT PRINTER</source>
+               <target>FIXER IMPRIMANTE COURANTE</target>
+            </trans-unit>
+            <trans-unit id="788">
+               <source>Get current printer</source>
+               <target>Lire imprimante courante</target>
+            </trans-unit>
+            <trans-unit id="789">
+               <source>PRINTERS LIST</source>
+               <target>LISTE IMPRIMANTES</target>
+            </trans-unit>
+            <trans-unit id="790">
+               <source>QR ON COMMAND</source>
+               <target>QR APPELER SUR COMMANDE</target>
+            </trans-unit>
+            <trans-unit id="791">
+               <source>QR EXECUTE COMMAND</source>
+               <target>QR EXECUTER COMMANDE</target>
+            </trans-unit>
+            <trans-unit id="792">
+               <source>QR Get command status</source>
+               <target>QR Lire statut commande</target>
+            </trans-unit>
+            <trans-unit id="793">
+               <source>QR GET SELECTION</source>
+               <target>QR LIRE SELECTION</target>
+            </trans-unit>
+            <trans-unit id="794">
+               <source>QR SET SELECTION</source>
+               <target>QR FIXER SELECTION</target>
+            </trans-unit>
+            <trans-unit id="795">
+               <source>QR Get area property</source>
+               <target>QR Lire propriete zone</target>
+            </trans-unit>
+            <trans-unit id="796">
+               <source>QR SET AREA PROPERTY</source>
+               <target>QR FIXER PROPRIETE ZONE</target>
+            </trans-unit>
+            <trans-unit id="797">
+               <source>QR SET BORDERS</source>
+               <target>QR FIXER ENCADREMENTS</target>
+            </trans-unit>
+            <trans-unit id="798">
+               <source>QR GET BORDERS</source>
+               <target>QR LIRE ENCADREMENTS</target>
+            </trans-unit>
+            <trans-unit id="799">
+               <source>CHECK LOG FILE</source>
+               <target>VERIFIER FICHIER HISTORIQUE</target>
+            </trans-unit>
+            <trans-unit id="800">
+               <source>@QR_Extension</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="801">
+               <source>@QR_Extension</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="802">
+               <source>@QR_Extension</source>
+               <target>@QR_Extension</target>
+            </trans-unit>
+            <trans-unit id="803">
+               <source>GET TABLE TITLES</source>
+               <target>LIRE TITRES TABLES</target>
+            </trans-unit>
+            <trans-unit id="804">
+               <source>GET FIELD TITLES</source>
+               <target>LIRE TITRES CHAMPS</target>
+            </trans-unit>
+            <trans-unit id="805">
+               <source>SET ALLOWED METHODS</source>
+               <target>FIXER METHODES AUTORISEES</target>
+            </trans-unit>
+            <trans-unit id="806">
+               <source>EDIT FORMULA</source>
+               <target>EDITER FORMULE</target>
+            </trans-unit>
+            <trans-unit id="807">
+               <source>EDIT FORM</source>
+               <target>MODIFIER FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="808">
+               <source>CREATE USER FORM</source>
+               <target>CREER FORMULAIRE UTILISATEUR</target>
+            </trans-unit>
+            <trans-unit id="809">
+               <source>LIST USER FORMS</source>
+               <target>LISTE FORMULAIRES UTILISATEURS</target>
+            </trans-unit>
+            <trans-unit id="810">
+               <source>DELETE USER FORM</source>
+               <target>SUPPRIMER FORMULAIRE UTILISATEUR</target>
+            </trans-unit>
+            <trans-unit id="811">
+               <source>LAUNCH EXTERNAL PROCESS</source>
+               <target>LANCER PROCESS EXTERNE</target>
+            </trans-unit>
+            <trans-unit id="812">
+               <source>SET ENVIRONMENT VARIABLE</source>
+               <target>FIXER VARIABLE ENVIRONNEMENT</target>
+            </trans-unit>
+            <trans-unit id="813">
+               <source>SET CGI EXECUTABLE</source>
+               <target>FIXER EXECUTABLE CGI</target>
+            </trans-unit>
+            <trans-unit id="814">
+               <source>GET HTTP BODY</source>
+               <target>LIRE CORPS HTTP</target>
+            </trans-unit>
+            <trans-unit id="815">
+               <source>SEND HTTP RAW DATA</source>
+               <target>ENVOYER DONNEES HTTP</target>
+            </trans-unit>
+            <trans-unit id="816">
+               <source>PROCESS HTML TAGS</source>
+               <target>TRAITER BALISES HTML</target>
+            </trans-unit>
+            <trans-unit id="817">
+               <source>SQL LOGIN</source>
+               <target>SQL LOGIN</target>
+            </trans-unit>
+            <trans-unit id="818">
+               <source>SQL SET OPTION</source>
+               <target>SQL FIXER OPTION</target>
+            </trans-unit>
+            <trans-unit id="819">
+               <source>SQL GET OPTION</source>
+               <target>SQL LIRE OPTION</target>
+            </trans-unit>
+            <trans-unit id="820">
+               <source>SQL EXECUTE</source>
+               <target>SQL EXECUTER</target>
+            </trans-unit>
+            <trans-unit id="821">
+               <source>SQL End selection</source>
+               <target>SQL Fin de selection</target>
+            </trans-unit>
+            <trans-unit id="822">
+               <source>SQL LOAD RECORD</source>
+               <target>SQL CHARGER ENREGISTREMENT</target>
+            </trans-unit>
+            <trans-unit id="823">
+               <source>SQL SET PARAMETER</source>
+               <target>SQL FIXER PARAMETRE</target>
+            </trans-unit>
+            <trans-unit id="824">
+               <source>SQL CANCEL LOAD</source>
+               <target>SQL ANNULER CHARGEMENT</target>
+            </trans-unit>
+            <trans-unit id="825">
+               <source>SQL GET LAST ERROR</source>
+               <target>SQL LIRE DERNIERE ERREUR</target>
+            </trans-unit>
+            <trans-unit id="826">
+               <source>Get default user</source>
+               <target>Lire utilisateur par defaut</target>
+            </trans-unit>
+            <trans-unit id="827">
+               <source>Current form window</source>
+               <target>Fenetre formulaire courant</target>
+            </trans-unit>
+            <trans-unit id="828">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="829">
+               <source>INSERT LISTBOX COLUMN</source>
+               <target>INSERER COLONNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="830">
+               <source>DELETE LISTBOX COLUMN</source>
+               <target>SUPPRIMER COLONNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="831">
+               <source>Get number of listbox columns</source>
+               <target>Lire nombre colonnes listbox</target>
+            </trans-unit>
+            <trans-unit id="832">
+               <source>GET LISTBOX ARRAYS</source>
+               <target>LIRE TABLEAUX LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="833">
+               <source>SET LISTBOX COLUMN WIDTH</source>
+               <target>FIXER LARGEUR COLONNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="834">
+               <source>Get listbox column width</source>
+               <target>Lire largeur colonne listbox</target>
+            </trans-unit>
+            <trans-unit id="835">
+               <source>SET LISTBOX ROWS HEIGHT</source>
+               <target>FIXER HAUTEUR LIGNES LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="836">
+               <source>Get listbox rows height</source>
+               <target>Lire hauteur lignes listbox</target>
+            </trans-unit>
+            <trans-unit id="837">
+               <source>MOVED LISTBOX ROW NUMBER</source>
+               <target>NUMERO LIGNE LISTBOX DEPLACEE</target>
+            </trans-unit>
+            <trans-unit id="838">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="839">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="840">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="841">
+               <source>SHOW LISTBOX GRID</source>
+               <target>MONTRER GRILLE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="842">
+               <source>SET LISTBOX GRID COLOR</source>
+               <target>FIXER COULEUR GRILLE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="843">
+               <source>SET SCROLLBAR VISIBLE</source>
+               <target>CHOIX VISIBLE BARRES DEFILEMENT</target>
+            </trans-unit>
+            <trans-unit id="844">
+               <source>MOVED LISTBOX COLUMN NUMBER</source>
+               <target>NUMERO COLONNE LISTBOX DEPLACEE</target>
+            </trans-unit>
+            <trans-unit id="845">
+               <source>SET PLUGIN ACCESS</source>
+               <target>ECRIRE ACCES PLUGIN</target>
+            </trans-unit>
+            <trans-unit id="846">
+               <source>Get plugin access</source>
+               <target>Lire acces plugin</target>
+            </trans-unit>
+            <trans-unit id="847">
+               <source>PLUGIN LIST</source>
+               <target>LISTE PLUGINS</target>
+            </trans-unit>
+            <trans-unit id="848">
+               <source>@SAVE ACCESS FILE</source>
+               <target>@STOCKER FICHIER ACCES</target>
+            </trans-unit>
+            <trans-unit id="849">
+               <source>USERS TO BLOB</source>
+               <target>UTILISATEURS VERS BLOB</target>
+            </trans-unit>
+            <trans-unit id="850">
+               <source>BLOB TO USERS</source>
+               <target>BLOB VERS UTILISATEURS</target>
+            </trans-unit>
+            <trans-unit id="851">
+               <source>SAX ADD XML DOCTYPE</source>
+               <target>SAX AJOUTER DOCTYPE XML</target>
+            </trans-unit>
+            <trans-unit id="852">
+               <source>SAX ADD XML COMMENT</source>
+               <target>SAX AJOUTER COMMENTAIRE XML</target>
+            </trans-unit>
+            <trans-unit id="853">
+               <source>SAX OPEN XML ELEMENT</source>
+               <target>SAX OUVRIR ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="854">
+               <source>SAX CLOSE XML ELEMENT</source>
+               <target>SAX FERMER ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="855">
+               <source>SAX ADD XML ELEMENT VALUE</source>
+               <target>SAX AJOUTER VALEUR ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="856">
+               <source>SAX ADD XML CDATA</source>
+               <target>SAX AJOUTER CDATA XML</target>
+            </trans-unit>
+            <trans-unit id="857">
+               <source>SAX ADD PROCESSING INSTRUCTION</source>
+               <target>SAX AJOUTER INSTRUCTION DE TRAITEMENT</target>
+            </trans-unit>
+            <trans-unit id="858">
+               <source>SAX SET XML OPTIONS</source>
+               <target>SAX ECRIRE OPTIONS XML</target>
+            </trans-unit>
+            <trans-unit id="859">
+               <source>DOM SET XML OPTIONS</source>
+               <target>DOM ECRIRE OPTIONS XML</target>
+            </trans-unit>
+            <trans-unit id="860">
+               <source>SAX Get XML node</source>
+               <target>SAX Lire noeud XML</target>
+            </trans-unit>
+            <trans-unit id="861">
+               <source>DOM Create XML Ref</source>
+               <target>DOM Creer ref XML</target>
+            </trans-unit>
+            <trans-unit id="862">
+               <source>DOM EXPORT TO FILE</source>
+               <target>DOM EXPORTER VERS FICHIER</target>
+            </trans-unit>
+            <trans-unit id="863">
+               <source>DOM EXPORT TO VAR</source>
+               <target>DOM EXPORTER VERS VARIABLE</target>
+            </trans-unit>
+            <trans-unit id="864">
+               <source>DOM Find XML element</source>
+               <target>DOM Chercher element XML</target>
+            </trans-unit>
+            <trans-unit id="865">
+               <source>DOM Create XML element</source>
+               <target>DOM Creer element XML</target>
+            </trans-unit>
+            <trans-unit id="866">
+               <source>DOM SET XML ATTRIBUTE</source>
+               <target>DOM ECRIRE ATTRIBUT XML</target>
+            </trans-unit>
+            <trans-unit id="867">
+               <source>DOM SET XML ELEMENT NAME</source>
+               <target>DOM ECRIRE NOM ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="868">
+               <source>DOM SET XML ELEMENT VALUE</source>
+               <target>DOM ECRIRE VALEUR ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="869">
+               <source>DOM REMOVE XML ELEMENT</source>
+               <target>DOM SUPPRIMER ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="870">
+               <source>EDIT ITEM</source>
+               <target>EDITER ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="871">
+               <source>BUILD APPLICATION</source>
+               <target>GENERER APPLICATION</target>
+            </trans-unit>
+            <trans-unit id="872">
+               <source>SQL LOGOUT</source>
+               <target>SQL LOGOUT</target>
+            </trans-unit>
+            <trans-unit id="873">
+               <source>SAX GET XML DOCUMENT VALUES</source>
+               <target>SAX LIRE VALEURS DOCUMENT XML</target>
+            </trans-unit>
+            <trans-unit id="874">
+               <source>SAX GET XML COMMENT</source>
+               <target>SAX LIRE COMMENTAIRE XML</target>
+            </trans-unit>
+            <trans-unit id="875">
+               <source>SAX GET XML PROCESSING INSTRUCTION</source>
+               <target>SAX LIRE INSTRUCTION DE TRAITEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="876">
+               <source>SAX GET XML ELEMENT</source>
+               <target>SAX LIRE ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="877">
+               <source>SAX GET XML ELEMENT VALUE</source>
+               <target>SAX LIRE VALEUR ELEMENT XML</target>
+            </trans-unit>
+            <trans-unit id="878">
+               <source>SAX GET XML CDATA</source>
+               <target>SAX LIRE CDATA XML</target>
+            </trans-unit>
+            <trans-unit id="879">
+               <source>SAX GET XML ENTITY</source>
+               <target>SAX LIRE ENTITE XML</target>
+            </trans-unit>
+            <trans-unit id="880">
+               <source>SQL IMPORT</source>
+               <target>SQL IMPORTER</target>
+            </trans-unit>
+            <trans-unit id="881">
+               <source>SQL EXPORT</source>
+               <target>SQL EXPORTER</target>
+            </trans-unit>
+            <trans-unit id="882">
+               <source>APPLY XSLT TRANSFORMATION</source>
+               <target>APPLIQUER TRANSFORMATION XSLT</target>
+            </trans-unit>
+            <trans-unit id="883">
+               <source>SET XSLT PARAMETER</source>
+               <target>FIXER PARAMETRE XSLT</target>
+            </trans-unit>
+            <trans-unit id="884">
+               <source>GET XSLT ERROR</source>
+               <target>LIRE ERREUR XSLT</target>
+            </trans-unit>
+            <trans-unit id="885">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="886">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="887">
+               <source>BACKUP</source>
+               <target>SAUVEGARDER</target>
+            </trans-unit>
+            <trans-unit id="888">
+               <source>GET BACKUP INFORMATION</source>
+               <target>LIRE INFORMATION SAUVEGARDE</target>
+            </trans-unit>
+            <trans-unit id="889">
+               <source>GET RESTORE INFORMATION</source>
+               <target>LIRE INFORMATION RESTITUTION</target>
+            </trans-unit>
+            <trans-unit id="890">
+               <source>RESIZE FORM WINDOW</source>
+               <target>REDIMENSIONNER FENETRE FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="891">
+               <source>SET FORM SIZE</source>
+               <target>FIXER TAILLE FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="892">
+               <source>SET FORM HORIZONTAL RESIZING</source>
+               <target>FIXER REDIMENSIONNEMENT FORMULAIRE HORIZONTAL</target>
+            </trans-unit>
+            <trans-unit id="893">
+               <source>SET FORM VERTICAL RESIZING</source>
+               <target>FIXER REDIMENSIONNEMENT FORMULAIRE VERTICAL</target>
+            </trans-unit>
+            <trans-unit id="894">
+               <source>Get format</source>
+               <target>Lire formatage</target>
+            </trans-unit>
+            <trans-unit id="895">
+               <source>ENCODE</source>
+               <target>ENCODER</target>
+            </trans-unit>
+            <trans-unit id="896">
+               <source>DECODE</source>
+               <target>DECODER</target>
+            </trans-unit>
+            <trans-unit id="897">
+               <source>Displayed line number</source>
+               <target>Numero de ligne affichee</target>
+            </trans-unit>
+            <trans-unit id="898">
+               <source>GET FORM OBJECTS</source>
+               <target>LIRE OBJETS FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="899">
+               <source>GET AUTOMATIC RELATIONS</source>
+               <target>LIRE LIENS AUTOMATIQUES</target>
+            </trans-unit>
+            <trans-unit id="900">
+               <source>SPELL CHECKING</source>
+               <target>CORRECTION ORTHOGRAPHIQUE</target>
+            </trans-unit>
+            <trans-unit id="901">
+               <source>SET WEB SERVICE OPTION</source>
+               <target>FIXER OPTION WEB SERVICE</target>
+            </trans-unit>
+            <trans-unit id="902">
+               <source>GET HIGHLIGHTED RECORDS</source>
+               <target>LIRE ENREGISTREMENTS MARQUES</target>
+            </trans-unit>
+            <trans-unit id="903">
+               <source>OPEN 4D PREFERENCES</source>
+               <target>OUVRIR PREFERENCES 4D</target>
+            </trans-unit>
+            <trans-unit id="904">
+               <source>SET DICTIONARY</source>
+               <target>CHANGER DICTIONNAIRE</target>
+            </trans-unit>
+            <trans-unit id="905">
+               <source>Select document</source>
+               <target>Selectionner document</target>
+            </trans-unit>
+            <trans-unit id="906">
+               <source>SCROLL LINES</source>
+               <target>DEFILER LIGNES</target>
+            </trans-unit>
+            <trans-unit id="907">
+               <source>Count in array</source>
+               <target>Compter dans tableau</target>
+            </trans-unit>
+            <trans-unit id="908">
+               <source>GET ALLOWED METHODS</source>
+               <target>LIRE METHODES AUTORISEES</target>
+            </trans-unit>
+            <trans-unit id="909">
+               <source>GET SERIAL PORT MAPPING</source>
+               <target>LIRE CORRESPONDANCE PORT SERIE</target>
+            </trans-unit>
+            <trans-unit id="910">
+               <source>DISPLAY NOTIFICATION</source>
+               <target>AFFICHER NOTIFICATION</target>
+            </trans-unit>
+            <trans-unit id="911">
+               <source>APPEND TO ARRAY</source>
+               <target>AJOUTER A TABLEAU</target>
+            </trans-unit>
+            <trans-unit id="912">
+               <source>SELECT LISTBOX ROW</source>
+               <target>SELECTIONNER LIGNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="913">
+               <source>INSERT LISTBOX ROW</source>
+               <target>INSERER LIGNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="914">
+               <source>DELETE LISTBOX ROW</source>
+               <target>SUPPRIMER LIGNE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="915">
+               <source>Get number of listbox rows</source>
+               <target>Lire nombre lignes listbox</target>
+            </trans-unit>
+            <trans-unit id="916">
+               <source>SORT LISTBOX COLUMNS</source>
+               <target>TRIER COLONNES LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="917">
+               <source>Get listbox information</source>
+               <target>Lire information listbox</target>
+            </trans-unit>
+            <trans-unit id="918">
+               <source>RESTORE</source>
+               <target>RESTITUER</target>
+            </trans-unit>
+            <trans-unit id="919">
+               <source>SET FIELD RELATION</source>
+               <target>FIXER LIEN CHAMP</target>
+            </trans-unit>
+            <trans-unit id="920">
+               <source>GET FIELD RELATION</source>
+               <target>LIRE LIEN CHAMP</target>
+            </trans-unit>
+            <trans-unit id="921">
+               <source>SAX OPEN XML ELEMENT ARRAYS</source>
+               <target>SAX OUVRIR ELEMENT XML TABLEAUX</target>
+            </trans-unit>
+            <trans-unit id="922">
+               <source>SHOW ON DISK</source>
+               <target>MONTRER SUR DISQUE</target>
+            </trans-unit>
+            <trans-unit id="923">
+               <source>DOM Get parent XML element</source>
+               <target>DOM Lire element XML parent</target>
+            </trans-unit>
+            <trans-unit id="924">
+               <source>DOM Get previous sibling XML element</source>
+               <target>DOM Lire element XML frere precedent</target>
+            </trans-unit>
+            <trans-unit id="925">
+               <source>DOM Get last child XML element</source>
+               <target>DOM Lire dernier element XML enfant</target>
+            </trans-unit>
+            <trans-unit id="926">
+               <source>New log file</source>
+               <target>Nouveau fichier historique</target>
+            </trans-unit>
+            <trans-unit id="927">
+               <source>INTEGRATE LOG FILE</source>
+               <target>INTEGRER FICHIER HISTORIQUE</target>
+            </trans-unit>
+            <trans-unit id="928">
+               <source>Log file</source>
+               <target>Fichier historique</target>
+            </trans-unit>
+            <trans-unit id="929">
+               <source>@LIST FORMS</source>
+               <target>@LISTE FORMULAIRES</target>
+            </trans-unit>
+            <trans-unit id="930">
+               <source>@EXPORT FORM</source>
+               <target>@EXPORTER FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="931">
+               <source>@IMPORT FORM</source>
+               <target>@IMPORTER FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="932">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="933">
+               <source>@Test DB4D</source>
+               <target>@Test DB4D</target>
+            </trans-unit>
+            <trans-unit id="934">
+               <source>@Test SQL</source>
+               <target>@Test SQL</target>
+            </trans-unit>
+            <trans-unit id="935">
+               <source>@COMPACT STRUCTURE FILE</source>
+               <target>@COMPACTER FICHIER STRUCTURE</target>
+            </trans-unit>
+            <trans-unit id="936">
+               <source>@GET SCAN LOG</source>
+               <target>@RESULTAT ANALYSE</target>
+            </trans-unit>
+            <trans-unit id="937">
+               <source>Compact data file</source>
+               <target>Compacter fichier donnees</target>
+            </trans-unit>
+            <trans-unit id="938">
+               <source>@REPAIR DATA FILE</source>
+               <target>@REPARER FICHIER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="939">
+               <source>VERIFY DATA FILE</source>
+               <target>VERIFIER FICHIER DONNEES</target>
+            </trans-unit>
+            <trans-unit id="940">
+               <source>@GET DATABASE MAP</source>
+               <target>@LIRE CARTE BASE</target>
+            </trans-unit>
+            <trans-unit id="941">
+               <source>@GET DATABASE INFORMATION</source>
+               <target>@LIRE INFORMATION BASE</target>
+            </trans-unit>
+            <trans-unit id="942">
+               <source>QUERY BY SQL</source>
+               <target>CHERCHER PAR SQL</target>
+            </trans-unit>
+            <trans-unit id="943">
+               <source>@Get 4D Preferences</source>
+               <target>@Lire Preferences 4D</target>
+            </trans-unit>
+            <trans-unit id="944">
+               <source>@SET 4D PREFERENCES</source>
+               <target>@FIXER PREFERENCES 4D</target>
+            </trans-unit>
+            <trans-unit id="945">
+               <source>@ free to use for commande</source>
+               <target>@ free to use for commande</target>
+            </trans-unit>
+            <trans-unit id="946">
+               <source>Validate Digest Web Password</source>
+               <target>Valider mot de passe digest Web</target>
+            </trans-unit>
+            <trans-unit id="947">
+               <source>@SQL Code</source>
+               <target>@SQL Code</target>
+            </trans-unit>
+            <trans-unit id="948">
+               <source>Begin SQL</source>
+               <target>Debut SQL</target>
+            </trans-unit>
+            <trans-unit id="949">
+               <source>End SQL</source>
+               <target>Fin SQL</target>
+            </trans-unit>
+            <trans-unit id="950">
+               <source>SET LIST ITEM ICON</source>
+               <target>FIXER ICONE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="951">
+               <source>GET LIST ITEM ICON</source>
+               <target>LIRE ICONE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="952">
+               <source>Find in list</source>
+               <target>Chercher dans liste</target>
+            </trans-unit>
+            <trans-unit id="953">
+               <source>SET LIST ITEM FONT</source>
+               <target>FIXER POLICE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="954">
+               <source>Get list item font</source>
+               <target>Lire police element</target>
+            </trans-unit>
+            <trans-unit id="955">
+               <source>Choose</source>
+               <target>Choisir</target>
+            </trans-unit>
+            <trans-unit id="956">
+               <source>Select RGB Color</source>
+               <target>Selectionner couleur RVB</target>
+            </trans-unit>
+            <trans-unit id="957">
+               <source>LIST OF CHOICE LISTS</source>
+               <target>LISTE ENUMERATIONS</target>
+            </trans-unit>
+            <trans-unit id="958">
+               <source>GET PASTEBOARD DATA TYPE</source>
+               <target>LIRE TYPE DONNEES DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="959">
+               <source>USE EXTERNAL DATABASE</source>
+               <target>UTILISER BASE EXTERNE</target>
+            </trans-unit>
+            <trans-unit id="960">
+               <source>USE INTERNAL DATABASE</source>
+               <target>UTILISER BASE INTERNE</target>
+            </trans-unit>
+            <trans-unit id="961">
+               <source>Transaction level</source>
+               <target>Niveau de la transaction</target>
+            </trans-unit>
+            <trans-unit id="962">
+               <source>START SQL SERVER</source>
+               <target>LANCER SERVEUR SQL</target>
+            </trans-unit>
+            <trans-unit id="963">
+               <source>STOP SQL SERVER</source>
+               <target>ARRETER SERVEUR SQL</target>
+            </trans-unit>
+            <trans-unit id="964">
+               <source>Is field value Null</source>
+               <target>Valeur champ Null</target>
+            </trans-unit>
+            <trans-unit id="965">
+               <source>SET FIELD VALUE NULL</source>
+               <target>FIXER VALEUR CHAMP NULL</target>
+            </trans-unit>
+            <trans-unit id="966">
+               <source>CREATE INDEX</source>
+               <target>CREER INDEX</target>
+            </trans-unit>
+            <trans-unit id="967">
+               <source>DELETE INDEX</source>
+               <target>SUPPRIMER INDEX</target>
+            </trans-unit>
+            <trans-unit id="968">
+               <source>@Run Tests</source>
+               <target>@Run Tests</target>
+            </trans-unit>
+            <trans-unit id="969">
+               <source>GET FORM PARAMETER</source>
+               <target>LIRE PARAMETRE FORMULAIRE</target>
+            </trans-unit>
+            <trans-unit id="970">
+               <source>INSERT LISTBOX COLUMN FORMULA</source>
+               <target>INSERER COLONNE FORMULE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="971">
+               <source>GET LISTBOX CELL POSITION</source>
+               <target>LIRE POSITION CELLULE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="972">
+               <source>GET MENU ITEM PROPERTY</source>
+               <target>LIRE PROPRIETE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="973">
+               <source>SET MENU ITEM PROPERTY</source>
+               <target>FIXER PROPRIETE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="974">
+               <source>@KEEP DATA IN PASTEBOARD</source>
+               <target>@GARDER DONNEES DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="975">
+               <source>SET FILE TO PASTEBOARD</source>
+               <target>FIXER FICHIER DANS CONTENEUR</target>
+            </trans-unit>
+            <trans-unit id="976">
+               <source>Get file from pasteboard</source>
+               <target>Lire fichier dans conteneur</target>
+            </trans-unit>
+            <trans-unit id="977">
+               <source>GET MENU ITEMS</source>
+               <target>LIRE LIGNES MENU</target>
+            </trans-unit>
+            <trans-unit id="978">
+               <source>RELEASE MENU</source>
+               <target>EFFACER MENU</target>
+            </trans-unit>
+            <trans-unit id="979">
+               <source>Get menu bar reference</source>
+               <target>Lire reference barre menu</target>
+            </trans-unit>
+            <trans-unit id="980">
+               <source>Get menu item modifiers</source>
+               <target>Lire modificateurs ligne menu</target>
+            </trans-unit>
+            <trans-unit id="981">
+               <source>Get menu item method</source>
+               <target>Lire methode ligne menu</target>
+            </trans-unit>
+            <trans-unit id="982">
+               <source>SET MENU ITEM METHOD</source>
+               <target>FIXER METHODE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="983">
+               <source>GET MENU ITEM ICON</source>
+               <target>LIRE ICONE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="984">
+               <source>SET MENU ITEM ICON</source>
+               <target>FIXER ICONE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="985">
+               <source>GET LIST ITEM PARAMETER</source>
+               <target>LIRE PARAMETRE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="986">
+               <source>SET LIST ITEM PARAMETER</source>
+               <target>FIXER PARAMETRE ELEMENT</target>
+            </trans-unit>
+            <trans-unit id="987">
+               <source>COMBINE PICTURES</source>
+               <target>COMBINER IMAGES</target>
+            </trans-unit>
+            <trans-unit id="988">
+               <source>TRANSFORM PICTURE</source>
+               <target>TRANSFORMER IMAGE</target>
+            </trans-unit>
+            <trans-unit id="989">
+               <source>GET DATA SOURCE LIST</source>
+               <target>LISTE SOURCES DONNEES</target>
+            </trans-unit>
+            <trans-unit id="990">
+               <source>Get current data source</source>
+               <target>Lire source donnees courante</target>
+            </trans-unit>
+            <trans-unit id="991">
+               <source>Get localized string</source>
+               <target>Lire traduction chaine</target>
+            </trans-unit>
+            <trans-unit id="992">
+               <source>PICTURE CODEC LIST</source>
+               <target>LISTE CODECS IMAGES</target>
+            </trans-unit>
+            <trans-unit id="993">
+               <source>NO DEFAULT TABLE</source>
+               <target>PAS DE TABLE PAR DEFAUT</target>
+            </trans-unit>
+            <trans-unit id="994">
+               <source>GET SYSTEM FORMAT</source>
+               <target>LIRE FORMATAGE SYSTEME</target>
+            </trans-unit>
+            <trans-unit id="995">
+               <source>OPEN PRINTING JOB</source>
+               <target>OUVRIR TACHE IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="996">
+               <source>CLOSE PRINTING JOB</source>
+               <target>FERMER TACHE IMPRESSION</target>
+            </trans-unit>
+            <trans-unit id="997">
+               <source>GET MACRO PARAMETER</source>
+               <target>LIRE PARAMETRE MACRO</target>
+            </trans-unit>
+            <trans-unit id="998">
+               <source>SET MACRO PARAMETER</source>
+               <target>FIXER PARAMETRE MACRO</target>
+            </trans-unit>
+            <trans-unit id="999">
+               <source>Is table number valid</source>
+               <target>Est un numero de table valide</target>
+            </trans-unit>
+            <trans-unit id="1000">
+               <source>Is field number valid</source>
+               <target>Est un numero de champ valide</target>
+            </trans-unit>
+            <trans-unit id="1001">
+               <source>COMPONENT LIST</source>
+               <target>LISTE COMPOSANTS</target>
+            </trans-unit>
+            <trans-unit id="1002">
+               <source>CONVERT PICTURE</source>
+               <target>CONVERTIR IMAGE</target>
+            </trans-unit>
+            <trans-unit id="1003">
+               <source>Get menu item parameter</source>
+               <target>Lire parametre ligne menu</target>
+            </trans-unit>
+            <trans-unit id="1004">
+               <source>SET MENU ITEM PARAMETER</source>
+               <target>FIXER PARAMETRE LIGNE MENU</target>
+            </trans-unit>
+            <trans-unit id="1005">
+               <source>Get selected menu item parameter</source>
+               <target>Lire parametre ligne menu selectionnee</target>
+            </trans-unit>
+            <trans-unit id="1006">
+               <source>Dynamic pop up menu</source>
+               <target>Pop up menu dynamique</target>
+            </trans-unit>
+            <trans-unit id="1007">
+               <source>EXECUTE METHOD</source>
+               <target>EXECUTER METHODE</target>
+            </trans-unit>
+            <trans-unit id="1008">
+               <source>VERIFY CURRENT DATA FILE</source>
+               <target>VERIFIER FICHIER DONNEES OUVERT</target>
+            </trans-unit>
+            <trans-unit id="1009">
+               <source>Get current database localization</source>
+               <target>Lire langue courante base</target>
+            </trans-unit>
+            <trans-unit id="1010">
+               <source>DOM Find XML element by ID</source>
+               <target>DOM Chercher element XML par ID</target>
+            </trans-unit>
+            <trans-unit id="1011">
+               <source>CONVERT FROM TEXT</source>
+               <target>CONVERTIR DEPUIS TEXTE</target>
+            </trans-unit>
+            <trans-unit id="1012">
+               <source>Convert to text</source>
+               <target>Convertir vers texte</target>
+            </trans-unit>
+            <trans-unit id="1013">
+               <source>SET LISTBOX TABLE SOURCE</source>
+               <target>FIXER TABLE SOURCE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="1014">
+               <source>GET LISTBOX TABLE SOURCE</source>
+               <target>LIRE TABLE SOURCE LISTBOX</target>
+            </trans-unit>
+            <trans-unit id="1015">
+               <source>GET LAST ERROR STACK</source>
+               <target>LIRE PILE DERNIERE ERREUR</target>
+            </trans-unit>
+            <trans-unit id="1016">
+               <source>Tool bar height</source>
+               <target>Hauteur barre outils</target>
+            </trans-unit>
+            <trans-unit id="1017">
+               <source>SVG EXPORT TO PICTURE</source>
+               <target>SVG EXPORTER VERS IMAGE</target>
+            </trans-unit>
+            <trans-unit id="1018">
+               <source>OPEN SECURITY CENTER</source>
+               <target>OUVRIR CENTRE DE SECURITE</target>
+            </trans-unit>
+            <trans-unit id="1019">
+               <source>Match regex</source>
+               <target>Trouver regex</target>
+            </trans-unit>
+            <trans-unit id="1020">
+               <source>WA OPEN URL</source>
+               <target>WA OUVRIR URL</target>
+            </trans-unit>
+            <trans-unit id="1021">
+               <source>WA OPEN BACK URL</source>
+               <target>WA OUVRIR URL PRECEDENT</target>
+            </trans-unit>
+            <trans-unit id="1022">
+               <source>WA OPEN FORWARD URL</source>
+               <target>WA OUVRIR URL SUIVANT</target>
+            </trans-unit>
+            <trans-unit id="1023">
+               <source>WA REFRESH CURRENT URL</source>
+               <target>WA ACTUALISER URL</target>
+            </trans-unit>
+            <trans-unit id="1024">
+               <source>WA STOP LOADING URL</source>
+               <target>WA ARRETER CHARGEMENT URL</target>
+            </trans-unit>
+            <trans-unit id="1025">
+               <source>WA Get current URL</source>
+               <target>WA Lire URL courant</target>
+            </trans-unit>
+            <trans-unit id="1026">
+               <source>WA Back URL available</source>
+               <target>WA URL precedent disponible</target>
+            </trans-unit>
+            <trans-unit id="1027">
+               <source>WA Forward URL available</source>
+               <target>WA URL suivant disponible</target>
+            </trans-unit>
+            <trans-unit id="1028">
+               <source>@Is Web Page Loading</source>
+               <target>@Is Web Page Loading</target>
+            </trans-unit>
+            <trans-unit id="1029">
+               <source>WA Execute JavaScript</source>
+               <target>WA Executer JavaScript</target>
+            </trans-unit>
+            <trans-unit id="1030">
+               <source>WA SET URL FILTERS</source>
+               <target>WA FIXER FILTRES URL</target>
+            </trans-unit>
+            <trans-unit id="1031">
+               <source>WA GET URL FILTERS</source>
+               <target>WA LIRE FILTRES URL</target>
+            </trans-unit>
+            <trans-unit id="1032">
+               <source>WA SET EXTERNAL LINKS FILTERS</source>
+               <target>WA FIXER FILTRES LIENS EXTERNES</target>
+            </trans-unit>
+            <trans-unit id="1033">
+               <source>WA GET EXTERNAL LINKS FILTERS</source>
+               <target>WA LIRE FILTRES LIENS EXTERNES</target>
+            </trans-unit>
+            <trans-unit id="1034">
+               <source>WA GET LAST URL ERROR</source>
+               <target>WA LIRE DERNIERE ERREUR URL</target>
+            </trans-unit>
+            <trans-unit id="1035">
+               <source>WA Get last filtered URL</source>
+               <target>WA Lire dernier URL filtre</target>
+            </trans-unit>
+            <trans-unit id="1036">
+               <source>WA Get page title</source>
+               <target>WA Lire titre page</target>
+            </trans-unit>
+            <trans-unit id="1037">
+               <source>WA SET PAGE CONTENT</source>
+               <target>WA FIXER CONTENU PAGE</target>
+            </trans-unit>
+            <trans-unit id="1038">
+               <source>WA Get page content</source>
+               <target>WA Lire contenu page</target>
+            </trans-unit>
+            <trans-unit id="1039">
+               <source>WA SET PAGE TEXT LARGER</source>
+               <target>WA AGRANDIR TEXTE PAGE</target>
+            </trans-unit>
+            <trans-unit id="1040">
+               <source>WA SET PAGE TEXT SMALLER</source>
+               <target>WA REDUIRE TEXTE PAGE</target>
+            </trans-unit>
+            <trans-unit id="1041">
+               <source>WA SET PREFERENCE</source>
+               <target>WA FIXER PREFERENCE</target>
+            </trans-unit>
+            <trans-unit id="1042">
+               <source>WA GET PREFERENCE</source>
+               <target>WA LIRE PREFERENCE</target>
+            </trans-unit>
+            <trans-unit id="1043">
+               <source>WA EXECUTE JAVASCRIPT FUNCTION</source>
+               <target>WA EXECUTER FONCTION JAVASCRIPT</target>
+            </trans-unit>
+            <trans-unit id="1044">
+               <source>DESCRIBE QUERY EXECUTION</source>
+               <target>DECRIRE EXECUTION RECHERCHE</target>
+            </trans-unit>
+            <trans-unit id="1045">
+               <source>Get Last Query Path</source>
+               <target>Lire dernier chemin recherche</target>
+            </trans-unit>
+            <trans-unit id="1046">
+               <source>Get Last Query Plan</source>
+               <target>Lire dernier plan recherche</target>
+            </trans-unit>
+            <trans-unit id="1047">
+               <source>OPEN ADMINISTRATION WINDOW</source>
+               <target>OUVRIR FENETRE ADMINISTRATION</target>
+            </trans-unit>
+            <trans-unit id="1048">
+               <source>WA GET URL HISTORY</source>
+               <target>WA LIRE HISTORIQUE URL</target>
+            </trans-unit>
+            <trans-unit id="1049">
+               <source>WA Create URL history menu</source>
+               <target>WA Creer menu historique URL</target>
+            </trans-unit>
+            <trans-unit id="1050">
+               <source>QUERY SELECTION WITH ARRAY</source>
+               <target>CHERCHER PAR TABLEAU DANS SELECTION</target>
+            </trans-unit>
+            <trans-unit id="1051">
+               <source>TRUNCATE TABLE</source>
+               <target>VIDER TABLE</target>
+            </trans-unit>
+            <trans-unit id="1052">
+               <source>NOTIFY RESOURCES FOLDER MODIFICATION</source>
+               <target>NOTIFIER MODIFICATION DOSSIER RESOURCES</target>
+            </trans-unit>
+            <trans-unit id="1053">
+               <source>DOM Get Root XML element</source>
+               <target>DOM Lire element XML racine</target>
+            </trans-unit>
+            <trans-unit id="1054">
+               <source>SVG Find element ID by coordinates</source>
+               <target>SVG Chercher ID element par coordonnees</target>
+            </trans-unit>
+            <trans-unit id="1055">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+            <trans-unit id="1056">
+               <source>@</source>
+               <target>@</target>
+            </trans-unit>
+              <trans-unit id="1057">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1058">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1059">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1060">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1061">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1062">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1063">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1064">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1065">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1066">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1067">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1068">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1069">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1070">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1071">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1072">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1073">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1074">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1075">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1076">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1077">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1078">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1079">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1080">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1081">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1082">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1083">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1084">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1085">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1086">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1087">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1088">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1089">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1090">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1091">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1092">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1093">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1094">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1095">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1096">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1097">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1098">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1099">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1100">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1101">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1102">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1103">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1104">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1105">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1106">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1107">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1108">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1109">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1110">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1111">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1112">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1113">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1114">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1115">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1116">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1117">
+                 <source>@</source>
+                 <target>@</target>
+              </trans-unit>
+              <trans-unit id="1118">
+                 <source>GET CACHE STATISTICS</source>
+                 <target>LIRE STATISTIQUES CACHE</target>
+              </trans-unit>
+              <trans-unit id="1119">
+                 <source>Get memory leaks</source>
+                 <target>Get memory leaks</target>
+              </trans-unit>
+              <trans-unit id="1120">
+                 <source>CHECK MEMORY LEAKS</source>
+                 <target>CHECK MEMORY LEAKS</target>
+              </trans-unit>
+         </group>
+      </body>
+   </file>
+</xliff>

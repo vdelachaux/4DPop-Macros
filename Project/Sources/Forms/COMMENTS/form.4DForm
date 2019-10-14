@@ -1,0 +1,105 @@
+﻿{
+	"destination": "detailScreen",
+	"formSizeAnchor": "Validation",
+	"rightMargin": 20,
+	"bottomMargin": 15,
+	"menuBar": "M_4DPop_1",
+	"markerHeader": 15,
+	"markerBody": 200,
+	"markerBreak": 220,
+	"markerFooter": 240,
+	"events": [
+		"onLoad"
+	],
+	"method": "method.4dm",
+	"pageFormat": {
+		"paperName": "A4",
+		"paperWidth": "595pt",
+		"paperHeight": "842pt"
+	},
+	"pages": [
+		null,
+		{
+			"objects": {
+				"comment": {
+					"type": "input",
+					"top": 0,
+					"left": 0,
+					"width": 530,
+					"height": 208,
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"dataSource": "<>Txt_buffer",
+					"borderStyle": "none",
+					"hideFocusRing": true,
+					"styledText": true,
+					"scrollbarVertical": "visible"
+				},
+				"b.escape": {
+					"type": "button",
+					"top": 224,
+					"left": 316,
+					"width": 90,
+					"height": 22,
+					"sizingX": "move",
+					"sizingY": "move",
+					"action": "cancel",
+					"shortcutKey": "[Esc]",
+					"text": ":xliff:CommonCancel",
+					"events": [
+						"onClick",
+						"onHeader",
+						"onPrintingBreak",
+						"onPrintingFooter",
+						"onDisplayDetail",
+						"onPrintingDetail"
+					]
+				},
+				"Validation": {
+					"type": "button",
+					"top": 224,
+					"left": 426,
+					"width": 100,
+					"height": 22,
+					"sizingX": "move",
+					"sizingY": "move",
+					"dataSource": "OK",
+					"action": "accept",
+					"shortcutKey": "[Enter]",
+					"text": ":xliff:CommonOK",
+					"events": [
+						"onLoad",
+						"onClick"
+					]
+				},
+				"Bouton 3D2": {
+					"type": "button",
+					"top": 224,
+					"left": 12,
+					"width": 89,
+					"height": 22,
+					"sizingY": "move",
+					"fontFamily": "Lucida Grande",
+					"fontSize": 11,
+					"focusable": false,
+					"text": ":xliff:bInsert",
+					"popupPlacement": "linked",
+					"style": "bevel",
+					"method": "ObjectMethods/Bouton 3D2.4dm",
+					"events": [
+						"onClick"
+					]
+				},
+				"back.line.hresize": {
+					"type": "line",
+					"top": 209,
+					"left": 0,
+					"width": 547,
+					"sizingX": "grow",
+					"sizingY": "move",
+					"stroke": "#C0C0C0"
+				}
+			}
+		}
+	]
+}

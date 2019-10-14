@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><preferences stamp="18">
+	<com.4d>
+		<interface>
+			<misc/>
+			<user can_change_password="true" default_user="0" print_progress="false"/>
+			<developper allow_read_only_structure="true" design_acces="0"/>
+			<shortcuts>
+				<accept_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+				<add_subform alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+                                      			</shortcuts>
+                                                    		</interface>
+		<compiler>
+			<options compilation_path="3" fat_binary="true"/>
+			<typage default_for_button="2"/>
+                		</compiler>
+		<sql>
+			<publication port_number="1919"/>
+			<access data_read_only="0"/>
+                            		</sql>
+		<database>
+			<data_storage allow_data_read_only="true"/>
+			<cache size_fixed="32" size_maximum="100" size_reserved="128"/>
+			<misc/>
+                		</database>
+		<server>
+			<network>
+				<client_server update_resources_folder="3"/>
+				<options publication_name="4DPop_Macro" use_legacy_network_layer="false"/>
+                                      			</network>
+			<misc/>
+                		</server>
+		<web>
+			<standalone_server>
+				<options>
+					<web_processes timeout_for_inactives="5"/>
+					<text_conversion standard_set="ISO-8859-1"/>
+					<cache cache_max_size="512"/>
+					<web_passwords generic_web_user="0"/>
+					<filters allow_4dsync_urls="true"/>
+                                                                    				</options>
+				<configuration automatic_session_management="false" ip_address="0" listening_address="::">
+					<hosts>
+						<host home_page="index.html" html_root="./DossierWeb/" id="0" name="Default"/>
+                                  					</hosts>
+                            				</configuration>
+				<log tokens="">
+					<backup daily="" hourly="" mode="0" monthly="" size="0" weekly=""/>
+                            				</log>
+				<misc use_4dvar_comments="true"/>
+                                                      			</standalone_server>
+			<remote>
+				<misc/>
+				<options>
+					<web_processes timeout_for_inactives="5"/>
+					<cache cache_max_size="524288"/>
+					<web_passwords generic_web_user="1"/>
+					<filters allow_4dsync_urls="true"/>
+                                                                    				</options>
+				<configuration allow_ssl="false" automatic_session_management="false" ip_address="0"/>
+				<webservices>
+					<server allow_requests="false"/>
+                            				</webservices>
+                                                                      			</remote>
+                            		</web>
+		<general execute_host_database_event="true">
+			<mover always_display_dialog="2"/>
+		</general>
+		<deployment>
+			<options/>
+		</deployment>
+                                                  	</com.4d>
+    </preferences>

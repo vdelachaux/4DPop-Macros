@@ -1,0 +1,544 @@
+<HTML XMLNS:V="urn:schemas-microsoft-com:vml" XMLNS:O="urn:schemas-microsoft-com:office:office" XMLNS:W="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<LINK href="../../Common/style.css" rel="stylesheet" type="text/css">
+<TITLE>4DPop Macros</TITLE>
+<STYLE type="text/css">
+<!--
+.style3 {font-size: smaller}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<DIV class="Section1" align="left">
+  <HR>
+  <TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+    <TR>
+      <TD width="100"><IMG src="../../Common/4d.png" border="0"></TD>
+      <TD valign="middle"><TABLE width="100%" border="0" cellspacing="0" cellpadding="4" height="100%">
+          <TR>
+            <TD width="339"><H1>4DPop Macros</H1></TD>
+            <TD></TD>
+          </TR>
+          <TR>
+            <TD colspan="2"><IFRAME src="../../Common/Localisation.html" frameborder="0" scrolling="no" align="middle" height="40" width="100%" NORESIZE="true"></IFRAME></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+  </TABLE>
+</DIV>
+<DIV align="left">
+  <HR>
+  <P>4DPop Macros est un composant qui installe un certain nombre de macros qui viennent assister le développeur dans l'éditeur de méthodes.</P>
+  <HR>
+  <H2>Installation</H2>
+  <P>Placer le dossier <SPAN class="fileAndFolder">&quot;4DPop Macros.4dbase&quot;</SPAN> ou un alias de celui-ci dans le dossier <SPAN class="fileAndFolder">&quot;Components&quot;</SPAN> à côté de la structure de votre base de donnée puis ouvrez la base.</P>
+  <P>Les macros sont automatiquement installées et disponibles dans l'éditeur de méthode, elles peuvent êtres invoquées :</P>
+  <UL>
+    <LI>En cliquant sur le bouton <SPAN class="fileAndFolder">&quot;Macros&quot;</SPAN> de la barre d'outils de l'éditeur de méthode;
+    <LI>En double-cliquant sur leur nom dans les listes de bas de pied de l'éditeur de méthodes;
+    <LI>Pour certaines, signalées dans la colonne <SPAN class="fileAndFolder">"Menu"</SPAN> ci-dessous, dans le menu <SPAN class="fileAndFolder">&quot;Méthode&quot;</SPAN> ou le sous menu de l'item <SPAN class="fileAndFolder">&quot;Insérer macro&quot;</SPAN> du menu contextuel de l'éditeur;
+    <LI>Pour certaines encore, par un raccourci clavier indiqué dans la colonne <SPAN class="fileAndFolder">"Raccourci"</SPAN> du tableau ci-desssous;
+    <LI>Pour certaines enfin, dans la fenêtre de saisie prédictive. Le texte déclenchant est indiqué dans la colonne <SPAN class="fileAndFolder">"Saisie"</SPAN>.
+  </UL>
+  <P>Pour plus d'informations sur l'utilisation et le fonctionnement des macros, vous pouvez vous reportez à la documentation du mode développement de 4D.</P>
+  <P>Lorsque le composant est correctement installé et chargé, ce fichier d'aide est accessible en sélectionnant l'item <SPAN class="fileAndFolder">&quot;Aide de 4DPop Macros&quot;</SPAN> dans le menu &quot;<SPAN class="fileAndFolder">Aide&quot; </SPAN>de la base en cours de développement.</P>
+  <HR>
+  <H2>Macros installées</H2>
+  <TABLE width="98%" border="0" cellpadding="4" cellspacing="0" bordercolor="#999999">
+    <TR>
+      <TH width="14%" nowrap><DIV align="left">Nom</DIV></TH>
+      <TH width="61%"><DIV align="justify">Action</DIV></TH>
+      <TH width="5%"><DIV align="center">Menu</DIV></TH>
+      <TH width="4%"><DIV align="center">Saisie</DIV></TH>
+      <TH width="16%"><DIV align="center">Raccourci</DIV></TH>
+    </TR>
+    <TR valign="top">
+      <TD nowrap><HR>
+        <DIV align="left" class="macro">Refaire la dernière macro</DIV></TD>
+      <TD><HR>
+        <DIV>Relance la dernière macro exécutée dans la méthode en cours</DIV></TD>
+      <TD><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD><HR></TD>
+      <TD><HR>
+        <DIV align="center">+</DIV></TD>
+    </TR>
+    <TR valign="top">
+      <TD nowrap><HR>
+        <DIV align="left" class="macro">Déclarations…</DIV></TD>
+      <TD><HR>
+        <DIV>Aide à la déclaration des variables locales.</DIV></TD>
+      <TD><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD><HR></TD>
+      <TD><HR>
+        <DIV align="center">$</DIV></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top"><P><A href="http://www.screencast.com/t/lsdHwyCJij" target="_blank"><IMG src="../../Common/movie.png" name="Show the video..." width="32" height="32" border="0"></A></P></TD>
+            <TD width="1103"><DIV align="justify">
+                <P align="justify">Cette macros analyse le texte de la méthode en cours d'édition pour en extraire les variables locales et les paramètres. Elle affiche ensuite un dialogue d'aide à la déclaration des variables locales.</P>
+                <P align="justify">Dans ce dialogue, chaque ligne de la liste représente une variable locale ou un paramètre parmis ceux qui ont été détectés. Chaque objet est précédé d'une icône qui symbolise son type s'il est connu. Le &quot;Sens interdit&quot; signale une variable dont le type n'est pas encore connu. Un attribut typographique différent est appliqué aux différentes variable en fonction de son statut : </P>
+                <P><STRONG>Gras</STRONG> = Variable dont le type est connu, <u><STRONG>Gras </STRONG></u>+<u><STRONG> Souligné</STRONG></u> = Tableau de type connu, Italique = Type inconnu</P>
+                <P align="center"><IMG src="Images/declaration_1.png" alt="1" width="627" height="584" hspace="0"></P>
+                <P align="justify">La partie droite de la fenêtre permet de régler les attributs de l'objet sélectionné : Variable ou Tableau, Type et éventuellement longueur. Les lettres en rouges rappellent les raccourcis clavier.</P>
+                <P align="justify">Une fois toutes les attributs fixés, un clic sur le bouton de validation referme le dialogue et les directives de compilations sont collées dans la méthode avant la première ligne non commentée. Les variables non typées sont ignorées, les déclarations qui étaient faites en cours de méthode, ainsi que les éventuels blocs déclaratifs antérieurs sont supprimés.</P>
+                <P align="center"><IMG src="Images/declaration_3.png" alt="3" width="583" height="560" hspace="0" border="1"></P>
+                <P align="justify">Lors de l'analyse, le type des variables et des paramètres est déduit de la lecture, s'il y en a, des directives de compilation rencontrées et de l'analyse du nom des variables. Si vous utilisez une nomenclature, l'assistant peut analyser la méthode selon vos règles vous évitant ainsi de renseigner les propriétés de chaque objet. Vous pouvez paramétrer les règles de nommage dans la page <SPAN class="fileAndFolder">&quot;Option&quot;</SPAN> du dialogue.</P>
+                <P align="center"><IMG src="Images/declaration_2.png" alt="2" width="627" height="584" hspace="0"></P>
+                <P align="justify">La  zone <SPAN class="fileAndFolder">&quot;Règle de syntaxe&quot;</SPAN>, à gauche, permet d'enregistrer les motifs qui seront reconnus pour chaque type de variable. Dans ce motif les caractères sont pris pour leur valeur excepté :</P>
+                <DIV align="justify">
+                  <UL>
+                    <UL>
+                      <LI>
+                        <DIV align="left">'*' qui signifie n'importe quel nombre de caractères</DIV>
+                      </LI>
+                      <LI>
+                        <DIV align="left">'\d' est équivalent à un caractère numérique</DIV>
+                      </LI>
+                    </UL>
+                  </UL>
+                  <P align="justify">Attention les motifs sont diacritiques.
+                    Si plusieurs motifs doivent êtres reconnus, ceux-ci seront séparés par une virgule (,)</P>
+                  <P align="justify"><B>Exemple</B> : Pour la ligne <STRONG>TABLEAU TEXTE</STRONG> de la figure ci-dessus &quot;*tTxt_*,*array_text*&quot; interprétera comme étant de type <STRONG>TABLEAU TEXTE</STRONG> toutes les variables contenant dans leur nom l'une de ces deux séquences soit, par exemple, la variable &quot;$tTxt_monTableau&quot; mais aussie à &quot;$Doc_tTxt_Documents&quot; et encore à &quot;$Document_array_text&quot; </P>
+                  <P align="justify">Deux autres options sont disponibles dans cette page</P>
+                  <UL>
+                    <LI><B>Une ligne par variable</B> : Si cette option est cochées les déclarations se feront effectivement à raison d'une variable par ligne. Dans le cas contraire, les variables sont regroupées par type dans une seule commande de déclaration jusqu'à concurrence du nombre de variables par ligne que vous avez paramétré dans la zone prévue à cet effet.</LI>
+                    <LI><B>Syntaxe de la méthode</B> : Si cette option est cochée la macro produit également avec le bloc de déclaration le bloc de déclaration à recopier dans les méthodes compiler (Ce code est collé dans un bloc <SPAN class="Code4D"><B>Si</B>(<B>Faux</B>)</SPAN>...<B class="Code4D">Fin de si</B> de telle sorte qu'il ne gène pas l'exécution de la méthode.</LI>
+                  </UL>
+                </DIV>
+                <HR align="JUSTIFY">
+                <P align="justify"><STRONG>Notes</STRONG> :</P>
+                <DIV align="justify">
+                  <UL>
+                    <LI>
+                      <DIV align="left">Les déclarations de tableau  dont la dimension est assignée grâce une variable, comme <SPAN class="Code4D"><STRONG>TABLEAU TEXTE</STRONG>($array;$Size)</SPAN>, ou bien à un nombre écrit en hexadécimal, comme <SPAN class="Code4D"><STRONG>TABLEAU TEXT</STRONG>($array;0x0000)</SPAN>, ne sont pas prises en compte. En d'autres termes, la déclaration du tableau ne sera pas reprise par l'assistant et cette ligne ne sera pas remontée en début de méthode. Ceci permet de cantoner des déclarations de tableaux qui ne sont pas utiles à l'ensemble de la méthode à une partie du code seulement.</DIV>
+                    </LI>
+                    <LI>
+                      <DIV align="left">Les tableaux à 2 dimensions ne sont pas gérés pour le moment, il est donc préférables de les initialiser avec des tailles exprimées en héxadecimal.</DIV>
+                    </LI>
+                    <LI>
+                      <DIV align="left">Si l'analyse détecte des appels de paramètres par indirection, <SPAN class="Code4D">${$i}</SPAN> par exemple, l'assistant poduira une ligne adéquate dans la liste des paramètres. Exemple : <SPAN class="Code4D"><STRONG>C_ENTIER</STRONG>($1)</SPAN> puis <SPAN class="Code4D"><STRONG>C_TEXTE</STRONG>(${2}</SPAN>)</DIV>
+                    </LI>
+                  </UL>
+                </DIV>
+              </DIV></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR valign="top">
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Sauvegarder la méthode</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV>L'exécution de cette macro sauvegarde le texte de la méthode en cours d'édition dans un document placé dans un dossier &quot;Method_Backup&quot; situé à côté du fichier structure. Si le dossier n'existe pas, celui-ci sera créé. La macro se charge d'ajouter un Nº de version derrière le nom pour ne pas écraser une version précédente.</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR>
+      </TD>
+    </TR>
+    <TR valign="top">
+      <TD nowrap><HR>
+        <DIV align="left" class="macro">Liste des variables locales</DIV></TD>
+      <TD><HR>
+        <DIV>Affiche la liste des variables locales de la méthode en cours d'édition.</DIV></TD>
+      <TD><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD><HR>
+        <DIV align="center">$</DIV></TD>
+      <TD><HR></TD>
+    </TR>
+    <TR valign="top">
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top"><A href="http://www.screencast.com/users/vdl/folders/4DPop/media/970a7f8c-0db0-40a1-a718-b9249185c67d" target="_blank"><IMG src="../../Common/movie.png" alt="" width="32" height="32" border="0"></A></TD>
+            <TD width="1331" valign="top"><TABLE width="100%" border="0" cellpadding="2" cellspacing="2">
+                <TR>
+                  <TD width="17%"><DIV align="center"><IMG src="Images/localevariables.png" alt="" width="224" height="541" align="baseline" /></DIV></TD>
+                  <TD width="83%" valign="top"><DIV align="justify">
+                      <P align="justify" class="style5 style8">La commande analyse la méthode en cours d'édition puis présente une liste des variables locales et des paramètres utilisés.</P>
+                      <P align="justify" class="style5 style8">Pour vous déplacer dans la liste, utilisez les touches <SPAN class="fileAndFolder">Flèche haute</SPAN> ou <SPAN class="fileAndFolder">Flèche bas</SPAN>, les touches <SPAN class="fileAndFolder">Début</SPAN> et <SPAN class="fileAndFolder">Fin</SPAN> de document.</P>
+                      <P align="justify" class="style5 style8">Vous pouvez également taper les premières lettres d'une variable (sans le $ initial) pour  sélectionner plus rapidement une ligne.</P>
+                      <P align="justify" class="style5 style8">Pour coller le nom d'une variable ou d'un paramètre dans l'éditeur de méthode, il faut soit double cliquer sur une ligne soit, sélectionner l'une d'elles et taper <SPAN class="fileAndFolder">Enter</SPAN> ou <SPAN class="fileAndFolder">Tabulation</SPAN> ou <SPAN class="fileAndFolder">Retour chariot</SPAN></P>
+                      <P align="justify" class="style5 style8">Il est possible de refermer la fenêtre sans rien coller dans la méthode en cliquant sur la croix rouge de la barre de titre ou en tapant la touche <SPAN class="fileAndFolder">Escape</SPAN>.</P>
+                      <P align="justify" class="style5 style8">En cas d'inactivité, la fenêtre se fermera automatiquement au bout de 30 secondes.</P>
+                      <P align="justify" class="style5 style8"><STRONG>Note</STRONG> : Cette macro est associée au caractère $ en saisie prédictive. Il suffit ainsi de tapez &quot;$&quot; puis tabulation pour faire apparaître la liste des variables locales de la méthode.</P>
+                    </DIV></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR valign="top">
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Liste des groupes</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="justify">Affiche une liste des groupes paramétrés dans la base courante.</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">_g </DIV></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top">&nbsp;</TD>
+            <TD width="1056" valign="top"><TABLE width="100%" border="0" cellpadding="2" cellspacing="2">
+                <TR>
+                  <TD width="26%"><DIV align="center"><IMG src="Images/groups.png" alt="" width="277" height="93" align="baseline" /></DIV></TD>
+                  <TD width="74%" valign="top"><P align="justify" class="style5 style8">La liste des groupes (nom et ID) tels qu'ils sont paramétrés dans le panneau des groupes de la boîte à outils est présentée dans une fenêtre popup.</P>
+                    <P align="justify" class="style5 style8">Pour coller le nom du groupe sélectionné dans la méthode au niveau du point d'insertiopn, il suffit de taper un retour chariot ou double cliquer dessus. Si la touche Option/Alt est enfoncée, c'est l'ID du groupe qui est collée dans l'éditeur de méthode.</P></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR valign="top">
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Liste des utilisateurs</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="justify">Affiche une liste des utilisateurs paramétrés dans la base courante.</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">_u</DIV></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top">&nbsp;</TD>
+            <TD width="1056" valign="top"><TABLE border="0" cellpadding="2" cellspacing="2">
+                <TR>
+                  <TD height="70"><DIV align="center"><IMG src="Images/users.png" alt="" width="252" height="61" align="baseline" /></DIV></TD>
+                  <TD valign="top"><P align="justify" class="style5 style8">La liste des <SPAN class="macro">utilisateurs</SPAN> (nom et ID) tels qu'ils sont paramétrés dans le panneau des <SPAN class="macro">utilisateurs</SPAN> de la boîte à outils est présentée dans une fenêtre popup.</P>
+                    <P align="justify" class="style5 style8">Pour coller le nom de <SPAN class="macro">l'utilisateur </SPAN>sélectionné dans la méthode au niveau du point d'insertiopn, il suffit de taper un retour chariot ou double cliquer dessus. Si la touche Option/Alt est enfoncée, c'est l'ID de l'utilisateur qui est collée dans l'éditeur de méthode.</P></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Copier &amp; remplacer</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="justify">Remplace le sélection par le contenu du presse-papiers tout en y conservant cette dernière</DIV></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">©</DIV></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top"><A href="http://www.screencast.com/t/RX64S07SG" target="_blank"><IMG src="../../Common/movie.png" alt="" width="32" height="32" border="0"></A></TD>
+            <TD width="1056" valign="top"><P align="justify" class="style5 style8">Cette macro se révèle souvent utile même si l'explication de son fonctionnement paraît complexe.</P>
+              <P align="justify" class="style5 style8">Le scénario d'utilisation est le suivant : </P>
+              <P align="justify" class="style5 style8">Vous tapez du code faisant référence à une expression calculée puis vous constatez que vous avez plus loin à nouveau besoin de cette expression et décidez de placer l'expression dans une variable intermédiaire. Il faut dans ce cas taper <SPAN class="Code4D">$maVariable:=MonExpression</SPAN> puis allez remplacer <SPAN class="Code4D">MonExpression&quot; par &quot;$maVariable</SPAN>.</P>
+              <P align="justify" class="style5 style8">Avec la macro vous tapez <SPAN class="Code4D">$maVariable</SPAN> et copiez ce texte. Vous sélectionnez <SPAN>MonExpression</SPAN> et invoquez la macros : <SPAN>&quot;MonExpression&quot;</SPAN> est placé dans le presse-papiers et remplacé par <SPAN>&quot;$maVariable&quot;</SPAN>. Vous positionnez le curseur après le texte &quot;<SPAN>$maVariable</SPAN>&quot; et tapez <SPAN class="Code4D">:=</SPAN> puis collez le contenu du presse-papiers pour obtenir <SPAN class="Code4D">$maVariable:=MonExpression</SPAN>.</P></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Collage spécial</DIV></TD>
+      <TD valign="top"><HR>
+        Coller le texte contenu dans le presse-papiers dans différents formats.</TD>
+      <TD align="center" valign="top"><HR>
+        oui</TD>
+      <TD align="center" valign="top"><HR>
+        _p</TD>
+      <TD align="center" valign="top"><HR>
+        ◊</TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top">&nbsp;</TD>
+            <TD width="1004" valign="top"><P align="justify">La commande affiche un dialogue permettant de choisir le format du texte qui sera collé dans l'éditeur de méthode. La zone de &quot;Résultat&quot; permet de visualiser le texte tel qu'il sera collé.</P>
+              <P align="center">.<IMG src="Images/SpecialPaste.png" width="984" height="775"></P>
+              <P align="justify">Les formats disponibles sont :</P>
+              <OL>
+                <LI><STRONG>Chaîne</STRONG> : Le texte est collé entre deux guillemets, les caractères spéciaux sont échappés (\r, \n, \t et \&quot;).</LI>
+                <LI><STRONG>Commentaires</STRONG> : Chaque ligne est précédé d'une marque de commentaire, le texte n'est pas modifié.</LI>
+                <LI><STRONG>HTML</STRONG> : Le code html contenu dans le presse-papiers est affecté à une variable  locale. Les caractères sont échappés.
+                  <BLOCKQUOTE>
+                    <P>Exemple, le texte : </P>
+                  </BLOCKQUOTE>
+                </LI>
+                <BLOCKQUOTE>
+                  <BLOCKQUOTE>
+                    <BLOCKQUOTE>
+                      <BLOCKQUOTE>
+                        <P>&lt;TR&gt;<BR>
+                            &lt;TD valign=&quot;top&quot; nowrap&gt;&lt;HR&gt;<BR>
+                              &lt;DIV align=&quot;left&quot; class=&quot;macro&quot;&gt;Insérer une couleur&lt;/DIV&gt;&lt;/TD&gt;<BR>
+                            &lt;TD valign=&quot;top&quot;&gt;&lt;HR&gt;&lt;/TD&gt;<BR>
+                            &lt;TD valign=&quot;top&quot;&gt;&lt;HR&gt;&lt;/TD&gt;<BR>
+                            &lt;TD valign=&quot;top&quot;&gt;&lt;HR&gt;&lt;/TD&gt;<BR>
+                            &lt;TD valign=&quot;top&quot;&gt;&lt;HR&gt;&lt;/TD&gt;<BR>
+                          &lt;/TR&gt;</P>
+                      </BLOCKQUOTE>
+                    </BLOCKQUOTE>
+                  </BLOCKQUOTE>
+                  <P>sera collé sous cette forme :</P>
+                  <BLOCKQUOTE>
+                    <BLOCKQUOTE>
+                      <P class="Code4D"><STRONG>C_TEXTE</STRONG>($Txt_HTML)<BR>
+                        <BR>
+                        $Txt_HTML:=&quot;&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;&lt;TR&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;TD valign=\&quot;top\&quot; nowrap&gt;&lt;HR&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;DIV align=\&quot;left\&quot; class=\&quot;macro\&quot;&gt;Insérer une couleur&lt;/DIV&gt;&lt;/TD&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;TD valign=\&quot;top\&quot;&gt;&lt;HR&gt;&lt;/TD&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;TD valign=\&quot;top\&quot;&gt;&lt;HR&gt;&lt;/TD&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;TD valign=\&quot;top\&quot;&gt;&lt;HR&gt;&lt;/TD&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;      &lt;TD valign=\&quot;top\&quot;&gt;&lt;HR&gt;&lt;/TD&gt;\r&quot;<BR>
+                        $Txt_HTML:=$Txt_HTML+&quot;    &lt;/TR&gt;\r&quot;</P>
+                    </BLOCKQUOTE>
+                  </BLOCKQUOTE>
+                </BLOCKQUOTE>
+                <LI><STRONG>Pattern regex</STRONG> : Colle le contenu texte du presse-papiers dans l'éditeur de méthode entre deux guillemets. Les caractères spéciaux du motif sont échappés pour pouvoir être utilisés comme tel en prenant en compte que l'antislash doit lui même être échappé dans 4D.<BR>
+                  Les caractère traités sont : </LI>
+                <BLOCKQUOTE>
+                  <TABLE border="0" align="center" cellpadding="4" cellspacing="0" bordercolor="#CCCCCC">
+                    <TR>
+                      <TD width="130" class="Code4D"><DIV align="center">*</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\*</DIV></TD>
+                      <TD width="50">&nbsp;</TD>
+                      <TD width="130" nowrap class="Code4D"><DIV align="center">}</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\}</DIV></TD>
+                    </TR>
+                    <TR>
+                      <TD width="130" class="Code4D"><DIV align="center">+</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\+</DIV></TD>
+                      <TD width="50">&nbsp;</TD>
+                      <TD width="130" nowrap class="Code4D"><DIV align="center">Espacement</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\s</DIV></TD>
+                    </TR>
+                    <TR>
+                      <TD width="130" class="Code4D"><DIV align="center">(</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\(</DIV></TD>
+                      <TD width="50">&nbsp;</TD>
+                      <TD width="130" nowrap class="Code4D"><DIV align="center">Retour chariot</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\r</DIV></TD>
+                    </TR>
+                    <TR>
+                      <TD width="130" class="Code4D"><DIV align="center">)</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\)</DIV></TD>
+                      <TD width="50">&nbsp;</TD>
+                      <TD width="130" nowrap class="Code4D"><DIV align="center">Tabulation</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\t</DIV></TD>
+                    </TR>
+                    <TR>
+                      <TD width="130" class="Code4D"><DIV align="center">{</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\{</DIV></TD>
+                      <TD width="50">&nbsp;</TD>
+                      <TD width="130" nowrap class="Code4D"><DIV align="center">Espace insecable</DIV></TD>
+                      <TD width="50"><DIV align="center">-&gt;</DIV></TD>
+                      <TD width="100" class="Code4D"><DIV align="center">\\xCA</DIV></TD>
+                    </TR>
+                  </TABLE>
+                </BLOCKQUOTE>
+              </OL>
+              <P>Pour certains formats des options de traitement sont disponibles :</P>
+              <OL>
+                <LI><EM><STRONG>Supprimer l'indentation</STRONG></EM> : Efface du texte collé tous les caractères invisibles en début et fin de ligne (espace, tabulation, espace insécable...).</LI>
+                <LI><EM><STRONG>Ignorer les lignes vides</STRONG></EM> : Ne prends pas en compte les lignes ne contenant aucun caractère. </LI>
+              </OL>
+              <P>Le derniers formats utilisé et les options sont mémorisés d'un appel à l'autre et d'une session à l'autre.</P></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap><HR>
+        <DIV align="left" class="macro">Coller une couleur</DIV></TD>
+      <TD valign="top"><HR>
+        Affiche la fenêtre système de sélection de couleur et colle au niveau du point d'insertion la valeur RVB , formattée en hexadécimal, de la couleur sélectionnée par l'utilisateur.</TD>
+      <TD align="center" valign="top"><HR>
+        oui
+        <DIV align="center"></DIV></TD>
+      <TD align="center" valign="top"><HR>
+        _c</TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Dupliquer et commenter</DIV></TD>
+      <TD valign="top"><HR>
+        Le texte sélectionné est sauvegardé sous forme de commentaire immédiatement avant la sélection. Ceci permet de garder du code avant de le modifier.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Editer commentaire…</DIV></TD>
+      <TD valign="top"><HR>
+        Cette commande propose une fenêtre de saisie pour les commentaires</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
+          <TR>
+            <TD width="40" valign="top">&nbsp;</TD>
+            <TD width="1004" valign="top"><P>Le texte sélectionné est copié et affiché dans unefenêtre d'édition dans laquelle vous pouvez saisir le commentaire sans vous soucier des contraintes de l'éditeur. Quand la saisie est validée, la macro ajoute, là où cela est nécessaire, les marques de commentaires.</P>
+              <P align="center"><IMG src="Images/EditComments.png" width="774" height="507"></P>
+              <P align="justify">Le bouton <SPAN class="fileAndFolder">&quot;Insérer&quot;</SPAN> permet de plus de coller dans le texte des tags qui seront remplacés par leur valeur au moment de la validation. Les tags disponibles sont : date, time, user_4d, user_os, version_4d, database_name, method_name, form_name.</P>
+              <P align="justify">Si il n'y a pas de texte sélectionné au moment de l'appel de cette macro, la zone de saisie est vide à l'ouverture et un nouveau commentaire sera inséré au niveau du point d'insertion si la saisie est validée.</P></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        MAJUSCULE</TD>
+      <TD valign="top"><HR>
+        Passe le texte sélectionné en majuscule.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        minuscule</TD>
+      <TD valign="top"><HR>
+        Passe le texte sélectionné en minuscule.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        camelCase</TD>
+      <TD valign="top"><HR>
+        Passe le texte sélectionné en notation camelCase : Les espaces et les soulignements bas sont supprimés. La première lettre de chaque mot est capitalisée. <SPAN class="Code4D">$ma_variable_texte</SPAN> sera transformé en <SPAN class="Code4D">$maVariableTexte</SPAN></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Texte vers html</DIV></TD>
+      <TD valign="top"><HR>
+        <P>Converti une expression texte en texte html. Exemple le texte :</P>
+        <P class="Code4D">Sélectioner un texte accentué pour obtenir sa traduction en code HTML</P>
+        <P>sera converti en :</P>
+        <P class="Code4D">S&amp;#233;lectioner un texte accentu&amp;#233; pour obtenir sa traduction en code HTML</P>
+        <P>La conversion est faite en utilisant les options de conversion de texte du serveur web de 4D <SPAN class="fileAndFolder">&quot;Préférences… &gt; Web &gt; Options &gt; Conversion texte&quot;</SPAN></P></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Texte vers UTF-8</DIV></TD>
+      <TD valign="top"><HR>
+        Converti le texte sélectionné est converti en UTF-8. Exemple : <SPAN class="Code4D">Génère</SPAN> sera transformé en <SPAN class="Code4D">G√©n√®re</SPAN></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">UTF-8 vers texte</DIV></TD>
+      <TD valign="top"><HR>
+        Effectue l'action inverse de la commande précédente.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Convertir en Hexa</DIV></TD>
+      <TD valign="top"><HR>
+        Cette commande converti la valeur numérique sélectionné en notation hexadécimale compatible avec l'éditeur de méthode.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Convertir en décimal</DIV></TD>
+      <TD valign="top"><HR>
+        Cette commande converti la valeur numérique écrite en hexadécimal en nombre décimal.</TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD valign="top" nowrap class="macro"><HR>
+        <DIV align="left">Expression inverse</DIV></TD>
+      <TD valign="top"><HR>
+        <P>Analyse les lignes sélectionnées et les traduit en leur expression inverse.</P></TD>
+      <TD valign="top"><HR>
+        <DIV align="center">oui</DIV></TD>
+      <TD valign="top"><HR></TD>
+      <TD valign="top"><HR></TD>
+    </TR>
+    <TR>
+      <TD colspan="5" valign="top" nowrap><TABLE width="94%" border="0" align="center" cellpadding="2" cellspacing="2">
+          <TR>
+            <TD width="1" valign="top">&nbsp;</TD>
+            <TD width="1303" valign="top"><P>Quelques exemples :</P>
+              <TABLE border="0" cellspacing="0" cellpadding="4">
+                <TR>
+                  <TD nowrap><DIV align="center" class="Code4D style3"><STRONG>ENTIER LONG VERS BLOB</STRONG>($Long;$Blob;<u>Ordre octets Macintosh</u>;*)</DIV></TD>
+                  <TD nowrap><DIV align="center" class="style3">-&gt;</DIV></TD>
+                  <TD nowrap><DIV align="center" class="Code4D style3">$Long:=<STRONG>BLOB vers entier long</STRONG>($Blob;<u>Ordre octets Macintosh</u>;*)</DIV></TD>
+                </TR>
+                <TR>
+                  <TD nowrap><DIV align="center" class="Code4D style3">$Text:=<STRONG>Chaine</STRONG> ($Long) </DIV></TD>
+                  <TD nowrap><DIV align="center" class="style3">-&gt;</DIV></TD>
+                  <TD nowrap><DIV align="center" class="Code4D style3">$Long:=<STRONG>Num</STRONG>($Text)</DIV></TD>
+                </TR>
+                <TR>
+                  <TD nowrap><DIV align="center" class="Code4D style3"><STRONG>ADJOINDRE ELEMENT</STRONG>([Table];&quot;ensemble&quot;)</DIV></TD>
+                  <TD nowrap><DIV align="center" class="style3">-&gt;</DIV></TD>
+                  <TD nowrap><DIV align="center" class="Code4D style3"><STRONG>ENLEVER ELEMENT</STRONG>([Table];&quot;ensemble&quot;)</DIV></TD>
+                </TR>
+                <TR>
+                  <TD nowrap><DIV align="center" class="Code4D style3"><STRONG>ENUMERATION VERS TABLEAU</STRONG> (&quot;Enumeration&quot;; $tTxt_Elements; $tLon_References)</DIV></TD>
+                  <TD nowrap><DIV align="center" class="style3">-&gt;</DIV></TD>
+                  <TD nowrap><DIV align="center" class="Code4D style3"><STRONG>TABLEAU VERS ENUMERATION</STRONG>($tTxt_Elements;&quot;Enumeration&quot;;$tLon_References)</DIV></TD>
+                </TR>
+              </TABLE>
+            <P>&nbsp;</P></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+  </TABLE>
+  <HR>
+  <H2>Code source fourni</H2>
+  <P>Ce composant est fourni en version compilée, mais vous trouverez le code source dans le dossier <SPAN class="fileAndFolder">&quot;SOURCES&quot;</SPAN> à l'intérieur du dossier du composant.</P>
+  <HR>
+  <H2>Forum</H2>
+  <P>Un forum  pour 4DPop est disponible à cette adresse : <A HREF="http://forums.4d.fr/Forum/FR/1467485/0/0" TITLE="4DPop Forum" TARGET="_blank" class="Command4D">Forum 4DPop</A></P>
+</DIV>
+</BODY>
+</HTML>

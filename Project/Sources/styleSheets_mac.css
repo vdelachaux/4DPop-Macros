@@ -1,0 +1,35 @@
+.Button {
+	font-family: Lucida Grande;
+	font-size: 13px;
+}
+
+.Par_défaut {
+	font-family: Lucida Grande;
+	font-size: 13px;
+}
+
+.System_Normal {
+	font-family: Lucida Grande;
+	font-size: 13px;
+}
+
+.System_Petit {
+	font-family: Lucida Grande;
+	font-size: 11px;
+}
+
+.xCode {
+	font-family: Monaco;
+	font-size: 10px;
+}
+
+.xList {
+	font-family: System Font;
+	font-size: 12px;
+}
+
+.xSystem {
+	font-family: System Font;
+	font-size: 13px;
+}
+

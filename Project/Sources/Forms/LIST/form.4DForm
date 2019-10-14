@@ -1,0 +1,286 @@
+﻿{
+	"destination": "detailScreen",
+	"windowSizingX": "fixed",
+	"windowSizingY": "fixed",
+	"formSizeAnchor": "ListBox",
+	"rightMargin": 0,
+	"bottomMargin": 0,
+	"markerHeader": 15,
+	"markerBody": 200,
+	"markerBreak": 220,
+	"markerFooter": 240,
+	"events": [
+		"onLoad",
+		"onClick",
+		"onActivate",
+		"onDeactivate",
+		"onBeforeKeystroke",
+		"onCloseBox",
+		"onUnload",
+		"onTimer",
+		"onAfterKeystroke",
+		"onSelectionChange"
+	],
+	"method": "method.4dm",
+	"pageFormat": {
+		"paperName": "US Letter",
+		"paperWidth": "612pt",
+		"paperHeight": "792pt",
+		"scale": 25600
+	},
+	"pages": [
+		{
+			"objects": {
+				"Rectangle1": {
+					"type": "rectangle",
+					"top": 0,
+					"left": 0,
+					"width": 210,
+					"height": 15,
+					"sizingX": "grow",
+					"fill": "automatic",
+					"stroke": "#C0C0C0"
+				},
+				"Variable2": {
+					"type": "input",
+					"top": 1,
+					"left": 17,
+					"width": 193,
+					"height": 13,
+					"sizingX": "grow",
+					"dataSource": "<>Txt_Title",
+					"class": "System_Petit",
+					"textAlign": "center",
+					"fill": "transparent",
+					"borderStyle": "none",
+					"enterable": false,
+					"contextMenu": "none",
+					"events": [
+						"onDataChange"
+					]
+				},
+				"Texte1": {
+					"type": "text",
+					"top": -2,
+					"left": 2,
+					"width": 10,
+					"height": 16,
+					"class": "Par_défaut",
+					"text": "x"
+				},
+				"Rectangle": {
+					"type": "rectangle",
+					"top": 1,
+					"left": 1,
+					"width": 12,
+					"height": 13,
+					"fill": "transparent",
+					"stroke": "#AAAAAA"
+				}
+			}
+		},
+		{
+			"objects": {
+				"ListBox": {
+					"type": "listbox",
+					"top": 16,
+					"left": 0,
+					"width": 210,
+					"height": 174,
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"dataSource": "<>tBoo_ListBox",
+					"hideFocusRing": true,
+					"sortable": false,
+					"movableRows": false,
+					"rowHeight": "16px",
+					"rowHeightAutoMin": "20px",
+					"rowHeightAutoMax": "20px",
+					"showHeaders": false,
+					"headerHeight": "17px",
+					"selectionMode": "single",
+					"scrollbarHorizontal": "hidden",
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"fontFamily": "Monaco",
+					"fontSize": 10,
+					"method": "ObjectMethods/ListBox.4dm",
+					"events": [
+						"onLoad",
+						"onDoubleClick",
+						"onSelectionChange"
+					],
+					"columns": [
+						{
+							"name": "M4DPop_tTxt_Labels",
+							"dataSource": "<>tTxt_Labels",
+							"width": 120,
+							"minWidth": 10,
+							"maxWidth": 32000,
+							"enterable": false,
+							"fontFamily": "Monaco",
+							"fontSize": 10,
+							"header": {
+								"name": "Entête1",
+								"text": "Entête1",
+								"fontFamily": "Monaco",
+								"fontSize": 10
+							},
+							"footer": {
+								"name": "Pied1",
+								"timeFormat": "hh_mm_ss",
+								"fontFamily": "Monaco",
+								"fontSize": 10
+							}
+						},
+						{
+							"name": "M4DPop_tTxt_Comments",
+							"dataSource": "<>tTxt_Comments",
+							"width": 120,
+							"minWidth": 10,
+							"maxWidth": 32000,
+							"enterable": false,
+							"fontFamily": "Monaco",
+							"fontSize": 10,
+							"events": [
+								"onClick",
+								"onDataChange"
+							],
+							"header": {
+								"name": "Entête2",
+								"text": "Entête2",
+								"fontFamily": "Monaco",
+								"fontSize": 10
+							},
+							"footer": {
+								"name": "Pied2",
+								"timeFormat": "hh_mm_ss",
+								"fontFamily": "Monaco",
+								"fontSize": 10
+							}
+						}
+					]
+				},
+				"Bouton invisible4": {
+					"type": "button",
+					"top": 244,
+					"left": 0,
+					"width": 82,
+					"height": 22,
+					"sizingY": "move",
+					"action": "cancel",
+					"shortcutKey": "w",
+					"shortcutAccel": true,
+					"class": "System_Petit",
+					"focusable": false,
+					"text": "close (W)",
+					"iconFrames": 4,
+					"style": "bevel",
+					"events": [
+						"onClick"
+					]
+				},
+				"_focus": {
+					"type": "input",
+					"top": 201,
+					"left": 0,
+					"width": 138,
+					"height": 12,
+					"sizingY": "move",
+					"dataSource": "<>Txt_buffer",
+					"class": "xCode",
+					"borderStyle": "none",
+					"contextMenu": "none",
+					"dragging": "none",
+					"dropping": "none",
+					"method": "ObjectMethods/_focus.4dm",
+					"events": [
+						"onBeforeKeystroke",
+						"onAfterEdit"
+					]
+				},
+				"Bouton invisible5": {
+					"type": "button",
+					"top": 223,
+					"left": 0,
+					"width": 82,
+					"height": 22,
+					"sizingY": "move",
+					"action": "accept",
+					"shortcutKey": "[Tab]",
+					"class": "System_Petit",
+					"focusable": false,
+					"text": "select (Tab)",
+					"iconFrames": 4,
+					"style": "bevel",
+					"events": [
+						"onClick"
+					]
+				},
+				"Bouton invisible2": {
+					"type": "button",
+					"top": 0,
+					"left": 0,
+					"width": 12,
+					"height": 15,
+					"shortcutKey": "[Esc]",
+					"display": false,
+					"method": "ObjectMethods/Bouton invisible2.4dm",
+					"events": [
+						"onClick"
+					]
+				},
+				"Bouton invisible1": {
+					"type": "button",
+					"top": 0,
+					"left": 13,
+					"width": 197,
+					"height": 15,
+					"sizingX": "grow",
+					"display": false,
+					"method": "ObjectMethods/Bouton invisible1.4dm",
+					"events": [
+						"onClick"
+					]
+				},
+				"Bouton invisible6": {
+					"type": "button",
+					"top": 223,
+					"left": 81,
+					"width": 102,
+					"height": 22,
+					"sizingY": "move",
+					"action": "accept",
+					"shortcutKey": "[Return]",
+					"class": "System_Petit",
+					"focusable": false,
+					"text": "select (retour)",
+					"iconFrames": 4,
+					"style": "bevel",
+					"events": [
+						"onClick"
+					]
+				},
+				"Bouton invisible3": {
+					"type": "button",
+					"top": 244,
+					"left": 81,
+					"width": 102,
+					"height": 22,
+					"sizingY": "move",
+					"action": "accept",
+					"shortcutKey": "[Enter]",
+					"class": "System_Petit",
+					"focusable": false,
+					"text": "select (enter)",
+					"iconFrames": 4,
+					"style": "bevel",
+					"events": [
+						"onClick"
+					]
+				}
+			}
+		}
+	]
+}

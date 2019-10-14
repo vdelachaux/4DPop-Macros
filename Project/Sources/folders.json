@@ -1,0 +1,158 @@
+﻿{
+	"_o_OBSOLETES": {
+		"methods": [
+			"_o_Preferences_Set"
+		]
+	},
+	"00_dev": {
+		"methods": [
+			"__test",
+			"_TEST",
+			"_test_choose",
+			"00_test_Dot_Notation",
+			"beautifier_test_1",
+			"beautifier_test_10",
+			"beautifier_test_11",
+			"beautifier_test_12",
+			"beautifier_test_13",
+			"beautifier_test_14",
+			"beautifier_test_15",
+			"beautifier_test_16",
+			"beautifier_test_17",
+			"beautifier_test_2",
+			"beautifier_test_3",
+			"beautifier_test_4",
+			"beautifier_test_5",
+			"beautifier_test_6",
+			"beautifier_test_7",
+			"beautifier_test_8",
+			"beautifier_test_9",
+			"beutifier_OB",
+			"createFR2USMacro",
+			"DECLARATION_Test",
+			"test_replace_o"
+		],
+		"forms": [
+			"TEST"
+		]
+	},
+	"class": {
+		"methods": [
+			"COMPILER_class",
+			"menu",
+			"str"
+		]
+	},
+	"Component": {
+		"groups": [
+			"private",
+			"shared"
+		]
+	},
+	"lib": {
+		"groups": [
+			"rgx",
+			"xml (thread-safe)"
+		]
+	},
+	"private": {
+		"methods": [
+			"ABOUT",
+			"Beautifier",
+			"Beautifier_init",
+			"beautifier_Next_semicolon",
+			"beautifier_Split_key_value",
+			"CODE_TO_EXECUTE",
+			"CODE_TO_EXECUTE_FORMULA",
+			"COMMENTS",
+			"Compiler_",
+			"COMPILER_component",
+			"DECLARATION",
+			"DOT_NOTATION",
+			"EXTRACT_LOCAL_VARIABLES",
+			"Get_resource",
+			"Get_Version",
+			"Init",
+			"INSTALL_LOCALIZED_MACROS",
+			"Install_regex",
+			"Install_resources",
+			"INVERT_EXPRESSION",
+			"METHOD_ANALYSE_TO_ARRAYS",
+			"METHOD_Syntax",
+			"METHODS",
+			"OPTIONS_GET",
+			"OPTIONS_SET",
+			"Preferences",
+			"Preferences_Get",
+			"Private_Boo_Paste_Regex_Pattern",
+			"Private_Lon_Declaration_Type",
+			"SETTINGS",
+			"Text_Decode",
+			"Text_Encode",
+			"util_Lon_array_declaration",
+			"util_Lon_Local_in_line",
+			"Util_SPLIT_METHOD"
+		],
+		"forms": [
+			"ABOUT",
+			"COMMENTS",
+			"CREATE_BUTTON",
+			"DECLARATIONS",
+			"LIST",
+			"SETTINGS",
+			"SPECIAL_PASTE"
+		]
+	},
+	"rgx": {
+		"methods": [
+			"Compiler_Rgx",
+			"Rgx_ExtractText",
+			"Rgx_Get_Pattern",
+			"Rgx_MatchText",
+			"rgx_NO_ERROR",
+			"rgx_Options",
+			"Rgx_SplitText",
+			"Rgx_SubstituteText"
+		]
+	},
+	"shared": {
+		"methods": [
+			"4DPop_MACROS",
+			"4DPop_MACROS_INIT",
+			"4DPop_MACROS_SETTINGS"
+		]
+	},
+	"Tools": {
+		"methods": [
+			"doc_gTxt_Add_DocumentToFolder",
+			"doc_gTxt_Add_Folder_To_Path",
+			"doc_gTxt_Files_And_Folders",
+			"doc_gTxt_Resolve_Alias",
+			"doc_SET_TYPE_AND_CREATOR",
+			"localizedControlFlow",
+			"NoError",
+			"Obj_CENTERED",
+			"str_FindBalencingChar",
+			"str_gLon_Hex_To_Long",
+			"str_hyphenation",
+			"util_array_Attributes",
+			"win_NOT_UNDER_TOOLBAR",
+			"win_title",
+			"xml_cleanup"
+		]
+	},
+	"xml (thread-safe)": {
+		"methods": [
+			"COMPILER_xml",
+			"xml_attributes",
+			"xml_elementToObject",
+			"xml_encode",
+			"xml_fileToObject",
+			"xml_findByName",
+			"xml_findElement",
+			"xml_NO_ERROR",
+			"xml_refToObject"
+		]
+	},
+	"trash": {}
+}

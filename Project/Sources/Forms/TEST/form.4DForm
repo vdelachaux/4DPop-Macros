@@ -1,0 +1,77 @@
+﻿{
+	"destination": "detailScreen",
+	"rightMargin": 19,
+	"bottomMargin": 20,
+	"markerHeader": 15,
+	"markerBody": 200,
+	"markerBreak": 220,
+	"markerFooter": 240,
+	"events": [
+		"onLoad",
+		"onValidate",
+		"onClick",
+		"onOutsideCall",
+		"onDoubleClick",
+		"onDrop",
+		"onMenuSelect",
+		"onPluginArea",
+		"onDataChange",
+		"onDragOver",
+		"onTimer",
+		"onAfterKeystroke",
+		"onAfterEdit",
+		"onBeginDragOver",
+		"onBoundVariableChange",
+		"onPageChange"
+	],
+	"pageFormat": {
+		"paperName": "A4",
+		"paperWidth": "595pt",
+		"paperHeight": "842pt"
+	},
+	"pages": [
+		null,
+		{
+			"objects": {
+				"Button": {
+					"type": "button",
+					"top": 48,
+					"left": 63,
+					"width": 180,
+					"height": 71,
+					"text": "Bouton",
+					"focusable": false,
+					"method": "ObjectMethods/Button.4dm",
+					"events": [
+						"onClick"
+					]
+				},
+				"Radio Button": {
+					"type": "radio",
+					"top": 185,
+					"left": 63,
+					"width": 159,
+					"height": 33,
+					"text": "Radio button",
+					"radioGroup": "Group1",
+					"method": "ObjectMethods/Radio Button.4dm",
+					"events": [
+						"onClick"
+					]
+				},
+				"Radio Button1": {
+					"type": "radio",
+					"top": 217,
+					"left": 63,
+					"width": 134,
+					"height": 19,
+					"text": "Radio button 2",
+					"radioGroup": "Group1",
+					"events": [
+						"onClick"
+					]
+				}
+			}
+		}
+	]
+}

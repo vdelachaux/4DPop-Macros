@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- 4DPop Macros by vincent de lachaux vincent@de-lachaux.net-->
+<M_4DPop>
+
+  <version>
+    <major>11</major>
+    <minor>0</minor>
+    <release>0</release>
+    <date>10/10/20007</date>
+  </version>
+
+  <preferences>
+    <options>LTM2Mzk5ODAyMA==</options>
+    <numberOfVariablePerLine>Ng==</numberOfVariablePerLine>
+    <backup_folder/>
+    <extension_folder/>
+    <resources_file/>
+    <specialPasteChoice>Mg==</specialPasteChoice>
+    <specialPasteOptions>MA==</specialPasteOptions>
+    <ignoreDeclarations>MQ==</ignoreDeclarations>
+    <version>MTM=</version>
+    <beautifier-options>MzI3Njc=</beautifier-options>
+  </preferences>
+
+  <declarations version="2">
+    <declaration type="113" value="*tObj_*"/>
+    <declaration type="112" value="*tTxt_*;*tPath_*;*tDom_*;*tDir_*;*tURL_*;*tFile_*"/>
+    <declaration type="111" value="*tNum_*"/>
+    <declaration type="110" value="*tPtr_*"/>
+    <declaration type="109" value="*tPic_*"/>
+    <declaration type="108" value="*tGmt_*"/>
+    <declaration type="106" value="*tLon_*;*tWin_*"/>
+    <declaration type="105" value="*tInt_*"/>
+    <declaration type="104" value="*tDat_*"/>
+    <declaration type="103" value="*tBoo_*"/>
+    <declaration type="102" value="*tBlb_*"/>
+    <declaration type="101" value="*ta(\d\d)_*"/>
+    <declaration type="15" value="*Var_*"/>
+    <declaration type="14" value="*Col_*;*Coll_*;*col_*"/>
+    <declaration type="13" value="*Obj_*;*Cat_*;*ds_*;*dc_*;*Ent_*;*Sel_*"/>
+    <declaration type="12" value="*Txt_*;*Dom_*;*Mnu_*;*Path_*;*Svg_*;*ICU_*;*Dir_*;*URL_*;*File_*;*Json_*;*Xml_*"/>
+    <declaration type="11" value="*Num_*"/>
+    <declaration type="10" value="*Ptr_*"/>
+    <declaration type="9" value="*Pic_*"/>
+    <declaration type="8" value="*Gmt_*;*Doc_*"/>
+    <declaration type="7" value="*Gph_*"/>
+    <declaration type="6" value="*Lon_*;*Lst_*;*Win_*"/>
+    <declaration type="5" value="*Int_*"/>
+    <declaration type="4" value="*Dat_*"/>
+    <declaration type="3" value="*Boo_*"/>
+    <declaration type="2" value="*Blb_*"/>
+    <declaration type="1" value="*a(\d\d)_*"/>
+  </declarations>
+
+</M_4DPop>

@@ -1,0 +1,57 @@
+﻿{
+	"destination": "detailScreen",
+	"windowSizingX": "fixed",
+	"windowSizingY": "fixed",
+	"width": 348,
+	"height": 296,
+	"markerHeader": 15,
+	"markerBody": 200,
+	"markerBreak": 220,
+	"markerFooter": 240,
+	"pageFormat": {
+		"paperName": "A4",
+		"paperWidth": "595pt",
+		"paperHeight": "842pt"
+	},
+	"pages": [
+		null,
+		{
+			"objects": {
+				"32": {
+					"type": "input",
+					"top": 20,
+					"left": 296,
+					"width": 32,
+					"height": 128,
+					"dataSourceTypeHint": "picture",
+					"fontFamily": "Lucida Grande",
+					"fontSize": 12,
+					"hideFocusRing": true,
+					"dragging": "custom",
+					"dropping": "none",
+					"events": [
+						"onDataChange"
+					]
+				},
+				"source": {
+					"type": "input",
+					"top": 20,
+					"left": 20,
+					"width": 256,
+					"height": 256,
+					"dataSourceTypeHint": "picture",
+					"fontFamily": "Lucida Grande",
+					"fontSize": 12,
+					"hideFocusRing": true,
+					"dragging": "none",
+					"method": "ObjectMethods/source.4dm",
+					"events": [
+						"onDataChange",
+						"onAfterEdit"
+					]
+				}
+			},
+			"entryOrder": []
+		}
+	]
+}

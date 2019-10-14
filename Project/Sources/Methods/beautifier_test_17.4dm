@@ -1,0 +1,4 @@
+//%attributes = {"invisible":true}
+  // BEGIN MULTILINE COMMENT\
+MULTILINE COMMENT\
+END MULTILINE COMMENT

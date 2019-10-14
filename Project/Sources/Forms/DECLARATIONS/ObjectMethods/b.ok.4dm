@@ -1,0 +1,1 @@
+CALL FORM:C1391(Current form window:C827;"DECLARATION";"SAVE")

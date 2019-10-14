@@ -1,0 +1,2 @@
+DECLARATION ("TYPE")
+  //Form.setType()

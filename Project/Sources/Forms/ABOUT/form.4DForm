@@ -1,0 +1,124 @@
+﻿{
+	"destination": "detailScreen",
+	"formSizeAnchor": "_fond",
+	"rightMargin": 0,
+	"bottomMargin": 0,
+	"markerHeader": 15,
+	"markerBody": 200,
+	"markerBreak": 220,
+	"markerFooter": 240,
+	"events": [
+		"onLoad",
+		"onUnload",
+		"onTimer"
+	],
+	"method": "method.4dm",
+	"pageFormat": {
+		"paperName": "A4",
+		"paperWidth": "595pt",
+		"paperHeight": "842pt"
+	},
+	"pages": [
+		null,
+		{
+			"objects": {
+				"_fond": {
+					"type": "rectangle",
+					"top": 0,
+					"left": 0,
+					"width": 205,
+					"height": 160,
+					"stroke": "#FFFFFF"
+				},
+				"_Background": {
+					"type": "input",
+					"top": 0,
+					"left": 0,
+					"width": 205,
+					"height": 160,
+					"dataSource": "<>About_Pict_Displayed",
+					"stroke": "#AAAAAA",
+					"class": "Par_défaut",
+					"borderStyle": "solid",
+					"enterable": false,
+					"contextMenu": "none"
+				},
+				"Titles_11": {
+					"type": "text",
+					"top": 5,
+					"left": 0,
+					"width": 205,
+					"height": 15,
+					"textAlign": "center",
+					"fontSize": 13,
+					"fontStyle": "italic",
+					"text": "S c o m b e r     s c o m b r u s"
+				},
+				"Titles_21": {
+					"type": "text",
+					"top": 3,
+					"left": 27,
+					"width": 120,
+					"height": 16,
+					"visibility": "hidden",
+					"class": "xSystem",
+					"fontWeight": "bold",
+					"text": "4DPop Macros"
+				},
+				"Variable1": {
+					"type": "input",
+					"top": 35,
+					"left": 28,
+					"width": 169,
+					"height": 91,
+					"dataSource": "<>About_Txt_Displayed",
+					"stroke": "#0000FF",
+					"class": "xCode",
+					"fontWeight": "bold",
+					"fill": "transparent",
+					"borderStyle": "none",
+					"enterable": false,
+					"contextMenu": "none",
+					"events": [
+						"onDataChange"
+					]
+				},
+				"Titles_2": {
+					"type": "text",
+					"top": 139,
+					"left": 10,
+					"width": 188,
+					"height": 15,
+					"stroke": "#444444",
+					"textAlign": "right",
+					"fontSize": 12,
+					"text": "v i n c e n t   d e   l a c h a u x  "
+				},
+				"Titles_12": {
+					"type": "text",
+					"top": 140,
+					"left": 18,
+					"width": 180,
+					"height": 16,
+					"stroke": "#444444",
+					"textAlign": "right",
+					"fontSize": 13,
+					"text": "<◊Txt_Buffer>"
+				},
+				"Bouton invisible1": {
+					"type": "button",
+					"top": 5,
+					"left": 4,
+					"width": 194,
+					"height": 150,
+					"action": "cancel",
+					"display": false,
+					"method": "ObjectMethods/Bouton invisible1.4dm",
+					"events": [
+						"onClick"
+					]
+				}
+			}
+		}
+	]
+}
