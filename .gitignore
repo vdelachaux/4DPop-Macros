@@ -20,9 +20,6 @@ Settings/
 
 # Ignore Trash
 Project/Trash/
+
+# Others
 Resources/Macro_FR_US.xml
-Preferences/4DPop
-Preferences/4DPop Explorer.json
-Preferences/4DPop XLIFF.settings
-Preferences/4DPop XLIFF.xml
-Settings/backup.4DSettings
