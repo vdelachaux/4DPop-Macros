@@ -64,6 +64,8 @@
 			"beautifier_Split_key_value",
 			"CODE_TO_EXECUTE",
 			"CODE_TO_EXECUTE_FORMULA",
+			"codeForCollection",
+			"codeForObject",
 			"COMMENTS",
 			"Compiler_",
 			"COMPILER_component",

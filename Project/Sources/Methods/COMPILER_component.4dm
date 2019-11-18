@@ -42,6 +42,14 @@ ARRAY TEXT:C222(M_4DPop_tTxt_Buffer;0)
 
 If (False:C215)
 	
+	C_TEXT:C284(codeForCollection ;$0)
+	C_COLLECTION:C1488(codeForCollection ;$1)
+	C_TEXT:C284(codeForCollection ;$2)
+	
+	C_TEXT:C284(codeForObject ;$0)
+	C_OBJECT:C1216(codeForObject ;$1)
+	C_TEXT:C284(codeForObject ;$2)
+	
 	C_OBJECT:C1216(macro ;$0)
 	C_TEXT:C284(macro ;$1)
 	C_OBJECT:C1216(macro ;$2)
