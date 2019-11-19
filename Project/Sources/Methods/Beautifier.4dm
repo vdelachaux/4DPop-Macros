@@ -554,24 +554,26 @@ If (Length:C16($Txt_code)>0)
 			  // #18-8-2017
 			If ($Lon_options ?? 15)
 				
-				  //If (0=Rgx_ExtractText ("(?mi-s)^(?=.*/{2}[^%#:<-=…_}\\]\\s])(.*/{2})([^$/]*)$";$Txt_lineCode;"1 2";->$tTxt_2D_result))
-				If (0=Rgx_ExtractText ("(?mi-s)^(?=.*/{2}[^%#:<-=…_}\\]\\s])([^/]*/{2})([^$/]*)$";$Txt_lineCode;"1 2";->$tTxt_2D_result))
+				If (Not:C34(Match regex:C1019("(?m-si)(.)\\1{4,}";$Txt_lineCode;1)))  // Not for a comment with at least 5 occurrences of the same character
 					
-					If (Size of array:C274($tTxt_2D_result{1})>1)
+					If (0=Rgx_ExtractText ("(?mi-s)^(?=.*/{2}[^%#:<-=…_}\\]\\s])([^/]*/{2})([^$/]*)$";$Txt_lineCode;"1 2";->$tTxt_2D_result))
 						
-						If (Length:C16($tTxt_2D_result{1}{2})>1)
+						If (Size of array:C274($tTxt_2D_result{1})>1)
 							
-							If (Position:C15(Uppercase:C13($tTxt_2D_result{1}{2}[[2]];*);$tTxt_2D_result{1}{2};1;*)#2)
+							If (Length:C16($tTxt_2D_result{1}{2})>1)
 								
-								$tTxt_2D_result{1}{2}[[1]]:=Uppercase:C13($tTxt_2D_result{1}{2}[[1]];*)
+								If (Position:C15(Uppercase:C13($tTxt_2D_result{1}{2}[[2]];*);$tTxt_2D_result{1}{2};1;*)#2)
+									
+									$tTxt_2D_result{1}{2}[[1]]:=Uppercase:C13($tTxt_2D_result{1}{2}[[1]];*)
+									
+								End if 
 								
-							End if 
-							
-							If (($tTxt_2D_result{1}{1}+$tTxt_2D_result{1}{2})=$Txt_lineCode)
-								
-								
-								$Txt_lineCode:=$tTxt_2D_result{1}{1}+" "+$tTxt_2D_result{1}{2}
-								
+								If (($tTxt_2D_result{1}{1}+$tTxt_2D_result{1}{2})=$Txt_lineCode)
+									
+									
+									$Txt_lineCode:=$tTxt_2D_result{1}{1}+" "+$tTxt_2D_result{1}{2}
+									
+								End if 
 							End if 
 						End if 
 					End if 

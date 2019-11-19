@@ -15,5 +15,4 @@ If (Not:C34($o.exists))
 		$oo.copyTo($o.parent;"4DPop Macros.test")
 		
 	End if 
-	
 End if 
