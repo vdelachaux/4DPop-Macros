@@ -1,6 +1,6 @@
 //%attributes = {}
-C_LONGINT:C283($Lon_i;$Lon_id)
-C_TEXT:C284($Dom_buffer;$Dom_root;$Dom_target;$Txt_buffer;$Txt_command)
+C_LONGINT:C283($i;$Lon_id)
+C_TEXT:C284($cmd;$Dom_root;$Dom_target;$node;$t)
 
 ARRAY TEXT:C222($tDom_commands;0)
 
@@ -14,40 +14,40 @@ If (OK=1)
 		
 		$Dom_target:=DOM Create XML Ref:C861("macros")
 		
-		$Dom_buffer:=DOM Get XML document ref:C1088($Dom_target)
-		$Dom_buffer:=DOM Append XML child node:C1080($Dom_buffer;XML DOCTYPE:K45:19;"macros SYSTEM \"http://www.4d.com/dtd/2007/macros.DTD\"")
+		$node:=DOM Get XML document ref:C1088($Dom_target)
+		$node:=DOM Append XML child node:C1080($node;XML DOCTYPE:K45:19;"macros SYSTEM \"http://www.4d.com/dtd/2007/macros.DTD\"")
 		
-		For ($Lon_i;1;Size of array:C274($tDom_commands);1)
+		For ($i;1;Size of array:C274($tDom_commands);1)
 			
-			DOM GET XML ATTRIBUTE BY NAME:C728($tDom_commands{$Lon_i};"id";$Lon_id)
+			DOM GET XML ATTRIBUTE BY NAME:C728($tDom_commands{$i};"id";$Lon_id)
 			
 			If (OK=1)
 				
-				$Txt_command:=Command name:C538($Lon_id)
+				$cmd:=Command name:C538($Lon_id)
 				
 				If (OK=1)
 					
-					If (Length:C16($Txt_command)>0)\
-						 & (Position:C15("_o_";$Txt_command)#1)\
-						 & (Position:C15("_4D";$Txt_command)#1)
+					If (Length:C16($cmd)>0)\
+						 & (Position:C15("_o_";$cmd)#1)\
+						 & (Position:C15("_4D";$cmd)#1)
 						
-						$Dom_buffer:=DOM Find XML element:C864($tDom_commands{$Lon_i};"trans-unit/target")
+						$node:=DOM Find XML element:C864($tDom_commands{$i};"trans-unit/target")
 						
 						If (OK=1)
 							
-							DOM GET XML ELEMENT VALUE:C731($Dom_buffer;$Txt_buffer)
+							DOM GET XML ELEMENT VALUE:C731($node;$t)
 							
-							If (Length:C16($Txt_buffer)>0)\
-								 & (Position:C15("_o_";$Txt_buffer)#1)\
-								 & ($Txt_buffer#$Txt_command)
+							If (Length:C16($t)>0)\
+								 & (Position:C15("_o_";$t)#1)\
+								 & ($t#$cmd)
 								
-								$Dom_buffer:=DOM Create XML element:C865($Dom_target;"macro";\
+								$node:=DOM Create XML element:C865($Dom_target;"macro";\
 									"in_menu";"false";\
 									"in_toolbar";"false";\
-									"name";$Txt_buffer)
+									"name";$t)
 								
-								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($Dom_buffer;"text");\
-									$Txt_command)
+								DOM SET XML ELEMENT VALUE:C868(DOM Create XML element:C865($node;"text");\
+									$cmd)
 								
 							End if 
 						End if 
@@ -56,15 +56,14 @@ If (OK=1)
 			End if 
 		End for 
 		
-		DOM EXPORT TO FILE:C862($Dom_target;Get 4D folder:C485(Current resources folder:K5:16)+"FR_US.xml")
+		DOM EXPORT TO FILE:C862($Dom_target;Get 4D folder:C485(Current resources folder:K5:16)+"FR_US Commands.xml")
 		
 		DOM CLOSE XML:C722($Dom_target)
 		
-		SHOW ON DISK:C922(Get 4D folder:C485(Current resources folder:K5:16)+"FR_US.xml")
+		SHOW ON DISK:C922(Get 4D folder:C485(Current resources folder:K5:16)+"FR_US Commands.xml")
 		
 	End if 
 	
 	DOM CLOSE XML:C722($Dom_root)
 	
 End if 
-
