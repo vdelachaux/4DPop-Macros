@@ -42,6 +42,11 @@ $Txt_entryPoint:=$1
 Case of 
 		
 		  //______________________________________________________
+	: ($Txt_entryPoint="commentBlock")  // 
+		
+		SET MACRO PARAMETER:C998(Highlighted method text:K5:18;"/*\r"+$2+"\r*/")
+		
+		  //______________________________________________________
 	: ($Txt_entryPoint="duplicateAndComment")  // Duplicate the selected text and comment the first instance
 		
 		If (Length:C16($2)>0)
@@ -376,7 +381,7 @@ Case of
 							  //……………………………………………………………
 						: (Position:C15($tTxt_controlFlow{15};<>tTxt_lines{$i})=1)  //End for each
 							
-							$Lon_index:=--14
+							$Lon_index:=-14
 							
 							  //……………………………………………………………
 						Else 

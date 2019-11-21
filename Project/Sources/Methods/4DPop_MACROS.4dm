@@ -531,6 +531,11 @@ Case of
 		OPEN URL:C673("www.google.fr/search?q="+$Obj_macro.highlighted)
 		
 		  //______________________________________________________
+	: ($Txt_action="commentBlock")
+		
+		COMMENTS ("commentBlock";$Obj_macro.highlighted)
+		
+		  //______________________________________________________
 	: ($Txt_action="duplicateAndComment")
 		
 		COMMENTS ("duplicateAndComment";$Obj_macro.highlighted)
