@@ -2,7 +2,7 @@ C_LONGINT:C283($Lon_type)
 
 If (Self:C308->=1)
 	
-	If ((<>b7+<>b8+<>b15)=0)  //(<>b2=0) & (<>b7=0) & (<>b8=0)
+	If ((<>b7+<>b8+<>b14+<>b15)=0)  //(<>b2=0) & (<>b7=0) & (<>b8=0)
 		
 		GET LIST ITEM PARAMETER:C985((Form:C1466.list)->;*;"type";$Lon_type)
 		

@@ -48,12 +48,12 @@ C_BOOLEAN:C305($Boo_2Darray;$Boo_comments;$Boo_parameter;$Boo_updateComments)
 C_LONGINT:C283($i;$l;$Lon_appearance;$Lon_command;$Lon_count;$Lon_currentLength)
 C_LONGINT:C283($Lon_currentType;$Lon_dimensions;$Lon_end_ii;$Lon_error;$Lon_firstIndice;$Lon_icon)
 C_LONGINT:C283($Lon_ignoreDeclarations;$Lon_ii;$Lon_j;$Lon_length;$Lon_parameters;$Lon_reference)
-C_LONGINT:C283($Lon_size;$Lon_stringLength;$Lon_styles;$Lon_type;$Lon_variableNumber;$Lon_variablePerLine)
-C_LONGINT:C283($Lon_version;$Lon_x)
+C_LONGINT:C283($Lon_size;$Lon_stringLength;$Lon_styles;$Lon_type;$Lon_variablePerLine;$Lon_version)
+C_LONGINT:C283($Lon_x;$number)
 C_POINTER:C301($Ptr_array)
 C_TEXT:C284($Dom_node;$Dom_root;$t;$tt;$Txt_declarations;$Txt_entryPoint)
 C_TEXT:C284($Txt_method;$Txt_name;$Txt_patternNonLocalVariable;$Txt_patternParameter)
-C_OBJECT:C1216($file;$o;$Obj_menu;$Obj_menuBar;$oo)
+C_OBJECT:C1216($file;$menu;$o;$Obj_menuBar;$oo)
 C_COLLECTION:C1488($c;$Col_arrays;$Col_directives;$Col_settings;$Col_type)
 
 If (False:C215)
@@ -73,7 +73,7 @@ If ($Lon_parameters=0)  // Display the dialog
 	
 	$file:=File:C1566("/RESOURCES/declarations.settings")
 	
-	If ($file.exists)
+	If (Asserted:C1132($file.exists;"missing file: "+$file.path))
 		
 		$o:=JSON Parse:C1218($file.getText())
 		$o.directives:=New collection:C1472
@@ -104,8 +104,8 @@ If ($Lon_parameters=0)  // Display the dialog
 			"method";win_title (Frontmost window:C447);\
 			"settings";$o;\
 			"controlFlow";$c;\
-			"refresh";Formula:C1597(CALL FORM:C1391(Current form window:C827;"DECLARATION";"DISPLAY"));\
-			"setType";Formula:C1597(CALL FORM:C1391(Current form window:C827;"DECLARATION";"TYPE"))\
+			"refresh";Formula:C1597(DECLARATION ("DISPLAY"));\
+			"setType";Formula:C1597(DECLARATION ("TYPE"))\
 			)
 		
 		$l:=Open form window:C675("DECLARATIONS";Movable form dialog box:K39:8;*)
@@ -250,6 +250,9 @@ Else
 				
 			End if 
 			
+			(OBJECT Get pointer:C1124(Object named:K67:5;"spinner"))->:=0
+			OBJECT SET VISIBLE:C603(*;"spinner";False:C215)
+			
 			  //______________________________________________________
 		: ($Txt_entryPoint="SAVE")
 			
@@ -258,18 +261,18 @@ Else
 			
 			If (Is a list:C621((Form:C1466.list)->))
 				
-				$Lon_variableNumber:=Count list items:C380((Form:C1466.list)->;*)
+				$number:=Count list items:C380((Form:C1466.list)->;*)
 				
-				If ($Lon_variableNumber>0)
+				If ($number>0)
 					
 					Preferences ("Get_Value";"numberOfVariablePerLine";->$Lon_variablePerLine)
 					
-					ARRAY TEXT:C222($tTxt_Names;$Lon_variableNumber)
-					ARRAY LONGINT:C221($tLon_Declaration_Types;$Lon_variableNumber)
-					ARRAY LONGINT:C221($tLon_Sizes;$Lon_variableNumber)
-					ARRAY LONGINT:C221($tLon_sortOrder;$Lon_variableNumber)
+					ARRAY TEXT:C222($tTxt_Names;$number)
+					ARRAY LONGINT:C221($tLon_Declaration_Types;$number)
+					ARRAY LONGINT:C221($tLon_Sizes;$number)
+					ARRAY LONGINT:C221($tLon_sortOrder;$number)
 					
-					For ($i;1;$Lon_variableNumber;1)
+					For ($i;1;$number;1)
 						
 						GET LIST ITEM:C378((Form:C1466.list)->;$i;$Lon_reference;$tTxt_Names{$i})
 						GET LIST ITEM PARAMETER:C985((Form:C1466.list)->;$Lon_reference;"type";$tLon_Declaration_Types{$i})
@@ -309,7 +312,7 @@ Else
 					$Col_settings:=$o.parametersDeclaration.combine($o.arraysDeclaration).combine($o.variablesDeclaration)
 					$Col_type:=$o.parametersDeclaration.extract("type").combine($o.arraysDeclaration.extract("type")).combine($o.variablesDeclaration.extract("type"))
 					
-					For ($i;1;$Lon_variableNumber;1)
+					For ($i;1;$number;1)
 						
 						$Txt_name:=$tTxt_Names{$i}
 						$Lon_type:=$tLon_Declaration_Types{$i}
@@ -390,7 +393,7 @@ Else
 										
 									End if 
 									
-									If ($i<$Lon_variableNumber)
+									If ($i<$number)
 										
 										If ($tLon_Declaration_Types{$i+1}<1000)
 											
@@ -413,7 +416,7 @@ Else
 									
 									$t:=Choose:C955($Lon_command=218;$t+Command name:C538($Lon_command)+"("+String:C10($tLon_Sizes{$i})+";"+$Txt_name+";0)"+"\r";$t+Command name:C538($Lon_command)+"("+$Txt_name+";0)"+"\r")
 									
-									If ($i<$Lon_variableNumber)
+									If ($i<$number)
 										
 										If ($tLon_Declaration_Types{$i+1}<100)
 											
@@ -547,9 +550,9 @@ Else
 					
 					  // Always insert at the beginning of the method
 					$Boo_comments:=True:C214
-					$Lon_variableNumber:=Size of array:C274(<>tTxt_lines)
+					$number:=Size of array:C274(<>tTxt_lines)
 					
-					For ($i;1;$Lon_variableNumber;1)
+					For ($i;1;$number;1)
 						
 						If ($Boo_comments)
 							
@@ -559,7 +562,7 @@ Else
 						
 						If ($Boo_comments)
 							
-							$Txt_method:=$Txt_method+<>tTxt_lines{$i}+("\r"*Num:C11($i<$Lon_variableNumber))
+							$Txt_method:=$Txt_method+<>tTxt_lines{$i}+("\r"*Num:C11($i<$number))
 							
 						Else 
 							
@@ -573,7 +576,7 @@ Else
 							If (<>tLon_Line_Statut{$i}=-1)\
 								 & (<>tLon_Line_Statut{0}>0)
 								
-								If ($i<$Lon_variableNumber)
+								If ($i<$number)
 									
 									$i:=$i+Num:C11(<>tLon_Line_Statut{$i+1}=-1)
 									<>tLon_Line_Statut{0}:=<>tLon_Line_Statut{0}-1
@@ -586,13 +589,13 @@ Else
 									
 									If ($i=1)
 										
-										$Txt_method:=$Txt_method+("\r"*Num:C11($i<$Lon_variableNumber))
+										$Txt_method:=$Txt_method+("\r"*Num:C11($i<$number))
 										
 									End if 
 									
 									$Txt_method:=Choose:C955(Length:C16(<>tTxt_lines{$i})=0;\
 										$Txt_method+Choose:C955(Position:C15(kCaret;$Txt_method)#(Length:C16($Txt_method)-8);"\r";"");\
-										$Txt_method+<>tTxt_lines{$i}+Choose:C955($i<$Lon_variableNumber;"\r";""))
+										$Txt_method+<>tTxt_lines{$i}+Choose:C955($i<$number;"\r";""))
 									
 								End if 
 							End if 
@@ -711,8 +714,8 @@ Else
 			
 			ARRAY TEXT:C222($tTxt_exceptions;0x0000)
 			
-			$Lon_variableNumber:=$c.length  //Size of array(<>tTxt_lines)
-			ARRAY LONGINT:C221(<>tLon_Line_Statut;$Lon_variableNumber)
+			$number:=$c.length  //Size of array(<>tTxt_lines)
+			ARRAY LONGINT:C221(<>tLon_Line_Statut;$number)
 			<>tLon_Line_Statut{0}:=0
 			
 			$Txt_patternParameter:="(?:\\$(?:\\d+)|(?:\\{\\d*\\})+)"
@@ -816,7 +819,7 @@ Else
 			End if 
 			  //==============================================================================================================
 			
-			For ($i;1;$Lon_variableNumber;1)
+			For ($i;1;$number;1)
 				
 				$Lon_size:=-1
 				CLEAR VARIABLE:C89($Lon_dimensions)
@@ -1622,13 +1625,13 @@ Else
 				End if 
 			End for 
 			
-			$Lon_variableNumber:=Size of array:C274($tTxt_local)
-			ARRAY LONGINT:C221($tLon_sortOrder;$Lon_variableNumber)
+			$number:=Size of array:C274($tTxt_local)
+			ARRAY LONGINT:C221($tLon_sortOrder;$number)
 			
-			If ($Lon_variableNumber>0)
+			If ($number>0)
 				
 				  //Put first the parameters with indirection
-				For ($i;1;$Lon_variableNumber;1)
+				For ($i;1;$number;1)
 					
 					$tLon_sortOrder{$i}:=2*Num:C11(Position:C15("{";$tTxt_local{$i})>0)
 					
@@ -1662,7 +1665,7 @@ Else
 				
 				(Form:C1466.list)->:=New list:C375
 				
-				For ($i;1;$Lon_variableNumber;1)
+				For ($i;1;$number;1)
 					
 					CLEAR VARIABLE:C89($Lon_type)
 					
@@ -1929,16 +1932,11 @@ Else
 			  //______________________________________________________
 		: ($Txt_entryPoint="_init")
 			
-			$Obj_menu:=menu 
-			$Obj_menu.append(":xliff:CommonClose";"closeWindow").shortcut("W")
-			$Obj_menu.append(":xliff:CommonMenuItemQuit").action(ak quit:K76:61).shortcut("Q")
-			
-			$Obj_menuBar:=menu .append(":xliff:CommonMenuFile";$Obj_menu)
-			
-			$Obj_menu:=menu .standardEditMenu()
-			$Obj_menuBar.append(":xliff:CommonMenuEdit";$Obj_menu)
-			
-			$Obj_menuBar.setBar()
+			menu .append(":xliff:CommonMenuFile";menu \
+				.append(":xliff:CommonClose";"closeWindow").shortcut("W")\
+				.append(":xliff:CommonMenuItemQuit").action(ak quit:K76:61).shortcut("Q"))\
+				.append(":xliff:CommonMenuEdit";menu .editMenu())\
+				.setBar()
 			
 			Compiler_ 
 			

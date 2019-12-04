@@ -138,7 +138,7 @@
 					"text": "A",
 					"fontTheme": "normal"
 				},
-				"Bouton radio12": {
+				"_12": {
 					"type": "radio",
 					"top": 57,
 					"left": 314,
@@ -151,13 +151,13 @@
 					"text": ":xliff:Text",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio12.4dm",
 					"events": [
 						"onClick"
 					],
-					"right": 450
+					"right": 450,
+					"method": "ObjectMethods/_12.4dm"
 				},
-				"Bouton radio6": {
+				"_6": {
 					"type": "radio",
 					"top": 83,
 					"left": 314,
@@ -170,13 +170,13 @@
 					"text": ":xliff:LongInteger",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio6.4dm",
+					"method": "ObjectMethods/_6.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio11": {
+				"_11": {
 					"type": "radio",
 					"top": 109,
 					"left": 314,
@@ -189,13 +189,13 @@
 					"text": ":xliff:Real",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio11.4dm",
+					"method": "ObjectMethods/_11.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio3": {
+				"_3": {
 					"type": "radio",
 					"top": 135,
 					"left": 314,
@@ -208,13 +208,13 @@
 					"text": ":xliff:Boolean",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio3.4dm",
+					"method": "ObjectMethods/_3.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio4": {
+				"_4": {
 					"type": "radio",
 					"top": 161,
 					"left": 314,
@@ -227,13 +227,13 @@
 					"text": ":xliff:Date",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio4.4dm",
+					"method": "ObjectMethods/_4.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"NotInArray_3": {
+				"NotInArray_8": {
 					"type": "radio",
 					"top": 187,
 					"left": 314,
@@ -246,13 +246,13 @@
 					"text": ":xliff:Time",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/NotInArray_3.4dm",
+					"method": "ObjectMethods/NotInArray_8.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio9": {
+				"_9": {
 					"type": "radio",
 					"top": 213,
 					"left": 314,
@@ -265,13 +265,13 @@
 					"text": ":xliff:Picture",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio9.4dm",
+					"method": "ObjectMethods/_9.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"NotInArray_1": {
+				"NotInArray_2": {
 					"type": "radio",
 					"top": 239,
 					"left": 314,
@@ -284,13 +284,13 @@
 					"text": ":xliff:BLOB",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/NotInArray_1.4dm",
+					"method": "ObjectMethods/NotInArray_2.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio10": {
+				"_10": {
 					"type": "radio",
 					"top": 265,
 					"left": 314,
@@ -303,13 +303,13 @@
 					"text": ":xliff:Pointer",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio10.4dm",
+					"method": "ObjectMethods/_10.4dm",
 					"events": [
 						"onClick"
 					],
 					"right": 450
 				},
-				"Bouton radio1": {
+				"_13": {
 					"type": "radio",
 					"top": 291,
 					"left": 314,
@@ -322,7 +322,7 @@
 					"text": ":xliff:Object",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio1.4dm",
+					"method": "ObjectMethods/_13.4dm",
 					"events": [
 						"onClick"
 					],
@@ -384,7 +384,7 @@
 						"onClick"
 					]
 				},
-				"Bouton radio2": {
+				"NotInArray_14": {
 					"type": "radio",
 					"top": 317,
 					"left": 314,
@@ -397,7 +397,7 @@
 					"text": ":xliff:Collection",
 					"focusable": false,
 					"radioGroup": "types",
-					"method": "ObjectMethods/Bouton radio2.4dm",
+					"method": "ObjectMethods/NotInArray_14.4dm",
 					"events": [
 						"onClick"
 					],
@@ -434,7 +434,8 @@
 					"events": [
 						"onDataChange"
 					],
-					"enterable": false
+					"enterable": false,
+					"focusable": false
 				},
 				"Texte2": {
 					"type": "text",
@@ -729,20 +730,20 @@
 			"entryOrder": [
 				"var.NotParameter",
 				"array.NotParameter",
-				"Bouton radio12",
-				"Bouton radio6",
-				"Bouton radio11",
-				"Bouton radio3",
-				"Bouton radio4",
-				"NotInArray_3",
-				"Bouton radio9",
-				"NotInArray_1",
-				"Bouton radio10",
-				"Bouton radio1",
+				"_12",
+				"_6",
+				"_11",
+				"_3",
+				"_4",
+				"NotInArray_8",
+				"_9",
+				"NotInArray_2",
+				"_10",
+				"_13",
 				"type_alpha",
 				"type_integer",
 				"type_graph",
-				"Bouton radio2",
+				"NotInArray_14",
 				"Alpha_Length",
 				"list.hresize",
 				"b.options.hmove",
@@ -765,13 +766,14 @@
 					"hideFocusRing": true,
 					"sortable": false,
 					"movableRows": false,
-					"rowHeight": "20px",
+					"rowHeight": "2em",
 					"rowHeightAutoMin": "20px",
 					"rowHeightAutoMax": "20px",
-					"headerHeight": "17px",
+					"headerHeight": "1em",
 					"selectionMode": "none",
 					"scrollbarHorizontal": "hidden",
 					"borderStyle": "none",
+					"verticalAlign": "top",
 					"columns": [
 						{
 							"name": "tTxt_Directive",

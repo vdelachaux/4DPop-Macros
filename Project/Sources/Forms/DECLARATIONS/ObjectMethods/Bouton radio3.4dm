@@ -1,1 +1,0 @@
-DECLARATION ("TYPE")
