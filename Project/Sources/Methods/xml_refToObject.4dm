@@ -57,4 +57,4 @@ $Obj_result[$Txt_name]:=xml_elementToObject ($Dom_rootReference;$Boo_references)
 $0:=$Obj_result
 
   // ----------------------------------------------------
-  // End
+  // End 

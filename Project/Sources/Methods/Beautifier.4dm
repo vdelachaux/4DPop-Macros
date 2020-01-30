@@ -353,7 +353,7 @@ If (Length:C16($Txt_code)>0)
 					APPEND TO ARRAY:C911($tLon_branchAndLoop;13)
 					
 					  //……………………………………………………………
-				: (Rgx_MatchText ("(?<!//)"+$tTxt_controlFlow{13}+"\\b";$Txt_lineCode)=0)  // End use
+				: (Rgx_MatchText ("(?<!//)"+$tTxt_controlFlow{13}+"\\b";$Txt_lineCode)=0)  // End  use
 					
 					$Boo_testLineBefore:=Not:C34($Boo_skipLineAfter) | Not:C34($Boo_closure)
 					$Boo_testLineAfter:=Not:C34($Boo_skipLineAfter)
@@ -381,7 +381,7 @@ If (Length:C16($Txt_code)>0)
 					APPEND TO ARRAY:C911($tLon_branchAndLoop;14)
 					
 					  //……………………………………………………………
-				: (Rgx_MatchText ("(?<!//)"+$tTxt_controlFlow{15}+"\\b";$Txt_lineCode)=0)  // End for each
+				: (Rgx_MatchText ("(?<!//)"+$tTxt_controlFlow{15}+"\\b";$Txt_lineCode)=0)  // End  for each
 					
 					$Boo_testLineBefore:=Not:C34($Boo_skipLineAfter) | Not:C34($Boo_closure)
 					$Boo_testLineAfter:=Not:C34($Boo_skipLineAfter)
@@ -696,4 +696,4 @@ If (Length:C16($Txt_code)>0)
 End if 
 
   // ----------------------------------------------------
-  // End
+  // End 

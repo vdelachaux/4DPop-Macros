@@ -228,4 +228,4 @@ COPY ARRAY:C226($tTxt_comments;$Ptr_arrayComments->)
   //%W+518.1
 
   // ----------------------------------------------------
-  // End
+  // End 

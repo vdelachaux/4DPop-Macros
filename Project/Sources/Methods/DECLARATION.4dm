@@ -788,7 +788,7 @@ Else
 							
 							  //______________________________________________________
 							
-						: (Match regex:C1019("(?m-si)"+Form:C1466.controlFlow[2];$t;1))  // End if
+						: (Match regex:C1019("(?m-si)"+Form:C1466.controlFlow[2];$t;1))  // End  if
 							
 							If (<>tLon_Line_Statut{0}=1)
 								

@@ -70,4 +70,4 @@ $Dom_root:=DOM Parse XML variable:C720($Txt_buffer)
 $0:=$Dom_root  //Warning: A new reference for the clean XML
 
   // ----------------------------------------------------
-  // End
+  // End 

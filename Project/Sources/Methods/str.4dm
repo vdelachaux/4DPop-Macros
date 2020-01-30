@@ -776,7 +776,7 @@ Else
 					  //$Lon_position:=Choose($Boo_diacritical;Position($t;$Txt_1;*);Position($t;$Txt_1))
 					  //$o.value:=Choose($Lon_position>0;$t;"")
 					
-					  // End for each
+					  // End  for each
 					
 					  // Else
 					
@@ -786,8 +786,8 @@ Else
 					  //$Lon_position:=Choose($Boo_diacritical;Position($t;$Txt_2;*);Position($t;$Txt_2))
 					  //$o.value:=Choose($Lon_position>0;$t;"")
 					
-					  // End for each
-					  // End if
+					  // End  for each
+					  // End  if
 					
 					  //______________________________________________________
 					  //: (Formula(process ).call().isPreemptif)
@@ -825,4 +825,4 @@ End if
 $0:=$o
 
   // ----------------------------------------------------
-  // End
+  // End 
