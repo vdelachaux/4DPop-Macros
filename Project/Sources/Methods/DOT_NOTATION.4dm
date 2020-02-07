@@ -125,4 +125,4 @@ SET MACRO PARAMETER:C998(Highlighted method text:K5:18;$Txt_code)
   // Return
   // <NONE>
   // ----------------------------------------------------
-  // End 
+  // End

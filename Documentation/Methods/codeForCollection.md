@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------cmd := codeForCollection ( c ; key ) -> c (Collection) -> key (Text) <- cmd (Text)-->## Description

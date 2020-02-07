@@ -13,8 +13,8 @@ C_TEXT:C284($1)
 C_TEXT:C284($2)
 C_TEXT:C284($3)
 
-C_LONGINT:C283($Lon_i;$Lon_parameters)
-C_TEXT:C284($kTxt_commentPrefix;$Txt_method;$Txt_methodName;$Txt_result)
+C_LONGINT:C283($end;$i)
+C_TEXT:C284($t_code;$t_name;$t_prefix;$t_syntax)
 
 ARRAY TEXT:C222($tTxt_comments;0)
 ARRAY TEXT:C222($tTxt_labels;0)
@@ -29,16 +29,14 @@ End if
 
   // ----------------------------------------------------
   // Initialisations
-$Lon_parameters:=Count parameters:C259
-
-If (Asserted:C1132($Lon_parameters>=2;"Missing parameter"))
+If (Asserted:C1132(Count parameters:C259>=2;"Missing parameter"))
 	
-	$Txt_method:=$1  //Code of the method to analyse
-	$Txt_methodName:=$2  //Name of the method
+	$t_code:=$1  // Code of the method to analyse
+	$t_name:=$2  // Name of the method
 	
-	If ($Lon_parameters>=3)
+	If (Count parameters:C259>=3)
 		
-		$kTxt_commentPrefix:=$3  //Prefix used at the beginning of each line
+		$t_prefix:=$3  // Prefix used at the beginning of each line
 		
 	End if 
 	
@@ -49,53 +47,56 @@ Else
 End if 
 
   // ----------------------------------------------------
-  //get types and labels
-METHOD_ANALYSE_TO_ARRAYS ($Txt_method;->$tTxt_types;->$tTxt_labels;->$tTxt_comments)
+  // Get types and labels
+METHOD_ANALYSE_TO_ARRAYS ($t_code;->$tTxt_types;->$tTxt_labels;->$tTxt_comments)
 
-  //Set style for method name
-$Txt_methodName:="<span style=\"font-family:sans-serif;color:gray;font-weight:bold;font-style:italic\">"\
-+$Txt_methodName\
+  // Set style for method name
+$t_name:="<span style=\"font-family:sans-serif;color:gray;font-weight:bold;font-style:italic\">"\
++$t_name\
 +"</span>"
 
-  //The first line is the call syntax…
-$Txt_result:="<span style=\"font-family:sans-serif;color:gray;\">"\
-+$kTxt_commentPrefix+Choose:C955(Length:C16($tTxt_types{0})>0;\
+  // The first line is the call syntax…
+$t_syntax:="<span style=\"font-family:sans-serif;color:gray;\">"\
++$t_prefix+Choose:C955(Length:C16($tTxt_types{0})>0;\
 Choose:C955(Length:C16($tTxt_labels{0})=0;$tTxt_types{0};$tTxt_labels{0})\
-+" := "+$Txt_methodName;$Txt_methodName)
++" := "+$t_name;$t_name)
 
-For ($Lon_i;1;Size of array:C274($tTxt_types);1)
+$end:=Size of array:C274($tTxt_types)
+
+For ($i;1;$end;1)
 	
-	  //open parentheses or put a separator
-	$Txt_result:=Choose:C955($Lon_i=1;$Txt_result+" ( ";$Txt_result+" ; ")
+	  // Open parentheses or put a separator
+	$t_syntax:=Choose:C955($i=1;$t_syntax+" ( ";$t_syntax+" ; ")
+	$t_syntax:=$t_syntax+$tTxt_labels{$i}
 	
-	$Txt_result:=$Txt_result+$tTxt_labels{$Lon_i}
-	
-	If ($Lon_i=Size of array:C274($tTxt_types))
+	If ($i=$end)
 		
-		  //close the parentheses
-		$Txt_result:=$Txt_result+" )"
+		  // Close the parentheses
+		$t_syntax:=$t_syntax+" )"
 		
 	End if 
 End for 
 
   //…then describe the parameters…
-For ($Lon_i;1;Size of array:C274($tTxt_types);1)
+For ($i;1;Size of array:C274($tTxt_types);1)
 	
-	$Txt_result:=$Txt_result+"\r"\
-		+$kTxt_commentPrefix+" -&gt; "+$tTxt_labels{$Lon_i}+" ("+$tTxt_types{$Lon_i}+")"\
-		+Choose:C955(Length:C16($tTxt_comments{$Lon_i})>0;" - "+$tTxt_comments{$Lon_i};"")
+	$t_syntax:=$t_syntax+"\r"\
+		+$t_prefix+" -&gt; "+$tTxt_labels{$i}+" ("+$tTxt_types{$i}+")"\
+		+Choose:C955(Length:C16($tTxt_comments{$i})>0;" - "+$tTxt_comments{$i};"")
 	
 End for 
 
   //…and the return for a function.
 If (Length:C16($tTxt_labels{0})>0)
 	
-	$Txt_result:=$Txt_result+"\r"+$kTxt_commentPrefix+" &lt;- "+$tTxt_labels{0}+" ("+$tTxt_types{0}+")"\
+	$t_syntax:=$t_syntax+"\r"+$t_prefix+" &lt;- "+$tTxt_labels{0}+" ("+$tTxt_types{0}+")"\
 		+Choose:C955(Length:C16($tTxt_comments{0})>0;" - "+$tTxt_comments{0};"")
 	
 End if 
 
-$0:=$Txt_result+"</span>"
+$t_syntax:=$t_syntax+"</span>"
+
+$0:=$t_syntax  // Prototype
 
   // ----------------------------------------------------
-  // End 
+  // End

@@ -44,28 +44,29 @@ $Lon_parameters:=Count parameters:C259
 
 If (Asserted:C1132($Lon_parameters>=4;"Missing parameter"))
 	
-	$Txt_method:=$1  //text of the method to analyse
-	$Ptr_arrayTypes:=$2  //pointer to the array of types to populate
-	$Ptr_arrayLabels:=$3  //pointer to the array of labels to populate
-	$Ptr_arrayComments:=$4  //pointer to the array of comments to populate
+	$Txt_method:=$1  // Text of the method to analyse
+	$Ptr_arrayTypes:=$2  // Pointer to the array of types to populate
+	$Ptr_arrayLabels:=$3  // Pointer to the array of labels to populate
+	$Ptr_arrayComments:=$4  // Pointer to the array of comments to populate
 	
-	ARRAY TEXT:C222($tTxt_commands;14)
-	$tTxt_commands{1}:=Command name:C538(283)  //C_LONGINT
-	$tTxt_commands{2}:=Command name:C538(284)  //C_TEXT
-	$tTxt_commands{3}:=Command name:C538(285)  //C_REAL
-	$tTxt_commands{4}:=Command name:C538(306)  //C_TIME
-	$tTxt_commands{5}:=Command name:C538(301)  //C_POINTER
-	$tTxt_commands{6}:=Command name:C538(286)  //C_PICTURE
-	$tTxt_commands{7}:=Command name:C538(307)  //C_DATE
-	$tTxt_commands{8}:=Command name:C538(305)  //C_BOOLEAN
-	$tTxt_commands{9}:=Command name:C538(604)  //C_BLOB
-	$tTxt_commands{10}:=Command name:C538(1216)  //C_OBJECT
-	$tTxt_commands{11}:=Command name:C538(282)  //C_INTEGER
-	$tTxt_commands{12}:=Command name:C538(352)  //C_GRAPH
-	$tTxt_commands{13}:=Command name:C538(293)  //C_STRING
-	$tTxt_commands{14}:=Command name:C538(1488)  //C_COLLECTION
+	ARRAY TEXT:C222($tTxt_commands;15)
+	$tTxt_commands{1}:=Command name:C538(283)  // C_LONGINT
+	$tTxt_commands{2}:=Command name:C538(284)  // C_TEXT
+	$tTxt_commands{3}:=Command name:C538(285)  // C_REAL
+	$tTxt_commands{4}:=Command name:C538(306)  // C_TIME
+	$tTxt_commands{5}:=Command name:C538(301)  // C_POINTER
+	$tTxt_commands{6}:=Command name:C538(286)  // C_PICTURE
+	$tTxt_commands{7}:=Command name:C538(307)  // C_DATE
+	$tTxt_commands{8}:=Command name:C538(305)  // C_BOOLEAN
+	$tTxt_commands{9}:=Command name:C538(604)  // C_BLOB
+	$tTxt_commands{10}:=Command name:C538(1216)  // C_OBJECT
+	$tTxt_commands{11}:=Command name:C538(282)  // C_INTEGER
+	$tTxt_commands{12}:=Command name:C538(352)  // C_GRAPH
+	$tTxt_commands{13}:=Command name:C538(293)  // C_STRING
+	$tTxt_commands{14}:=Command name:C538(1488)  // C_COLLECTION
+	$tTxt_commands{15}:=Command name:C538(1683)  // C_VARIANT
 	
-	ARRAY TEXT:C222($tTxt_argumentType;14)
+	ARRAY TEXT:C222($tTxt_argumentType;15)
 	$tTxt_argumentType{1}:=Get localized string:C991("LongInteger")
 	$tTxt_argumentType{2}:=Get localized string:C991("Text")
 	$tTxt_argumentType{3}:=Get localized string:C991("Real")
@@ -80,6 +81,7 @@ If (Asserted:C1132($Lon_parameters>=4;"Missing parameter"))
 	$tTxt_argumentType{12}:=Get localized string:C991("Graph")
 	$tTxt_argumentType{13}:=Get localized string:C991("Alpha")
 	$tTxt_argumentType{14}:=Get localized string:C991("Collection")
+	$tTxt_argumentType{15}:="Variant"
 	
 	$Lon_typeNumber:=Size of array:C274($tTxt_commands)
 	
@@ -105,10 +107,10 @@ Repeat
 	
 	If (Match regex:C1019("(?m)^[\\$\\u25CA[<>]](\\w+):=\\$"+String:C10($Lon_index)+"(?:.*?//([^\\r$]*))*$";$Txt_method;1;$tLon_positions;$tLon_length))
 		
-		  //get label
+		  // Get label
 		$Txt_label:=Substring:C12($Txt_method;$tLon_positions{1};$tLon_length{1})
 		
-		  //remove prefix if any (the 1 to 4 first characters before an underscore)
+		  // Remove prefix if any (the 1 to 4 first characters before an underscore)
 		$Lon_x:=Position:C15("_";$Txt_label)
 		
 		If ($Lon_x>0)\
@@ -118,7 +120,7 @@ Repeat
 			
 		End if 
 		
-		  //remove suffix if any (the 1 to 2 last characters after an underscore)
+		  // Remove suffix if any (the 1 to 2 last characters after an underscore)
 		$Lon_x:=Position:C15("_";$Txt_label)
 		
 		If ($Lon_x>0)\
@@ -132,7 +134,7 @@ Repeat
 		
 	Else 
 		
-		  //not found
+		  // Not found
 		$Txt_label:="Param_"+String:C10($Lon_index)
 		$Txt_comment:=""
 		
@@ -148,14 +150,14 @@ Repeat
 			APPEND TO ARRAY:C911($tTxt_labels;$Txt_label)
 			APPEND TO ARRAY:C911($tTxt_comments;$Txt_comment)
 			
-			$Lon_i:=MAXLONG:K35:2-1  //STOP
+			$Lon_i:=MAXLONG:K35:2-1  // STOP
 			$Boo_stop:=False:C215
 			
 		End if 
 	End for 
 Until ($Boo_stop)
 
-  //variable number of parameters of the same type
+  // Variable number of parameters of the same type
 For ($Lon_i;1;$Lon_typeNumber;1)
 	
 	If (Match regex:C1019("(?m)^"+$tTxt_commands{$Lon_i}+"\\s*\\([^\\)]*\\$\\{(\\d+)\\}";$Txt_method;1;$tLon_positions;$tLon_length))
@@ -173,24 +175,23 @@ For ($Lon_i;1;$Lon_typeNumber;1)
 		$tTxt_types{$Lon_indice}:=$tTxt_argumentType{$Lon_i}
 		$tTxt_labels{$Lon_indice}:=$tTxt_labels{$Lon_indice}+" ; … ; N"
 		
-		$Lon_i:=MAXLONG:K35:2-1  //STOP
+		$Lon_i:=MAXLONG:K35:2-1  // STOP
 		
 	End if 
 End for 
 
-  //type of the function if any
+  // Type of the function if any
 For ($Lon_i;1;$Lon_typeNumber;1)
 	
 	If (Match regex:C1019("(?m)^"+$tTxt_commands{$Lon_i}+"\\s*\\([^\\)]*\\$0[^\\)]*";$Txt_method;1;$tLon_positions;$tLon_length))
 		
 		$tTxt_types{0}:=$tTxt_argumentType{$Lon_i}
 		
-		  //If (Match regex("(?m)^\\$0:=[\\$\\u25CA[<>]](\\w+)";$Txt_method;1;$tLon_positions;$tLon_length))
 		If (Match regex:C1019("(?m)^\\$0:=[\\$\\u25CA[<>]](\\w+)"+"(?:.*?//([^\\r$]*))*$";$Txt_method;1;$tLon_positions;$tLon_length))
 			
 			$Txt_label:=Substring:C12($Txt_method;$tLon_positions{1};$tLon_length{1})
 			
-			  //remove prefix if any (the 1 to 4 first characters before an underscore)
+			  // Remove prefix if any (the 1 to 4 first characters before an underscore)
 			$Lon_x:=Position:C15("_";$Txt_label)
 			
 			If ($Lon_x>0)\
@@ -200,7 +201,7 @@ For ($Lon_i;1;$Lon_typeNumber;1)
 				
 			End if 
 			
-			  //remove suffix if any (the 1 to 2 last characters after an underscore)
+			  // Remove suffix if any (the 1 to 2 last characters after an underscore)
 			$Lon_x:=Position:C15("_";$Txt_label)
 			
 			If ($Lon_x>0)\
@@ -216,7 +217,7 @@ For ($Lon_i;1;$Lon_typeNumber;1)
 			
 		End if 
 		
-		$Lon_i:=MAXLONG:K35:2-1  //STOP
+		$Lon_i:=MAXLONG:K35:2-1  // STOP
 		
 	End if 
 End for 
@@ -228,4 +229,4 @@ COPY ARRAY:C226($tTxt_comments;$Ptr_arrayComments->)
   //%W+518.1
 
   // ----------------------------------------------------
-  // End 
+  // End

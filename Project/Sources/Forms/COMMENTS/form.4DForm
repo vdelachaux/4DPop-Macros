@@ -29,7 +29,7 @@
 					"height": 208,
 					"sizingX": "grow",
 					"sizingY": "grow",
-					"dataSource": "<>Txt_buffer",
+					"dataSource": "Form:C1466.text",
 					"borderStyle": "none",
 					"hideFocusRing": true,
 					"styledText": true,
@@ -97,9 +97,15 @@
 					"width": 547,
 					"sizingX": "grow",
 					"sizingY": "move",
-					"stroke": "#C0C0C0"
+					"stroke": "#C0C0C0",
+					"height": 0,
+					"startPoint": "topLeft"
 				}
 			}
 		}
-	]
+	],
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	}
 }

@@ -66,4 +66,4 @@ ON ERR CALL:C155($Txt_methodOnError)
 $0:=$Obj_result
 
   // ----------------------------------------------------
-  // End 
+  // End

@@ -53,7 +53,7 @@ C_LONGINT:C283($Lon_x;$number)
 C_POINTER:C301($Ptr_array)
 C_TEXT:C284($Dom_node;$Dom_root;$t;$tt;$Txt_declarations;$Txt_entryPoint)
 C_TEXT:C284($Txt_method;$Txt_name;$Txt_patternNonLocalVariable;$Txt_patternParameter)
-C_OBJECT:C1216($file;$menu;$o;$Obj_menuBar;$oo)
+C_OBJECT:C1216($file;$o;$oo)
 C_COLLECTION:C1488($c;$Col_arrays;$Col_directives;$Col_settings;$Col_type)
 
 If (False:C215)
@@ -615,15 +615,8 @@ Else
 					
 					If ($Boo_updateComments)  // Generate method comments for tips
 						
-						If (Path to object:C1547(Structure file:C489(*)).extension=".4DB")
-							
-							COMMENTS ("method-comment-generate";Form:C1466.method;$Txt_method)
-							
-						Else 
-							
-							  // NOT YET AVAILABLE
-							
-						End if 
+						COMMENTS ("method-comment-generate";Form:C1466.method;$Txt_method)
+						
 					End if 
 				End if 
 			End if 
@@ -788,7 +781,7 @@ Else
 							
 							  //______________________________________________________
 							
-						: (Match regex:C1019("(?m-si)"+Form:C1466.controlFlow[2];$t;1))  // End  if
+						: (Match regex:C1019("(?m-si)"+Form:C1466.controlFlow[2];$t;1))  // End if
 							
 							If (<>tLon_Line_Statut{0}=1)
 								

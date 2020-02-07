@@ -8,7 +8,8 @@
   // ----------------------------------------------------
 C_TEXT:C284($1)
 
-C_LONGINT:C283($Lon_Bottom;$Lon_Height;$Lon_Left;$Lon_Right;$Lon_Top;$Lon_W;$Lon_Width)
+C_LONGINT:C283($Lon_Bottom;$Lon_Height;$Lon_Left;$Lon_Right;$Lon_Top;$Lon_W)
+C_LONGINT:C283($Lon_Width)
 
 If (False:C215)
 	C_TEXT:C284(ABOUT ;$1)

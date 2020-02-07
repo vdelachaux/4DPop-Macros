@@ -1,11 +1,11 @@
 //%attributes = {"invisible":true}
-  // ----------------------------------------------------
-  // Méthode : str_isNumeric
-  // Created 26/10/05 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  // Checks if all characters are numerical characters
-  // ----------------------------------------------------
+  //  ----------------------------------------------------
+  //  Méthode : str_isNumeric
+  //  Created 26/10/05 by Vincent de Lachaux
+  //  ----------------------------------------------------
+  //  Description
+  //  Checks if all characters are numerical characters
+  //  ----------------------------------------------------
 C_BOOLEAN:C305($0)
 C_TEXT:C284($1)
 

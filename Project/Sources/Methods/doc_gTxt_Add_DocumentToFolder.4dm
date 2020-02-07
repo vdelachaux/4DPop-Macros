@@ -10,7 +10,7 @@ C_TEXT:C284($0)
 C_TEXT:C284($1)
 C_TEXT:C284($2)
 
-C_TEXT:C284($Txt_Directory_Symbol;$Txt_Path)
+C_TEXT:C284($t_path)
 
 If (False:C215)
 	C_TEXT:C284(doc_gTxt_Add_DocumentToFolder ;$0)
@@ -18,13 +18,12 @@ If (False:C215)
 	C_TEXT:C284(doc_gTxt_Add_DocumentToFolder ;$2)
 End if 
 
-$Txt_Path:=$1
-$Txt_Directory_Symbol:=System folder:C487[[Length:C16(System folder:C487)]]
+$t_path:=$1
 
-If ($Txt_Path[[Length:C16($Txt_Path)]]#$Txt_Directory_Symbol)
+If ($t_path[[Length:C16($t_path)]]#Folder separator:K24:12)
 	
-	$Txt_Path:=$Txt_Path+$Txt_Directory_Symbol
+	$t_path:=$t_path+Folder separator:K24:12
 	
 End if 
 
-$0:=$Txt_Path+$2
+$0:=$t_path+$2

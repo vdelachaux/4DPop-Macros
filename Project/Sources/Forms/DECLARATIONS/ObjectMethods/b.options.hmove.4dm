@@ -5,7 +5,7 @@
   // Description
   // Populate the syntaxe rules listbox
   // ----------------------------------------------------
-C_LONGINT:C283($i;$Lon_Best_Width;$Lon_Height;$Lon_number;$Lon_Width)
+C_LONGINT:C283($i;$Lon_Best_Width;$height;$Lon_number;$width)
 
 $Lon_number:=Size of array:C274(<>tLon_Declaration_Types)
 
@@ -87,11 +87,11 @@ For ($i;1;$Lon_number;1)
 	<>tTxt_Patterns{$i}:=<>tTxt_2D_Declaration_Patterns{$i}{0}
 	<>tTxt_Directive{$i}:=<>Txt_buffer
 	
-	OBJECT GET BEST SIZE:C717(<>Txt_buffer;$Lon_Width;$Lon_Height)
+	OBJECT GET BEST SIZE:C717(<>Txt_buffer;$width;$height)
 	
-	If ($Lon_Width>$Lon_Best_Width)
+	If ($width>$Lon_Best_Width)
 		
-		$Lon_Best_Width:=$Lon_Width
+		$Lon_Best_Width:=$width
 		
 	End if 
 End for 

@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------cmd := codeForObject ( o ; key ) -> o (Object) -> key (Text) <- cmd (Text)-->## Description
