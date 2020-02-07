@@ -40,7 +40,9 @@
 		"methods": [
 			"COMPILER_class",
 			"menu",
-			"str"
+			"rgx",
+			"str",
+			"test_rgx"
 		]
 	},
 	"Component": {

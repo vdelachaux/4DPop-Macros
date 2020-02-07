@@ -39,11 +39,11 @@ $Lon_Parameters:=Count parameters:C259
 
 If ($Lon_Parameters<2)
 	
-	rgx_Lon_Error:=-50  //Parameter error
+	rgxError:=-50  //Parameter error
 	
 Else 
 	
-	rgx_Lon_Error:=-1
+	rgxError:=-1
 	
 	If ($Lon_Parameters>=3)
 		$Ptr_Array:=$3
@@ -72,7 +72,7 @@ Else
 		
 		If ($Boo_OK)
 			
-			rgx_Lon_Error:=0
+			rgxError:=0
 			
 			$Lon_Size:=Size of array:C274($tLon_Positions)
 			
@@ -129,6 +129,6 @@ Else
 	ON ERR CALL:C155($Txt_Error_Method)
 End if 
 
-$0:=rgx_Lon_Error
+$0:=rgxError
 
-rgx_Lon_Error:=0
+rgxError:=0

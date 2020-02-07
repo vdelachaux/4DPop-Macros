@@ -42,7 +42,7 @@ $Lon_Parameters:=Count parameters:C259
 
 If ($Lon_Parameters<3)
 	
-	rgx_Lon_Error:=-50  //Parameter error
+	rgxError:=-50  //Parameter error
 	
 Else 
 	
@@ -54,7 +54,7 @@ Else
 	$Txt_Replacement:=$2
 	$Txt_Target:=$3->
 	
-	rgx_Lon_Error:=0
+	rgxError:=0
 	
 	If (Length:C16($Txt_Target)>0)
 		$Txt_Error_Method:=Method called on error:C704
@@ -151,6 +151,6 @@ Else
 	
 End if 
 
-$0:=rgx_Lon_Error
+$0:=rgxError
 
-rgx_Lon_Error:=0
+rgxError:=0

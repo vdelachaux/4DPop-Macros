@@ -1,1 +1,1 @@
-﻿<!----------------------------------------------------COMMENTS ( selector ; name ; code ) -> selector (Text) -  Entry point -> name (Text) -  Method path -> code (Text) -  code-->## Description
+﻿<!----------------------------------------------------COMMENTS ( selector ; name ; code ) -> selector (Text) -  Entry point -> name (Text) -  Method path -> code (Text) -  code-->## DescriptionCOMMENTS ( selector ; name ; code )

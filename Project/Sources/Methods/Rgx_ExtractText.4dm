@@ -42,7 +42,7 @@ $Lon_Parameters:=Count parameters:C259
 
 If ($Lon_Parameters<4)
 	
-	rgx_Lon_Error:=-50  //Parameter error
+	rgxError:=-50  //Parameter error
 	
 Else 
 	
@@ -65,14 +65,14 @@ Else
 	$Boo_Array2D:=(Type:C295($4->)=Array 2D:K8:24)
 	CLEAR VARIABLE:C89($4->)
 	
-	rgx_Lon_Error:=-50*Num:C11(($Lon_Groups>1) & Not:C34($Boo_Array2D))  //Parameter error
+	rgxError:=-50*Num:C11(($Lon_Groups>1) & Not:C34($Boo_Array2D))  //Parameter error
 	
 	$Txt_Error_Method:=Method called on error:C704
 	ON ERR CALL:C155("rgx_NO_ERROR")
 	
 	$Lon_Start:=1
 	
-	If (rgx_Lon_Error=0)
+	If (rgxError=0)
 		
 		$Txt_Target:=$2
 		
@@ -83,7 +83,7 @@ Else
 			$Boo_OK:=Match regex:C1019($Txt_Pattern;$Txt_Target;$Lon_Start;$tLon_Positions;$tLon_Lengths)
 			
 			If ($Boo_OK)\
-				 & (rgx_Lon_Error=0)
+				 & (rgxError=0)
 				
 				If ($Boo_Array2D)
 					
@@ -136,9 +136,9 @@ Else
 			End if 
 		Until (Not:C34($Boo_OK))
 		
-		If (rgx_Lon_Error=0)
+		If (rgxError=0)
 			
-			rgx_Lon_Error:=-Num:C11(Size of array:C274($4->)=0)
+			rgxError:=-Num:C11(Size of array:C274($4->)=0)
 			
 		End if 
 	End if 
@@ -147,6 +147,6 @@ Else
 	
 End if 
 
-$0:=rgx_Lon_Error
+$0:=rgxError
 
-rgx_Lon_Error:=0
+rgxError:=0

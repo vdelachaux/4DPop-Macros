@@ -34,13 +34,13 @@ If (False:C215)
 	C_LONGINT:C283(Rgx_SplitText ;$4)
 End if 
 
-C_LONGINT:C283(rgx_Lon_Error)
+C_LONGINT:C283(rgxError)
 
 $Lon_Parameters:=Count parameters:C259
 
 If ($Lon_Parameters<3)
 	
-	rgx_Lon_Error:=-50  //Parameter error
+	rgxError:=-50  //Parameter error
 	
 Else 
 	
@@ -117,6 +117,6 @@ Else
 	ON ERR CALL:C155($Txt_Error_Method)
 End if 
 
-$0:=rgx_Lon_Error
+$0:=rgxError
 
-rgx_Lon_Error:=0
+rgxError:=0

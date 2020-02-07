@@ -23,7 +23,7 @@ C_BOOLEAN:C305($bReplace;$success)
 C_LONGINT:C283($i;$indx;$l;$Lon_type;$start;$Win_hdl)
 C_POINTER:C301($ptr)
 C_TEXT:C284($t;$t_code;$t_name;$t_selector;$tComments;$tReplacement)
-C_TEXT:C284($tResult;$tSeparator;$tt;$tTitle)
+C_TEXT:C284($tResult;$tSeparator;$tSyntax;$tt;$tTitle)
 C_OBJECT:C1216($o)
 C_COLLECTION:C1488($c)
 
@@ -103,24 +103,26 @@ Case of
 				
 				METHOD_ANALYSE_TO_ARRAYS ($t_code;->$tTxt_types;->$tTxt_labels;->$tTxt_comments)
 				
-				$tResult:=Choose:C955(Length:C16($tTxt_types{0})>0;Choose:C955(Length:C16($tTxt_labels{0})=0;$tTxt_types{0};$tTxt_labels{0})+" := "+$t_name;$t_name)
+				$tSyntax:=Choose:C955(Length:C16($tTxt_types{0})>0;Choose:C955(Length:C16($tTxt_labels{0})=0;$tTxt_types{0};$tTxt_labels{0})+" := "+$t_name;$t_name)
 				
 				For ($i;1;Size of array:C274($tTxt_types);1)
 					
 					  // Open parentheses or put a separator
-					$tResult:=Choose:C955($i=1;$tResult+" ( ";$tResult+" ; ")
+					$tSyntax:=Choose:C955($i=1;$tSyntax+" ( ";$tSyntax+" ; ")
 					
-					$tResult:=$tResult+$tTxt_labels{$i}
+					$tSyntax:=$tSyntax+$tTxt_labels{$i}
 					
 					If ($i=Size of array:C274($tTxt_types))
 						
 						  // Close the parentheses
-						$tResult:=$tResult+" )"
+						$tSyntax:=$tSyntax+" )"
 						
 					End if 
 				End for 
 				
 				  //…then describe the parameters…
+				$tResult:=$tSyntax
+				
 				For ($i;1;Size of array:C274($tTxt_types);1)
 					
 					$tResult:=$tResult+"\r"\
@@ -137,15 +139,15 @@ Case of
 					
 				End if 
 				
-				$tResult:=$tSeparator+$tResult
+				$t:=$tSeparator+$tResult
 				
 				If (Length:C16($tComments)=0)
 					
-					$tComments:="<!--"+$tResult+"-->\r## Description\r"
+					$tComments:="<!--"+$t+"-->\r"+$tSyntax
 					
 				Else 
 					
-					Rgx_SubstituteText ("(?si-m)<!--(.*)-->";"<!--"+$tResult+"-->";->$tComments;0)
+					$tComments:=rgx ($tComments).substitute("(?si-m)<!--(.*)-->";"<!--"+$t+"-->").result
 					
 				End if 
 				

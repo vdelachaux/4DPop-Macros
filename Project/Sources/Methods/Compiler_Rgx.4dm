@@ -8,7 +8,7 @@
   // 
   // ----------------------------------------------------
 
-C_LONGINT:C283(rgx_Lon_Error)
+C_LONGINT:C283(rgxError)
 
 If (False:C215)
 	
