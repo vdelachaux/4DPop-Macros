@@ -7,7 +7,6 @@ Data/
 
 # Ignore derived data except the Documentation
 DerivedData/
-#!DerivedData/Documentation/
 
 # Ignore user preferences
 userPreferences.*
