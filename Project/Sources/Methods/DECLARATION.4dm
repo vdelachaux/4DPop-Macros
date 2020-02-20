@@ -54,7 +54,7 @@ C_POINTER:C301($Ptr_array)
 C_TEXT:C284($Dom_node;$Dom_root;$t;$tt;$Txt_declarations;$Txt_entryPoint)
 C_TEXT:C284($Txt_method;$Txt_name;$Txt_patternNonLocalVariable;$Txt_patternParameter)
 C_OBJECT:C1216($file;$o;$oo)
-C_COLLECTION:C1488($c;$Col_arrays;$Col_directives;$Col_settings;$Col_type)
+C_COLLECTION:C1488($c;$cArrays;$cDirectives;$Col_settings;$Col_type)
 
 If (False:C215)
 	C_TEXT:C284(DECLARATION ;$1)
@@ -624,8 +624,8 @@ Else
 			  //______________________________________________________
 		: ($Txt_entryPoint="INIT")
 			
-			$Col_directives:=Form:C1466.settings.directives
-			$Col_arrays:=Form:C1466.settings.arrays
+			$cDirectives:=Form:C1466.settings.directives
+			$cArrays:=Form:C1466.settings.arrays
 			
 			Preferences ("Get_Value";"ignoreDeclarations";->$Lon_ignoreDeclarations)
 			
@@ -901,11 +901,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[5];$t)=1)  // C_LONGINT
+					: (Position:C15($cDirectives[5];$t)=1)  // C_LONGINT
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[5]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[5]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_LONGINT;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_LONGINT>0) & ($Lon_end_ii=0))
 							
@@ -917,7 +917,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[5]+"("
+							<>tTxt_lines{$i}:=$cDirectives[5]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -930,10 +930,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[5];$t)=1)  // ARRAY LONGINT
+					: (Position:C15($cArrays[5];$t)=1)  // ARRAY LONGINT
 						
 						$Ptr_array:=->$tTxt_arrayLONGINT
-						$t:=Replace string:C233($t;$Col_arrays[5]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[5]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -951,11 +951,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[11];$t)=1)  // C_TEXT
+					: (Position:C15($cDirectives[11];$t)=1)  // C_TEXT
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[11]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[11]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_TEXT;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_TEXT>0) & ($Lon_end_ii=0))
 							
@@ -967,7 +967,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[11]+"("
+							<>tTxt_lines{$i}:=$cDirectives[11]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -980,10 +980,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[10];$t)=1)  //TABLEAU TEXTE
+					: (Position:C15($cArrays[10];$t)=1)  //TABLEAU TEXTE
 						
 						$Ptr_array:=->$tTxt_arrayTEXT
-						$t:=Replace string:C233($t;$Col_arrays[10]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[10]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1001,11 +1001,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[2];$t)=1)  // C_BOOLEAN
+					: (Position:C15($cDirectives[2];$t)=1)  // C_BOOLEAN
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[2]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[2]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_BOOLEAN;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_BOOLEAN>0) & ($Lon_end_ii=0))
 							
@@ -1017,7 +1017,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[2]+"("
+							<>tTxt_lines{$i}:=$cDirectives[2]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1030,10 +1030,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[2];$t)=1)  //TABLEAU BOOLEEN
+					: (Position:C15($cArrays[2];$t)=1)  //TABLEAU BOOLEEN
 						
 						$Ptr_array:=->$tTxt_arrayBOOLEAN
-						$t:=Replace string:C233($t;$Col_arrays[2]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[2]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1051,11 +1051,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[1];$t)=1)  // C_BLOB
+					: (Position:C15($cDirectives[1];$t)=1)  // C_BLOB
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[1]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[1]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_BLOB;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_BLOB>0) & ($Lon_end_ii=0))
 							
@@ -1067,7 +1067,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[1]+"("
+							<>tTxt_lines{$i}:=$cDirectives[1]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1080,10 +1080,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[1];$t)=1)  // //ARRAY BLOB
+					: (Position:C15($cArrays[1];$t)=1)  // //ARRAY BLOB
 						
 						$Ptr_array:=->$tTxt_arrayBLOB
-						$t:=Replace string:C233($t;$Col_arrays[1]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[1]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1101,11 +1101,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[3];$t)=1)  // C_DATE
+					: (Position:C15($cDirectives[3];$t)=1)  // C_DATE
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[3]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[3]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_DATE;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_DATE>0) & ($Lon_end_ii=0))
 							
@@ -1117,7 +1117,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[3]+"("
+							<>tTxt_lines{$i}:=$cDirectives[3]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1130,10 +1130,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[3];$t)=1)  //TABLEAU DATE
+					: (Position:C15($cArrays[3];$t)=1)  //TABLEAU DATE
 						
 						$Ptr_array:=->$tTxt_arrayDATE
-						$t:=Replace string:C233($t;$Col_arrays[3]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[3]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1151,11 +1151,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[7];$t)=1)  // C_TIME
+					: (Position:C15($cDirectives[7];$t)=1)  // C_TIME
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[7]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[7]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_TIME;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_TIME>0) & ($Lon_end_ii=0))
 							
@@ -1167,7 +1167,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[7]+"("
+							<>tTxt_lines{$i}:=$cDirectives[7]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1180,10 +1180,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[6];$t)=1)  //ARRAY TIME
+					: (Position:C15($cArrays[6];$t)=1)  //ARRAY TIME
 						
 						$Ptr_array:=->$tTxt_arrayTIME
-						$t:=Replace string:C233($t;$Col_arrays[6]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[6]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1201,11 +1201,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[9];$t)=1)  // C_POINTER
+					: (Position:C15($cDirectives[9];$t)=1)  // C_POINTER
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[9]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[9]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_POINTER;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_POINTER>0) & ($Lon_end_ii=0))
 							
@@ -1217,7 +1217,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[9]+"("
+							<>tTxt_lines{$i}:=$cDirectives[9]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1230,10 +1230,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[8];$t)=1)  //TABLEAU POINTEUR
+					: (Position:C15($cArrays[8];$t)=1)  //TABLEAU POINTEUR
 						
 						$Ptr_array:=->$tTxt_arrayPOINTER
-						$t:=Replace string:C233($t;$Col_arrays[8]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[8]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1251,11 +1251,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[8];$t)=1)  // C_PICTURE
+					: (Position:C15($cDirectives[8];$t)=1)  // C_PICTURE
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[8]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[8]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_PICTURE;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_PICTURE>0) & ($Lon_end_ii=0))
 							
@@ -1267,7 +1267,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[8]+"("
+							<>tTxt_lines{$i}:=$cDirectives[8]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1280,10 +1280,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[7];$t)=1)  //TABLEAU IMAGE
+					: (Position:C15($cArrays[7];$t)=1)  //TABLEAU IMAGE
 						
 						$Ptr_array:=->$tTxt_arrayPICTURE
-						$t:=Replace string:C233($t;$Col_arrays[7]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[7]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1301,11 +1301,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[12];$t)=1)  // C_OBJECT
+					: (Position:C15($cDirectives[12];$t)=1)  // C_OBJECT
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[12]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[12]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_OBJECT;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_OBJECT>0) & ($Lon_end_ii=0))
 							
@@ -1317,7 +1317,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[12]+"("
+							<>tTxt_lines{$i}:=$cDirectives[12]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1330,10 +1330,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[11];$t)=1)  //ARRAY OBJECT
+					: (Position:C15($cArrays[11];$t)=1)  //ARRAY OBJECT
 						
 						$Ptr_array:=->$tTxt_arrayOBJECT
-						$t:=Replace string:C233($t;$Col_arrays[11]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[11]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1351,11 +1351,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[10];$t)=1)  // C_REAL
+					: (Position:C15($cDirectives[10];$t)=1)  // C_REAL
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[10]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[10]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_REAL;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_REAL>0) & ($Lon_end_ii=0))
 							
@@ -1367,7 +1367,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[10]+"("
+							<>tTxt_lines{$i}:=$cDirectives[10]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1380,10 +1380,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[9];$t)=1)  //TABLEAU REEL
+					: (Position:C15($cArrays[9];$t)=1)  //TABLEAU REEL
 						
 						$Ptr_array:=->$tTxt_arrayREAL
-						$t:=Replace string:C233($t;$Col_arrays[9]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[9]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1401,11 +1401,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[0];$t)=1)  // C_STRING
+					: (Position:C15($cDirectives[0];$t)=1)  // C_STRING
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[0]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[0]+"(";"";1)
 							$Lon_stringLength:=util_Lon_Local_in_line ($t;->$tTxt_ALPHA;->$tTxt_local;$Lon_ignoreDeclarations)
 							
 							$Lon_stringLength:=$Lon_stringLength+(255*Num:C11($Lon_stringLength=0))
@@ -1426,7 +1426,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[0]+"("
+							<>tTxt_lines{$i}:=$cDirectives[0]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1439,10 +1439,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[0];$t)=1)  //TABLEAU ALPHA
+					: (Position:C15($cArrays[0];$t)=1)  //TABLEAU ALPHA
 						
 						$Ptr_array:=->$tTxt_arrayALPHA
-						$t:=Replace string:C233($t;$Col_arrays[0]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[0]+"(";"";1)
 						
 						$Lon_stringLength:=util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1462,11 +1462,11 @@ Else
 						APPEND TO ARRAY:C911($tLon_arrayStringLength;Choose:C955($Lon_stringLength=0;255;$Lon_stringLength))
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[4];$t)=1)  // C_INTEGER
+					: (Position:C15($cDirectives[4];$t)=1)  // C_INTEGER
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[4]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[4]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_INTEGER;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_INTEGER>0) & ($Lon_end_ii=0))
 							
@@ -1478,7 +1478,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[4]+"("
+							<>tTxt_lines{$i}:=$cDirectives[4]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1491,10 +1491,10 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_arrays[4];$t)=1)  //TABLEAU ENTIER
+					: (Position:C15($cArrays[4];$t)=1)  //TABLEAU ENTIER
 						
 						$Ptr_array:=->$tTxt_arrayINTEGER
-						$t:=Replace string:C233($t;$Col_arrays[4]+"(";"";1)
+						$t:=Replace string:C233($t;$cArrays[4]+"(";"";1)
 						
 						util_Lon_array_declaration ($t;$Ptr_array;->$tTxt_local;->$Lon_size;->$Boo_2Darray)
 						
@@ -1512,11 +1512,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[6];$t)=1)  // C_GRAPH (obsolete)
+					: (Position:C15($cDirectives[6];$t)=1)  // C_GRAPH (obsolete)
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[6]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[6]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_GRAPH;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_GRAPH>0) & ($Lon_end_ii=0))
 							
@@ -1528,7 +1528,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[6]+"("
+							<>tTxt_lines{$i}:=$cDirectives[6]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1541,11 +1541,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[13];$t)=1)  // C_COLLECTION
+					: (Position:C15($cDirectives[13];$t)=1)  // C_COLLECTION
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[13]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[13]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_COLLECTION;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_COLLECTION>0) & ($Lon_end_ii=0))
 							
@@ -1557,7 +1557,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[13]+"("
+							<>tTxt_lines{$i}:=$cDirectives[13]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
@@ -1570,11 +1570,11 @@ Else
 						End if 
 						
 						  //______________________________________________________
-					: (Position:C15($Col_directives[14];$t)=1)  // C_VARIANT
+					: (Position:C15($cDirectives[14];$t)=1)  // C_VARIANT
 						
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
-							$t:=Replace string:C233($t;$Col_directives[14]+"(";"";1)
+							$t:=Replace string:C233($t;$cDirectives[14]+"(";"";1)
 							util_Lon_Local_in_line ($t;->$tTxt_VARIANT;->$tTxt_local;$Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_VARIANT>0) & ($Lon_end_ii=0))
 							
@@ -1586,7 +1586,7 @@ Else
 						
 						If (<>tLon_Line_Statut{$i}#3)
 							
-							<>tTxt_lines{$i}:=$Col_directives[14]+"("
+							<>tTxt_lines{$i}:=$cDirectives[14]+"("
 							
 							For ($Lon_ii;1;$Lon_end_ii;1)
 								
