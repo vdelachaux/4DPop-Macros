@@ -4,8 +4,6 @@
 	"memorizeGeometry": true,
 	"windowSizingX": "fixed",
 	"windowSizingY": "fixed",
-	"rightMargin": 20,
-	"bottomMargin": 20,
 	"markerHeader": 15,
 	"markerBody": 200,
 	"markerBreak": 220,
@@ -24,54 +22,85 @@
 	"pages": [
 		{
 			"objects": {
+				"Rectangle": {
+					"type": "rectangle",
+					"top": 0,
+					"left": 0,
+					"width": 580,
+					"height": 560,
+					"fill": "automatic",
+					"stroke": "transparent"
+				},
 				"Tab Control": {
 					"type": "tab",
-					"top": 20,
+					"top": 14,
 					"left": 20,
-					"width": 508,
-					"height": 414,
+					"width": 542,
+					"height": 22,
 					"dataSourceTypeHint": "arrayText",
 					"labels": [
-						"Beautifier"
+						"Beautifier",
+						"Declarations"
 					],
 					"action": "gotoPage"
+				},
+				"Rectangle1": {
+					"type": "rectangle",
+					"top": 50,
+					"left": 31,
+					"width": 520,
+					"height": 490,
+					"stroke": "#1e90ff",
+					"visibility": "hidden",
+					"fill": "transparent"
+				},
+				"Line": {
+					"type": "line",
+					"top": 0,
+					"left": 291,
+					"width": 0,
+					"height": 560,
+					"stroke": "#1e90ff",
+					"visibility": "hidden",
+					"startPoint": "bottomLeft"
 				}
 			}
 		},
 		{
 			"objects": {
-				"List Box": {
+				"beautifier": {
 					"type": "listbox",
-					"top": 67,
-					"left": 42,
+					"top": 63,
+					"left": 67,
 					"width": 474,
-					"height": 354,
+					"height": 456,
 					"resizingMode": "legacy",
 					"hideFocusRing": true,
 					"rowHeight": "20px",
-					"rowHeightAutoMin": "20px",
-					"rowHeightAutoMax": "20px",
 					"showHeaders": false,
-					"selectionMode": "none",
+					"selectionMode": "single",
 					"scrollbarHorizontal": "hidden",
 					"scrollbarVertical": "automatic",
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"fill": "transparent",
 					"borderStyle": "none",
-					"events": [
-						"onSelectionChange",
-						"onHeaderClick"
-					],
+					"events": [],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.beautifier",
+					"currentItemSource": "Form:C1466.current",
+					"currentItemPositionSource": "Form:C1466.item",
+					"selectedItemsSource": "Form:C1466.selected",
+					"focusable": false,
+					"sortable": false,
+					"hideSystemHighlight": true,
 					"columns": [
 						{
 							"name": "cb",
-							"dataSourceTypeHint": "boolean",
 							"width": 30,
 							"minWidth": 10,
 							"maxWidth": 32000,
 							"resizable": false,
-							"controlType": "checkbox",
 							"textAlign": "center",
 							"events": [
 								"onDataChange"
@@ -84,7 +113,10 @@
 							"footer": {
 								"name": "Footer1",
 								"timeFormat": "hh_mm_ss"
-							}
+							},
+							"dataSource": "This:C1470.on",
+							"dataSourceTypeHint": "boolean",
+							"truncateMode": "none"
 						},
 						{
 							"name": "label",
@@ -104,11 +136,35 @@
 							"footer": {
 								"name": "Footer2",
 								"timeFormat": "hh_mm_ss"
-							}
+							},
+							"dataSource": "This:C1470.label"
 						}
 					]
 				}
 			}
+		},
+		{
+			"objects": {
+				"declarations": {
+					"type": "subform",
+					"left": 62,
+					"top": 50,
+					"width": 461,
+					"height": 454,
+					"detailForm": "DECLARATIONS_SETTINGS",
+					"borderStyle": "none",
+					"events": [
+						"onGettingFocus"
+					],
+					"method": "ObjectMethods/declarations.4dm"
+				}
+			}
 		}
-	]
+	],
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"width": 580,
+	"height": 560
 }

@@ -1,0 +1,357 @@
+﻿{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "fixed",
+	"windowSizingY": "fixed",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"events": [
+		"onLoad",
+		"onActivate",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": ":xliff:preferences",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {
+				"Rectangle": {
+					"type": "rectangle",
+					"top": 0,
+					"left": 0,
+					"width": 520,
+					"height": 485,
+					"stroke": "transparent",
+					"fill": "transparent"
+				},
+				"Line": {
+					"type": "line",
+					"top": 1,
+					"left": 260,
+					"width": 0,
+					"height": 484,
+					"stroke": "#1e90ff",
+					"visibility": "hidden",
+					"startPoint": "topLeft"
+				},
+				"_background": {
+					"type": "rectangle",
+					"top": 0,
+					"left": 0,
+					"width": 461,
+					"height": 454,
+					"fill": "automatic",
+					"stroke": "transparent"
+				}
+			}
+		},
+		{
+			"objects": {
+				"rules": {
+					"type": "listbox",
+					"top": 7,
+					"left": 5,
+					"width": 185,
+					"height": 259,
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"resizingMode": "legacy",
+					"hideFocusRing": true,
+					"movableRows": false,
+					"rowHeight": "1em",
+					"headerHeight": "2em",
+					"selectionMode": "single",
+					"scrollbarHorizontal": "hidden",
+					"verticalAlign": "middle",
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.rules",
+					"currentItemSource": "Form:C1466.current",
+					"showHeaders": false,
+					"fill": "automatic",
+					"currentItemPositionSource": "",
+					"selectedItemsSource": "Form:C1466.selected",
+					"events": [
+						"onSelectionChange"
+					],
+					"method": "ObjectMethods/rules.4dm",
+					"sortable": false,
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"fontWeight": "normal",
+					"columns": [
+						{
+							"name": "type",
+							"width": 140,
+							"minWidth": 140,
+							"maxWidth": 32000,
+							"resizable": false,
+							"enterable": false,
+							"textAlign": "left",
+							"fontWeight": "normal",
+							"events": [
+								"onClick",
+								"onDataChange"
+							],
+							"header": {
+								"name": "header",
+								"text": ":xliff:Label_Type",
+								"textAlign": "center",
+								"fontFamily": "Kino MT",
+								"fontSize": 11,
+								"fontWeight": "bold",
+								"stroke": "#696969"
+							},
+							"footer": {
+								"name": "footer",
+								"timeFormat": "hh_mm_ss",
+								"textAlign": "justify",
+								"fontFamily": "Kino MT",
+								"fontSize": 11
+							},
+							"stroke": "automatic",
+							"dataSource": "Replace string:C233(Parse formula:C1576(This:C1470.label);\"C_\";\"\")",
+							"fontTheme": "normal"
+						}
+					]
+				},
+				"oneLinePerVariable": {
+					"type": "checkbox",
+					"top": 301,
+					"left": 53,
+					"width": 258,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:OneLine_Comment",
+					"text": ":xliff:OneLine_Option",
+					"focusable": false,
+					"method": "ObjectMethods/oneLinePerVariable.4dm",
+					"events": [
+						"onClick"
+					],
+					"dataSource": "Form:C1466.options.oneLinePerVariable",
+					"style": "regular",
+					"dataSourceTypeHint": "boolean"
+				},
+				"variableNumber": {
+					"type": "input",
+					"top": 321,
+					"left": 266,
+					"width": 35,
+					"height": 14,
+					"sizingX": "move",
+					"dataSourceTypeHint": "number",
+					"textAlign": "left",
+					"contextMenu": "none",
+					"numberFormat": "###0",
+					"entryFilter": "&9",
+					"min": 1,
+					"max": 100,
+					"dragging": "none",
+					"dropping": "custom",
+					"events": [
+						"onAfterEdit"
+					],
+					"fontTheme": "normal",
+					"dataSource": "Form:C1466.options.numberOfVariablePerLine",
+					"fontSize": 10
+				},
+				"variableNumber.label": {
+					"type": "text",
+					"top": 321,
+					"left": 59,
+					"width": 200,
+					"height": 16,
+					"sizingX": "move",
+					"textAlign": "right",
+					"text": ":xliff:Label_NumberOfVariablesPerLine",
+					"fontTheme": "normal",
+					"fontSize": 10
+				},
+				"projectMethodDirective": {
+					"type": "checkbox",
+					"top": 338,
+					"left": 53,
+					"width": 258,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:MethodSyntax_Comment",
+					"text": ":xliff:MethodSyntax_Option",
+					"focusable": false,
+					"dataSource": "Form:C1466.options.methodDeclaration",
+					"dataSourceTypeHint": "boolean"
+				},
+				"ignoreDirectives": {
+					"type": "checkbox",
+					"top": 357,
+					"left": 53,
+					"width": 256,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:DeclarationtheVariablesDeclaredButNotUsedWill",
+					"text": ":xliff:DeclarationignoreCompilerDirectives",
+					"focusable": false,
+					"dataSource": "Form:C1466.options.ignoreDeclarations",
+					"dataSourceTypeHint": "boolean"
+				},
+				"trimEmptyLines": {
+					"type": "checkbox",
+					"top": 376,
+					"left": 53,
+					"width": 256,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:multipleEmptyLinesWillBeDeleted",
+					"text": ":xliff:removeUnnecessaryBlankLines",
+					"focusable": false,
+					"dataSource": "Form:C1466.options.trimEmptyLines",
+					"dataSourceTypeHint": "boolean"
+				},
+				"alphaToText": {
+					"type": "checkbox",
+					"top": 396,
+					"left": 53,
+					"width": 256,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:c_text&TextArrayWillBeUsedInsteadC_alpha&ArrayString",
+					"text": ":xliff:replaceObsoleteTypes",
+					"focusable": false,
+					"dataSource": "Form:C1466.options.replaceObsoleteTypes",
+					"dataSourceTypeHint": "boolean"
+				},
+				"generateComments": {
+					"type": "checkbox",
+					"top": 416,
+					"left": 53,
+					"width": 256,
+					"height": 16,
+					"sizingX": "move",
+					"tooltip": ":xliff:DeclarationCommentTooltip",
+					"text": ":xliff:DeclarationUpdateTheMethodComment",
+					"focusable": false,
+					"dataSource": "Form:C1466.options.generateComments",
+					"dataSourceTypeHint": "boolean"
+				},
+				"optionsLabel": {
+					"type": "text",
+					"text": ":xliff:Button_Options",
+					"top": 282,
+					"left": 5,
+					"width": 105,
+					"height": 16,
+					"stroke": "#808080"
+				},
+				"rule": {
+					"type": "listbox",
+					"left": 198,
+					"top": 7,
+					"width": 257,
+					"height": 141,
+					"events": [
+						"onDoubleClick",
+						"onSelectionChange",
+						"onDeleteAction"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.rule",
+					"showHeaders": false,
+					"resizingMode": "legacy",
+					"currentItemSource": "",
+					"selectedItemsSource": "Form:C1466.ruleSelected",
+					"hideFocusRing": true,
+					"selectionMode": "single",
+					"currentItemPositionSource": "",
+					"method": "ObjectMethods/rule.4dm",
+					"scrollbarHorizontal": "hidden",
+					"sortable": false,
+					"verticalAlign": "middle",
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"columns": [
+						{
+							"header": {
+								"text": "Header1",
+								"name": "header1"
+							},
+							"name": "patterns",
+							"dataSource": "This:C1470.value",
+							"footer": {
+								"name": "footer1"
+							}
+						}
+					]
+				},
+				"input": {
+					"type": "input",
+					"left": 198,
+					"top": 185,
+					"width": 257,
+					"height": 81,
+					"dataSource": "Form:C1466.ruleCurrent.value",
+					"fill": "automatic",
+					"hideFocusRing": true,
+					"borderStyle": "system",
+					"events": [
+						"onLosingFocus",
+						"onBeforeKeystroke",
+						"onDataChange"
+					],
+					"method": "ObjectMethods/input.4dm"
+				},
+				"add": {
+					"type": "button",
+					"text": "+",
+					"top": 152,
+					"left": 198,
+					"width": 20,
+					"height": 20,
+					"events": [
+						"onClick"
+					],
+					"style": "bevel",
+					"focusable": false,
+					"fontWeight": "normal",
+					"method": "ObjectMethods/add.4dm"
+				},
+				"remove": {
+					"type": "button",
+					"text": "-",
+					"top": 152,
+					"left": 223,
+					"width": 20,
+					"height": 20,
+					"events": [
+						"onClick"
+					],
+					"style": "bevel",
+					"focusable": false,
+					"fontWeight": "normal",
+					"method": "ObjectMethods/remove.4dm"
+				}
+			},
+			"entryOrder": [
+				"rules",
+				"rule",
+				"input",
+				"oneLinePerVariable",
+				"projectMethodDirective",
+				"ignoreDirectives",
+				"trimEmptyLines",
+				"alphaToText",
+				"generateComments",
+				"variableNumber",
+				"add",
+				"remove"
+			]
+		}
+	],
+	"method": "method.4dm",
+	"formSizeAnchor": "_background",
+	"rightMargin": 0,
+	"bottomMargin": 0
+}

@@ -1,0 +1,17 @@
+﻿{
+	"declarationSettings": {
+		"editable": true,
+		"items": [
+			{
+				"text": "Rules",
+				"ref": 1,
+				"editable": true
+			},
+			{
+				"text": "Options",
+				"ref": 2,
+				"editable": true
+			}
+		]
+	}
+}
