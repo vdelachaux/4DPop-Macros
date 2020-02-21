@@ -1,15 +1,14 @@
-C_LONGINT:C283($Lon_i)
+C_OBJECT:C1216($o)
 
-If (Macintosh option down:C545)\
+If (Macintosh command down:C546)\
  | (Windows Alt down:C563)
 	
-	  //%W-533.3
-	Self:C308->{0}:=Self:C308->{Self:C308->}
-	  //%W+533.3
+	For each ($o;Form:C1466.beautifier)
+		
+		$o.on:=Form:C1466.current.on
+		
+	End for each 
 	
-	For ($Lon_i;1;Size of array:C274(Self:C308->);1)
-		
-		Self:C308->{$Lon_i}:=Self:C308->{0}
-		
-	End for 
+	Form:C1466.beautifier:=Form:C1466.beautifier
+	
 End if 
