@@ -38,7 +38,7 @@ Case of
 		
 		Obj_CENTERED ("spinner";"list.hresize";Horizontally centered:K39:1+Vertically centered:K39:4)
 		
-		CALL FORM:C1391(Current form window:C827;"DECLARATION";"INIT")
+		Form:C1466.init()
 		
 		  //____________________________________________________
 	: ($Lon_event=On Timer:K2:25)

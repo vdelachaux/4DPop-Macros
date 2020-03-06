@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------o := macro ( Param_1 ; Param_2 ) -> Param_1 (Text) -> Param_2 (Variant) <- o (Object)-->o := macro ( Param_1 ; Param_2 )

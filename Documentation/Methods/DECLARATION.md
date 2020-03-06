@@ -1,1 +1,1 @@
-﻿<!----------------------------------------------------DECLARATION ( entryPoint ; Param_2 ; … ; N ) -> entryPoint (Text) - {Action} [TYPE,DISPLAY,SAVE,INIT] -> Param_2 ; … ; N (Pointer)-->## Description
+﻿<!----------------------------------------------------DECLARATION ( tSelector ; Param_2 ; … ; N ) -> tSelector (Text) - {Action} [TYPE,DISPLAY,SAVE,INIT] -> Param_2 ; … ; N (Pointer)-->## Description

@@ -10,24 +10,21 @@
   // Declarations
 C_OBJECT:C1216($0)
 C_TEXT:C284($1)
-C_OBJECT:C1216($2)
+C_VARIANT:C1683($2)
 
-C_LONGINT:C283($l;$ll)
+C_LONGINT:C283($index;$l;$pos)
 C_TEXT:C284($t)
 C_OBJECT:C1216($o)
 C_COLLECTION:C1488($c)
 
-ARRAY LONGINT:C221($tLon_lengths;0)
-ARRAY LONGINT:C221($tLon_positions;0)
-
 If (False:C215)
 	C_OBJECT:C1216(macro ;$0)
 	C_TEXT:C284(macro ;$1)
-	C_OBJECT:C1216(macro ;$2)
+	C_VARIANT:C1683(macro ;$2)
 End if 
 
   // ----------------------------------------------------
-If (This:C1470._is=Null:C1517)  // Constructor
+If (This:C1470[""]=Null:C1517)  // Constructor
 	
 	If (Count parameters:C259>0)
 		
@@ -36,10 +33,12 @@ If (This:C1470._is=Null:C1517)  // Constructor
 	End if 
 	
 	$o:=New object:C1471(\
-		"_is";"macro";\
+		"";"macro";\
+		"intl";Command name:C538(1)="Sum";\
+		"process";False:C215;\
 		"name";$t;\
-		"method";"";\
-		"highlighted";"";\
+		"method";Null:C1517;\
+		"highlighted";Null:C1517;\
 		"success";True:C214;\
 		"choose";Formula:C1597(macro ("choose"));\
 		"color";Formula:C1597(macro ("color"));\
@@ -53,7 +52,6 @@ If (This:C1470._is=Null:C1517)  // Constructor
 	$o.highlighted:=$t
 	
 	PROCESS PROPERTIES:C336(Current process:C322;$t;$l;$l)
-	
 	$o.process:=($t="Macro_Call")
 	
 Else 
@@ -61,6 +59,7 @@ Else
 	$o:=This:C1470
 	
 	Case of 
+			
 			  //______________________________________________________
 		: ($o=Null:C1517)
 			
@@ -69,12 +68,13 @@ Else
 			  //______________________________________________________
 		: ($1="swapPasteboard")
 			
-			$t:=Get text from pasteboard:C524  // Get the text content of the clipboard
+			  // Get the text content of the clipboard
+			$t:=Get text from pasteboard:C524
 			$o.success:=(Length:C16($t)>0)
 			
 			If ($o.success)
 				
-				  // Put the highlighted text on the clipboard… 
+				  // Put the highlighted text on the clipboard…
 				CLEAR PASTEBOARD:C402
 				SET TEXT TO PASTEBOARD:C523($o.highlighted)
 				
@@ -99,6 +99,8 @@ Else
 			  //______________________________________________________
 		: (Length:C16($o.highlighted)=0)  // ALL THE MACROS BELOW NEED A SELECTION
 			
+			  //
+			
 			  //______________________________________________________
 		: ($1="choose")
 			
@@ -107,28 +109,28 @@ Else
 			
 			If ($o.success)
 				
-				ARRAY LONGINT:C221($tLon_positions;0x0000)
-				ARRAY LONGINT:C221($tLon_lengths;0x0000)
+				ARRAY LONGINT:C221($aL_positions;0x0000)
+				ARRAY LONGINT:C221($aL_lengths;0x0000)
 				
-				If (Match regex:C1019(Choose:C955(Command name:C538(1)="Sum";"If";"Si")+"\\s*\\(([^\\)]*)\\).*";$c[0];1;$tLon_positions;$tLon_lengths))
+				If (Match regex:C1019(Choose:C955($o.intl;"If";"Si")+"\\s*\\(([^\\)]*)\\).*";$c[0];1;$aL_positions;$aL_lengths))
 					
-					$l:=Position:C15(":=";$c[1])
+					$index:=Position:C15(":=";$c[1])
 					
-					If ($l>0)
+					If ($index>0)
 						
-						$ll:=Position:C15(":=";$c[3])
+						$pos:=Position:C15(":=";$c[3])
 						
-						If ($ll>0)
+						If ($pos>0)
 							
-							$t:=Substring:C12($c[1];1;$l-1)\
+							$t:=Substring:C12($c[1];1;$index-1)\
 								+":="\
 								+Command name:C538(955)\
 								+"("\
-								+Substring:C12($c[0];$tLon_positions{1};$tLon_lengths{1})\
+								+Substring:C12($c[0];$aL_positions{1};$aL_lengths{1})\
 								+";"\
-								+Substring:C12($c[1];$l+2)\
+								+Substring:C12($c[1];$index+2)\
 								+";"\
-								+Substring:C12($c[3];$ll+2)\
+								+Substring:C12($c[3];$pos+2)\
 								+")"
 							
 							SET MACRO PARAMETER:C998(Highlighted method text:K5:18;$t)
@@ -145,7 +147,6 @@ Else
 			
 			  //______________________________________________________
 	End case 
-	
 End if 
 
   // ----------------------------------------------------

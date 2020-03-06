@@ -1,16 +1,20 @@
 //%attributes = {"invisible":true}
+_O_C_STRING:C293(10;$a12_obsolete_alpha)
 C_BLOB:C604($Blb_buffer)
 C_BOOLEAN:C305($Boo_)
-C_LONGINT:C283($Int_old;$Lon_cmd;$Lon_end;$Lon_i;$Lon_offset)
+_O_C_INTEGER:C282($Int_old)
+C_LONGINT:C283($Lon_cmd;$Lon_end;$Lon_i;$Lon_offset)
 C_TEXT:C284($Txt_buffer;$Txt_command;$Txt_referenceLanguage)
-C_OBJECT:C1216($Obj_;$Obj_dot;$Obj_dot1;$Obj_dot3;$Obj_empty;$Obj_settings)
-C_OBJECT:C1216($Obj_test)
+C_OBJECT:C1216($o;$Obj_;$Obj_dot;$Obj_dot1;$Obj_dot3;$Obj_empty)
+C_OBJECT:C1216($Obj_settings;$Obj_test)
 C_COLLECTION:C1488($Col_;$Col_test)
-C_TEXT:C284($a12_obsolete_alpha)
 
 ARRAY BLOB:C1222($tBlb_blob;0)
 ARRAY TIME:C1223($tGmt_time;0)
 ARRAY OBJECT:C1221($tObj_test;0)
+
+$o:=New object:C1471
+$o.$dialog:=New collection:C1472
 
   //$1:="hello"
   //${2}:="world"

@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------4DPop_MACROS ( tMacro ; t ; Param_3 ; Param_4 ; … ; N ) -> tMacro (Text) -> t (Text) -> Param_3 (Text) -> Param_4 ; … ; N (Pointer)-->4DPop_MACROS ( tMacro ; t ; Param_3 ; Param_4 ; … ; N )

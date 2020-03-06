@@ -1,18 +1,36 @@
 //%attributes = {}
-C_OBJECT:C1216($o;$oo)
+C_LONGINT:C283($1;${2};$l)
 
-$o:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop")
-$o.create()
-
-$o:=$o.file("4DPop Macros.test")
-
-If (Not:C34($o.exists))
-	
-	$oo:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop v11/test.xml")
-	
-	If ($oo.exists)
-		
-		$oo.copyTo($o.parent;"4DPop Macros.test")
-		
-	End if 
+If (False:C215)
+	C_TEXT:C284(DECLARATION ;$1)
+	C_POINTER:C301(DECLARATION ;${2})
 End if 
+
+$l:=0
+
+_O_ARRAY STRING:C218(12;$tTxt_local;0x0000)
+ARRAY LONGINT:C221($tLon_2D;10;10)
+
+ARRAY LONGINT:C221($tLon_a;0x0000)
+ARRAY LONGINT:C221($tLon_b;0)
+ARRAY LONGINT:C221($tLon_c;10)
+
+/*zzz*/ARRAY TEXT:C222($tTxt_ALPHA;2)
+ARRAY LONGINT:C221($tLon_stringLength;$l)
+
+
+/*ARRAY TEXT($tTxt_BLOB;0x0000)
+  ARRAY TEXT($tTxt_BOOLEAN;0x0000)
+  ARRAY TEXT($tTxt_DATE;0x0000)
+ARRAY TEXT($tTxt_LONGINT;0x0000)*/
+
+  //ARRAY TEXT($tTxt_INTEGER;0x0000)
+  //ARRAY TEXT($tTxt_GRAPH;0x0000)
+  //ARRAY TEXT($tTxt_TIME;0x0000)
+  //ARRAY TEXT($tTxt_PICTURE;0x0000)
+  //ARRAY TEXT($tTxt_POINTER;0x0000)
+  //ARRAY TEXT($tTxt_REAL;0x0000)
+  //ARRAY TEXT($tTxt_TEXT;0x0000)
+  //ARRAY TEXT($tTxt_OBJECT;0x0000)
+  //ARRAY TEXT($tTxt_COLLECTION;0x0000)
+  //ARRAY TEXT($tTxt_VARIANT;0x0000)

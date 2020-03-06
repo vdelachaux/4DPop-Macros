@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------declarationINIT ( t ; tMethodCode ) -> t (Text) -> tMethodCode (Text)-->declarationINIT ( t ; tMethodCode )

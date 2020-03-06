@@ -14,4 +14,5 @@ DECLARATION ("Get_Syntax_Preferences")
 (OBJECT Get pointer:C1124(Object named:K67:5;"spinner"))->:=1
 OBJECT SET VISIBLE:C603(*;"spinner";True:C214)
 
-CALL FORM:C1391(Current form window:C827;"DECLARATION";"INIT")
+  // Reload
+Form:C1466.init()

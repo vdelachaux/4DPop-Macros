@@ -52,7 +52,7 @@ If (False:C215)
 	
 	C_OBJECT:C1216(macro ;$0)
 	C_TEXT:C284(macro ;$1)
-	C_OBJECT:C1216(macro ;$2)
+	C_VARIANT:C1683(macro ;$2)
 	
 	C_TEXT:C284(localizedControlFlow ;$0)
 	C_TEXT:C284(localizedControlFlow ;$1)
