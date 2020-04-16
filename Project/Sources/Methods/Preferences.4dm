@@ -65,7 +65,7 @@ If (OK=0)
 	
 	If (Not:C34($o.exists))  // Create default
 		
-		$oo:=Folder:C1567(fk resources folder:K87:11).file("4DPop Macros.xml")
+		$oo:=Folder:C1567(fk resources folder:K87:11).file("4DPop_Macros.xml")
 		
 		$oo.copyTo($o.parent)
 		
