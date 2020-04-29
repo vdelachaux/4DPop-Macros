@@ -1,4 +1,4 @@
-# Ignore invisible files/folders except .gitignore
+﻿# Ignore invisible files/folders except .gitignore
 .*
 !.gitignore
 
@@ -25,3 +25,5 @@ Resources/FR_US Commands.xml
 Resources/php.ini
 Resources/FR_US.xml
 Resources/Macro_FR_US.xml
+
+Build/Components/4DPop Macros.4dbase/Resources/php.ini

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<tools 
+    name="Macros" 
+    picture="4DPop.png">
+
+	<tool 
+	    name="Settings" 
+	    method="4DPop_MACROS_SETTINGS"
+	/>
+	
+</tools>
