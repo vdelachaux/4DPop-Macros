@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------rgx := rgx ( Param_1 ; Param_2 ) -> Param_1 (Text) -> Param_2 (Object) <- rgx (Object)-->o := rgx ( Param_1 ; Param_2 )

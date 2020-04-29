@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------syntax := METHOD_Syntax ( code ; name ; prefix ) -> code (Text) -  Code of the method to analyse -> name (Text) -  Name of the method -> prefix (Text) -  Prefix used at the beginning of each line <- syntax (Text) -  Prototype-->## Description

@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------Boolean := str_isNumeric ( Param_1 ) -> Param_1 (Text)-->## Description

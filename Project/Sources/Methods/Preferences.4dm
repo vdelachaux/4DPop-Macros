@@ -50,7 +50,7 @@ If (OK=0)
 	$o:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop")
 	$o.create()
 	
-	$o:=$o.file("4DPop Macros.xml")
+	$o:=$o.file("4DPop Macros.xml").original
 	
 	If (Not:C34($o.exists))  // Get the old preference file if any
 		

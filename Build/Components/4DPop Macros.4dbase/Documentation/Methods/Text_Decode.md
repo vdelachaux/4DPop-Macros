@@ -1,0 +1,1 @@
+﻿<!----------------------------------------------------result := Text_Decode ( Target ; charSet ) -> Target (Text) -> charSet (Text) <- result (Text)-->## Description
