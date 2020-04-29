@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Grammar for 4th Dimension methods macros. 4D SA.-->
+
+<!-- caret position after macro expansion -->
+<!ELEMENT caret EMPTY>
+
+<!-- placeholder for selection -->
+<!ELEMENT selection EMPTY>
+
+<!-- placeholder for operating system user name -->
+<!ELEMENT user_os EMPTY>
+
+<!-- placeholder for 4D user name -->
+<!ELEMENT user_4d EMPTY>
+
+<!-- placeholder for method name -->
+<!ELEMENT method_name EMPTY>
+
+<!-- placeholder for method path -->
+<!ELEMENT method_path EMPTY>
+
+<!-- placeholder for current time -->
+<!-- format = 0 to 8 -->
+<!ELEMENT time EMPTY>
+<!ATTLIST time format CDATA #IMPLIED>
+
+<!-- placeholder for current date -->
+<!-- format = 0 to 6 -->
+<!ELEMENT date EMPTY>
+<!ATTLIST date format CDATA #IMPLIED>
+
+<!-- placeholder for clipboard contents -->
+<!-- index = 0 to 9 -->
+<!ELEMENT clipboard EMPTY>
+<!ATTLIST clipboard index CDATA #IMPLIED>
+
+<!-- method contents -->
+<!ELEMENT method (#PCDATA | user_os | user_4d | time | date | method_name | method_path | caret | selection | clipboard )*>
+
+<!-- macro contents -->
+<!ELEMENT text (#PCDATA | user_os | user_4d | time | date | method_name | method_path | caret | selection | method | clipboard )*>
+
+<!-- macro -->
+<!-- name = name as displayed in contextual menu -->
+<!-- type_ahead_text = text to type to activate the macro using type ahead (default is the macro name) -->
+<!-- type_ahead = should this macro be available using type ahead? (default is true) -->
+<!-- note: if the macro contents uses the selection placeholder, it cannot be activated using type-ahead -->
+<!-- in_menu = should this macro be displayed in contextual menu? (default is true) -->
+<!-- method_event can be on_create, on_save, on_load, on_close, on_tab -->
+<!-- version: if version is equal to 2, macro can use SET/GET MACRO PARAMETER method -->
+<!ELEMENT macro (text?)>
+<!ATTLIST macro
+  name CDATA #REQUIRED
+  type_ahead_text CDATA #IMPLIED
+  type_ahead (true | false) "true"
+  in_menu (true | false) "true"
+  in_toolbar (true | false) "true"
+  method_event CDATA #IMPLIED
+  version CDATA #IMPLIED
+>
+<!-- a macro file contains macros -->
+<!ELEMENT macros (#PCDATA | macro)*>

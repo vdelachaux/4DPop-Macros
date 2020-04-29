@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE macros SYSTEM "http://www.4d.com/dtd/2007/macros.dtd" >
+<macros>
+        
+    <!-- THE FOLLOWING MACROS ARE NOT DISPLAYED NOR IN THE MENU NOR IN THE TOOLBAR BUT AVAILABLE THRU TYPE AHEAD-->
+    
+    <macro  name="Si" in_menu="false" in_toolbar="false" type_ahead="true">
+        <text>If(<caret/>)
+            
+                <selection/>
+            
+            Else
+            
+             // A "If" statement should never omit a "Else" statement  
+            
+            End if</text>
+    </macro>
+    
+    <macro name="Au cas ou" in_menu="false" in_toolbar="false" type_ahead="true">
+        <text>Case of
+            //______________________________________________________
+            :(<caret/>)
+            
+                <selection/>
+            
+            //______________________________________________________
+            :(False)
+            
+            
+            
+            //______________________________________________________
+            Else
+            
+            // A "Case of" statement should never omit a "Else" statement
+      
+            //______________________________________________________
+            End case</text>
+    </macro>
+    
+    <macro name="Tant que" in_menu="false" in_toolbar="false" type_ahead="true">
+        <text>While(<caret/>)
+            
+            <selection/>
+            
+            End while</text>
+    </macro> 
+    
+    <macro name="Boucle" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>For($i;1;<caret/>;1)
+            
+            <selection/>
+            
+            End for</text>
+    </macro>
+    
+    <macro name="Repeter" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>Repeat
+            
+            <selection/>
+            
+            Until(<caret/>)</text>
+    </macro>
+    
+    <macro name="Fin de si" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>End if</text>
+    </macro>
+    
+    <macro name="Fin de boucle" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>End for</text>
+    </macro>
+    
+    <macro name="Fin tant que" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>End while</text>
+    </macro>
+    
+    <macro name="Fin de cas" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>End case</text>
+    </macro>
+    
+    <macro name="Sinon" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>Else</text>
+    </macro>
+    
+    <macro name="Jusque" in_menu="false" type_ahead="true" in_toolbar="false">
+        <text>Until</text>
+    </macro>
+    
+</macros>
