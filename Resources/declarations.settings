@@ -4,17 +4,20 @@
 			{
 				"comment":"C_STRING",
 				"type":1001,
-				"cmd":293
+				"cmd":293,
+				"var":"Text"
 			},
 			{
 				"comment":"C_BLOB",
 				"type":1002,
-				"cmd":604
+				"cmd":604,
+				"var":"Blob"
 			},
 			{
 				"comment":"C_BOOLEAN",
 				"type":1003,
-				"cmd":305
+				"cmd":305,
+				"var":"Boolean"
 			},
 			{
 				"comment":"C_DATE",
