@@ -1,4 +1,6 @@
-Class constructor
+Class constructor  // Comment
+	
+	var $t : Text
 	
 	GET MACRO PARAMETER:C997(Full method text:K5:17;$t)
 	This:C1470.method:=$t
@@ -6,4 +8,4 @@ Class constructor
 	This:C1470.highlighted:=$t
 	This:C1470.selection:=Length:C16($t)>0
 	
-	
+Function test  // Comment

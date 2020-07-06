@@ -1,0 +1,396 @@
+﻿{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad"
+	],
+	"windowTitle": "window title",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"declarationList": {
+					"type": "listbox",
+					"left": 19,
+					"top": 49,
+					"width": 356,
+					"height": 357,
+					"events": [
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.subset",
+					"currentItemSource": "Form:C1466.current",
+					"currentItemPositionSource": "Form:C1466.index",
+					"selectedItemsSource": "Form:C1466.selected",
+					"resizingMode": "legacy",
+					"hideFocusRing": true,
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"showHeaders": false,
+					"sizingY": "grow",
+					"scrollbarHorizontal": "hidden",
+					"sizingX": "grow",
+					"method": "ObjectMethods/declarationList.4dm",
+					"columns": [
+						{
+							"header": {
+								"name": "Header2",
+								"text": "Header2"
+							},
+							"name": "Column2",
+							"dataSourceTypeHint": "picture",
+							"dataSource": "This:C1470.icon",
+							"width": 32,
+							"footer": {
+								"name": "Footer2"
+							},
+							"pictureFormat": "truncatedCenter",
+							"enterable": false,
+							"resizable": false
+						},
+						{
+							"header": {
+								"text": "Header1",
+								"name": "Header1"
+							},
+							"name": "Column1",
+							"footer": {
+								"name": "Footer1"
+							},
+							"dataSource": "This:C1470.value"
+						}
+					]
+				},
+				"control": {
+					"type": "tab",
+					"text": "Tab control",
+					"top": 34,
+					"left": 395,
+					"width": 268,
+					"height": 28,
+					"labels": {
+						"$ref": "/SOURCES/lists.json#/declaration"
+					},
+					"sizingX": "move",
+					"method": "ObjectMethods/control.4dm",
+					"events": [
+						"onClick"
+					],
+					"dataSourceTypeHint": "integer",
+					"labelsPlacement": "top"
+				},
+				"text": {
+					"type": "radio",
+					"top": 322,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "t",
+					"shortcutAlt": true,
+					"text": ":xliff:Text",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"longint": {
+					"type": "radio",
+					"top": 187,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "l",
+					"shortcutAlt": true,
+					"text": ":xliff:LongInteger",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"real": {
+					"type": "radio",
+					"top": 295,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "r",
+					"shortcutAlt": true,
+					"text": ":xliff:Real",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"boolean": {
+					"type": "radio",
+					"top": 82,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "n",
+					"shortcutAlt": true,
+					"text": ":xliff:Boolean",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration",
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false
+				},
+				"date": {
+					"type": "radio",
+					"top": 160,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "d",
+					"shortcutAlt": true,
+					"text": ":xliff:Date",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"time": {
+					"type": "radio",
+					"top": 349,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "m",
+					"shortcutAlt": true,
+					"text": ":xliff:Time",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration",
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false
+				},
+				"picture": {
+					"type": "radio",
+					"top": 241,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "i",
+					"shortcutAlt": true,
+					"text": ":xliff:Picture",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"blob": {
+					"type": "radio",
+					"top": 108,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "b",
+					"shortcutAlt": true,
+					"text": ":xliff:BLOB",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration",
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false
+				},
+				"pointer": {
+					"type": "radio",
+					"top": 268,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "p",
+					"shortcutAlt": true,
+					"text": ":xliff:Pointer",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"object": {
+					"type": "radio",
+					"top": 214,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "o",
+					"shortcutAlt": true,
+					"text": ":xliff:Object",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"collection": {
+					"type": "radio",
+					"top": 134,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "c",
+					"shortcutAlt": true,
+					"text": ":xliff:Collection",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"variant": {
+					"type": "radio",
+					"top": 376,
+					"left": 461,
+					"width": 136,
+					"height": 15,
+					"sizingX": "move",
+					"shortcutKey": "v",
+					"shortcutAlt": true,
+					"text": ":xliff:Variant",
+					"focusable": false,
+					"events": [
+						"onClick"
+					],
+					"right": 597,
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "declaration"
+				},
+				"Input": {
+					"type": "input",
+					"left": 18,
+					"top": 426,
+					"width": 645,
+					"height": 17,
+					"dataSource": "Form:C1466.current.code",
+					"enterable": false,
+					"focusable": false,
+					"sizingX": "grow",
+					"sizingY": "move",
+					"fill": "transparent",
+					"borderStyle": "none",
+					"stroke": "#696969"
+				},
+				"subset": {
+					"type": "dropdown",
+					"left": 131,
+					"top": 24,
+					"width": 156,
+					"height": 19,
+					"events": [
+						"onDataChange"
+					],
+					"method": "ObjectMethods/subset.4dm",
+					"dataSourceTypeHint": "integer",
+					"focusable": false,
+					"choiceList": {
+						"$ref": "/SOURCES/lists.json#/declarationSubset"
+					},
+					"sizingX": "fixed"
+				},
+				"Text1": {
+					"type": "text",
+					"text": "Filter",
+					"top": 25,
+					"left": 17,
+					"width": 106,
+					"height": 16,
+					"textAlign": "right",
+					"sizingX": "fixed"
+				}
+			}
+		}
+	],
+	"geometryStamp": 108,
+	"editor": {
+		"groups": {
+			"Group": [
+				"text",
+				"longint",
+				"real",
+				"boolean",
+				"date",
+				"time",
+				"picture",
+				"blob",
+				"pointer",
+				"object",
+				"collection",
+				"variant"
+			]
+		},
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	},
+	"method": "method.4dm"
+}

@@ -13,5 +13,100 @@
 				"editable": true
 			}
 		]
+	},
+	"declaration": {
+		"editable": true,
+		"items": [
+			{
+				"text": "Parameter",
+				"ref": 3,
+				"editable": true
+			},
+			{
+				"text": "Variable",
+				"ref": 1,
+				"editable": true
+			},
+			{
+				"text": "Array",
+				"ref": 2,
+				"editable": true
+			}
+		]
+	},
+	"declarationSubset": {
+		"editable": true,
+		"items": [
+			{
+				"text": "All",
+				"ref": 0,
+				"editable": true
+			},
+			{
+				"text": "-",
+				"ref": 13,
+				"editable": false
+			},
+			{
+				"text": "BLOB",
+				"ref": 30,
+				"editable": true
+			},
+			{
+				"text": "Boolean",
+				"ref": 6,
+				"editable": true
+			},
+			{
+				"text": "Collection",
+				"ref": 42,
+				"editable": true
+			},
+			{
+				"text": "Date",
+				"ref": 4,
+				"editable": true
+			},
+			{
+				"text": "Longint",
+				"ref": 9,
+				"editable": true
+			},
+			{
+				"text": "Object",
+				"ref": 38,
+				"editable": true
+			},
+			{
+				"text": "Picture",
+				"ref": 3,
+				"editable": true
+			},
+			{
+				"text": "Pointer",
+				"ref": 23,
+				"editable": true
+			},
+			{
+				"text": "Real",
+				"ref": 1,
+				"editable": true
+			},
+			{
+				"text": "Text",
+				"ref": 2,
+				"editable": true
+			},
+			{
+				"text": "Time",
+				"ref": 11,
+				"editable": true
+			},
+			{
+				"text": "Variant",
+				"ref": 12,
+				"editable": true
+			}
+		]
 	}
 }

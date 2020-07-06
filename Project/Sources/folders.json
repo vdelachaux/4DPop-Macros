@@ -43,6 +43,13 @@
 			"rgx",
 			"str",
 			"test_rgx"
+		],
+		"classes": [
+			"button",
+			"group",
+			"input",
+			"static",
+			"widget"
 		]
 	},
 	"Component": {
@@ -113,6 +120,7 @@
 			"Compiler_Rgx",
 			"Rgx_ExtractText",
 			"Rgx_Get_Pattern",
+			"Rgx_match",
 			"Rgx_MatchText",
 			"rgx_NO_ERROR",
 			"rgx_Options",
