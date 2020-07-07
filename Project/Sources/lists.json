@@ -43,29 +43,53 @@
 				"editable": true
 			},
 			{
+				"text": "Undefined",
+				"ref": -3,
+				"editable": false
+			},
+			{
 				"text": "-",
-				"ref": 13,
+				"ref": 8858,
+				"editable": false
+			},
+			{
+				"text": "Parameters",
+				"ref": -1,
+				"editable": false
+			},
+			{
+				"text": "Variables",
+				"ref": -2,
+				"editable": false
+			},
+			{
+				"text": "-",
+				"ref": 13893,
 				"editable": false
 			},
 			{
 				"text": "BLOB",
 				"ref": 30,
-				"editable": true
+				"editable": true,
+				"icon": "/RESOURCES/Images/fieldIcons/field_30.png"
 			},
 			{
 				"text": "Boolean",
 				"ref": 6,
-				"editable": true
+				"editable": true,
+				"icon": "/RESOURCES/Images/fieldIcons/field_06.png"
 			},
 			{
 				"text": "Collection",
 				"ref": 42,
-				"editable": true
+				"editable": true,
+				"icon": "/RESOURCES/Images/fieldIcons/field_42.png"
 			},
 			{
 				"text": "Date",
 				"ref": 4,
-				"editable": true
+				"editable": true,
+				"icon": "/RESOURCES/Images/fieldIcons/field_04.png"
 			},
 			{
 				"text": "Longint",

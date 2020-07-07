@@ -5,14 +5,14 @@
 	},
 	"windowSizingX": "variable",
 	"windowSizingY": "variable",
-	"windowMinWidth": 0,
+	"windowMinWidth": 623,
 	"windowMinHeight": 0,
 	"windowMaxWidth": 32767,
 	"windowMaxHeight": 32767,
-	"rightMargin": 20,
-	"bottomMargin": 20,
 	"events": [
-		"onLoad"
+		"onLoad",
+		"onClick",
+		"onTimer"
 	],
 	"windowTitle": "window title",
 	"pages": [
@@ -25,7 +25,7 @@
 					"type": "listbox",
 					"left": 19,
 					"top": 49,
-					"width": 356,
+					"width": 296,
 					"height": 357,
 					"events": [
 						"onSelectionChange"
@@ -44,6 +44,8 @@
 					"scrollbarHorizontal": "hidden",
 					"sizingX": "grow",
 					"method": "ObjectMethods/declarationList.4dm",
+					"metaSource": "declarationUI",
+					"selectionMode": "single",
 					"columns": [
 						{
 							"header": {
@@ -78,7 +80,7 @@
 					"type": "tab",
 					"text": "Tab control",
 					"top": 34,
-					"left": 395,
+					"left": 335,
 					"width": 268,
 					"height": 28,
 					"labels": {
@@ -95,7 +97,7 @@
 				"text": {
 					"type": "radio",
 					"top": 322,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -106,14 +108,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"longint": {
 					"type": "radio",
 					"top": 187,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -124,14 +126,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"real": {
 					"type": "radio",
 					"top": 295,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -142,14 +144,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"boolean": {
 					"type": "radio",
 					"top": 82,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -160,7 +162,7 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration",
 					"shortcutAccel": false,
@@ -170,7 +172,7 @@
 				"date": {
 					"type": "radio",
 					"top": 160,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -181,14 +183,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"time": {
 					"type": "radio",
 					"top": 349,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -199,7 +201,7 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration",
 					"shortcutAccel": false,
@@ -209,7 +211,7 @@
 				"picture": {
 					"type": "radio",
 					"top": 241,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -220,14 +222,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"blob": {
 					"type": "radio",
 					"top": 108,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -238,7 +240,7 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration",
 					"shortcutAccel": false,
@@ -248,7 +250,7 @@
 				"pointer": {
 					"type": "radio",
 					"top": 268,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -259,14 +261,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"object": {
 					"type": "radio",
 					"top": 214,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -277,7 +279,7 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"shortcutAccel": false,
 					"shortcutControl": false,
 					"shortcutShift": false,
@@ -287,7 +289,7 @@
 				"collection": {
 					"type": "radio",
 					"top": 134,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -298,14 +300,14 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
 				"variant": {
 					"type": "radio",
 					"top": 376,
-					"left": 461,
+					"left": 401,
 					"width": 136,
 					"height": 15,
 					"sizingX": "move",
@@ -316,7 +318,7 @@
 					"events": [
 						"onClick"
 					],
-					"right": 597,
+					"right": 537,
 					"shortcutAccel": false,
 					"shortcutControl": false,
 					"shortcutShift": false,
@@ -327,7 +329,7 @@
 					"type": "input",
 					"left": 18,
 					"top": 426,
-					"width": 645,
+					"width": 585,
 					"height": 17,
 					"dataSource": "Form:C1466.current.code",
 					"enterable": false,
@@ -336,13 +338,13 @@
 					"sizingY": "move",
 					"fill": "transparent",
 					"borderStyle": "none",
-					"stroke": "#696969"
+					"stroke": "#1e90ff"
 				},
 				"subset": {
 					"type": "dropdown",
-					"left": 131,
+					"left": 40,
 					"top": 24,
-					"width": 156,
+					"width": 96,
 					"height": 19,
 					"events": [
 						"onDataChange"
@@ -355,20 +357,18 @@
 					},
 					"sizingX": "fixed"
 				},
-				"Text1": {
-					"type": "text",
-					"text": "Filter",
-					"top": 25,
-					"left": 17,
-					"width": 106,
-					"height": 16,
-					"textAlign": "right",
-					"sizingX": "fixed"
+				"Static Picture1": {
+					"type": "picture",
+					"top": 27,
+					"left": 19,
+					"width": 14,
+					"height": 12,
+					"picture": "/RESOURCES/Images/filter.png"
 				}
 			}
 		}
 	],
-	"geometryStamp": 108,
+	"geometryStamp": 166,
 	"editor": {
 		"groups": {
 			"Group": [
@@ -392,5 +392,8 @@
 			"View 1": {}
 		}
 	},
-	"method": "method.4dm"
+	"method": "method.4dm",
+	"width": 623,
+	"height": 463,
+	"destination": "detailScreen"
 }

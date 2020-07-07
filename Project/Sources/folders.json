@@ -2,6 +2,9 @@
 	"_o_OBSOLETES": {
 		"methods": [
 			"_o_Preferences_Set"
+		],
+		"forms": [
+			"DECLARATIONS"
 		]
 	},
 	"00_dev": {
@@ -43,13 +46,6 @@
 			"rgx",
 			"str",
 			"test_rgx"
-		],
-		"classes": [
-			"button",
-			"group",
-			"input",
-			"static",
-			"widget"
 		]
 	},
 	"Component": {
@@ -108,9 +104,9 @@
 			"ABOUT",
 			"COMMENTS",
 			"CREATE_BUTTON",
-			"DECLARATIONS",
 			"DECLARATIONS_SETTINGS",
 			"LIST",
+			"NEW_DECLARATION",
 			"SETTINGS",
 			"SPECIAL_PASTE"
 		]
