@@ -12,9 +12,10 @@
 	"events": [
 		"onLoad",
 		"onClick",
+		"onDataChange",
 		"onTimer"
 	],
-	"windowTitle": "window title",
+	"windowTitle": "4DPop Macro - Declaration",
 	"pages": [
 		{
 			"objects": {}
@@ -35,17 +36,17 @@
 					"currentItemSource": "Form:C1466.current",
 					"currentItemPositionSource": "Form:C1466.index",
 					"selectedItemsSource": "Form:C1466.selected",
-					"resizingMode": "legacy",
 					"hideFocusRing": true,
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
-					"showHeaders": false,
 					"sizingY": "grow",
 					"scrollbarHorizontal": "hidden",
 					"sizingX": "grow",
 					"method": "ObjectMethods/declarationList.4dm",
 					"metaSource": "declarationUI",
 					"selectionMode": "single",
+					"showHeaders": false,
+					"scrollbarVertical": "visible",
 					"columns": [
 						{
 							"header": {
@@ -68,11 +69,29 @@
 								"text": "Header1",
 								"name": "Header1"
 							},
-							"name": "Column1",
+							"name": "value",
 							"footer": {
 								"name": "Footer1"
 							},
-							"dataSource": "This:C1470.value"
+							"dataSource": "This:C1470.value",
+							"width": 229
+						},
+						{
+							"header": {
+								"name": "Header3",
+								"text": "Header3"
+							},
+							"name": "count",
+							"dataSource": "This:C1470.count",
+							"width": 35,
+							"textAlign": "center",
+							"footer": {
+								"name": "Footer3"
+							},
+							"minWidth": 35,
+							"maxWidth": 35,
+							"enterable": false,
+							"resizable": true
 						}
 					]
 				},
@@ -340,7 +359,7 @@
 					"borderStyle": "none",
 					"stroke": "#1e90ff"
 				},
-				"subset": {
+				"filter": {
 					"type": "dropdown",
 					"left": 40,
 					"top": 24,
@@ -349,7 +368,7 @@
 					"events": [
 						"onDataChange"
 					],
-					"method": "ObjectMethods/subset.4dm",
+					"method": "ObjectMethods/filter.4dm",
 					"dataSourceTypeHint": "integer",
 					"focusable": false,
 					"choiceList": {
@@ -368,7 +387,7 @@
 			}
 		}
 	],
-	"geometryStamp": 166,
+	"geometryStamp": 169,
 	"editor": {
 		"groups": {
 			"Group": [
@@ -394,6 +413,5 @@
 	},
 	"method": "method.4dm",
 	"width": 623,
-	"height": 463,
-	"destination": "detailScreen"
+	"height": 463
 }

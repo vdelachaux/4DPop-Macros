@@ -6,18 +6,20 @@ Case of
 		//______________________________________________________
 	: ($e.code=On Load:K2:1)
 		
-		Form:C1466.boolean:=cs:C1710.button.new("boolean").highlightShortcut()
-		Form:C1466.blob:=cs:C1710.button.new("blob").highlightShortcut()
-		Form:C1466.collection:=cs:C1710.button.new("collection").highlightShortcut()
-		Form:C1466.date:=cs:C1710.button.new("date").highlightShortcut()
-		Form:C1466.longint:=cs:C1710.button.new("longint").highlightShortcut()
-		Form:C1466.object:=cs:C1710.button.new("object").highlightShortcut()
-		Form:C1466.picture:=cs:C1710.button.new("picture").highlightShortcut()
-		Form:C1466.pointer:=cs:C1710.button.new("pointer").highlightShortcut()
-		Form:C1466.real:=cs:C1710.button.new("real").highlightShortcut()
-		Form:C1466.text:=cs:C1710.button.new("text").highlightShortcut()
-		Form:C1466.time:=cs:C1710.button.new("time").highlightShortcut()
-		Form:C1466.variant:=cs:C1710.button.new("variant").highlightShortcut()
+		Form:C1466.boolean:=cs:C1710.button.new("boolean").bestSize().highlightShortcut()
+		Form:C1466.blob:=cs:C1710.button.new("blob").bestSize().highlightShortcut()
+		Form:C1466.collection:=cs:C1710.button.new("collection").bestSize().highlightShortcut()
+		Form:C1466.date:=cs:C1710.button.new("date").bestSize().highlightShortcut()
+		Form:C1466.longint:=cs:C1710.button.new("longint").bestSize().highlightShortcut()
+		Form:C1466.object:=cs:C1710.button.new("object").bestSize().highlightShortcut()
+		Form:C1466.picture:=cs:C1710.button.new("picture").bestSize().highlightShortcut()
+		Form:C1466.pointer:=cs:C1710.button.new("pointer").bestSize().highlightShortcut()
+		Form:C1466.real:=cs:C1710.button.new("real").bestSize().highlightShortcut()
+		Form:C1466.text:=cs:C1710.button.new("text").bestSize().highlightShortcut()
+		Form:C1466.time:=cs:C1710.button.new("time").bestSize().highlightShortcut()
+		Form:C1466.variant:=cs:C1710.button.new("variant").bestSize().highlightShortcut()
+		
+		Form:C1466.filterMenu:=cs:C1710.widget.new("filter")
 		
 		Form:C1466.list:=cs:C1710.scrollable.new("declarationList")
 		
@@ -30,7 +32,7 @@ Case of
 			
 		End for each 
 		
-		SELECT LIST ITEMS BY POSITION:C381(*; "subset"; 1)
+		SELECT LIST ITEMS BY POSITION:C381(*; "filter"; 1)
 		Form:C1466.subset:=Form:C1466.variables
 		
 		LISTBOX SELECT ROW:C912(*; "declarationList"; 1; lk replace selection:K53:1)
@@ -43,6 +45,11 @@ Case of
 		SET TIMER:C645(0)
 		
 		Form:C1466.display()
+		
+		//______________________________________________________
+	: (Form:C1466.filterMenu.catch($e))
+		
+		Form:C1466.getFilter()
 		
 		//______________________________________________________
 	: (Form:C1466.boolean.catch($e))
