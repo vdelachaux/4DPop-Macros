@@ -6,26 +6,46 @@ Case of
 		//______________________________________________________
 	: ($e.code=On Load:K2:1)
 		
+		var $c : Collection
+		$c:=New collection:C1472
 		Form:C1466.boolean:=cs:C1710.button.new("boolean").bestSize().highlightShortcut()
+		$c.push(Form:C1466.boolean)
 		Form:C1466.blob:=cs:C1710.button.new("blob").bestSize().highlightShortcut()
+		$c.push(Form:C1466.blob)
 		Form:C1466.collection:=cs:C1710.button.new("collection").bestSize().highlightShortcut()
+		$c.push(Form:C1466.collection)
 		Form:C1466.date:=cs:C1710.button.new("date").bestSize().highlightShortcut()
-		Form:C1466.longint:=cs:C1710.button.new("longint").bestSize().highlightShortcut()
+		$c.push(Form:C1466.date)
+		Form:C1466.integer:=cs:C1710.button.new("integer").bestSize().highlightShortcut()
+		$c.push(Form:C1466.integer)
 		Form:C1466.object:=cs:C1710.button.new("object").bestSize().highlightShortcut()
+		$c.push(Form:C1466.object)
 		Form:C1466.picture:=cs:C1710.button.new("picture").bestSize().highlightShortcut()
+		$c.push(Form:C1466.picture)
 		Form:C1466.pointer:=cs:C1710.button.new("pointer").bestSize().highlightShortcut()
+		$c.push(Form:C1466.pointer)
 		Form:C1466.real:=cs:C1710.button.new("real").bestSize().highlightShortcut()
+		$c.push(Form:C1466.real)
 		Form:C1466.text:=cs:C1710.button.new("text").bestSize().highlightShortcut()
+		$c.push(Form:C1466.text)
 		Form:C1466.time:=cs:C1710.button.new("time").bestSize().highlightShortcut()
+		$c.push(Form:C1466.time)
 		Form:C1466.variant:=cs:C1710.button.new("variant").bestSize().highlightShortcut()
+		$c.push(Form:C1466.variant)
 		
 		Form:C1466.filterMenu:=cs:C1710.widget.new("filter")
 		
+		Form:C1466.tab:=cs:C1710.widget.new("control")
+		$c.push(Form:C1466.tab)
+		
 		Form:C1466.list:=cs:C1710.scrollable.new("declarationList")
+		
+		Form:C1466.isSelected:=cs:C1710.group.new($c)
 		
 		OBJECT SET SCROLLBAR:C843(*; "declarationList"; 0; 2)
 		
 		var $o : Object
+		
 		For each ($o; Form:C1466.variables)
 			
 			$o.icon:=Form:C1466.types[Num:C11($o.type)].icon
@@ -43,6 +63,16 @@ Case of
 	: ($e.code=On Timer:K2:25)
 		
 		SET TIMER:C645(0)
+		
+		Form:C1466.display()
+		
+		//______________________________________________________
+	: ($e.code=On Validate:K2:3)
+		
+		Form:C1466.apply()
+		
+		//______________________________________________________
+	: (Form:C1466.list.catch($e))
 		
 		Form:C1466.display()
 		
@@ -72,7 +102,7 @@ Case of
 		Form:C1466.setType(Is date:K8:7)
 		
 		//______________________________________________________
-	: (Form:C1466.longint.catch($e))
+	: (Form:C1466.integer.catch($e))
 		
 		Form:C1466.setType(Is longint:K8:6)
 		

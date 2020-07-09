@@ -6,14 +6,16 @@
 	"windowSizingX": "variable",
 	"windowSizingY": "variable",
 	"windowMinWidth": 623,
-	"windowMinHeight": 0,
-	"windowMaxWidth": 32767,
+	"windowMinHeight": 510,
+	"windowMaxWidth": 1000,
 	"windowMaxHeight": 32767,
 	"events": [
 		"onLoad",
+		"onValidate",
 		"onClick",
 		"onDataChange",
-		"onTimer"
+		"onTimer",
+		"onSelectionChange"
 	],
 	"windowTitle": "4DPop Macro - Declaration",
 	"pages": [
@@ -40,13 +42,13 @@
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"sizingY": "grow",
-					"scrollbarHorizontal": "hidden",
+					"scrollbarHorizontal": "visible",
 					"sizingX": "grow",
-					"method": "ObjectMethods/declarationList.4dm",
 					"metaSource": "declarationUI",
 					"selectionMode": "single",
 					"showHeaders": false,
 					"scrollbarVertical": "visible",
+					"hideSystemHighlight": true,
 					"columns": [
 						{
 							"header": {
@@ -131,7 +133,7 @@
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
-				"longint": {
+				"integer": {
 					"type": "radio",
 					"top": 187,
 					"left": 401,
@@ -344,7 +346,7 @@
 					"dataSourceTypeHint": "boolean",
 					"radioGroup": "declaration"
 				},
-				"Input": {
+				"code": {
 					"type": "input",
 					"left": 18,
 					"top": 426,
@@ -357,7 +359,10 @@
 					"sizingY": "move",
 					"fill": "transparent",
 					"borderStyle": "none",
-					"stroke": "#1e90ff"
+					"stroke": "#1e90ff",
+					"contextMenu": "none",
+					"showSelection": true,
+					"multiline": "no"
 				},
 				"filter": {
 					"type": "dropdown",
@@ -368,7 +373,6 @@
 					"events": [
 						"onDataChange"
 					],
-					"method": "ObjectMethods/filter.4dm",
 					"dataSourceTypeHint": "integer",
 					"focusable": false,
 					"choiceList": {
@@ -383,16 +387,56 @@
 					"width": 14,
 					"height": 12,
 					"picture": "/RESOURCES/Images/filter.png"
+				},
+				"ok": {
+					"type": "button",
+					"top": 468,
+					"left": 523,
+					"width": 80,
+					"height": 22,
+					"sizingX": "move",
+					"sizingY": "move",
+					"dataSource": "OK",
+					"shortcutKey": "[Return]",
+					"text": ":xliff:CommonOK",
+					"defaultButton": true,
+					"events": [],
+					"action": "accept"
+				},
+				"Line": {
+					"type": "line",
+					"top": 454,
+					"left": 18,
+					"width": 585,
+					"height": 0,
+					"stroke": "#808080",
+					"startPoint": "topLeft",
+					"sizingX": "grow",
+					"sizingY": "move"
+				},
+				"b.escape": {
+					"type": "button",
+					"top": 468,
+					"left": 403,
+					"width": 100,
+					"height": 22,
+					"sizingX": "move",
+					"sizingY": "move",
+					"action": "cancel",
+					"shortcutKey": "[Esc]",
+					"text": ":xliff:CommonCancel",
+					"focusable": false,
+					"events": []
 				}
 			}
 		}
 	],
-	"geometryStamp": 169,
+	"geometryStamp": 199,
 	"editor": {
 		"groups": {
 			"Group": [
 				"text",
-				"longint",
+				"integer",
 				"real",
 				"boolean",
 				"date",
@@ -413,5 +457,6 @@
 	},
 	"method": "method.4dm",
 	"width": 623,
-	"height": 463
+	"height": 510,
+	"memorizeGeometry": true
 }

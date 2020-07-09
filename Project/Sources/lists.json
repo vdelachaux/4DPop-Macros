@@ -43,6 +43,11 @@
 				"editable": true
 			},
 			{
+				"text": "-",
+				"ref": 19,
+				"editable": false
+			},
+			{
 				"text": "Undefined",
 				"ref": -3,
 				"editable": false
@@ -60,6 +65,11 @@
 			{
 				"text": "Variables",
 				"ref": -2,
+				"editable": false
+			},
+			{
+				"text": "Arrays",
+				"ref": -4,
 				"editable": false
 			},
 			{

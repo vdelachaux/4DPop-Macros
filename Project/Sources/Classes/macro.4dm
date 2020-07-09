@@ -42,7 +42,7 @@ Class constructor  // Comment
 		
 		// Code
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
-		This:C1470.code:=$t
+		This:C1470.method:=$t
 		
 		// Selection
 		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $t)

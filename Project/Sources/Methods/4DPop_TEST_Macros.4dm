@@ -1,7 +1,6 @@
 //%attributes = {}
-//%attributes = {}
-C_TEXT:C284($Txt_buffer)
-C_OBJECT:C1216($o)
+var $o : Object
+var $Txt_buffer : Text
 
 // In compiled mode we propose to create the test method
 If (Is compiled mode:C492)
@@ -37,6 +36,13 @@ Else
 				
 				$o.formWindow:=Open form window:C675("NEW_DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
 				DIALOG:C40("NEW_DECLARATION"; $o)
+				
+				If (Bool:C1537(OK))
+					
+					SET MACRO PARAMETER:C998(Choose:C955($o.selection; Highlighted method text:K5:18; Full method text:K5:17); $o.method)
+					
+				End if 
+				
 				CLOSE WINDOW:C154
 				
 			Else 

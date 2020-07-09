@@ -33,10 +33,29 @@
 			"beutifier_OB",
 			"createFR2USMacro",
 			"DECLARATION_Test",
-			"test_replace_o"
+			"test_replace_o",
+			"TrueMethod"
 		],
 		"forms": [
 			"TEST"
+		]
+	},
+	"00_NEW": {
+		"methods": [
+			"declarationUI"
+		],
+		"forms": [
+			"NEW_DECLARATION"
+		],
+		"classes": [
+			"button",
+			"declaration",
+			"group",
+			"input",
+			"macro",
+			"scrollable",
+			"static",
+			"widget"
 		]
 	},
 	"class": {
@@ -106,7 +125,6 @@
 			"CREATE_BUTTON",
 			"DECLARATIONS_SETTINGS",
 			"LIST",
-			"NEW_DECLARATION",
 			"SETTINGS",
 			"SPECIAL_PASTE"
 		]
