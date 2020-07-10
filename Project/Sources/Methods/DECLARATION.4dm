@@ -100,7 +100,7 @@ If ($Lon_parameters=0)  // Display the dialog
 		End if 
 		
 		
-		If (Bool:C1537(Get database parameter:C643(Is host database a project:K37:99)))
+		If (Bool:C1537(Get database parameter:C643(Is host database a project:K37:99))) & Not:C34(Shift down:C543)
 			
 			$o:=cs:C1710.declaration.new().parse()
 			

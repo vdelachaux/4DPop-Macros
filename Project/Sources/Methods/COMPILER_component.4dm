@@ -44,7 +44,9 @@ If (False:C215)
 	
 	
 	If (False:C215)
-		C_OBJECT:C1216(declarationUI; $0)
+		C_OBJECT:C1216(declaration_UI; $0)
+		C_TEXT:C284(declaration_UI; $1)
+		C_OBJECT:C1216(declaration_UI; $2)
 	End if 
 	
 	C_TEXT:C284(codeForCollection; $0)

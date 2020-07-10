@@ -16,12 +16,12 @@ Class extends static
 
 Class constructor
 	
-	C_TEXT:C284($1;$2)
+	C_TEXT:C284($1; $2)
 	
 	Super:C1705($1)
 	
 	C_POINTER:C301($p)
-	$p:=OBJECT Get pointer:C1124(Object named:K67:5;This:C1470.name)
+	$p:=OBJECT Get pointer:C1124(Object named:K67:5; This:C1470.name)
 	This:C1470.assignable:=Not:C34(Is nil pointer:C315($p))
 	
 	If (This:C1470.assignable)
@@ -39,14 +39,20 @@ Class constructor
 		End if 
 	End if 
 	
-	This:C1470.action:=OBJECT Get action:C1457(*;This:C1470.name)
+	This:C1470.action:=OBJECT Get action:C1457(*; This:C1470.name)
+	
+	ARRAY LONGINT:C221($_; 0x0000)
+	OBJECT GET EVENTS:C1238(*; This:C1470.name; $_)
+	This:C1470.events:=New collection:C1472
+	ARRAY TO COLLECTION:C1563(This:C1470.events; $_)
+	
 	
 /*══════════════════════════*/
 Function getEnterable
 	
 	C_BOOLEAN:C305($0)
 	
-	$0:=OBJECT Get enterable:C1067(*;This:C1470.name)
+	$0:=OBJECT Get enterable:C1067(*; This:C1470.name)
 	
 /*══════════════════════════
 .enterable()
@@ -58,11 +64,11 @@ Function enterable
 	
 	If (Count parameters:C259>=1)
 		
-		OBJECT SET ENTERABLE:C238(*;This:C1470.name;$1)
+		OBJECT SET ENTERABLE:C238(*; This:C1470.name; $1)
 		
 	Else 
 		
-		OBJECT SET ENTERABLE:C238(*;This:C1470.name;True:C214)
+		OBJECT SET ENTERABLE:C238(*; This:C1470.name; True:C214)
 		
 	End if 
 	
@@ -74,7 +80,7 @@ Function enterable
 ══════════════════════════*/
 Function notEnterable
 	
-	OBJECT SET ENTERABLE:C238(*;This:C1470.name;False:C215)
+	OBJECT SET ENTERABLE:C238(*; This:C1470.name; False:C215)
 	
 	C_OBJECT:C1216($0)
 	$0:=This:C1470
@@ -86,7 +92,7 @@ Function getValue
 	
 	If (This:C1470.assignable)
 		
-		  // Use pointer
+		// Use pointer
 		$0:=(This:C1470.pointer)->
 		
 	Else 
@@ -133,48 +139,48 @@ Function clear
 			
 			Case of 
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is text:K8:3)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=\"\"")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is real:K8:4)\
 					 | ($l=Is longint:K8:6)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=0")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is boolean:K8:9)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=:C215")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is date:K8:7)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=:C102(\"\")")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is time:K8:8)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=:C179(0)")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is object:K8:27)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=null")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				: ($l=Is picture:K8:10)
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":="+This:C1470.dataSource+"*0")
 					
-					  //______________________________________________________
+					//______________________________________________________
 				Else 
 					
 					EXECUTE FORMULA:C63(This:C1470.dataSource+":=null")
 					
-					  //______________________________________________________
+					//______________________________________________________
 			End case 
 		End if 
 	End if 
@@ -201,16 +207,20 @@ Function catch
 	C_BOOLEAN:C305($0)
 	C_VARIANT:C1683($1)
 	
-	If (Asserted:C1132(This:C1470.type#-1;"Does not apply to a group"))
+	var $e : Object
+	
+	If (Asserted:C1132(This:C1470.type#-1; "Does not apply to a group"))
 		
 		If (Count parameters:C259=0)
 			
-			$0:=(This:C1470.name=FORM Event:C1606.objectName)
+			$e:=FORM Event:C1606
+			$0:=(This:C1470.name=$e.objectName)
 			
 		Else 
 			
 			If (Value type:C1509($1)=Is object:K8:27)
 				
+				$e:=$1
 				$0:=(This:C1470.name=String:C10($1.objectName))
 				
 			Else 
@@ -218,6 +228,18 @@ Function catch
 				$0:=(This:C1470.name=String:C10($1))
 				
 			End if 
+		End if 
+		
+		If ($0)
+			
+			ASSERT:C1129(Not:C34(Shift down:C543))
+			
+			var $l : Integer
+			For each ($l; This:C1470.events) Until ($0)
+				
+				$0:=$0 & ($e.code=$l)
+				
+			End for each 
 		End if 
 	End if 
 	
@@ -228,7 +250,7 @@ Function getHelpTip
 	
 	C_TEXT:C284($0)
 	
-	$0:=OBJECT Get help tip:C1182(*;This:C1470.name)
+	$0:=OBJECT Get help tip:C1182(*; This:C1470.name)
 	
 /*══════════════════════════
 .setHelpTip(text) -> This
@@ -239,9 +261,9 @@ Function setHelpTip
 	C_TEXT:C284($t)
 	
 	$t:=Get localized string:C991($1)
-	$t:=Choose:C955(Length:C16($t)>0;$t;$1)  // Revert if no localization
+	$t:=Choose:C955(Length:C16($t)>0; $t; $1)  // Revert if no localization
 	
-	OBJECT SET HELP TIP:C1181(*;This:C1470.name;$t)
+	OBJECT SET HELP TIP:C1181(*; This:C1470.name; $t)
 	
 	C_OBJECT:C1216($0)
 	$0:=This:C1470
@@ -253,11 +275,11 @@ Function getShortcut
 	C_TEXT:C284($t)
 	C_LONGINT:C283($l)
 	
-	OBJECT GET SHORTCUT:C1186(*;This:C1470.name;$t;$l)
+	OBJECT GET SHORTCUT:C1186(*; This:C1470.name; $t; $l)
 	
 	$0:=New object:C1471(\
-		"key";$t;\
-		"modifier";$l)
+		"key"; $t; \
+		"modifier"; $l)
 	
 /*════════════════════════════════════════════*/
 Function setShortcut
@@ -267,11 +289,11 @@ Function setShortcut
 	
 	If (Count parameters:C259>=2)
 		
-		OBJECT SET SHORTCUT:C1185(*;This:C1470.name;$1;$2)
+		OBJECT SET SHORTCUT:C1185(*; This:C1470.name; $1; $2)
 		
 	Else 
 		
-		OBJECT SET SHORTCUT:C1185(*;This:C1470.name;$1)
+		OBJECT SET SHORTCUT:C1185(*; This:C1470.name; $1)
 		
 	End if 
 	
@@ -281,7 +303,7 @@ Function setShortcut
 /*════════════════════════════════════════════*/
 Function focus
 	
-	GOTO OBJECT:C206(*;This:C1470.name)
+	GOTO OBJECT:C206(*; This:C1470.name)
 	
 	C_OBJECT:C1216($0)
 	$0:=This:C1470

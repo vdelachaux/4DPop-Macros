@@ -42,7 +42,7 @@
 	},
 	"00_NEW": {
 		"methods": [
-			"declarationUI"
+			"declaration_UI"
 		],
 		"forms": [
 			"NEW_DECLARATION"

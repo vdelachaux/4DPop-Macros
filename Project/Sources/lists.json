@@ -53,6 +53,11 @@
 				"editable": false
 			},
 			{
+				"text": "Unused",
+				"ref": -5,
+				"editable": false
+			},
+			{
 				"text": "-",
 				"ref": 8858,
 				"editable": false
