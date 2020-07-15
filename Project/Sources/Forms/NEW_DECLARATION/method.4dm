@@ -39,7 +39,8 @@ Case of
 		
 		Form:C1466.isSelected:=cs:C1710.group.new($c)
 		
-		Form:C1466.list:=cs:C1710.scrollable.new("declarationList")
+		Form:C1466.list:=cs:C1710.listbox.new("declarationList")
+		Form:C1466.list.events.push(On Mouse Move:K2:35)
 		
 		Form:C1466.filter:=cs:C1710.button.new("filter")
 		Form:C1466.filter.setTitle("all")
@@ -50,6 +51,7 @@ Case of
 		OBJECT SET SCROLLBAR:C843(*; "declarationList"; 0; 2)
 		
 		var $o : Object
+		
 		For each ($o; Form:C1466.variables)
 			
 			$o.icon:=Form:C1466.types[Num:C11($o.type)].icon
@@ -99,11 +101,6 @@ Case of
 	: ($e.code=On Clicked:K2:4)
 		
 		Case of 
-				//______________________________________________________
-			: (Form:C1466.array.catch($e))
-				
-				Form:C1466.current.array:=Form:C1466.array.getValue()
-				Form:C1466.current.dimension:=Num:C11(Form:C1466.current.array)
 				
 				//______________________________________________________
 			: (Form:C1466.boolean.catch($e))
@@ -166,6 +163,12 @@ Case of
 				Form:C1466.setType(Is variant:K8:33)
 				
 				//______________________________________________________
+			: (Form:C1466.array.catch($e))
+				
+				Form:C1466.current.array:=Form:C1466.array.getValue()
+				Form:C1466.current.dimension:=Num:C11(Form:C1466.current.array)
+				
+				//______________________________________________________
 			: (Form:C1466.filter.catch($e))
 				
 				declaration_UI("filter")
@@ -177,4 +180,3 @@ Case of
 		
 		//______________________________________________________
 End case 
-

@@ -14,33 +14,39 @@ Class constructor
 	
 	Super:C1705($1)
 	
+	If (This:C1470.events.length=0)
+		
+		This:C1470.events:=New collection:C1472(On Clicked:K2:4)
+		
+	End if 
+	
 /*════════════════════════════════════════════
 Tryes to underline the first capital letter or, 
 if not found the first letter, corresponding to 
 the associated key shortcut
-════════════════════════════════════════════*/
+══════════════════════════*/
 Function highlightShortcut
 	
-	C_LONGINT:C283($index;$lModifier)
-	C_TEXT:C284($key;$t)
+	C_LONGINT:C283($index; $lModifier)
+	C_TEXT:C284($key; $t)
 	
-	OBJECT GET SHORTCUT:C1186(*;This:C1470.name;$key;$lModifier)
+	OBJECT GET SHORTCUT:C1186(*; This:C1470.name; $key; $lModifier)
 	
 	If (Length:C16($key)>0)
 		
 		$t:=This:C1470.getTitle()
 		
-		$index:=Position:C15(Uppercase:C13($key);$t;*)
+		$index:=Position:C15(Uppercase:C13($key); $t; *)
 		
 		If ($index=0)
 			
-			$index:=Position:C15($key;$t)
+			$index:=Position:C15($key; $t)
 			
 		End if 
 		
 		If ($index>0)
 			
-			This:C1470.setTitle(Substring:C12($t;1;$index)+Char:C90(0x0332)+Substring:C12($t;$index+1))
+			This:C1470.setTitle(Substring:C12($t; 1; $index)+Char:C90(0x0332)+Substring:C12($t; $index+1))
 			
 		End if 
 	End if 
@@ -53,7 +59,7 @@ A hack to force a button to be boolean type
 	
 ⚠️ Obsolete in project mode because you can 
    choose the type for the checkboxes
-════════════════════════════════════════════*/
+══════════════════════════*/
 Function asBoolean
 	
 	If (This:C1470.type=Object type checkbox:K79:26)

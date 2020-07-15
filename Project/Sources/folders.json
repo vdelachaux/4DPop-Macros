@@ -52,7 +52,9 @@
 			"declaration",
 			"group",
 			"input",
+			"listbox",
 			"macro",
+			"menu",
 			"scrollable",
 			"static",
 			"widget"

@@ -18,6 +18,8 @@
 //-----*/
 //-----*/
 
+//$_pathToObject:=Path to object($_x)
+
 //var $7, $_7 : Pointer
 
 //$_pointer:=->$7
@@ -30,7 +32,7 @@
 
 //End for 
 
-//$_form:=Form.test
+//$_form:=Form
 
 //$_text:="Hello world"
 

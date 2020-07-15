@@ -46,6 +46,19 @@ Class constructor
 	This:C1470.events:=New collection:C1472
 	ARRAY TO COLLECTION:C1563(This:C1470.events; $_)
 	
+Function addEvents
+	
+	var ${1}, $i : Integer
+	
+	For ($i; 1; Count parameters:C259; 1)
+		
+		This:C1470.events.push(${$i})
+		
+	End for 
+	
+	//ARRAY LONGINT($_; 0x0000)
+	//COLLECTION TO ARRAY(This.events; $_)
+	//OBJECT SET EVENTS(*; This.name; $_; Enable events others unchanged)
 	
 /*══════════════════════════*/
 Function getEnterable
@@ -230,17 +243,15 @@ Function catch
 			End if 
 		End if 
 		
-		If ($0)
-			
-			ASSERT:C1129(Not:C34(Shift down:C543))
-			
-			var $l : Integer
-			For each ($l; This:C1470.events) Until ($0)
-				
-				$0:=$0 & ($e.code=$l)
-				
-			End for each 
-		End if 
+		//If ($0) & (This.events.length>0)
+		
+		//var $l : Integer
+		//For each ($l; This.events) Until ($0)
+		
+		//$0:=$0 & ($e.code=$l)
+		
+		//End for each 
+		//End if 
 	End if 
 	
 /*══════════════════════════
