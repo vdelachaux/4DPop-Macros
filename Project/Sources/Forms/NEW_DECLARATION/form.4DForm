@@ -223,7 +223,7 @@
 					"width": 107,
 					"height": 15,
 					"sizingX": "move",
-					"shortcutKey": "i",
+					"shortcutKey": "u",
 					"shortcutAlt": true,
 					"text": ":xliff:Picture",
 					"focusable": false,
@@ -232,7 +232,10 @@
 					],
 					"right": 450,
 					"dataSourceTypeHint": "boolean",
-					"radioGroup": "declaration"
+					"radioGroup": "declaration",
+					"shortcutAccel": false,
+					"shortcutControl": false,
+					"shortcutShift": false
 				},
 				"blob": {
 					"type": "radio",
