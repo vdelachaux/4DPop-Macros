@@ -578,7 +578,7 @@ Function parse
 Function apply
 	
 	var $t, $text : Text
-	var $l : Integer
+	var $i, $l : Integer
 	var $o, $type : Object
 	var $c, $cc : Collection
 	
@@ -612,12 +612,26 @@ Function apply
 				
 			End for each 
 			
+			If ($cc.length>10)  // Limit to 10 variables per line
+				
+				For ($i; 1; $cc.length; 10)
+					
+					$text:=$text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r"
+					$cc.remove(0; 10)
+					
+				End for 
+			End if 
+			
 			If ($cc.length>0)
 				
 				$text:=$text+"var "+$cc.join(", ")+" :"+$type.name+"\r"
 				
 			End if 
 		End for each 
+		
+		// Remove the last carriage return
+		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		
 	End if 
 	
 	$c:=This:C1470.variables.query("array=true & count>0")
