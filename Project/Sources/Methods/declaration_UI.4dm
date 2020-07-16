@@ -95,7 +95,7 @@ Case of
 			
 			If ($o.type#Null:C1517)
 				
-				OBJECT Get pointer:C1124(Object named:K67:5; Form:C1466.types[$o.type].name)->:=True:C214
+				(OBJECT Get pointer:C1124(Object named:K67:5; Form:C1466.types[$o.type].name))->:=True:C214
 				
 			End if 
 			
