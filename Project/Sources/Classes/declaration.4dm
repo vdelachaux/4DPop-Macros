@@ -118,7 +118,6 @@ Class constructor
 	
 	//==============================================================
 Function split
-	
 	var $0 : Object
 	
 	Super:C1706.split(This:C1470.selection)
@@ -127,7 +126,6 @@ Function split
 	
 	//==============================================================
 Function getType
-	
 	var $0 : Integer
 	var $1 : Text
 	
@@ -225,7 +223,6 @@ Function getType
 	
 	//==============================================================
 Function setType
-	
 	var $1 : Integer
 	var $2 : Object
 	
@@ -246,13 +243,15 @@ Function setType
 	
 	//==============================================================
 Function parse
+	var $0 : Object
 	
-	var $line, $rgx, $oParameter, $oVariable : Object
 	var $t, $text : Text
 	var $l : Integer
+	var $line, $o, $oParameter, $oVariable, $rgx : Object
+	var $c : Collection
 	
-	ARRAY LONGINT:C221($_pos; 0)
 	ARRAY LONGINT:C221($_len; 0)
+	ARRAY LONGINT:C221($_pos; 0)
 	
 	This:C1470.split()
 	
@@ -307,10 +306,29 @@ Function parse
 				Rgx_SubstituteText("(?m-si)(//.*$)"; ""; ->$text)
 				
 				// Searches parameters $0-N & ${N} into the line
+				
+/*------------------------------------------------------
+declaration macro must omit the parameters of a formula
+--> https://github.com/vdelachaux/4DPop-Macros/issues/6
+--------------------------------------------------------*/
+				$t:=$text
+				$l:=Position:C15(Parse formula:C1576(":C1597")+"("; $text; 1; *)
+				
+				If ($l>0)
+					
+					$c:=Split string:C1554(Substring:C12($text; $l); "(")
+					$c[$c.length-1]:=Replace string:C233($c[$c.length-1]; ")"; ""; $c.length-2)
+					$text:=Replace string:C233($text; $c.join("("); "")
+					
+				End if 
+				
 				$rgx:=Rgx_match(New object:C1471(\
 					"pattern"; "(?mi-s)(\\$\\{?\\d+\\}?)+"; \
 					"target"; $text; \
 					"all"; True:C214))
+				
+				$text:=$t
+/*--------------------------------------------------------*/
 				
 				If ($rgx.success)  // Parameter(s)
 					
@@ -558,7 +576,6 @@ Function parse
 	This:C1470.parameters:=This:C1470.parameters.orderBy("value asc")
 	
 	// Place the parameter set last
-	var $o : Object
 	$o:=This:C1470.parameters.query("value=${@").pop()
 	
 	If ($o#Null:C1517)
@@ -571,12 +588,10 @@ Function parse
 	// Finally do a flat list
 	This:C1470.variables:=This:C1470.parameters.combine(This:C1470.locales)
 	
-	var $0 : Object
 	$0:=This:C1470
 	
 	//==============================================================
 Function apply
-	
 	var $t, $text : Text
 	var $i, $l : Integer
 	var $o, $type : Object
@@ -592,7 +607,8 @@ Function apply
 			
 		End for each 
 		
-		$text:=$text+"\r"
+		// Remove the last carriage return
+		$text:=Substring:C12($text; 1; Length:C16($text)-1)
 		
 	End if 
 	
@@ -600,7 +616,7 @@ Function apply
 	
 	If ($c.length>0)
 		
-		$text:=$text+"\r"
+		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
 		
 		For each ($type; This:C1470.types.query("value!=null"))
 			
@@ -638,7 +654,7 @@ Function apply
 	
 	If ($c.length>0)
 		
-		$text:=$text+"\r"
+		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
 		
 		For each ($type; This:C1470.types.query("arrayCommand!=null"))
 			
@@ -652,10 +668,11 @@ Function apply
 				End if 
 			End for each 
 		End for each 
+		
+		// Remove the last carriage return
+		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		
 	End if 
-	
-	// Remove the last carriage return
-	$text:=Substring:C12($text; 1; Length:C16($text)-1)
 	
 	// Look for the first empty or declaration line
 	For each ($o; This:C1470.lines) While ($l#MAXLONG:K35:2)
@@ -673,7 +690,7 @@ Function apply
 			: ($t="empty")\
 				 | ($t="declaration")
 				
-				$o.code:=$text+kCaret
+				$o.code:=$text+kCaret+"\r"
 				$o.type:=""
 				$text:=""
 				
@@ -682,7 +699,17 @@ Function apply
 				//___________________
 			Else 
 				
-				$text:=Substring:C12($text; 1; Length:C16($text)-1)+kCaret
+				If ($l=0)
+					
+					// Insert before
+					$Text:=$Text+"\r\r"
+					
+				Else 
+					
+					$text:=Substring:C12($text; 1; Length:C16($text)-1)+kCaret
+					
+				End if 
+				
 				$l:=MAXLONG:K35:2
 				
 				//___________________
@@ -691,30 +718,48 @@ Function apply
 	
 	For each ($o; This:C1470.lines)
 		
-		If (String:C10($o.type)#"declaration")
-			
-			$text:=$text+$o.code+"\r"
-			
-		End if 
+		$t:=String:C10($o.type)
+		
+		Case of 
+				
+				//___________________
+			: ($t="declaration")
+				
+				//skip
+				
+				//___________________
+			: ($t="empty")
+				
+				If ($text="@\r\r")
+					
+					//skip
+					
+				Else 
+					
+					$text:=$text+"\r"
+					
+				End if 
+				
+			Else 
+				
+				$text:=$text+$o.code+"\r"
+				
+		End case 
 	End for each 
 	
-	This:C1470.method:=Split string:C1554($text; "\r").join("\r")
+	// Remove the last carriage return
+	$text:=Substring:C12($text; 1; Length:C16($text)-1)
 	
-	While (Position:C15("\r\r\r"; This:C1470.method)>0)
-		
-		This:C1470.method:=Replace string:C233(This:C1470.method; "\r\r\r"; "\r\r")
-		
-	End while 
+	This:C1470.method:=$text
 	
 	//==============================================================
 Function clairvoyant
-	
 	var $0 : Integer
 	var $1 : Text
 	var $2 : Text
 	
+	var $pattern, $t, $type : Text
 	var $indx : Integer
-	var $t, $pattern, $type : Text
 	
 	$t:=Replace string:C233(Replace string:C233($1; "{"; "\\{"); "}"; "\\}")
 	
@@ -818,10 +863,9 @@ Function clairvoyant
 	
 	//==============================================================
 Function loadGramSyntax
-	
+	var $t : Text
 	var $first, $i, $return : Integer
 	var $file, $patterns : Object
-	var $t : Text
 	
 	This:C1470.gramSyntax:=New object:C1471(\
 		String:C10(Is object:K8:27); New collection:C1472; \
@@ -936,7 +980,6 @@ Function loadGramSyntax
 					
 				End if 
 			End if 
-			
 			
 			Case of 
 					

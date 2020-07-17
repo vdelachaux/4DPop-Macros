@@ -15,12 +15,13 @@ Class extends static
 /*═══════════════════*/
 
 Class constructor
+	var $1 : Text
+	var $2 : Text
 	
-	C_TEXT:C284($1; $2)
+	var $p : Pointer
 	
 	Super:C1705($1)
 	
-	C_POINTER:C301($p)
 	$p:=OBJECT Get pointer:C1124(Object named:K67:5; This:C1470.name)
 	This:C1470.assignable:=Not:C34(Is nil pointer:C315($p))
 	
@@ -62,8 +63,7 @@ Function addEvents
 	
 /*══════════════════════════*/
 Function getEnterable
-	
-	C_BOOLEAN:C305($0)
+	var $0 : Boolean
 	
 	$0:=OBJECT Get enterable:C1067(*; This:C1470.name)
 	
@@ -72,8 +72,8 @@ Function getEnterable
 .enterable(bool)
 ══════════════════════════*/
 Function enterable
-	
-	C_BOOLEAN:C305($1)
+	var $0 : Object
+	var $1 : Boolean
 	
 	If (Count parameters:C259>=1)
 		
@@ -85,17 +85,16 @@ Function enterable
 		
 	End if 
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*══════════════════════════
 .notEnterable() --> This
 ══════════════════════════*/
 Function notEnterable
+	var $0 : Object
 	
 	OBJECT SET ENTERABLE:C238(*; This:C1470.name; False:C215)
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*══════════════════════════*/
@@ -103,41 +102,38 @@ Function getValue
 	
 	C_VARIANT:C1683($0)
 	
-	If (This:C1470.assignable)
-		
-		// Use pointer
-		$0:=(This:C1470.pointer)->
-		
-	Else 
-		
-		$0:=Formula from string:C1601(String:C10(This:C1470.dataSource)).call()
-		
-	End if 
+	//If (This.assignable)
+	//// Use pointer
+	//$0:=(This.pointer)->
+	//Else 
+	//$0:=Formula from string(String(This.dataSource)).call()
+	//End if
+	
+	$0:=OBJECT Get value:C1743(This:C1470.name)
 	
 /*══════════════════════════*/
 Function setValue
+	var $0 : Object
+	var $1 : Variant
 	
-	C_VARIANT:C1683($1)
+	//If (This.assignable)
+	//(This.pointer)->:=$1
+	//Else
+	//If (This.dataSource#Null)
+	//This.value:=$1
+	//EXECUTE FORMULA(This.dataSource+":=This.value")
+	//End if
+	//End if
 	
-	If (This:C1470.assignable)
-		
-		(This:C1470.pointer)->:=$1
-		
-	Else 
-		
-		If (This:C1470.dataSource#Null:C1517)
-			
-			This:C1470.value:=$1
-			EXECUTE FORMULA:C63(This:C1470.dataSource+":=This.value")
-			
-		End if 
-	End if 
+	OBJECT SET VALUE:C1742(This:C1470.name; $1)
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*══════════════════════════*/
 Function clear
+	var $0 : Object
+	
+	var $l : Integer
 	
 	If (This:C1470.assignable)
 		
@@ -147,7 +143,6 @@ Function clear
 		
 		If (This:C1470.dataSource#Null:C1517)
 			
-			C_LONGINT:C283($l)
 			$l:=Value type:C1509(This:C1470.getValue())
 			
 			Case of 
@@ -198,7 +193,6 @@ Function clear
 		End if 
 	End if 
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*══════════════════════════*/
@@ -216,9 +210,8 @@ Function touch
 	
 /*══════════════════════════*/
 Function catch
-	
-	C_BOOLEAN:C305($0)
-	C_VARIANT:C1683($1)
+	var $0 : Boolean
+	var $1 : Variant
 	
 	var $e : Object
 	
@@ -244,22 +237,19 @@ Function catch
 		End if 
 		
 		//If ($0) & (This.events.length>0)
-		
 		//var $l : Integer
 		//For each ($l; This.events) Until ($0)
-		
 		//$0:=$0 & ($e.code=$l)
+		//End for each
+		//End if
 		
-		//End for each 
-		//End if 
 	End if 
 	
 /*══════════════════════════
 .getHelpTip() -> text
 ══════════════════════════*/
 Function getHelpTip
-	
-	C_TEXT:C284($0)
+	var $0 : Text
 	
 	$0:=OBJECT Get help tip:C1182(*; This:C1470.name)
 	
@@ -267,24 +257,24 @@ Function getHelpTip
 .setHelpTip(text) -> This
 ══════════════════════════*/
 Function setHelpTip
+	var $0 : Object
+	var $1 : Text
 	
-	C_TEXT:C284($1)  // Text or resname
-	C_TEXT:C284($t)
+	var $t : Text
 	
 	$t:=Get localized string:C991($1)
 	$t:=Choose:C955(Length:C16($t)>0; $t; $1)  // Revert if no localization
 	
 	OBJECT SET HELP TIP:C1181(*; This:C1470.name; $t)
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*════════════════════════════════════════════*/
 Function getShortcut
+	var $0 : Object
 	
-	C_OBJECT:C1216($0)
-	C_TEXT:C284($t)
-	C_LONGINT:C283($l)
+	var $t : Text
+	var $l : Integer
 	
 	OBJECT GET SHORTCUT:C1186(*; This:C1470.name; $t; $l)
 	
@@ -294,9 +284,9 @@ Function getShortcut
 	
 /*════════════════════════════════════════════*/
 Function setShortcut
-	
-	C_TEXT:C284($1)  // key
-	C_LONGINT:C283($2)  // modifier
+	var $0 : Object
+	var $1 : Text
+	var $2 : Integer
 	
 	If (Count parameters:C259>=2)
 		
@@ -308,15 +298,14 @@ Function setShortcut
 		
 	End if 
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*════════════════════════════════════════════*/
 Function focus
+	var $0 : Object
 	
 	GOTO OBJECT:C206(*; This:C1470.name)
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
 	
 /*════════════════════════════════════════════*/

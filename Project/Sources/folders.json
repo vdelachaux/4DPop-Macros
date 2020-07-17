@@ -32,6 +32,7 @@
 			"beautifier_test_9",
 			"beutifier_OB",
 			"createFR2USMacro",
+			"DECLARATION_Formula",
 			"DECLARATION_Test",
 			"test_replace_o",
 			"TrueMethod"
@@ -45,6 +46,7 @@
 			"declaration_UI"
 		],
 		"forms": [
+			"DECLARATION_SETTINGS",
 			"NEW_DECLARATION"
 		],
 		"classes": [

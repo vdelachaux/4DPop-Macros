@@ -89,13 +89,13 @@ Case of
 			
 			For each ($t; Form:C1466.types.query("value!=null").extract("name"))
 				
-				OBJECT Get pointer:C1124(Object named:K67:5; $t)->:=False:C215
+				OBJECT SET VALUE:C1742($t; False:C215)
 				
 			End for each 
 			
-			If ($o.type#Null:C1517)
+			If ($o.type#0)
 				
-				(OBJECT Get pointer:C1124(Object named:K67:5; Form:C1466.types[$o.type].name))->:=True:C214
+				OBJECT SET VALUE:C1742(Form:C1466.types[$o.type].name; True:C214)
 				
 			End if 
 			
