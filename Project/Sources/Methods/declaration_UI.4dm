@@ -4,8 +4,8 @@ var $1 : Text
 var $2 : Object
 
 var $t : Text
-var $bottom, $height, $left, $right, $top, $width : Integer
-var $menu, $o, $subMenu : Object
+var $bottom; $height; $left; $right; $top; $width : Integer
+var $menu; $o; $subMenu : Object
 var $types : Collection
 
 Case of 
@@ -93,7 +93,7 @@ Case of
 				
 			End for each 
 			
-			If ($o.type#0)
+			If (Num:C11($o.type)#0)
 				
 				OBJECT SET VALUE:C1742(Form:C1466.types[$o.type].name; True:C214)
 				

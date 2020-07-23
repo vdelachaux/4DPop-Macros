@@ -49,7 +49,7 @@ Class constructor
 	
 Function addEvents
 	
-	var ${1}, $i : Integer
+	var ${1}; $i : Integer
 	
 	For ($i; 1; Count parameters:C259; 1)
 		

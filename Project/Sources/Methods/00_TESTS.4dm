@@ -1,5 +1,5 @@
 //%attributes = {}
-var $t, $tt, $ttt : Text
+var $t; $tt; $ttt : Text
 var $indx : Integer
 var $c : Collection
 

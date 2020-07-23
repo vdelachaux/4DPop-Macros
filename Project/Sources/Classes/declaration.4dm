@@ -196,8 +196,8 @@ Function getType
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4d\\.)"; $1; 1)
+			 | (Position:C15(Parse formula:C1576(":C1221"); $1)=1)
+			// | Match regex("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4d\\.)"; $1; 1)
 			
 			$0:=Is object:K8:27
 			
@@ -245,13 +245,13 @@ Function setType
 Function parse
 	var $0 : Object
 	
-	var $t, $text : Text
+	var $t; $text : Text
 	var $l : Integer
-	var $line, $o, $oParameter, $oVariable, $rgx : Object
+	var $line; $o; $parameter; $variable; $rgx : Object
 	var $c : Collection
 	
-	ARRAY LONGINT:C221($_len; 0)
-	ARRAY LONGINT:C221($_pos; 0)
+	ARRAY LONGINT:C221($_len; 0x0000)
+	ARRAY LONGINT:C221($_pos; 0x0000)
 	
 	This:C1470.split()
 	
@@ -269,7 +269,7 @@ Function parse
 				//______________________________________________________
 			: (Length:C16($text)=0)  // Empty line
 				
-				$line.type:="empty"
+				$line.type:=Choose:C955(This:C1470.$inCommentBlock; "comment"; "empty")
 				
 				//______________________________________________________
 			: (Match regex:C1019("(?mi-s)^(//)|(/\\*)|(?:.*(\\*/))"; $line.code; 1; $_pos; $_len))  // Comments
@@ -334,34 +334,48 @@ declaration macro must omit the parameters of a formula
 					
 					For each ($t; $rgx.match.extract("data").distinct())
 						
-						$oParameter:=This:C1470.parameters.query("value=:1"; $t).pop()
+						$parameter:=This:C1470.parameters.query("value=:1"; $t).pop()
 						
-						If ($oParameter=Null:C1517)
+						If ($parameter=Null:C1517)
 							
-							$oParameter:=New object:C1471(\
+							$parameter:=New object:C1471(\
 								"parameter"; True:C214; \
 								"value"; $t; \
 								"code"; $line.code; \
 								"count"; 0)
 							
-							This:C1470.parameters.push($oParameter)
+							This:C1470.parameters.push($parameter)
 							
 						Else 
 							
-							$oParameter.count:=$oParameter.count+1
+							$parameter.count:=$parameter.count+1
 							
 						End if 
 						
-						If ($oParameter.type=Null:C1517)
+						If ($parameter.type=Null:C1517)
 							
 							If (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // Declaration line
 								
-								$line.type:="declaration"
-								$oParameter.type:=This:C1470.getType($text)
+								If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $_pos; $_len))
+									
+									If ($_pos{1}#-1)
+										
+										$parameter.class:=Substring:C12($text; $_pos{1}; $_len{1})
+										
+									End if 
+									
+									$parameter.type:=Is object:K8:27
+									
+								Else 
+									
+									$line.type:="declaration"
+									$parameter.type:=This:C1470.getType($text)
+									
+								End if 
 								
 							Else   // Try to be clairvoyant
 								
-								$oParameter.type:=This:C1470.clairvoyant($t; $line.code)
+								$parameter.type:=This:C1470.clairvoyant($t; $line.code)
 								
 							End if 
 						End if 
@@ -391,47 +405,61 @@ declaration macro must omit the parameters of a formula
 								
 								If (Match regex:C1019("(?mi-s)(\\$\\{?\\d+\\}?)"; $t; 1))  // Parameter
 									
-									$oParameter:=This:C1470.parameters.query("value=:1"; $t).pop()
+									$parameter:=This:C1470.parameters.query("value=:1"; $t).pop()
 									
-									If ($oParameter=Null:C1517)
+									If ($parameter=Null:C1517)
 										
-										$oParameter:=New object:C1471(\
+										$parameter:=New object:C1471(\
 											"parameter"; True:C214; \
 											"value"; $t; \
 											"code"; $line.code; \
 											"count"; 0)
 										
-										This:C1470.parameters.push($oParameter)
+										This:C1470.parameters.push($parameter)
 										
 									Else 
 										
-										$oParameter.count:=$oParameter.count+1
+										$parameter.count:=$parameter.count+1
 										
 									End if 
 									
 								Else 
 									
-									$oVariable:=This:C1470.locales.query("value=:1"; $t).pop()
+									$variable:=This:C1470.locales.query("value=:1"; $t).pop()
 									
-									If ($oVariable=Null:C1517)
+									If ($variable=Null:C1517)
 										
-										$oVariable:=New object:C1471(\
+										$variable:=New object:C1471(\
 											"value"; $t; \
 											"code"; $line.code; \
 											"count"; 0)
 										
-										This:C1470.locales.push($oVariable)
+										This:C1470.locales.push($variable)
 										
 									Else 
 										
-										$oVariable.count:=$oVariable.count+1
+										$variable.count:=$variable.count+1
 										
 									End if 
 									
 									If (Not:C34(This:C1470.ignoreDeclarations))
 										
-										$oVariable.type:=This:C1470.getType($text)
-										
+										If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $_pos; $_len))
+											
+											If ($_pos{1}#-1)
+												
+												$variable.class:=Substring:C12($text; $_pos{1}; $_len{1})
+												
+											End if 
+											
+											$variable.type:=Is object:K8:27
+											//OB REMOVE($line; "type")
+											
+										Else 
+											
+											$variable.type:=This:C1470.getType($text)
+											
+										End if 
 									End if 
 								End if 
 							End for each 
@@ -444,26 +472,26 @@ declaration macro must omit the parameters of a formula
 						
 						$t:=Substring:C12($line.code; $_pos{1}; $_len{1})
 						
-						$oVariable:=This:C1470.locales.query("value=:1"; $t).pop()
+						$variable:=This:C1470.locales.query("value=:1"; $t).pop()
 						
-						If ($oVariable=Null:C1517)
+						If ($variable=Null:C1517)
 							
-							$oVariable:=New object:C1471(\
+							$variable:=New object:C1471(\
 								"value"; $t; \
 								"code"; $line.code; \
 								"count"; 0)
 							
-							This:C1470.locales.push($oVariable)
+							This:C1470.locales.push($variable)
 							
 						Else 
 							
-							$oVariable.count:=$oVariable.count+1
+							$variable.count:=$variable.count+1
 							
 						End if 
 						
-						$oVariable.array:=True:C214
-						$oVariable.dimension:=1+Num:C11(($_pos{2}#-1))
-						$oVariable.type:=This:C1470.getType($text)
+						$variable.array:=True:C214
+						$variable.dimension:=1+Num:C11(($_pos{2}#-1))
+						$variable.type:=This:C1470.getType($text)
 						
 						//______________________________________________________
 					: ($text="Class constructor@")  // #UNLOCALIZED KEY WORD
@@ -489,24 +517,24 @@ declaration macro must omit the parameters of a formula
 								
 								If (Not:C34(Match regex:C1019("(?mi-s)(\\$\\{?\\d+\\}?)"; $t; 1)))  // Parameter
 									
-									$oVariable:=This:C1470.locales.query("value=:1"; $t).pop()
+									$variable:=This:C1470.locales.query("value=:1"; $t).pop()
 									
-									If ($oVariable=Null:C1517)
+									If ($variable=Null:C1517)
 										
-										$oVariable:=New object:C1471(\
+										$variable:=New object:C1471(\
 											"value"; $t; \
 											"code"; $line.code; \
 											"count"; 1)
 										
-										This:C1470.locales.push($oVariable)
+										This:C1470.locales.push($variable)
 										
 									Else 
 										
-										$oVariable.count:=$oVariable.count+1
+										$variable.count:=$variable.count+1
 										
 									End if 
 									
-									If ($oVariable.type=Null:C1517)
+									If ($variable.type=Null:C1517)
 										
 										$l:=Private_Lon_Declaration_Type($t)
 										
@@ -514,12 +542,12 @@ declaration macro must omit the parameters of a formula
 											
 											If ($l>100)
 												
-												$oVariable.array:=True:C214
+												$variable.array:=True:C214
 												$l:=$l-100
 												
 											End if 
 											
-											$oVariable.type:=Choose:C955($l; \
+											$variable.type:=Choose:C955($l; \
 												-1; \
 												Is text:K8:3; \
 												Is BLOB:K8:12; \
@@ -539,17 +567,17 @@ declaration macro must omit the parameters of a formula
 											
 										Else 
 											
-											$oVariable.type:=This:C1470.getType($line.code)
+											$variable.type:=This:C1470.getType($line.code)
 											
-											If ($oVariable.type=0)
+											If ($variable.type=0)
 												
-												$oVariable.type:=This:C1470.clairvoyant($t; $line.code)
+												$variable.type:=This:C1470.clairvoyant($t; $line.code)
 												
 											Else 
 												
 												If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1; $_pos; $_len))
 													
-													$oVariable.array:=True:C214
+													$variable.array:=True:C214
 													
 												End if 
 											End if 
@@ -592,19 +620,29 @@ declaration macro must omit the parameters of a formula
 	
 	//==============================================================
 Function apply
-	var $t, $text : Text
-	var $i, $l : Integer
-	var $o, $type : Object
-	var $c, $cc : Collection
+	var $t; $text : Text
+	var $build; $i; $l : Integer
+	var $o; $type : Object
+	var $c; $cc : Collection
 	
+	$t:=Application version:C493($build)
+	
+	// PARAMETERS
 	$c:=This:C1470.variables.query("parameter=true")
 	
 	If ($c.length>0)
 		
 		For each ($o; $c)
 			
-			$text:=$text+"var "+$o.value+" :"+This:C1470.types[$o.type].name+"\r"
-			
+			If ($o.class#Null:C1517)
+				
+				$text:=$text+"var "+$o.value+" :"+$o.class+"\r"
+				
+			Else 
+				
+				$text:=$text+"var "+$o.value+" :"+This:C1470.types[$o.type].name+"\r"
+				
+			End if 
 		End for each 
 		
 		// Remove the last carriage return
@@ -612,7 +650,8 @@ Function apply
 		
 	End if 
 	
-	$c:=This:C1470.variables.query("parameter=null & array=null & count>0")
+	// VARIABLES
+	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null")
 	
 	If ($c.length>0)
 		
@@ -632,7 +671,16 @@ Function apply
 				
 				For ($i; 1; $cc.length; 10)
 					
-					$text:=$text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r"
+					If ($build>=254227)
+						
+						$text:=$text+"var "+$cc.slice(0; 10).join("; ")+" :"+$type.name+"\r"
+						
+					Else 
+						
+						$text:=$text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r"
+						
+					End if 
+					
 					$cc.remove(0; 10)
 					
 				End for 
@@ -640,7 +688,39 @@ Function apply
 			
 			If ($cc.length>0)
 				
-				$text:=$text+"var "+$cc.join(", ")+" :"+$type.name+"\r"
+				If ($build>=254227)
+					
+					$text:=$text+"var "+$cc.join("; ")+" :"+$type.name+"\r"
+					
+				Else 
+					
+					$text:=$text+"var "+$cc.join(", ")+" :"+$type.name+"\r"
+					
+				End if 
+			End if 
+		End for each 
+		
+		// Remove the last carriage return
+		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		
+	End if 
+	
+	// CLASSES
+	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class!=null")
+	
+	If ($c.length>0)
+		
+		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
+		
+		For each ($t; $c.distinct("class"))
+			
+			If ($build>=254227)
+				
+				$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
+				
+			Else 
+				
+				$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join(", ")+" :"+$t+"\r"
 				
 			End if 
 		End for each 
@@ -758,7 +838,7 @@ Function clairvoyant
 	var $1 : Text
 	var $2 : Text
 	
-	var $pattern, $t, $type : Text
+	var $pattern; $t; $type : Text
 	var $indx : Integer
 	
 	$t:=Replace string:C233(Replace string:C233($1; "{"; "\\{"); "}"; "\\}")
@@ -864,8 +944,8 @@ Function clairvoyant
 	//==============================================================
 Function loadGramSyntax
 	var $t : Text
-	var $first, $i, $return : Integer
-	var $file, $patterns : Object
+	var $first; $i; $return : Integer
+	var $file; $patterns : Object
 	
 	This:C1470.gramSyntax:=New object:C1471(\
 		String:C10(Is object:K8:27); New collection:C1472; \

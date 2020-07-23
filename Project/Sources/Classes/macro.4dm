@@ -1,6 +1,8 @@
 Class constructor  // Comment
-	
 	var $t : Text
+	
+	ARRAY LONGINT:C221($_len; 0)
+	ARRAY LONGINT:C221($_pos; 0)
 	
 	This:C1470.title:=Get window title:C450(Frontmost window:C447)
 	This:C1470.name:=""
@@ -10,9 +12,6 @@ Class constructor  // Comment
 	This:C1470.class:=False:C215
 	This:C1470.form:=False:C215
 	This:C1470.trigger:=False:C215
-	
-	ARRAY LONGINT:C221($_pos; 0)
-	ARRAY LONGINT:C221($_len; 0)
 	
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $_pos; $_len))
 		
@@ -56,7 +55,6 @@ Class constructor  // Comment
 	
 	//==============================================================
 Function split
-	
 	var $1 : Boolean
 	
 	If ($1)
