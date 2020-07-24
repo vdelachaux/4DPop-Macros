@@ -280,8 +280,9 @@ Function parse  // Parses the code to extract parameters and local variables
 	var $0 : Object
 	
 	var $comment; $t; $text : Text
+	var $static : Boolean
 	var $l : Integer
-	var $line; $o; $parameter; $variable; $rgx : Object
+	var $line; $o; $parameter; $rgx; $variable : Object
 	var $c : Collection
 	
 	ARRAY LONGINT:C221($_len; 0x0000)
@@ -298,7 +299,7 @@ Function parse  // Parses the code to extract parameters and local variables
 		$comment:=""
 		
 		//ASSERT($oLine.code#"APPEND TO ARRAY($tObj_test; ${10}->)")
-		//ASSERT(Position("$variable"; $line.code)=0)
+		//ASSERT(Position("$tMatches"; $line.code)=0)
 		//ASSERT($tLine#"OB SET($_o3;@")
 		
 		Case of 
@@ -508,9 +509,15 @@ declaration macro must omit the parameters of a formula
 						End if 
 						
 						//______________________________________________________
-					: (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\(([^;]*);\\s*\\d+(?:;\\s*(\\d+))?\\)"; $text; 1; $_pos; $_len))  // Array declaration
+					: (Match regex:C1019("(?mi-s)^(?:ARRAY|TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $_pos; $_len))  // Array declaration
 						
-						$line.type:="declaration"
+						$static:=Match regex:C1019("(?mi-s)0x"; $text; 1)
+						
+						If (Not:C34($static))
+							
+							$line.type:="declaration"
+							
+						End if 
 						
 						$t:=Substring:C12($line.code; $_pos{1}; $_len{1})
 						
@@ -533,6 +540,7 @@ declaration macro must omit the parameters of a formula
 						
 						$variable.array:=True:C214
 						$variable.dimension:=1+Num:C11(($_pos{2}#-1))
+						$variable.static:=$static
 						$variable.type:=This:C1470.getType($text)
 						
 						//______________________________________________________
@@ -772,7 +780,8 @@ Function apply
 		
 	End if 
 	
-	$c:=This:C1470.variables.query("array=true & count>0")
+	// ARRAYS
+	$c:=This:C1470.variables.query("array=true & count>0 & static=false")
 	
 	If ($c.length>0)
 		
@@ -838,6 +847,7 @@ Function apply
 		End case 
 	End for each 
 	
+	// Restore the code
 	For each ($o; This:C1470.lines)
 		
 		$t:=String:C10($o.type)
