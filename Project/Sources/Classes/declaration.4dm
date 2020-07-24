@@ -34,82 +34,94 @@ Class constructor
 		"name"; "object"; \
 		"icon"; $icon; \
 		"value"; Is object:K8:27; \
-		"arrayCommand"; 1221)
+		"arrayCommand"; 1221; \
+		"directive"; 1216)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is collection:K8:32); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is collection:K8:32]:=New object:C1471(\
 		"name"; "collection"; \
 		"icon"; $icon; \
-		"value"; Is collection:K8:32)
+		"value"; Is collection:K8:32; \
+		"directive"; 1488)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is longint:K8:6); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is longint:K8:6]:=New object:C1471(\
 		"name"; "integer"; \
 		"icon"; $icon; \
 		"value"; Is longint:K8:6; \
-		"arrayCommand"; 221)
+		"arrayCommand"; 221; \
+		"directive"; 283)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is boolean:K8:9); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is boolean:K8:9]:=New object:C1471(\
 		"name"; "boolean"; \
 		"icon"; $icon; \
 		"value"; Is boolean:K8:9; \
-		"arrayCommand"; 223)
+		"arrayCommand"; 223; \
+		"directive"; 305)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is text:K8:3); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is text:K8:3]:=New object:C1471(\
 		"name"; "text"; \
 		"icon"; $icon; \
 		"value"; Is text:K8:3; \
-		"arrayCommand"; 222)
+		"arrayCommand"; 222; \
+		"directive"; 284)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is date:K8:7); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is date:K8:7]:=New object:C1471(\
 		"name"; "date"; \
 		"icon"; $icon; \
 		"value"; Is date:K8:7; \
-		"arrayCommand"; 224)
+		"arrayCommand"; 224; \
+		"directive"; 307)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is time:K8:8); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is time:K8:8]:=New object:C1471(\
 		"name"; "time"; \
 		"icon"; $icon; \
 		"value"; Is time:K8:8; \
-		"arrayCommand"; 1223)
+		"arrayCommand"; 1223; \
+		"directive"; 306)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is picture:K8:10); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is picture:K8:10]:=New object:C1471(\
 		"name"; "picture"; \
 		"icon"; $icon; \
 		"value"; Is picture:K8:10; \
-		"arrayCommand"; 279)
+		"arrayCommand"; 279; \
+		"directive"; 286)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is variant:K8:33); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is variant:K8:33]:=New object:C1471(\
 		"name"; "variant"; \
 		"icon"; $icon; \
-		"value"; Is variant:K8:33)
+		"value"; Is variant:K8:33; \
+		"directive"; 1683)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is pointer:K8:14); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is pointer:K8:14]:=New object:C1471(\
 		"name"; "pointer"; \
 		"icon"; $icon; \
 		"value"; Is pointer:K8:14; \
-		"arrayCommand"; 280)
+		"arrayCommand"; 280; \
+		"directive"; 301)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is BLOB:K8:12); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is BLOB:K8:12]:=New object:C1471(\
 		"name"; "blob"; \
 		"icon"; $icon; \
 		"value"; Is BLOB:K8:12; \
-		"arrayCommand"; 1222)
+		"arrayCommand"; 1222; \
+		"directive"; 604)
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is real:K8:4); "00")+".png").platformPath; $icon)
 	This:C1470.types[Is real:K8:4]:=New object:C1471(\
 		"name"; "real"; \
 		"icon"; $icon; \
 		"value"; Is real:K8:4; \
-		"arrayCommand"; 219)
+		"arrayCommand"; 219; \
+		"directive"; 285)
 	
 	This:C1470.$notforArray:=New collection:C1472
 	This:C1470.$notforArray.push("collection"; "variant")
@@ -242,10 +254,31 @@ Function setType
 	$o.icon:=This:C1470.types[$o.type].icon
 	
 	//==============================================================
-Function parse
-	var $0 : Object
+Function removeDirective  // Remove the compilation directives
+	var $len; $pos : Integer
 	
-	var $t; $text : Text
+	If (This:C1470.selection)
+		
+		If (Match regex:C1019("(?mi-s)((?:If|Si)\\s*\\((?:False|Faux)\\)\\R(?:\\s*C_[^(]*\\("+This:C1470.name+";.*\\R)+(?:End if|Fin de si)[^\\R]*\\R\\R)"; This:C1470.highlighted; 1; $pos; $len))
+			
+			This:C1470.highlighted:=Delete string:C232(This:C1470.highlighted; $pos; $len)
+			
+		End if 
+		
+	Else 
+		
+		If (Match regex:C1019("(?mi-s)((?:If|Si)\\s*\\((?:False|Faux)\\)\\R(?:\\s*C_[^(]*\\("+This:C1470.name+";.*\\R)+(?:End if|Fin de si)[^\\R]*\\R\\R)"; This:C1470.method; 1; $pos; $len))
+			
+			This:C1470.method:=Delete string:C232(This:C1470.method; $pos; $len)
+			
+		End if 
+	End if 
+	
+	//==============================================================
+Function parse
+	var $0 : Object  //parsed code
+	
+	var $comment; $t; $text : Text
 	var $l : Integer
 	var $line; $o; $parameter; $variable; $rgx : Object
 	var $c : Collection
@@ -253,12 +286,15 @@ Function parse
 	ARRAY LONGINT:C221($_len; 0x0000)
 	ARRAY LONGINT:C221($_pos; 0x0000)
 	
+	This:C1470.removeDirective()
 	This:C1470.split()
 	
 	For each ($text; This:C1470.lineTexts)
 		
 		$line:=New object:C1471(\
 			"code"; $text)
+		
+		$comment:=""
 		
 		//ASSERT($oLine.code#"APPEND TO ARRAY($tObj_test; ${10}->)")
 		//ASSERT(Position("$tBlb_blob"; $oLine.code)=0)
@@ -370,6 +406,12 @@ declaration macro must omit the parameters of a formula
 									
 									$line.type:="declaration"
 									$parameter.type:=This:C1470.getType($text)
+									
+								End if 
+								
+								If (Match regex:C1019("(?mi-s)//(.*)$"; $line.code; 1; $_pos; $_len))
+									
+									$parameter.comment:=Substring:C12($line.code; $_pos{1}; $_len{1})
 									
 								End if 
 								
@@ -620,7 +662,7 @@ declaration macro must omit the parameters of a formula
 	
 	//==============================================================
 Function apply
-	var $t; $text : Text
+	var $t; $text; $directive : Text
 	var $build; $i; $l : Integer
 	var $o; $type : Object
 	var $c; $cc : Collection
@@ -636,17 +678,48 @@ Function apply
 			
 			If ($o.class#Null:C1517)
 				
-				$text:=$text+"var "+$o.value+" :"+$o.class+"\r"
+				$text:=$text+"var "+$o.value+" :"+$o.class
+				$directive:=$directive+":C1216("+This:C1470.name+";"+$o.value+")"
 				
 			Else 
 				
-				$text:=$text+"var "+$o.value+" :"+This:C1470.types[$o.type].name+"\r"
+				$text:=$text+"var "+$o.value+" :"+This:C1470.types[$o.type].name
+				$directive:=$directive+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")"
+				
+			End if 
+			
+			If ($o.comment#Null:C1517)
+				
+				$text:=$text+"//"+$o.comment+"\r"
+				$directive:=$directive+"//"+$o.comment+"\r"
+				
+			Else 
+				
+				$text:=$text+"\r"
+				$directive:=$directive+"\r"
 				
 			End if 
 		End for each 
 		
+		If (This:C1470.projectMethod)
+			
+			$directive:=Delete string:C232($directive; Length:C16($directive); 1)
+			$text:=$text+"\r"
+			
+			If (Command name:C538(1)="Sum")
+				
+				$text:=$text+"If(False)\r"+$directive+"\rEnd if\r"
+				
+			Else 
+				
+				$text:=$text+"Si(Faux)\r"+$directive+"\rFin de si\r"
+				
+			End if 
+			
+		End if 
+		
 		// Remove the last carriage return
-		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		$text:=Delete string:C232($text; Length:C16($text); 1)
 		
 	End if 
 	
@@ -701,7 +774,7 @@ Function apply
 		End for each 
 		
 		// Remove the last carriage return
-		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		$text:=Delete string:C232($text; Length:C16($text); 1)
 		
 	End if 
 	
@@ -726,7 +799,7 @@ Function apply
 		End for each 
 		
 		// Remove the last carriage return
-		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		$text:=Delete string:C232($text; Length:C16($text); 1)
 		
 	End if 
 	
@@ -750,7 +823,7 @@ Function apply
 		End for each 
 		
 		// Remove the last carriage return
-		$text:=Substring:C12($text; 1; Length:C16($text)-1)
+		$text:=Delete string:C232($text; Length:C16($text); 1)
 		
 	End if 
 	
@@ -828,7 +901,7 @@ Function apply
 	End for each 
 	
 	// Remove the last carriage return
-	$text:=Substring:C12($text; 1; Length:C16($text)-1)
+	$text:=Delete string:C232($text; Length:C16($text); 1)
 	
 	This:C1470.method:=$text
 	
