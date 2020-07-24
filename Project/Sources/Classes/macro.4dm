@@ -1,5 +1,6 @@
-Class constructor  // Comment
+Class constructor
 	var $t : Text
+	var $ƒ : Object
 	
 	ARRAY LONGINT:C221($_len; 0)
 	ARRAY LONGINT:C221($_pos; 0)
@@ -16,11 +17,12 @@ Class constructor  // Comment
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $_pos; $_len))
 		
 		$t:=Substring:C12(This:C1470.title; $_pos{1}; $_len{1})
-		This:C1470.projectMethod:=($t=_4D Get 4D App localized string:C1578("common_method"))
-		This:C1470.objectMethod:=($t=_4D Get 4D App localized string:C1578("common_objectMethod"))
+		$ƒ:=Formula from string:C1601(Parse formula:C1576(":C1578($1)"))
+		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
+		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
 		This:C1470.class:=($t="class:")
-		This:C1470.form:=($t=_4D Get 4D App localized string:C1578("common_form"))
-		This:C1470.trigger:=($t=_4D Get 4D App localized string:C1578("common_Trigger"))
+		This:C1470.form:=($t=$ƒ.call(Null:C1517; "common_form"))
+		This:C1470.trigger:=($t=$ƒ.call(Null:C1517; "common_Trigger"))
 		
 		This:C1470.name:=Substring:C12(This:C1470.title; $_pos{2}; $_len{2})
 		
@@ -33,7 +35,7 @@ Class constructor  // Comment
 	
 	If (This:C1470.form)
 		
-		//
+		// 
 		
 	Else 
 		

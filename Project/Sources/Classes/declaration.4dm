@@ -209,6 +209,7 @@ Function getType
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $1)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1221"); $1)=1)
+			
 			// | Match regex("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4d\\.)"; $1; 1)
 			
 			$0:=Is object:K8:27
@@ -275,8 +276,8 @@ Function removeDirective  // Remove the compilation directives
 	End if 
 	
 	//==============================================================
-Function parse
-	var $0 : Object  //parsed code
+Function parse  // Parses the code to extract parameters and local variables
+	var $0 : Object
 	
 	var $comment; $t; $text : Text
 	var $l : Integer
@@ -297,7 +298,7 @@ Function parse
 		$comment:=""
 		
 		//ASSERT($oLine.code#"APPEND TO ARRAY($tObj_test; ${10}->)")
-		//ASSERT(Position("$tBlb_blob"; $oLine.code)=0)
+		//ASSERT(Position("$variable"; $line.code)=0)
 		//ASSERT($tLine#"OB SET($_o3;@")
 		
 		Case of 
@@ -317,7 +318,7 @@ Function parse
 						//___________________________________
 					: ($_pos{2}>0)  // Begin comment block
 						
-						This:C1470.$inCommentBlock:=True:C214
+						This:C1470.$inCommentBlock:=Not:C34(Match regex:C1019("(?mi-s)^/\\*.*\\*/"; $line.code; 1))
 						
 						//___________________________________
 					: ($_pos{3}>0)  // End comment block
@@ -432,8 +433,6 @@ declaration macro must omit the parameters of a formula
 						//______________________________________________________
 					: (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // Declaration line
 						
-						//ASSERT($tLine#"C_TEXT($Txt_tempo)")
-						
 						$line.type:="declaration"
 						
 						$rgx:=Rgx_match(New object:C1471(\
@@ -495,6 +494,7 @@ declaration macro must omit the parameters of a formula
 											End if 
 											
 											$variable.type:=Is object:K8:27
+											
 											//OB REMOVE($line; "type")
 											
 										Else 
@@ -706,15 +706,7 @@ Function apply
 			$directive:=Delete string:C232($directive; Length:C16($directive); 1)
 			$text:=$text+"\r"
 			
-			If (Command name:C538(1)="Sum")
-				
-				$text:=$text+"If(False)\r"+$directive+"\rEnd if\r"
-				
-			Else 
-				
-				$text:=$text+"Si(Faux)\r"+$directive+"\rFin de si\r"
-				
-			End if 
+			$text:=Choose:C955(Command name:C538(1)="Sum"; $text+"If(False)\r"+$directive+"\rEnd if\r"; $text+"Si(Faux)\r"+$directive+"\rFin de si\r")
 			
 		End if 
 		
@@ -744,16 +736,7 @@ Function apply
 				
 				For ($i; 1; $cc.length; 10)
 					
-					If ($build>=254227)
-						
-						$text:=$text+"var "+$cc.slice(0; 10).join("; ")+" :"+$type.name+"\r"
-						
-					Else 
-						
-						$text:=$text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r"
-						
-					End if 
-					
+					$text:=Choose:C955($build>=254227; $text+"var "+$cc.slice(0; 10).join("; ")+" :"+$type.name+"\r"; $text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r")
 					$cc.remove(0; 10)
 					
 				End for 
@@ -761,15 +744,8 @@ Function apply
 			
 			If ($cc.length>0)
 				
-				If ($build>=254227)
-					
-					$text:=$text+"var "+$cc.join("; ")+" :"+$type.name+"\r"
-					
-				Else 
-					
-					$text:=$text+"var "+$cc.join(", ")+" :"+$type.name+"\r"
-					
-				End if 
+				$text:=Choose:C955($build>=254227; $text+"var "+$cc.join("; ")+" :"+$type.name+"\r"; $text+"var "+$cc.join(", ")+" :"+$type.name+"\r")
+				
 			End if 
 		End for each 
 		
@@ -787,15 +763,8 @@ Function apply
 		
 		For each ($t; $c.distinct("class"))
 			
-			If ($build>=254227)
-				
-				$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
-				
-			Else 
-				
-				$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join(", ")+" :"+$t+"\r"
-				
-			End if 
+			$text:=Choose:C955($build>=254227; $text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"; $text+"var "+$c.query("class=:1"; $t).extract("value").join(", ")+" :"+$t+"\r")
+			
 		End for each 
 		
 		// Remove the last carriage return
@@ -878,14 +847,14 @@ Function apply
 				//___________________
 			: ($t="declaration")
 				
-				//skip
+				// Skip
 				
 				//___________________
 			: ($t="empty")
 				
 				If ($text="@\r\r")
 					
-					//skip
+					// Skip
 					
 				Else 
 					
@@ -893,10 +862,12 @@ Function apply
 					
 				End if 
 				
+				//________________________________________
 			Else 
 				
 				$text:=$text+$o.code+"\r"
 				
+				//________________________________________
 		End case 
 	End for each 
 	
