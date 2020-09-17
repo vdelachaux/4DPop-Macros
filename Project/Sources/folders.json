@@ -2,6 +2,9 @@
 	"_o_OBSOLETES": {
 		"methods": [
 			"_o_Preferences_Set"
+		],
+		"forms": [
+			"DECLARATIONS"
 		]
 	},
 	"00_dev": {
@@ -29,11 +32,34 @@
 			"beautifier_test_9",
 			"beutifier_OB",
 			"createFR2USMacro",
+			"DECLARATION_Formula",
 			"DECLARATION_Test",
-			"test_replace_o"
+			"test_replace_o",
+			"TrueMethod"
 		],
 		"forms": [
 			"TEST"
+		]
+	},
+	"00_NEW": {
+		"methods": [
+			"declaration_UI"
+		],
+		"forms": [
+			"DECLARATION_SETTINGS",
+			"NEW_DECLARATION"
+		],
+		"classes": [
+			"button",
+			"declaration",
+			"group",
+			"input",
+			"listbox",
+			"macro",
+			"menu",
+			"scrollable",
+			"static",
+			"widget"
 		]
 	},
 	"class": {
@@ -101,7 +127,6 @@
 			"ABOUT",
 			"COMMENTS",
 			"CREATE_BUTTON",
-			"DECLARATIONS",
 			"DECLARATIONS_SETTINGS",
 			"LIST",
 			"SETTINGS",
@@ -113,6 +138,7 @@
 			"Compiler_Rgx",
 			"Rgx_ExtractText",
 			"Rgx_Get_Pattern",
+			"Rgx_match",
 			"Rgx_MatchText",
 			"rgx_NO_ERROR",
 			"rgx_Options",

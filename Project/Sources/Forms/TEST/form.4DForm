@@ -70,6 +70,44 @@
 					"events": [
 						"onClick"
 					]
+				},
+				"Button1": {
+					"type": "button",
+					"text": "🗂",
+					"top": 293,
+					"left": 127,
+					"width": 64,
+					"height": 64,
+					"events": [
+						"onClick"
+					],
+					"fontSize": 48,
+					"style": "flat",
+					"stroke": "#6495ed",
+					"focusable": false
+				},
+				"Text": {
+					"type": "text",
+					"text": "🗂",
+					"top": 317,
+					"left": 39,
+					"width": 19,
+					"height": 17
+				},
+				"Button2": {
+					"type": "button",
+					"text": "Test",
+					"top": 317,
+					"left": 241,
+					"width": 34,
+					"height": 24,
+					"events": [
+						"onClick"
+					],
+					"style": "flat",
+					"stroke": "#6495ed",
+					"focusable": false,
+					"iconFrames": 1
 				}
 			}
 		}
@@ -77,5 +115,13 @@
 	"$4d": {
 		"version": "1",
 		"kind": "form"
+	},
+	"geometryStamp": 10,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
 	}
 }

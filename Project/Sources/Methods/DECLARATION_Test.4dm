@@ -1,96 +1,118 @@
 //%attributes = {"invisible":true}
-C_BLOB:C604($Blb_buffer)
-C_BOOLEAN:C305($Boo_)
-C_LONGINT:C283($Int_old;$Lon_cmd;$Lon_end;$Lon_i;$Lon_offset)
-C_TEXT:C284($Txt_buffer;$Txt_command;$Txt_referenceLanguage)
-C_OBJECT:C1216($Obj_;$Obj_dot;$Obj_dot1;$Obj_dot3;$Obj_empty;$Obj_settings)
-C_OBJECT:C1216($Obj_test)
-C_COLLECTION:C1488($Col_;$Col_test)
-C_TEXT:C284($a12_obsolete_alpha)
+//var $1 : Text
+//C_BOOLEAN($2; $3)
 
-ARRAY BLOB:C1222($tBlb_blob;0)
-ARRAY TIME:C1223($tGmt_time;0)
-ARRAY OBJECT:C1221($tObj_test;0)
+////APPEND TO ARRAY($tObj_test; ${10}->)
 
-  //$1:="hello"
-  //${2}:="world"
+//var $4, $5 : Collection
+//var $6
 
-  //$1:=$Obj_test
-$Int_old:=0
-$a12_obsolete_alpha:="hello"
-$Obj_test:=JSON Parse:C1218("{}")
-SET BLOB SIZE:C606($Blb_buffer;0)
-APPEND TO ARRAY:C911($tObj_test;$Obj_test)
-APPEND TO ARRAY:C911($tBlb_blob;$Blb_buffer)
-APPEND TO ARRAY:C911($tGmt_time;?00:00:00?)
-$Lon_cmd:=1222
-ALERT:C41(Command name:C538($Lon_cmd))
+///* -----
 
-For ($Lon_i;1;$Lon_end;$Lon_offset)
-	
-	ALERT:C41(Command name:C538($Lon_cmd))
-	
-End for 
+//C_BOOLEAN($9)
 
-For ($Lon_i;1200;2000;1)
-	
-	$Txt_command:=Command name:C538($Lon_i)
-	
-	If (OK=1)
-		
-		CONFIRM:C162($Txt_command)
-		
-		If (OK=0)
-			
-			SET TEXT TO PASTEBOARD:C523(String:C10($Lon_i))
-			$Lon_i:=MAXLONG:K35:2-1
-			
-		End if 
-		
-	Else 
-		
-		$Lon_i:=MAXLONG:K35:2-1
-		
-	End if 
-End for 
+///* -----
 
-$Txt_referenceLanguage:=OB Get:C1224($Obj_;"reference";Is text:K8:3)
+//C_BOOLEAN($8)
 
-$Obj_:=New object:C1471
-$Obj_dot1.$test:=$Txt_buffer
+//-----*/
+//-----*/
 
-$Obj_dot.key:="hello"
+//$_pathToObject:=Path to object($_x)
 
-OB SET:C1220($Obj_;\
-"$test";"hello")
-OB SET:C1220($Obj_;\
-"is-compilable";False:C215)
+//var $7, $_7 : Pointer
 
-OB SET:C1220($Obj_;\
-"$TEST";"hello")
+//$_pointer:=->$7
 
-OB SET:C1220($Obj_;\
-"is-compilable";False:C215)
+//C_OBJECT($0)
 
-  //$COMMENT
-  //OB SET($Obj_COMMENT;"test";"hello";"test2";"world")
+//For ($i; 1; Count parameters; 1)
 
-$Txt_buffer:=OB Get:C1224($Obj_;"test";Is text:K8:3)  //$x
-$Txt_buffer:=OB Get:C1224($Obj_;"is-compilable";Is text:K8:3)
-$Txt_buffer:=OB Get:C1224($Obj_;"not-compilable";Is text:K8:3)
-$Txt_buffer:=OB Get:C1224($Obj_;"$test";Is text:K8:3)
-$Txt_buffer:=OB Get:C1224($Obj_;"not_compilable";Is text:K8:3)
+//$v:=${$i}
 
-$Boo_:=($Obj_dot3.compilable#$Obj_empty)
-$Boo_:=OB Is defined:C1231($Obj_;"compilable")
-$Boo_:=OB Is defined:C1231($Obj_;"is-compilable")
-$Boo_:=OB Is defined:C1231($Obj_;"not-compilable")
-$Boo_:=OB Is defined:C1231($Obj_;"$test")
+//End for 
 
-OB SET:C1220($Obj_settings;\
-"$test";"hello";\
-"test2";"world")
+//$_form:=Form
 
-$Col_test:=New collection:C1472
+//$_text:="Hello world"
 
-$Col_:=New collection:C1472(1;2;3;4;5)
+//$_integer:=10
+//$_maxlong:=MAXLONG
+
+//$_real:=12.5
+//$_radian:=Radian
+
+//$_false:=False
+//$_true:=True
+//$_Unknown:=TrueMethod
+
+//$_parse:=JSON Parse("{}")
+
+//$_time:=?00:00:00?
+//$_date:=!00-00-00!
+
+//$_collection:=New collection
+
+//For ($_compteur; $_debut; $_fin; $_pas)
+
+//$_commandName:=Command name($_compteur)
+
+//If (OK=1)
+
+//CONFIRM($_commandName)
+
+//If (OK=0)
+
+//SET TEXT TO PASTEBOARD(String($_compteur))
+//$_stop:=MAXLONG-1
+
+//End if 
+
+//Else 
+
+//$_compteur:=MAXLONG-1
+
+//End if 
+//End for 
+
+//var $_variant : Variant
+//var $_variantWithoutType
+
+//$_o:=New object()
+//$_o1.key:=$_o
+//$_o2.$test:=$Txt_buffer
+
+//OB SET($_o3; \
+"$test"; "hello")
+
+//OB SET($_o4; \
+"is-compilable"; False)
+
+//OB SET($_o5; \
+"$TEST"; "hello")
+
+//SET BLOB SIZE($_blob; 0)
+//APPEND TO ARRAY($_object; $Obj_test)
+
+//ARRAY LONGINT($_arrayInteger; 0x0000)
+
+//ARRAY BLOB($_arrayBlob; 0; 0)
+//$_arrayBlob{0}{0}:=$_blob
+
+//ARRAY TIME($_arrayTime; 0)
+//APPEND TO ARRAY($_arrayTime; ?00:00:00?)
+
+
+//$Txt_referenceLanguage:=OB Get($_o6; "reference"; Is text)
+
+////COMMENT
+////OB SET($Obj_COMMENT;"test";"hello";"test2";"world")
+
+//$Txt_buffer:=OB Get($object; "test"; Is text)  //$x
+
+//$Boo_:=($_dot.compilable#$Obj_empty)
+//$_b:=OB Is defined($Obj_; "compilable")
+
+//OB SET($_settings; \
+"$test"; "hello"; \
+"test2"; "world")
