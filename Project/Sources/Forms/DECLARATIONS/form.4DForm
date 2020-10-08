@@ -749,7 +749,8 @@
 				"b.options.hmove",
 				"b.escape",
 				"b.ok",
-				"NotInArray_15"
+				"NotInArray_15",
+				"Variable4"
 			]
 		},
 		{

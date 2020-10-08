@@ -1,4 +1,3 @@
-
 Class extends macro
 
 Class constructor
@@ -13,6 +12,7 @@ Class constructor
 	This:C1470.lines:=New collection:C1472
 	This:C1470.locales:=New collection:C1472
 	This:C1470.parameters:=New collection:C1472
+	This:C1470.classes:=New collection:C1472
 	
 	// Flags
 	This:C1470.$inCommentBlock:=False:C215
@@ -549,6 +549,11 @@ declaration macro must omit the parameters of a formula
 						$line.type:="constructor"
 						
 						//______________________________________________________
+					: ($text="Class extends@")  // #UNLOCALIZED KEY WORD
+						
+						$line.type:="extends"
+						
+						//______________________________________________________
 					: ($text="Function @")  // #UNLOCALIZED KEY WORD
 						
 						$line.type:="function"
@@ -736,15 +741,32 @@ Function apply
 			
 			For each ($o; $c.query("type=:1"; $type.value))
 				
-				$cc.push($o.value)
-				
+				If ($o.type=Is object:K8:27)
+					
+					// Is it a class?
+					If (This:C1470.classes.query("value=:1"; $o.value).pop()#Null:C1517)
+						
+						// Will be processed below
+						$o.class:=This:C1470.classes.query("value=:1"; $o.value).pop().class
+						
+					Else 
+						
+						$cc.push($o.value)
+						
+					End if 
+					
+				Else 
+					
+					$cc.push($o.value)
+					
+				End if 
 			End for each 
 			
 			If ($cc.length>10)  // Limit to 10 variables per line
 				
 				For ($i; 1; $cc.length; 10)
 					
-					$text:=Choose:C955($build>=254227; $text+"var "+$cc.slice(0; 10).join("; ")+" :"+$type.name+"\r"; $text+"var "+$cc.slice(0; 10).join(", ")+" :"+$type.name+"\r")
+					$text:=$text+"var "+$cc.slice(0; 10).join("; ")+" :"+$type.name+"\r"
 					$cc.remove(0; 10)
 					
 				End for 
@@ -752,7 +774,7 @@ Function apply
 			
 			If ($cc.length>0)
 				
-				$text:=Choose:C955($build>=254227; $text+"var "+$cc.join("; ")+" :"+$type.name+"\r"; $text+"var "+$cc.join(", ")+" :"+$type.name+"\r")
+				$text:=$text+"var "+$cc.join("; ")+" :"+$type.name+"\r"
 				
 			End if 
 		End for each 
@@ -767,11 +789,11 @@ Function apply
 	
 	If ($c.length>0)
 		
-		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
+		$text:=$text+("\r"*Num:C11(Length:C16($text)>0))
 		
 		For each ($t; $c.distinct("class"))
 			
-			$text:=Choose:C955($build>=254227; $text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"; $text+"var "+$c.query("class=:1"; $t).extract("value").join(", ")+" :"+$t+"\r")
+			$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
 			
 		End for each 
 		
@@ -785,7 +807,7 @@ Function apply
 	
 	If ($c.length>0)
 		
-		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
+		$text:=$text+("\r"*Num:C11(Length:C16($text)>0))
 		
 		For each ($type; This:C1470.types.query("arrayCommand!=null"))
 			
@@ -895,6 +917,9 @@ Function clairvoyant
 	var $pattern; $t; $type : Text
 	var $indx : Integer
 	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	
 	$t:=Replace string:C233(Replace string:C233($1; "{"; "\\{"); "}"; "\\}")
 	
 	Case of 
@@ -928,8 +953,15 @@ Function clairvoyant
 			$0:=Is boolean:K8:9
 			
 			//______________________________________________________
+		: (Match regex:C1019("(?m-si)(.*):=(cs\\.[^\\.]*)\\.new\\("; $2; 1; $pos; $len))
+			
+			$0:=Is object:K8:27
+			
+			// Keep class definition
+			This:C1470.classes.push(New object:C1471("value"; Substring:C12($2; $pos{1}; $len{1}); "class"; Substring:C12($2; $pos{2}; $len{2})))
+			
+			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $2; 1))\
-			 | (Match regex:C1019("(?m-si):=cs\\.[^.]*\\.new\\("; $2; 1))\
 			 | (Match regex:C1019("(?m-si):="+Parse formula:C1576(":C1466")+"[^.]"; $2; 1))
 			
 			$0:=Is object:K8:27
