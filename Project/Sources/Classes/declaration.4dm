@@ -925,6 +925,14 @@ Function clairvoyant
 	Case of 
 			
 			//______________________________________________________
+		: (Match regex:C1019("(?m-si)(\\$.*):=((?:cs|4D)\\.[^\\.]*)\\.new\\("; $2; 1; $pos; $len))  // Class
+			
+			$0:=Is object:K8:27
+			
+			// Keep class definition
+			This:C1470.classes.push(New object:C1471("value"; Substring:C12($2; $pos{1}; $len{1}); "class"; Substring:C12($2; $pos{2}; $len{2})))
+			
+			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=\"[^\"]*\""\
 			+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $2; 1))  // Length
 			
@@ -951,14 +959,6 @@ Function clairvoyant
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"; $2; 1))
 			
 			$0:=Is boolean:K8:9
-			
-			//______________________________________________________
-		: (Match regex:C1019("(?m-si)(.*):=(cs\\.[^\\.]*)\\.new\\("; $2; 1; $pos; $len))
-			
-			$0:=Is object:K8:27
-			
-			// Keep class definition
-			This:C1470.classes.push(New object:C1471("value"; Substring:C12($2; $pos{1}; $len{1}); "class"; Substring:C12($2; $pos{2}; $len{2})))
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $2; 1))\

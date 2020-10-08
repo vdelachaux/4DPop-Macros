@@ -2,7 +2,8 @@
 //var $t; $tt; $ttt : Text
 //var $indx : Integer
 //var $c : Collection
-var $file; $o; $z : Object
+var $o; $z : Object
+var $toto : 4D:C1709.File
 var $button; $button2 : cs:C1710.button
 
 //$t:="$c:=Split string($t; \",\"; sk trim spaces).map(\"col_formula\"; Formula($1.result:=Num($1.value)))"
@@ -26,6 +27,6 @@ var $button; $button2 : cs:C1710.button
 
 $button:=cs:C1710.button.new()
 $button2:=cs:C1710.button.new()
-$file:=4D:C1709.File.new()
+$toto:=4D:C1709.File.new()
 $o:=New object:C1471
 $z:=New object:C1471
