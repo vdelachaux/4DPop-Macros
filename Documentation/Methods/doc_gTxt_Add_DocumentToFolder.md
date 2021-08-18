@@ -1,1 +1,0 @@
-﻿<!----------------------------------------------------Text := doc_gTxt_Add_DocumentToFolder ( path ; Param_2 ) -> path (Text) -> Param_2 (Text)-->## Description

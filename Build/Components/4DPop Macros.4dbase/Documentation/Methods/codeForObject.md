@@ -1,1 +1,0 @@
-﻿<!----------------------------------------------------code := codeForObject ( object ; key ) -> object (Object) -  Object to analyse -> key (Text) -  If recursive call <- code (Text) -  4D code-->## Descriptioncode := codeForObject ( object ; key )

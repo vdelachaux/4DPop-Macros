@@ -1,1 +1,0 @@
-﻿<!----------------------------------------------------DECLARATION ( entryPoint ; Param_2 ; … ; N ) -> entryPoint (Text) - {Action} [TYPE,DISPLAY,SAVE,INIT] -> Param_2 ; … ; N (Pointer)-->## Description

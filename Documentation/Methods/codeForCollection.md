@@ -1,1 +1,0 @@
-﻿<!----------------------------------------------------code := codeForCollection ( c ; key ) -> c (Collection) -  Collection to analyse -> key (Text) -  If recursive call <- code (Text) -  4D code-->## Descriptioncode := codeForCollection ( c ; key )

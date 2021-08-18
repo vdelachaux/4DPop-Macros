@@ -1,1 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><appMaker>    <info.plist CFBundleGetInfoString="18" CFBundleLongVersionString="18" CFBundleShortVersionString="18" NSHumanReadableCopyright="©4D SAS 2009-{CurrentYear}"/>    <options close="true" delete_mac_content="true" exportStructure="true" gitRepository="true" increment_version="true" zip_source="true"/>    <methods/>    <copy>        <array>            <item>4DPop Macros.htm</item>            <item>Info.plist</item>            <item>Macros v2/</item>            <item>Resources/InfoPlist.strings</item>        </array>    </copy>    <delete>        <array>            <item>./Macros v2/vdl.xml</item>            <item>./Resources/php.ini</item>        </array>    </delete>    <reveal path=""/></appMaker>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<appMaker>
+    <info.plist CFBundleGetInfoString="18" CFBundleLongVersionString="18" CFBundleShortVersionString="18" NSHumanReadableCopyright="©4D SAS 2009-{CurrentYear}"/>
+    <options close="true" delete_mac_content="true" exportStructure="true" gitRepository="true" increment_version="true" zip_source="true"/>
+    <methods/>
+    <copy>
+        <array>
+            <item>4DPop Macros.htm</item>
+            <item>Info.plist</item>
+            <item>Macros v2/</item>
+            <item>Resources/InfoPlist.strings</item>
+        </array>
+    </copy>
+    <delete>
+        <array>
+            <item>./Macros v2/vdl.xml</item>
+            <item>./Resources/php.ini</item>
+        </array>
+    </delete>
+    <reveal path=""/>
+</appMaker>
