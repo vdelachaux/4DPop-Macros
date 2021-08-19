@@ -2,5 +2,7 @@
 [![language](https://img.shields.io/github/languages/top/vdelachaux/4DPop-Macros.svg)](https://developer.4d.com/)
 ![code-size](https://img.shields.io/github/languages/code-size/vdelachaux/4DPop-Macros.svg)
 [![license](https://img.shields.io/github/license/vdelachaux/4DPop-Macros)](LICENSE)
+[![release](https://img.shields.io/github/v/release/vdelachaux/4DPop-Macros?include_prereleases)](https://github.com/vdelachaux/4DPop-Macros/releases/latest)
+
 
 # 4DPop-Macros
