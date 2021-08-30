@@ -1,6 +1,7 @@
 {
 	"_o_OBSOLETES": {
 		"methods": [
+			"_o_localizedControlFlow",
 			"_o_Preferences_Set"
 		],
 		"forms": [
@@ -34,6 +35,7 @@
 			"createFR2USMacro",
 			"DECLARATION_Formula",
 			"DECLARATION_Test",
+			"DECLARE",
 			"test_replace_o",
 			"TrueMethod"
 		],
@@ -160,7 +162,6 @@
 			"doc_gTxt_Files_And_Folders",
 			"doc_gTxt_Resolve_Alias",
 			"doc_SET_TYPE_AND_CREATOR",
-			"localizedControlFlow",
 			"NoError",
 			"Obj_CENTERED",
 			"str_FindBalencingChar",

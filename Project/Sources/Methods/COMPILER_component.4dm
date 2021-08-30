@@ -61,10 +61,10 @@ If (False:C215)
 	C_TEXT:C284(macro; $1)
 	C_OBJECT:C1216(macro; $2)
 	
-	C_TEXT:C284(localizedControlFlow; $0)
-	C_TEXT:C284(localizedControlFlow; $1)
-	C_POINTER:C301(localizedControlFlow; $2)
-	C_POINTER:C301(localizedControlFlow; $3)
+	C_TEXT:C284(_o_localizedControlFlow; $0)
+	C_TEXT:C284(_o_localizedControlFlow; $1)
+	C_POINTER:C301(_o_localizedControlFlow; $2)
+	C_POINTER:C301(_o_localizedControlFlow; $3)
 	
 	C_TEXT:C284(DOT_NOTATION; $1)
 	

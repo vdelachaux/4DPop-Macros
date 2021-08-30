@@ -77,7 +77,7 @@
 							"footer": {
 								"name": "Footer1"
 							},
-							"dataSource": "This:C1470.value",
+							"dataSource": "This:C1470.label",
 							"width": 229
 						},
 						{

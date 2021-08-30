@@ -6,6 +6,8 @@ Class constructor
 	ARRAY LONGINT:C221($_pos; 0)
 	
 	This:C1470.title:=Get window title:C450(Frontmost window:C447)
+	
+	// Identify the name & the type of the current method
 	This:C1470.name:=""
 	This:C1470.objectName:=""
 	This:C1470.projectMethod:=False:C215
@@ -31,22 +33,32 @@ Class constructor
 			This:C1470.objectName:=Substring:C12(This:C1470.title; $_pos{3}; $_len{3})
 			
 		End if 
-	End if 
-	
-	If (This:C1470.form)
-		
-		// 
 		
 	Else 
 		
-		// Code
+		// 👀 What is it?
+		
+	End if 
+	
+	//
+	This:C1470.method:=""
+	This:C1470.highlighted:=""
+	This:C1470.withSelection:=False:C215
+	
+	If (This:C1470.form)
+		
+		// #TO_DO 🚧
+		
+	Else 
+		
+		// The full code
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
 		This:C1470.method:=$t
 		
-		// Selection
+		// The selection
 		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $t)
 		This:C1470.highlighted:=$t
-		This:C1470.selection:=Length:C16($t)>0
+		This:C1470.withSelection:=Length:C16($t)>0
 		
 	End if 
 	
@@ -56,10 +68,9 @@ Class constructor
 	This:C1470.decimalSeparator:=$t
 	
 	//==============================================================
-Function split
-	var $1 : Boolean
+Function split($useSelection : Boolean)
 	
-	If ($1)
+	If ($useSelection)
 		
 		// Selection
 		This:C1470.lineTexts:=Split string:C1554(This:C1470.highlighted; "\r"; sk trim spaces:K86:2)
@@ -70,3 +81,23 @@ Function split
 		
 	End if 
 	
+	//==============================================================
+Function localized($en : Text)->$localized : Text
+	
+	If (This:C1470._controlFlow=Null:C1517)  // First call
+		
+		This:C1470._controlFlow:=JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
+		
+	End if 
+	
+	If (Command name:C538(41)="ALERT")  // US
+		
+		$localized:=$en
+		
+	Else 
+		
+		var $index : Integer
+		$index:=This:C1470._controlFlow.intl.indexOf($en)
+		$localized:=This:C1470._controlFlow.fr($index)
+		
+	End if 

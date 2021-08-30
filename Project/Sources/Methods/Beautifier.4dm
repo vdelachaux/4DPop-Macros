@@ -70,7 +70,7 @@ If (Asserted:C1132($Lon_parameters>=0; "Missing parameter"))
 	APPEND TO ARRAY:C911($tTxt_lineComment; "!!")
 	APPEND TO ARRAY:C911($tTxt_lineComment; "::")
 	
-	localizedControlFlow(""; ->$tTxt_controlFlow)
+	_o_localizedControlFlow(""; ->$tTxt_controlFlow)
 	
 Else 
 	

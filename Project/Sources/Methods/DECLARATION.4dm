@@ -110,7 +110,7 @@ If ($Lon_parameters=0)  // Display the dialog
 				
 				If (Bool:C1537(OK))
 					
-					SET MACRO PARAMETER:C998(Choose:C955($o.selection; Highlighted method text:K5:18; Full method text:K5:17); $o.method)
+					SET MACRO PARAMETER:C998(Choose:C955($o.withSelection; Highlighted method text:K5:18; Full method text:K5:17); $o.method)
 					
 				End if 
 				

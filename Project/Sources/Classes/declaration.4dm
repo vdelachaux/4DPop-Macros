@@ -129,136 +129,121 @@ Class constructor
 	This:C1470.loadGramSyntax()
 	
 	//==============================================================
-Function split
-	var $0 : Object
+Function split()->$this : cs:C1710.declaration
 	
-	Super:C1706.split(This:C1470.selection)
-	
-	$0:=This:C1470
+	Super:C1706.split(This:C1470.withSelection)
 	
 	//==============================================================
-Function getType
-	var $0 : Integer
-	var $1 : Text
+Function getType($text : Text)->$type : Integer
 	
 	Case of 
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C283"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C221"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Integer"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C283"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C221"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Integer"; $text; 1)
 			
-			$0:=Is longint:K8:6
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C284"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C222"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Text"; $1; 1)
-			
-			$0:=Is text:K8:3
+			$type:=Is longint:K8:6
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C285"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C219"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C284"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C222"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Text"; $text; 1)
 			
-			$0:=Is real:K8:4
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C286"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C279"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture"; $1; 1)
-			
-			$0:=Is picture:K8:10
+			$type:=Is text:K8:3
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C301"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C280"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C285"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C219"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real"; $text; 1)
 			
-			$0:=Is pointer:K8:14
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C305"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C223"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean"; $1; 1)
-			
-			$0:=Is boolean:K8:9
+			$type:=Is real:K8:4
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C306"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1223"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C286"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C279"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture"; $text; 1)
 			
-			$0:=Is time:K8:8
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C307"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C224"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date"; $1; 1)
-			
-			$0:=Is date:K8:7
+			$type:=Is picture:K8:10
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C604"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1222"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C301"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C280"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer"; $text; 1)
 			
-			$0:=Is BLOB:K8:12
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1216"); $1)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $1)=1)
-			
-			// | Match regex("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4d\\.)"; $1; 1)
-			
-			$0:=Is object:K8:27
+			$type:=Is pointer:K8:14
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1488"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection"; $1; 1)
+		: (Position:C15(Parse formula:C1576(":C305"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C223"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean"; $text; 1)
 			
-			$0:=Is collection:K8:32
-			
-			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1683"); $1)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant"; $1; 1)
-			
-			$0:=Is variant:K8:33
+			$type:=Is boolean:K8:9
 			
 			//______________________________________________________
-		: (Position:C15("var"; $1)=1)
+		: (Position:C15(Parse formula:C1576(":C306"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C1223"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time"; $text; 1)
 			
-			$0:=Is variant:K8:33
+			$type:=Is time:K8:8
+			
+			//______________________________________________________
+		: (Position:C15(Parse formula:C1576(":C307"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C224"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date"; $text; 1)
+			
+			$type:=Is date:K8:7
+			
+			//______________________________________________________
+		: (Position:C15(Parse formula:C1576(":C604"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C1222"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob"; $text; 1)
+			
+			$type:=Is BLOB:K8:12
+			
+			//______________________________________________________
+		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4d\\.)"; $text; 1)
+			
+			$type:=Is object:K8:27
+			
+			//______________________________________________________
+		: (Position:C15(Parse formula:C1576(":C1488"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection"; $text; 1)
+			
+			$type:=Is collection:K8:32
+			
+			//______________________________________________________
+		: (Position:C15(Parse formula:C1576(":C1683"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant"; $text; 1)
+			
+			$type:=Is variant:K8:33
+			
+			//______________________________________________________
+		: (Position:C15("var"; $text)=1)
+			
+			$type:=Is variant:K8:33
 			
 			//______________________________________________________
 	End case 
 	
 	//==============================================================
-Function setType
-	var $1 : Integer
-	var $2 : Object
+Function setType($type : Integer; $target : Object)
 	
 	var $o : Object
 	
-	If (Count parameters:C259>=2)
-		
-		$o:=$2
-		
-	Else 
-		
-		$o:=Form:C1466.current
-		
-	End if 
+	$o:=Choose:C955(Count parameters:C259>=2; $target; Form:C1466.current)
 	
-	$o.type:=$1
+	$o.type:=$type
 	$o.icon:=This:C1470.types[$o.type].icon
 	
 	//==============================================================
-Function removeDirective  // Remove the compilation directives
+	// Remove the compilation directives
+Function removeDirective
 	var $len; $pos : Integer
 	
-	If (This:C1470.selection)
+	If (This:C1470.withSelection)
 		
 		If (Match regex:C1019("(?mi-s)((?:If|Si)\\s*\\((?:False|Faux)\\)\\R(?:\\s*C_[^(]*\\("+This:C1470.name+";.*\\R)+(?:End if|Fin de si)[^\\R]*\\R\\R)"; This:C1470.highlighted; 1; $pos; $len))
 			
@@ -276,8 +261,8 @@ Function removeDirective  // Remove the compilation directives
 	End if 
 	
 	//==============================================================
-Function parse  // Parses the code to extract parameters and local variables
-	var $0 : Object
+	// Parses the code to extract parameters and local variables
+Function parse()->$this : cs:C1710.declaration
 	
 	var $comment; $t; $text : Text
 	var $static : Boolean
@@ -285,8 +270,8 @@ Function parse  // Parses the code to extract parameters and local variables
 	var $line; $o; $parameter; $rgx; $variable : Object
 	var $c : Collection
 	
-	ARRAY LONGINT:C221($_len; 0x0000)
-	ARRAY LONGINT:C221($_pos; 0x0000)
+	ARRAY LONGINT:C221($len; 0x0000)
+	ARRAY LONGINT:C221($pos; 0x0000)
 	
 	This:C1470.removeDirective()
 	This:C1470.split()
@@ -310,19 +295,77 @@ Function parse  // Parses the code to extract parameters and local variables
 				$line.type:=Choose:C955(This:C1470.$inCommentBlock; "comment"; "empty")
 				
 				//______________________________________________________
-			: (Match regex:C1019("(?mi-s)^(//)|(/\\*)|(?:.*(\\*/))"; $line.code; 1; $_pos; $_len))  // Comments
+			: (Position:C15("#DECLARE"; $line.code)=1)  // #UNLOCALIZED KEY WORD
+				
+				$line.type:="#DECLARE"
+				
+				$rgx:=Rgx_match(New object:C1471(\
+					"pattern"; "(?m-si)^#DECLARE\\s*\\(([^\\)]*)\\)(?:\\s*(?:->\\s*(\\$[^:$]*(?::*[^$]*)))|(\\s*/[/*]*.*))?$"; \
+					"target"; $line.code; \
+					"all"; True:C214))
+				
+				If ($rgx.success)
+					
+					// Extract the parameters, if any
+					var $index : Integer
+					$index:=0
+					For each ($t; Split string:C1554($rgx.match[1].data; ";"))
+						
+						$index:=$index+1
+						$c:=Split string:C1554($t; ":")
+						
+						$parameter:=New object:C1471(\
+							"parameter"; True:C214; \
+							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+							"code"; $line.code; \
+							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($t)); \
+							"count"; 0; \
+							"order"; $index)
+						
+						$parameter.label:="→ "+$parameter.value
+						
+						This:C1470.parameters.push($parameter)
+						
+					End for each 
+					
+					// Determine the return type, if any
+					If (Length:C16($rgx.match[2].data)>0)
+						
+						$c:=Split string:C1554($rgx.match[2].data; ":")
+						
+						$parameter:=New object:C1471(\
+							"parameter"; True:C214; \
+							"return"; True:C214; \
+							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+							"code"; $line.code; \
+							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($rgx.match[2].data)); \
+							"count"; 0; \
+							"order"; 0)
+						
+						$parameter.label:="← "+$parameter.value
+						
+						This:C1470.parameters.push($parameter)
+						
+					End if 
+					
+					$comment:=$rgx.match[3].data
+					
+				End if 
+				
+				//______________________________________________________
+			: (Match regex:C1019("(?mi-s)^(//)|(/\\*)|(?:.*(\\*/))"; $line.code; 1; $pos; $len))  // Comments
 				
 				$line.type:="comment"
 				
 				Case of 
 						
 						//___________________________________
-					: ($_pos{2}>0)  // Begin comment block
+					: ($pos{2}>0)  // Begin comment block
 						
 						This:C1470.$inCommentBlock:=Not:C34(Match regex:C1019("(?mi-s)^/\\*.*\\*/"; $line.code; 1))
 						
 						//___________________________________
-					: ($_pos{3}>0)  // End comment block
+					: ($pos{3}>0)  // End comment block
 						
 						This:C1470.$inCommentBlock:=False:C215
 						
@@ -380,7 +423,9 @@ declaration macro must omit the parameters of a formula
 								"parameter"; True:C214; \
 								"value"; $t; \
 								"code"; $line.code; \
-								"count"; 0)
+								"count"; 0; \
+								"label"; Choose:C955($t="$0"; "← "; "→ ")+$t; \
+								"order"; Num:C11($t))
 							
 							This:C1470.parameters.push($parameter)
 							
@@ -394,11 +439,11 @@ declaration macro must omit the parameters of a formula
 							
 							If (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // Declaration line
 								
-								If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $_pos; $_len))
+								If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $pos; $len))
 									
-									If ($_pos{1}#-1)
+									If ($pos{1}#-1)
 										
-										$parameter.class:=Substring:C12($text; $_pos{1}; $_len{1})
+										$parameter.class:=Substring:C12($text; $pos{1}; $len{1})
 										
 									End if 
 									
@@ -411,9 +456,9 @@ declaration macro must omit the parameters of a formula
 									
 								End if 
 								
-								If (Match regex:C1019("(?mi-s)//(.*)$"; $line.code; 1; $_pos; $_len))
+								If (Match regex:C1019("(?mi-s)//(.*)$"; $line.code; 1; $pos; $len))
 									
-									$parameter.comment:=Substring:C12($line.code; $_pos{1}; $_len{1})
+									$parameter.comment:=Substring:C12($line.code; $pos{1}; $len{1})
 									
 								End if 
 								
@@ -455,7 +500,8 @@ declaration macro must omit the parameters of a formula
 											"parameter"; True:C214; \
 											"value"; $t; \
 											"code"; $line.code; \
-											"count"; 0)
+											"count"; 0; \
+											"label"; Choose:C955($t="0"; "← "; "→ ")+$t)
 										
 										This:C1470.parameters.push($parameter)
 										
@@ -474,7 +520,8 @@ declaration macro must omit the parameters of a formula
 										$variable:=New object:C1471(\
 											"value"; $t; \
 											"code"; $line.code; \
-											"count"; 0)
+											"count"; 0; \
+											"label"; $t)
 										
 										This:C1470.locales.push($variable)
 										
@@ -486,11 +533,11 @@ declaration macro must omit the parameters of a formula
 									
 									If (Not:C34(This:C1470.ignoreDeclarations))
 										
-										If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $_pos; $_len))
+										If (Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|((?:cs\\.\\w+)|(?:4d\\.\\w+))"; $text; 1; $pos; $len))
 											
-											If ($_pos{1}#-1)
+											If ($pos{1}#-1)
 												
-												$variable.class:=Substring:C12($text; $_pos{1}; $_len{1})
+												$variable.class:=Substring:C12($text; $pos{1}; $len{1})
 												
 											End if 
 											
@@ -509,7 +556,7 @@ declaration macro must omit the parameters of a formula
 						End if 
 						
 						//______________________________________________________
-					: (Match regex:C1019("(?mi-s)^(?:ARRAY|TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $_pos; $_len))  // Array declaration
+					: (Match regex:C1019("(?mi-s)^(?:ARRAY|TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $pos; $len))  // Array declaration
 						
 						$static:=Match regex:C1019("(?mi-s)0x"; $text; 1)
 						
@@ -519,7 +566,7 @@ declaration macro must omit the parameters of a formula
 							
 						End if 
 						
-						$t:=Substring:C12($line.code; $_pos{1}; $_len{1})
+						$t:=Substring:C12($line.code; $pos{1}; $len{1})
 						
 						$variable:=This:C1470.locales.query("value=:1"; $t).pop()
 						
@@ -528,7 +575,8 @@ declaration macro must omit the parameters of a formula
 							$variable:=New object:C1471(\
 								"value"; $t; \
 								"code"; $line.code; \
-								"count"; 0)
+								"count"; 0; \
+								"label"; $t)
 							
 							This:C1470.locales.push($variable)
 							
@@ -539,7 +587,7 @@ declaration macro must omit the parameters of a formula
 						End if 
 						
 						$variable.array:=True:C214
-						$variable.dimension:=1+Num:C11(($_pos{2}#-1))
+						$variable.dimension:=1+Num:C11(($pos{2}#-1))
 						$variable.static:=$static
 						$variable.type:=This:C1470.getType($text)
 						
@@ -572,71 +620,83 @@ declaration macro must omit the parameters of a formula
 								
 								If (Not:C34(Match regex:C1019("(?mi-s)(\\$\\{?\\d+\\}?)"; $t; 1)))  // Parameter
 									
-									$variable:=This:C1470.locales.query("value=:1"; $t).pop()
+									$variable:=This:C1470.parameters.query("value=:1"; $t).pop()
 									
 									If ($variable=Null:C1517)
 										
-										$variable:=New object:C1471(\
-											"value"; $t; \
-											"code"; $line.code; \
-											"count"; 1)
+										$variable:=This:C1470.locales.query("value=:1"; $t).pop()
 										
-										This:C1470.locales.push($variable)
-										
-									Else 
-										
-										$variable.count:=$variable.count+1
-										
-									End if 
-									
-									If ($variable.type=Null:C1517)
-										
-										$l:=Private_Lon_Declaration_Type($t)
-										
-										If ($l#0)  // Got a type from syntax parameters
+										If ($variable=Null:C1517)
 											
-											If ($l>100)
-												
-												$variable.array:=True:C214
-												$l:=$l-100
-												
-											End if 
+											$variable:=New object:C1471(\
+												"value"; $t; \
+												"code"; $line.code; \
+												"count"; 1; \
+												"label"; $t)
 											
-											$variable.type:=Choose:C955($l; \
-												-1; \
-												Is text:K8:3; \
-												Is BLOB:K8:12; \
-												Is boolean:K8:9; \
-												Is date:K8:7; \
-												Is longint:K8:6; \
-												Is longint:K8:6; \
-												-1; \
-												Is time:K8:8; \
-												Is picture:K8:10; \
-												Is pointer:K8:14; \
-												Is real:K8:4; \
-												Is text:K8:3; \
-												Is object:K8:27; \
-												Is collection:K8:32; \
-												Is variant:K8:33)
+											This:C1470.locales.push($variable)
 											
 										Else 
 											
-											$variable.type:=This:C1470.getType($line.code)
+											$variable.count:=$variable.count+1
 											
-											If ($variable.type=0)
+										End if 
+										
+										If ($variable.type=Null:C1517)
+											
+											$l:=Private_Lon_Declaration_Type($t)
+											
+											If ($l#0)  // Got a type from syntax parameters
 												
-												$variable.type:=This:C1470.clairvoyant($t; $line.code)
+												If ($l>100)
+													
+													$variable.array:=True:C214
+													$l:=$l-100
+													
+												End if 
+												
+												$variable.type:=Choose:C955($l; \
+													-1; \
+													Is text:K8:3; \
+													Is BLOB:K8:12; \
+													Is boolean:K8:9; \
+													Is date:K8:7; \
+													Is longint:K8:6; \
+													Is longint:K8:6; \
+													-1; \
+													Is time:K8:8; \
+													Is picture:K8:10; \
+													Is pointer:K8:14; \
+													Is real:K8:4; \
+													Is text:K8:3; \
+													Is object:K8:27; \
+													Is collection:K8:32; \
+													Is variant:K8:33)
 												
 											Else 
 												
-												If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1; $_pos; $_len))
+												$variable.type:=This:C1470.getType($line.code)
+												
+												If ($variable.type=0)
 													
-													$variable.array:=True:C214
+													$variable.type:=This:C1470.clairvoyant($t; $line.code)
 													
+												Else 
+													
+													If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1; $pos; $len))
+														
+														$variable.array:=True:C214
+														
+													End if 
 												End if 
 											End if 
 										End if 
+										
+									Else 
+										
+										// Its a parameter
+										$variable.count:=$variable.count+1
+										
 									End if 
 								End if 
 							End for each 
@@ -671,11 +731,12 @@ declaration macro must omit the parameters of a formula
 	// Finally do a flat list
 	This:C1470.variables:=This:C1470.parameters.combine(This:C1470.locales)
 	
-	$0:=This:C1470
+	$this:=This:C1470
 	
 	//==============================================================
 Function apply
-	var $t; $text; $directive : Text
+	
+	var $t; $text; $compiler : Text
 	var $build; $i; $l : Integer
 	var $o; $type : Object
 	var $c; $cc : Collection
@@ -687,45 +748,87 @@ Function apply
 	
 	If ($c.length>0)
 		
-		For each ($o; $c)
-			
-			If ($o.class#Null:C1517)
-				
-				$text:=$text+"var "+$o.value+" :"+$o.class
-				$directive:=$directive+":C1216("+This:C1470.name+";"+$o.value+")"
-				
-			Else 
-				
-				$text:=$text+"var "+$o.value+" :"+This:C1470.types[$o.type].name
-				$directive:=$directive+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")"
-				
-			End if 
-			
-			If ($o.comment#Null:C1517)
-				
-				$text:=$text+"//"+$o.comment+"\r"
-				$directive:=$directive+"//"+$o.comment+"\r"
-				
-			Else 
-				
-				$text:=$text+"\r"
-				$directive:=$directive+"\r"
-				
-			End if 
-		End for each 
+		$c:=$c.orderBy("order")
 		
 		If (This:C1470.projectMethod)
 			
-			$directive:=Delete string:C232($directive; Length:C16($directive); 1)
-			$text:=$text+"\r"
+			If (This:C1470.lines.query("type = :1"; "#DECLARE").pop()=Null:C1517)
+				
+				// #DECLARE does not accept $1 ... $N as a parameter name, so we use the var keyword for parameters.
+				For each ($o; $c)
+					
+					If ($o.class#Null:C1517)
+						
+						$text:=$text+"var "+$o.value+":"+$o.class+"\r"
+						$compiler:=$compiler+":C1216("+This:C1470.name+";"+$o.value+")\r"
+						
+					Else 
+						
+						$text:=$text+"var "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
+						$compiler:=$compiler+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
+						
+					End if 
+				End for each 
+				
+				$text:=Delete string:C232($text; Length:C16($text); 1)
+				
+			Else 
+				
+				$text:="#DECLARE("
+				
+				For each ($o; $c.query("order > 0"))
+					
+					$text:=$text+(";"*Num:C11($o.order>1))+$o.value+":"
+					
+					If ($o.class#Null:C1517)
+						
+						$text:=$text+$o.class
+						$compiler:=$compiler+":C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						
+					Else 
+						
+						$text:=$text+This:C1470.types[$o.type].name
+						$compiler:=$compiler+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						
+					End if 
+				End for each 
+				
+				// RETURN OF THE METHOD
+				$o:=$c.query("order = 0").pop()
+				
+				If ($o#Null:C1517)
+					
+					$text:=$text+")->"+$o.value+":"
+					
+					If ($o.class#Null:C1517)
+						
+						$text:=$text+$o.class
+						$compiler:=$compiler+":C1216("+This:C1470.name+";$0)\r"
+						
+					Else 
+						
+						$text:=$text+This:C1470.types[$o.type].name
+						$compiler:=$compiler+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
+						
+					End if 
+				End if 
+				
+			End if 
 			
-			$text:=Choose:C955(Command name:C538(1)="Sum"; $text+"If(False)\r"+$directive+"\rEnd if\r"; $text+"Si(Faux)\r"+$directive+"\rFin de si\r")
+			// COMPILER DIRECTIVES
+			If (Num:C11(Storage:C1525.macros.preferences.options) ?? 27)
+				
+				$text:=$text+"\r\r"+This:C1470.localized("If")+"(:C215)\r"\
+					+Delete string:C232($compiler; Length:C16($compiler); 1)+"\r"\
+					+This:C1470.localized("End if")
+				
+			End if 
+			
+		Else 
+			
+			// FUNCTION #TO_DO
 			
 		End if 
-		
-		// Remove the last carriage return
-		$text:=Delete string:C232($text; Length:C16($text); 1)
-		
 	End if 
 	
 	// VARIABLES
@@ -841,7 +944,8 @@ Function apply
 				
 				//___________________
 			: ($t="empty")\
-				 | ($t="declaration")
+				 | ($t="declaration")\
+				 | ($t="#DECLARE")
 				
 				$o.code:=$text+kCaret+"\r"
 				$o.type:=""
@@ -877,7 +981,8 @@ Function apply
 		Case of 
 				
 				//___________________
-			: ($t="declaration")
+			: ($t="declaration")\
+				 | ($t="#DECLARE")
 				
 				// Skip
 				
@@ -930,7 +1035,10 @@ Function clairvoyant
 			$0:=Is object:K8:27
 			
 			// Keep class definition
-			This:C1470.classes.push(New object:C1471("value"; Substring:C12($2; $pos{1}; $len{1}); "class"; Substring:C12($2; $pos{2}; $len{2})))
+			This:C1470.classes.push(New object:C1471(\
+				"value"; Substring:C12($2; \
+				$pos{1}; $len{1}); \
+				"class"; Substring:C12($2; $pos{2}; $len{2})))
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=\"[^\"]*\""\
