@@ -31,6 +31,7 @@ That's why they have an associated shortcut 😉
 | [Special paste…](#specialPaste) |Pastes the text contained in the clipboard after transformations|✔︎|_p|⌘ ⌥ v|
 | Duplicate and comment |The selected text is saved as a comment immediately before the selection. This allows you to preserve a piece of code before editing it.|✔︎||⌘ ⌥ d|
 | Replay last macro |Replays the last macro used for the method being edited|✔︎||⌘ +|
+
 \*Shortcuts may be displayed incorrectly in the macro menu because they are interpreted. e.g. `⌘ ⌥ c` will be displayed `⌘ ©`
 
 
