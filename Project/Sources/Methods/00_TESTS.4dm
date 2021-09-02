@@ -30,3 +30,7 @@ $button2:=cs:C1710.button.new()
 $toto:=4D:C1709.File.new()
 $o:=New object:C1471
 $z:=New object:C1471
+
+
+
+

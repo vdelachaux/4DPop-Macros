@@ -22,7 +22,7 @@ Class constructor
 		$ƒ:=Formula from string:C1601(Parse formula:C1576(":C1578($1)"))
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
-		This:C1470.class:=($t="class:")
+		This:C1470.class:=($t="Class: ")
 		This:C1470.form:=($t=$ƒ.call(Null:C1517; "common_form"))
 		This:C1470.trigger:=($t=$ƒ.call(Null:C1517; "common_Trigger"))
 		

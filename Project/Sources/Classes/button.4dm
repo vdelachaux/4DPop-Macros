@@ -25,10 +25,10 @@ Tryes to underline the first capital letter or,
 if not found the first letter, corresponding to 
 the associated key shortcut
 ══════════════════════════*/
-Function highlightShortcut
+Function highlightShortcut()->$this : cs:C1710.button
 	
-	C_LONGINT:C283($index; $lModifier)
-	C_TEXT:C284($key; $t)
+	var $key; $t : Text
+	var $index; $lModifier : Integer
 	
 	OBJECT GET SHORTCUT:C1186(*; This:C1470.name; $key; $lModifier)
 	
@@ -51,16 +51,16 @@ Function highlightShortcut
 		End if 
 	End if 
 	
-	C_OBJECT:C1216($0)
-	$0:=This:C1470
+	$this:=This:C1470
 	
 /*════════════════════════════════════════════
 A hack to force a button to be boolean type
 	
-⚠️ Obsolete in project mode because you can 
-   choose the type for the checkboxes
+⚠️ Obsolete in project mode because you can
+choose the type for the checkboxes
 ══════════════════════════*/
-Function asBoolean
+Function asBoolean()
+	var $0 : Object
 	
 	If (This:C1470.type=Object type checkbox:K79:26)
 		If (This:C1470.assignable)
@@ -70,5 +70,4 @@ Function asBoolean
 		End if 
 	End if 
 	
-	C_OBJECT:C1216($0)
 	$0:=This:C1470
