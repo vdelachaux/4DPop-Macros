@@ -149,7 +149,7 @@
         <text><method>4DPop_MACROS("paste_and_keep")</method></text>
     </macro>
     
-    <macro name="Special past.../◊" 
+    <macro name="Special paste.../◊" 
         in_menu="true" 
         type_ahead="true" 
         type_ahead_text="_p"

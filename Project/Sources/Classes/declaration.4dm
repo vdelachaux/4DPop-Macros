@@ -753,7 +753,11 @@ Function apply
 		
 		$c:=$c.orderBy("order")
 		
-		If (This:C1470.projectMethod)
+		If (This:C1470.class)
+			
+			// FUNCTION #TO_DO
+			
+		Else 
 			
 			If (This:C1470.lines.query("type = :1"; "#DECLARE").pop()=Null:C1517)
 				
@@ -819,19 +823,15 @@ Function apply
 				End if 
 			End if 
 			
-			// *COMPILER DIRECTIVES
-			If (Num:C11(Storage:C1525.macros.preferences.options) ?? 27)
+			If (This:C1470.projectMethod)\
+				 & (Num:C11(Storage:C1525.macros.preferences.options) ?? 27)
 				
+				// *COMPILER DIRECTIVES
 				$text:=$text+"\r\r"+This:C1470.localized("If")+"(:C215)\r"\
 					+Delete string:C232($compiler; Length:C16($compiler); 1)+"\r"\
 					+This:C1470.localized("End if")
 				
 			End if 
-			
-		Else 
-			
-			// FUNCTION #TO_DO
-			
 		End if 
 	End if 
 	
