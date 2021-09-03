@@ -41,6 +41,9 @@
 		],
 		"forms": [
 			"TEST"
+		],
+		"classes": [
+			"test_"
 		]
 	},
 	"00_NEW": {

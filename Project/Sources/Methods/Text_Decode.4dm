@@ -1,46 +1,41 @@
 //%attributes = {"invisible":true}
-  // ----------------------------------------------------
-  // Methode : Private_Decode_Text
-  // Created 24/02/06 par Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  // Decodes Text $1  encoded with encoding $2 (UTF-8 if $2 is missing)
-  // ----------------------------------------------------
-  // Modified by vdl (08/10/07)
-  // 2004 -> v11
-  // ----------------------------------------------------
-C_TEXT:C284($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-
-C_BLOB:C604($Blb_Buffer)
-C_TEXT:C284($Txt_charSet;$Txt_result;$Txt_Target)
+// ----------------------------------------------------
+// Methode : Private_Decode_Text
+// Created 24/02/06 par Vincent de Lachaux
+// ----------------------------------------------------
+// Description
+// Decodes Text $1  encoded with encoding $2 (UTF-8 if $2 is missing)
+// ----------------------------------------------------
+// Modified by vdl (08/10/07)
+// 2004 -> v11
+// ----------------------------------------------------
+var $0 : Text
+var $1 : Text
+var $2 : Text
 
 If (False:C215)
-	C_TEXT:C284(Text_Decode ;$0)
-	C_TEXT:C284(Text_Decode ;$1)
-	C_TEXT:C284(Text_Decode ;$2)
+	C_TEXT:C284(Text_Decode; $0)
+	C_TEXT:C284(Text_Decode; $1)
+	C_TEXT:C284(Text_Decode; $2)
 End if 
 
-$Txt_Target:=$1
+var $charSet; $result; $target : Text
+var $buffer : Blob
+
+$target:=$1
+$charSet:="UTF-8"
 
 If (Count parameters:C259>=2)
 	
-	$Txt_charSet:=$2
+	$charSet:=$2
 	
 End if 
 
-If (Length:C16($Txt_charSet)=0)
+If (Length:C16($target)>0)
 	
-	$Txt_charSet:="UTF-8"
-	
-End if 
-
-If (Length:C16($Txt_Target)>0)
-	
-	TEXT TO BLOB:C554($Txt_Target;$Blb_Buffer;Mac text without length:K22:10)
-	$Txt_result:=Convert to text:C1012($Blb_Buffer;$Txt_charSet)
+	TEXT TO BLOB:C554($target; $buffer; Mac text without length:K22:10)
+	$result:=Convert to text:C1012($buffer; $charSet)
 	
 End if 
 
-$0:=$Txt_result
+$0:=$result

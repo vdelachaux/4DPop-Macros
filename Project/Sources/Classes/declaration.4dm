@@ -275,7 +275,7 @@ Function parse()->$this : cs:C1710.declaration
 	
 	var $comment; $t; $text : Text
 	var $static : Boolean
-	var $l : Integer
+	var $index; $l : Integer
 	var $line; $o; $parameter; $rgx; $variable : Object
 	var $c : Collection
 	
@@ -304,163 +304,25 @@ Function parse()->$this : cs:C1710.declaration
 				$line.type:=Choose:C955(This:C1470.$inCommentBlock; "comment"; "empty")
 				
 				//______________________________________________________
-			: (Position:C15("#DECLARE"; $line.code)=1)  // #DECLARE - UNLOCALIZED KEYWORD
+			: (Position:C15("#DECLARE"; $line.code)=1)  // #DECLARE
 				
 				$line.type:="#DECLARE"
-				
-				$rgx:=Rgx_match(New object:C1471(\
-					"pattern"; "(?m-si)^#DECLARE\\s*\\(([^\\)]*)\\)(?:\\s*(?:->\\s*(\\$[^:$]*(?::*[^$]*)))|(\\s*/[/*]*.*))?$"; \
-					"target"; $line.code; \
-					"all"; True:C214))
-				
-				If ($rgx.success)
-					
-					// Extract the parameters, if any
-					var $index : Integer
-					$index:=0
-					For each ($t; Split string:C1554($rgx.match[1].data; ";"))
-						
-						$index:=$index+1
-						$c:=Split string:C1554($t; ":")
-						
-						$parameter:=New object:C1471(\
-							"parameter"; True:C214; \
-							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-							"code"; $line.code; \
-							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($t)); \
-							"count"; 0; \
-							"order"; $index)
-						
-						$parameter.label:="→ "+$parameter.value
-						
-						If ($c.length=2)
-							
-							If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1; $pos; $len))
-								
-								$parameter.class:=$c[1]
-								
-							End if 
-						End if 
-						
-						This:C1470.parameters.push($parameter)
-						
-					End for each 
-					
-					// Determine the return type, if any
-					If (Length:C16($rgx.match[2].data)>0)
-						
-						$c:=Split string:C1554($rgx.match[2].data; ":")
-						
-						$parameter:=New object:C1471(\
-							"parameter"; True:C214; \
-							"return"; True:C214; \
-							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-							"code"; $line.code; \
-							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($rgx.match[2].data)); \
-							"count"; 0; \
-							"order"; 0)
-						
-						$parameter.label:="← "+$parameter.value
-						
-						If ($c.length=2)
-							
-							If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1; $pos; $len))
-								
-								$parameter.class:=$c[1]
-								
-							End if 
-						End if 
-						
-						This:C1470.parameters.push($parameter)
-						
-					End if 
-					
-					//$comment:=$rgx.match[3].data
-					
-				End if 
+				$line.skip:=True:C214
+				This:C1470._parseParameters($line)
 				
 				//______________________________________________________
-			: (Match regex:C1019("(?m-si)^.*Function\\s.*$"; $line.code; 1; $pos; $len))  // Function declaration
+			: (Position:C15("Class constructor"; $line.code)=1)  // Constructor
+				
+				$line.type:="Class constructor"
+				$line.skip:=True:C214
+				This:C1470._parseParameters($line)
+				
+				//______________________________________________________
+			: (Match regex:C1019("(?m-si)^(?!//).*Function\\s.*$"; $line.code; 1))  // Function
 				
 				$line.type:="Function"
-				
-				$rgx:=Rgx_match(New object:C1471(\
-					"pattern"; "(?m-si)^(.*Function\\s[^(]*)(?:\\(([^)]*)\\))?(?:->(\\$[^\\s:]*(?:\\s:\\s[^$/]*))?)?((?://[^$]*))?$"; \
-					"target"; $line.code; \
-					"all"; True:C214))
-				
-				If ($rgx.success)
-					
-					$line.function:=$rgx.match[1].data
-					
-					// Extract the parameters, if any
-					var $index : Integer
-					$index:=0
-					
-					For each ($t; Split string:C1554($rgx.match[2].data; ";"))
-						
-						$index:=$index+1
-						$c:=Split string:C1554($t; ":")
-						
-						$parameter:=New object:C1471(\
-							"parameter"; True:C214; \
-							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-							"code"; $line.code; \
-							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($t)); \
-							"count"; 0; \
-							"order"; $index)
-						
-						$parameter.label:="→ "+$parameter.value
-						
-						If ($c.length=2)
-							
-							If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1; $pos; $len))
-								
-								$parameter.class:=$c[1]
-								
-							End if 
-						End if 
-						
-						This:C1470.parameters.push($parameter)
-						
-					End for each 
-					
-					// Determine the return type, if any
-					If (Length:C16($rgx.match[3].data)>0)
-						
-						$c:=Split string:C1554($rgx.match[3].data; ":")
-						
-						$parameter:=New object:C1471(\
-							"parameter"; True:C214; \
-							"return"; True:C214; \
-							"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-							"code"; $line.code; \
-							"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($rgx.match[3].data)); \
-							"count"; 0; \
-							"order"; 0)
-						
-						If ($c.length=2)
-							
-							If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1; $pos; $len))
-								
-								$parameter.class:=$c[1]
-								
-							End if 
-						End if 
-						
-						$parameter.label:="← "+$parameter.value
-						
-						This:C1470.parameters.push($parameter)
-						
-					End if 
-					
-					//Comments if any
-					If (Length:C16($rgx.match[4].data)>0)
-						
-						$line.comment:=$rgx.match[4].data
-						
-					End if 
-				End if 
+				$line.skip:=True:C214
+				This:C1470._parseParameters($line)
 				
 				//______________________________________________________
 			: (Match regex:C1019("(?mi-s)^(//)|(/\\*)|(?:.*(\\*/))"; $line.code; 1; $pos; $len))  // COMMENTS
@@ -562,6 +424,7 @@ declaration macro must omit the parameters of a formula
 								Else 
 									
 									$line.type:="declaration"
+									$line.skip:=True:C214
 									$parameter.type:=This:C1470.getType($text)
 									
 								End if 
@@ -590,6 +453,7 @@ declaration macro must omit the parameters of a formula
 					: (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // DECLARATION LINE
 						
 						$line.type:="declaration"
+						$line.skip:=True:C214
 						
 						$rgx:=Rgx_match(New object:C1471(\
 							"pattern"; "(?m-si)(?<!\\.)(\\$\\w+)"; \
@@ -673,6 +537,7 @@ declaration macro must omit the parameters of a formula
 						If (Not:C34($static))
 							
 							$line.type:="declaration"
+							$line.skip:=True:C214
 							
 						End if 
 						
@@ -700,21 +565,6 @@ declaration macro must omit the parameters of a formula
 						$variable.dimension:=1+Num:C11(($pos{2}#-1))
 						$variable.static:=$static
 						$variable.type:=This:C1470.getType($text)
-						
-						//______________________________________________________
-					: ($text="Class constructor@")  // Class constructor UNLOCALIZED KEYWORD
-						
-						$line.type:="constructor"
-						
-						//______________________________________________________
-					: ($text="Class extends@")  // Class extends UNLOCALIZED KEYWORD
-						
-						$line.type:="extends"
-						
-						//______________________________________________________
-					: ($text="Function @")  // Function UNLOCALIZED KEYWORD
-						
-						$line.type:="function"
 						
 						//______________________________________________________
 					Else   // EXTRACT LOCAL VARIABLES
@@ -844,8 +694,126 @@ declaration macro must omit the parameters of a formula
 	$this:=This:C1470
 	
 	//==============================================================
+Function _parseParameters($line : Object)
+	
+	var $pattern; $t : Text
+	var $index : Integer
+	var $parameter; $rgx : Object
+	var $c : Collection
+	
+	Case of 
+			
+			//______________________________________________________
+		: ($line.type="Class constructor")
+			
+			$pattern:="(?mi-s)^(?!//)(.*)"+$line.type+"\\s*()(?:\\(([^)]*)\\))?\\s*()?\\s*(//[^$]*)?$"
+			
+			//______________________________________________________
+		: ($line.type="Function")
+			
+			$pattern:="(?m-si)^(?!//)(.*)"+$line.type+"\\s([^(]*)(?:\\s*\\(([^)]*)\\))?(?:\\s*->\\s*([^/]*))?\\s*(//[^$]*)?$"
+			
+			//______________________________________________________
+		: ($line.type="#DECLARE")
+			
+			$pattern:="(?m-si)^(?!//)()"+$line.type+"()(?:\\s*\\(([^)]*)\\))?(?:\\s*->\\s*([^/]*))?\\s*(//[^$]*)?$"
+			
+			//______________________________________________________
+	End case 
+	
+	$rgx:=Rgx_match(New object:C1471(\
+		"pattern"; $pattern; \
+		"target"; $line.code; \
+		"all"; True:C214))
+	
+	If ($rgx.success)
+		
+		//$1: keywords (ie. exposed)
+		If ($rgx.match[1].length>0)
+			
+			$line.prefix:=$rgx.match[1].data
+			
+		End if 
+		
+		//$2: function name (ie. {get/set} myFunction)
+		If ($rgx.match[2].length>0)
+			
+			$line.function:=$rgx.match[2].data
+			
+		End if 
+		
+		//$3: parameters
+		If ($rgx.match[3].length>0)
+			
+			For each ($t; Split string:C1554($rgx.match[3].data; ";"))
+				
+				$index:=$index+1
+				$c:=Split string:C1554($t; ":"; sk trim spaces:K86:2)
+				
+				$parameter:=New object:C1471(\
+					"parameter"; True:C214; \
+					"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+					"code"; $line.code; \
+					"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($t)); \
+					"count"; 0; \
+					"order"; $index)
+				
+				$parameter.label:="→ "+$parameter.value
+				
+				If ($c.length=2)
+					
+					If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1))
+						
+						$parameter.class:=$c[1]
+						
+					End if 
+				End if 
+				
+				This:C1470.parameters.push($parameter)
+				
+			End for each 
+		End if 
+		
+		//$4: return
+		If ($rgx.match[4].length>0)
+			
+			$c:=Split string:C1554($rgx.match[4].data; ":"; sk trim spaces:K86:2)
+			
+			$parameter:=New object:C1471(\
+				"parameter"; True:C214; \
+				"return"; True:C214; \
+				"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+				"code"; $line.code; \
+				"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getType($rgx.match[4].data)); \
+				"count"; 0; \
+				"order"; 0)
+			
+			If ($c.length=2)
+				
+				If (Match regex:C1019("(?m-si)^\\s*((?:4D|cs)\\.[^$/]*)(/[^$]*)?$"; $c[1]; 1))
+					
+					$parameter.class:=$c[1]
+					
+				End if 
+			End if 
+			
+			$parameter.label:="← "+$parameter.value
+			
+			This:C1470.parameters.push($parameter)
+			
+		End if 
+		
+		//$5: comments
+		If (Length:C16($rgx.match[5].data)>0)
+			
+			$line.comment:=$rgx.match[5].data
+			
+		End if 
+	End if 
+	
+	//==============================================================
 Function apply
-	var $t; $text; $compiler : Text
+	var $before; $t; $text; $compiler : Text
 	var $build; $i; $l : Integer
 	var $o; $type : Object
 	var $c; $cc : Collection
@@ -855,17 +823,18 @@ Function apply
 	// ① PARAMETERS
 	$c:=This:C1470.variables.query("parameter=true")
 	
-	If ($c.length>0)
+	$o:=This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop()
+	
+	If ($c.length>0)\
+		 | ($o#Null:C1517)
 		
 		$c:=$c.orderBy("order")
 		
 		If (This:C1470.class)
 			
-			$o:=This:C1470.lines.query("type = :1"; "Function").pop()
-			
-			If ($o#Null:C1517)  // *FUNCTION
+			If ($o#Null:C1517)
 				
-				$text:=$o.function+"("
+				$text:=String:C10($o.prefix)+$o.type+" "+String:C10($o.function)+" ("
 				
 				For each ($o; $c.query("order > 0"))
 					
@@ -892,10 +861,11 @@ Function apply
 							+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
 						
 					End if 
-					
-					$text:=$text+"\r"
-					
 				End if 
+				
+				$text:=$text+String:C10(This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop().comment)
+				$text:=$text+"\r"
+				
 			End if 
 			
 		Else 
@@ -916,7 +886,6 @@ Function apply
 						$compiler:=$compiler+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
 						
 					End if 
-					
 				End for each 
 				
 				$text:=Delete string:C232($text; Length:C16($text); 1)
@@ -970,6 +939,9 @@ Function apply
 						End if 
 					End if 
 				End if 
+				
+				$text:=$text+String:C10(This:C1470.lines.query("type = :1"; "#DECLARE").pop().comment)
+				
 			End if 
 			
 			If (This:C1470.projectMethod)\
@@ -984,12 +956,12 @@ Function apply
 		End if 
 	End if 
 	
+	$text:=This:C1470.return($text)
+	
 	// ② LOCAL VARIABLES WITH SIMPLE TYPE
 	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null")
 	
 	If ($c.length>0)
-		
-		$text:=$text+("\r\r"*Num:C11(Length:C16($text)>0))
 		
 		For each ($type; This:C1470.types.query("value!=null"))
 			
@@ -1034,10 +1006,6 @@ Function apply
 				
 			End if 
 		End for each 
-		
-		// Remove the last carriage return
-		$text:=Delete string:C232($text; Length:C16($text); 1)
-		
 	End if 
 	
 	// ③ LOCAL VARIABLES LINKED TO A CLASSE
@@ -1045,18 +1013,15 @@ Function apply
 	
 	If ($c.length>0)
 		
-		$text:=$text+("\r"*Num:C11(Length:C16($text)>0))
-		
 		For each ($t; $c.distinct("class"))
 			
 			$text:=$text+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
 			
 		End for each 
 		
-		// Remove the last carriage return
-		$text:=Delete string:C232($text; Length:C16($text); 1)
-		
 	End if 
+	
+	$text:=This:C1470.return($text)
 	
 	// ④ ARRAYS
 	$c:=This:C1470.variables.query("array=true & count>0 & static=false")
@@ -1083,11 +1048,9 @@ Function apply
 		
 	End if 
 	
-	If (This:C1470.class)
-		
-		
-		
-	Else 
+	$text:=This:C1470.return($text)
+	
+	If (Not:C34(This:C1470.class))
 		
 		// Look for the first empty or declaration line
 		For each ($o; This:C1470.lines) While ($l#MAXLONG:K35:2)
@@ -1099,17 +1062,14 @@ Function apply
 					//___________________
 				: ($t="comment")
 					
-					$l:=$l+1
+					$before:=$before+$o.code+"\r"
+					$l:=Length:C16($before)
+					$o.skip:=True:C214
 					
 					//___________________
-				: ($t="empty")\
-					 | ($t="declaration")\
-					 | ($t="#DECLARE")
+				: ($t="empty")
 					
-					$o.code:=$text+kCaret+"\r"
-					$o.type:=""
-					$text:=""
-					
+					$text:=$before+Substring:C12($text; 1; Length:C16($text)-1)
 					$l:=MAXLONG:K35:2
 					
 					//___________________
@@ -1122,7 +1082,7 @@ Function apply
 						
 					Else 
 						
-						$text:=Substring:C12($text; 1; Length:C16($text)-1)+kCaret
+						$text:=$before+Substring:C12($text; 1; Length:C16($text)-1)
 						
 					End if 
 					
@@ -1141,11 +1101,9 @@ Function apply
 		Case of 
 				
 				//___________________
-			: ($t="declaration")\
-				 | ($t="#DECLARE")\
-				 | ($t="Function")
+			: (Bool:C1537($o.skip))
 				
-				// Skip
+				// <NOTHING MORE TO DO>
 				
 				//___________________
 			: ($t="empty")
@@ -1173,6 +1131,20 @@ Function apply
 	$text:=Delete string:C232($text; Length:C16($text); 1)
 	
 	This:C1470.method:=$text
+	
+	//==============================================================
+Function return($text : Text)->$formatted : Text
+	
+	$formatted:=$text
+	
+	If (Length:C16($formatted)>0)
+		
+		While ($formatted#"@\r\r")
+			
+			$formatted:=$formatted+"\r"
+			
+		End while 
+	End if 
 	
 	//==============================================================
 Function clairvoyant($text : Text; $line : Text)->$varType : Integer

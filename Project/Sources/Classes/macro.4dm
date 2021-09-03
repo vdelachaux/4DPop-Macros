@@ -18,11 +18,11 @@ Class constructor
 	
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $_pos; $_len))
 		
-		$t:=Substring:C12(This:C1470.title; $_pos{1}; $_len{1})
 		$ƒ:=Formula from string:C1601(Parse formula:C1576(":C1578($1)"))
+		$t:=Substring:C12(This:C1470.title; $_pos{1}; $_len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
-		This:C1470.class:=($t="Class: ")
+		This:C1470.class:=(Position:C15("Class:"; $t)=1)
 		This:C1470.form:=($t=$ƒ.call(Null:C1517; "common_form"))
 		This:C1470.trigger:=($t=$ƒ.call(Null:C1517; "common_Trigger"))
 		
