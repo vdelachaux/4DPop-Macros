@@ -758,7 +758,7 @@ Function _parseParameters($line : Object)
 					"count"; 0; \
 					"order"; $index)
 				
-				$parameter.label:="→ "+$parameter.value
+				$parameter.label:="← "+$parameter.value
 				
 				If ($c.length=2)
 					
@@ -797,7 +797,7 @@ Function _parseParameters($line : Object)
 				End if 
 			End if 
 			
-			$parameter.label:="← "+$parameter.value
+			$parameter.label:="→ "+$parameter.value
 			
 			This:C1470.parameters.push($parameter)
 			
@@ -1186,6 +1186,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"[:><]?[=><]?\\d+"; $line; 1))\
+			 | (Match regex:C1019("(?mi-s)\\"+$t+"\\s\\?[?+-]\\s\\d*"; $line; 1))\
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:1"); $line; 1))\
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:2"); $line; 1))\
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:3"); $line; 1))

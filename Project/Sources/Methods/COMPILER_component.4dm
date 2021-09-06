@@ -162,14 +162,14 @@ If (False:C215)
 	C_TEXT:C284(Init; $1)
 	
 	// Private_Encode_Text
-	C_TEXT:C284(Text_Encode; $0)
-	C_TEXT:C284(Text_Encode; $1)
-	C_TEXT:C284(Text_Encode; $2)
+	//C_TEXT(Text_Encode; $0)
+	//C_TEXT(Text_Encode; $1)
+	//C_TEXT(Text_Encode; $2)
 	
 	// Private_Decode_Text
-	C_TEXT:C284(Text_Decode; $0)
-	C_TEXT:C284(Text_Decode; $1)
-	C_TEXT:C284(Text_Decode; $2)
+	//C_TEXT(Text_Decode; $0)
+	//C_TEXT(Text_Decode; $1)
+	//C_TEXT(Text_Decode; $2)
 	
 	// COMMENTS
 	C_TEXT:C284(COMMENTS; $1)

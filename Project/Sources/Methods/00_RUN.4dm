@@ -1,0 +1,4 @@
+//%attributes = {}
+//cs.specialPaste.new()
+
+

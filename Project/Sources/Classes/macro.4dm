@@ -101,3 +101,63 @@ Function localized($en : Text)->$localized : Text
 		$localized:=This:C1470._controlFlow.fr($index)
 		
 	End if 
+	
+	//==============================================================
+Function setMethodText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
+	
+	//==============================================================
+Function setSelectedText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
+	
+	//==============================================================
+Function choose()
+	
+	var $t : Text
+	var $affect; $index : Integer
+	var $c : Collection
+	
+	If (This:C1470.withSelection)
+		
+		$c:=Split string:C1554(This:C1470.highlighted; "\r"; sk trim spaces:K86:2+sk ignore empty strings:K86:1)
+		
+		If ($c.length=5)
+			
+			ARRAY LONGINT:C221($pos; 0x0000)
+			ARRAY LONGINT:C221($len; 0x0000)
+			
+			If (Match regex:C1019(Choose:C955(Command name:C538(1)="Sum"; "If"; "Si")+"\\s*\\(([^\\)]*)\\).*"; $c[0]; 1; $pos; $len))
+				
+				$index:=Position:C15(":="; $c[1])
+				
+				If ($index>0)
+					
+					$affect:=Position:C15(":="; $c[3])
+					
+					If ($affect>0)
+						
+						$t:=Substring:C12($c[1]; 1; $index-1)\
+							+":="\
+							+Command name:C538(955)\
+							+"("\
+							+Substring:C12($c[0]; $pos{1}; $len{1})\
+							+";"\
+							+Substring:C12($c[1]; $index+2)\
+							+";"\
+							+Substring:C12($c[3]; $affect+2)\
+							+")"
+						
+						This:C1470.setSelectedText($t)
+						
+					End if 
+				End if 
+			End if 
+		End if 
+		
+	Else 
+		
+		BEEP:C151
+		
+	End if 

@@ -89,7 +89,8 @@ Case of
 		 | ($Txt_action="_syntax_@")\
 		 | ($Txt_action="_paste_as_string")\
 		 | ($Txt_action="copyWithIndentation")\
-		 | ($Txt_action="camelCase")  // [OBSOLETE]
+		 | ($Txt_action="camelCase")\
+		 | ($Txt_action="AlphaToTextDeclaration")  // [OBSOLETE]
 		
 		ALERT:C41("OBSOLETE ACTION\rNo longer available or included in 4D")
 		
@@ -156,10 +157,7 @@ Case of
 		//______________________________________________________
 	: ($Txt_action="special_paste")  //#v11 Paste after transformations
 		
-		$l:=Open form window:C675("SPECIAL_PASTE"; Movable form dialog box:K39:8; Horizontally centered:K39:1; Vertically centered:K39:4; *)
-		DIALOG:C40("SPECIAL_PASTE")
-		
-		CLEAR VARIABLE:C89(<>Txt_buffer)
+		cs:C1710.specialPaste.new()
 		
 		//______________________________________________________
 	: ($Txt_action="_paste_as_string")\
@@ -167,10 +165,12 @@ Case of
 		 | ($Txt_action="paste_html")\
 		 | ($Txt_action="paste_regex_pattern")\
 		 | ($Txt_action="paste_with_escape_characters")\
-		 | ($Txt_action="paste_in_comment")  // [=>] moved to special_paste
+		 | ($Txt_action="paste_in_comment")\
+		 | ($Txt_action="convert_from_utf8")\
+		 | ($Txt_action="convert_to_utf8")\
+		 | ($Txt_action="convert_to_html")  // [=>] moved to special_paste
 		
 		4DPop_MACROS("special_paste")
-		
 		
 		//______________________________________________________
 	: ($Txt_action="edit_comment")  // • Edit comments
@@ -377,89 +377,43 @@ Case of
 		
 		// Create a standard comment for the method according to the declaration.
 		// This comment could be past in the comment part of the explorer
-		//______________________________________________________
-	: ($Txt_action="convert_from_utf8")  // • "S√©lectioner un texte UTF8 pour obtenir sa traduction en texte"
-		
-		If (Length:C16($Obj_macro.highlighted)=0)
-			
-			// Get pasteboard
-			$t:=Get text from pasteboard:C524
-			
-		Else 
-			
-			$t:=$Obj_macro.highlighted
-			
-		End if 
-		
-		$Boo_OK:=(Length:C16($t)>0)
-		
-		If ($Boo_OK)
-			
-			$t:=Replace string:C233($t; "\\"; "")
-			$Txt_converted:=Text_Decode($t; "UTF-8")
-			
-			If (Length:C16($Txt_converted)>0)
-				
-				4DPop_MACROS("_paste_as_string"; $Txt_converted)
-				
-			End if 
-		End if 
-		
-		//______________________________________________________
-	: ($Txt_action="convert_to_utf8")  // • Sélectioner un texte accentué pour obtenir sa traduction en UTF-8
-		
-		If (Length:C16($Obj_macro.highlighted)=0)
-			
-			// Get pasteboard
-			$t:=Get text from pasteboard:C524
-			
-		Else 
-			
-			$t:=$Obj_macro.highlighted
-			
-		End if 
-		
-		$Boo_OK:=(Length:C16($t)>0)
-		
-		If ($Boo_OK)
-			
-			$t:=Replace string:C233($t; "\\"; "")
-			$Txt_converted:=Text_Encode($t; "UTF-8")
-			
-			If (Length:C16($Txt_converted)>0)
-				
-				4DPop_MACROS("_paste_as_string"; $Txt_converted)
-				
-			End if 
-		End if 
-		
-		//______________________________________________________
-	: ($Txt_action="convert_to_html")  // Sélectioner un texte accentué pour obtenir sa traduction en code HTML
-		
-		$Boo_OK:=(Length:C16($Obj_macro.highlighted)>0)
-		
-		If ($Boo_OK)
-			
-			$t:=$Obj_macro.highlighted
-			$Txt_converted:="<!--4DVAR $t-->"
-			TEXT TO BLOB:C554($Txt_converted; $x; Mac text without length:K22:10)
-			PROCESS 4D TAGS:C816($x; $x)
-			$Txt_converted:=BLOB to text:C555($x; Mac text without length:K22:10)
-			4DPop_MACROS("_paste_as_string"; $Txt_converted)
-			
-		End if 
-		
-		//______________________________________________________
-	: ($Txt_action="AlphaToTextDeclaration")  // Replace C_ALPHA(xx;… by C_TEXTE(…
-		
-		$t:=$Obj_macro.method
-		Rgx_SubstituteText(Command name:C538(293)+"\\([^;]*;"; Command name:C538(284)+"("; ->$t)
-		SET MACRO PARAMETER:C998(Full method text:K5:17; $t)
 		
 		//______________________________________________________
 	: (Length:C16($Obj_macro.highlighted)=0)  // ******************************* All the macros below need a selection *******************************
 		
 		$Boo_OK:=False:C215
+		
+		//______________________________________________________
+	: ($Txt_action="copyWithoutIndentation")
+		
+		var $t : Text
+		var $i; $tab : Integer
+		var $Obj_macro : Object
+		var $c : Collection
+		
+		$c:=Split string:C1554($Obj_macro.highlighted; "\r")
+		
+		$t:=$c[0]
+		
+		While ($t[[1]]="\t")
+			
+			$tab:=$tab+1
+			$t:=Delete string:C232($t; 1; 1)
+			
+		End while 
+		
+		If ($tab>0)
+			
+			For ($i; 0; $c.length-1; 1)
+				
+				$c[$i]:=Delete string:C232($c[$i]; 1; $tab)
+				
+			End for 
+		End if 
+		
+		$t:=$c.join("\r")
+		SET TEXT TO PASTEBOARD:C523($t)
+		
 		
 		//______________________________________________________
 	: ($Txt_action="Asserted")  // #24-8-2017 - Conditional assertion

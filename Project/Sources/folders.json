@@ -8,6 +8,7 @@
 			"DECLARATIONS"
 		]
 	},
+	"(00_NEW)": {},
 	"00_dev": {
 		"methods": [
 			"__test",
@@ -46,40 +47,27 @@
 			"test_"
 		]
 	},
-	"00_NEW": {
-		"methods": [
-			"declaration_UI"
-		],
-		"forms": [
-			"DECLARATION_SETTINGS",
-			"NEW_DECLARATION"
-		],
+	"classes": {
 		"classes": [
 			"button",
-			"declaration",
 			"group",
 			"input",
 			"listbox",
-			"macro",
 			"menu",
 			"scrollable",
 			"static",
 			"widget"
 		]
 	},
-	"class": {
-		"methods": [
-			"COMPILER_class",
-			"menu",
-			"rgx",
-			"str",
-			"test_rgx"
-		]
-	},
 	"Component": {
 		"groups": [
 			"private",
 			"shared"
+		],
+		"classes": [
+			"declaration",
+			"macro",
+			"specialPaste"
 		]
 	},
 	"lib": {
@@ -103,6 +91,7 @@
 			"Compiler_",
 			"COMPILER_component",
 			"DECLARATION",
+			"declaration_UI",
 			"DOT_NOTATION",
 			"EXTRACT_LOCAL_VARIABLES",
 			"Get_resource",
@@ -122,8 +111,6 @@
 			"Private_Boo_Paste_Regex_Pattern",
 			"Private_Lon_Declaration_Type",
 			"SETTINGS",
-			"Text_Decode",
-			"Text_Encode",
 			"util_Lon_array_declaration",
 			"util_Lon_Local_in_line",
 			"Util_SPLIT_METHOD"
@@ -134,8 +121,18 @@
 			"CREATE_BUTTON",
 			"DECLARATIONS_SETTINGS",
 			"LIST",
+			"NEW_DECLARATION",
 			"SETTINGS",
 			"SPECIAL_PASTE"
+		]
+	},
+	"pseudo-classes": {
+		"methods": [
+			"COMPILER_class",
+			"menu",
+			"rgx",
+			"str",
+			"test_rgx"
 		]
 	},
 	"rgx": {
@@ -189,5 +186,9 @@
 			"xml_refToObject"
 		]
 	},
-	"trash": {}
+	"trash": {
+		"groups": [
+			"(00_NEW)"
+		]
+	}
 }

@@ -2,6 +2,7 @@
 //var $t; $tt; $ttt : Text
 //var $indx : Integer
 //var $c : Collection
+var $t : Text
 var $o; $z : Object
 var $toto : 4D:C1709.File
 var $button; $button2 : cs:C1710.button
@@ -31,6 +32,5 @@ $toto:=4D:C1709.File.new()
 $o:=New object:C1471
 $z:=New object:C1471
 
-
-
-
+$t:=String:C10(1)
+$t:=String:C10(1)

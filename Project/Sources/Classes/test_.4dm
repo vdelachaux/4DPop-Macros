@@ -44,18 +44,16 @@ Function init()
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
 	//=== === === === === === === === === === === === === === === === === === === === ===
-Function test($x : 4D:C1709.File)->$y : Object  //comments
+Function updateColorScheme($x : 4D:C1709.File)->$y : Object
+	
+	var $icon : Picture
+	var $file : 4D:C1709.File
 	
 	$y:=$x
 	
 	//exposed Function get computedName()->$name : Text  //comments
 	
 	//$name:=Uppercase(This.Name)
-	
-Function updateColorScheme()
-	
-	var $icon : Picture
-	var $file : 4D:C1709.File
 	
 	This:C1470.colorScheme:=FORM Get color scheme:C1761
 	This:C1470.isDark:=(FORM Get color scheme:C1761="dark")

@@ -4,16 +4,16 @@
 	"windowMinWidth": 400,
 	"windowMinHeight": 400,
 	"width": 440,
-	"height": 420,
+	"height": 423,
 	"markerHeader": 15,
 	"markerBody": 200,
 	"markerBreak": 220,
 	"markerFooter": 240,
 	"events": [
 		"onLoad",
-		"onValidate",
-		"onUnload",
-		"onTimer"
+		"onDoubleClick",
+		"onTimer",
+		"onSelectionChange"
 	],
 	"method": "method.4dm",
 	"pageFormat": {
@@ -23,33 +23,13 @@
 	},
 	"pages": [
 		{
-			"objects": {
-				"automatic_font": {
-					"type": "input",
-					"top": 469,
-					"left": 0,
-					"width": 150,
-					"height": 16,
-					"visibility": "hidden",
-					"stroke": "#FF6600",
-					"fill": "transparent",
-					"borderStyle": "dotted",
-					"enterable": false,
-					"hideFocusRing": true,
-					"dragging": "none",
-					"dropping": "none",
-					"method": "ObjectMethods/automatic_font.4dm",
-					"events": [
-						"onLoad"
-					]
-				}
-			}
+			"objects": {}
 		},
 		{
 			"objects": {
 				"Rectangle": {
 					"type": "rectangle",
-					"top": 231,
+					"top": 220,
 					"left": 0,
 					"width": 440,
 					"height": 143,
@@ -60,7 +40,7 @@
 				},
 				"back.line.hresize2": {
 					"type": "line",
-					"top": 229,
+					"top": 218,
 					"left": 0,
 					"width": 440,
 					"sizingX": "grow",
@@ -69,41 +49,41 @@
 					"height": 0,
 					"startPoint": "topLeft"
 				},
-				"lstb.menu": {
+				"choice": {
 					"type": "listbox",
-					"top": 33,
+					"top": 2,
 					"left": 0,
-					"width": 440,
-					"height": 155,
-					"sizingX": "grow",
+					"width": 215,
+					"height": 215,
 					"sizingY": "grow",
 					"resizingMode": "legacy",
 					"hideFocusRing": true,
 					"sortable": false,
 					"movableRows": false,
 					"rowHeight": "18px",
-					"rowHeightAutoMin": "20px",
-					"rowHeightAutoMax": "20px",
 					"showHeaders": false,
 					"headerHeight": "17px",
 					"selectionMode": "single",
 					"scrollbarHorizontal": "hidden",
-					"scrollbarVertical": "hidden",
+					"scrollbarVertical": "automatic",
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"fill": "transparent",
 					"fontWeight": "bold",
 					"borderStyle": "none",
-					"method": "ObjectMethods/lstb.menu.4dm",
 					"events": [
+						"onDoubleClick",
 						"onSelectionChange"
 					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.target",
+					"currentItemSource": "Form:C1466.currentTarget",
+					"currentItemPositionSource": "Form:C1466.currentTargetIndex",
 					"columns": [
 						{
 							"name": "Colonne1",
-							"dataSource": "<>tTxt_Labels",
-							"width": 340,
-							"minWidth": 340,
+							"width": 0,
+							"minWidth": 0,
 							"maxWidth": 32000,
 							"enterable": false,
 							"fill": "#FFFFFF",
@@ -118,64 +98,42 @@
 								"timeFormat": "hh_mm_ss",
 								"fill": "#FFFFFF",
 								"fontWeight": "bold"
-							}
-						},
-						{
-							"name": "ID",
-							"dataSourceTypeHint": "number",
-							"width": 100,
-							"minWidth": 85,
-							"maxWidth": 32000,
-							"resizable": false,
-							"enterable": false,
-							"visibility": "hidden",
-							"fill": "#FFFF00",
-							"textAlign": "center",
-							"header": {
-								"name": "Entête2",
-								"text": "Entête2",
-								"fontWeight": "bold"
 							},
-							"footer": {
-								"name": "Pied2",
-								"timeFormat": "hh_mm_ss",
-								"fill": "#FFFFFF",
-								"fontWeight": "bold"
-							}
+							"dataSource": "This:C1470.label"
 						}
 					]
 				},
 				"option_1": {
 					"type": "checkbox",
-					"top": 202,
-					"left": 32,
+					"top": 10,
+					"left": 236,
 					"width": 173,
 					"height": 16,
-					"sizingY": "move",
 					"text": ":xliff:deleteIndentation",
 					"focusable": false,
 					"method": "ObjectMethods/option_1.4dm",
 					"events": [
 						"onClick"
-					]
+					],
+					"dataSourceTypeHint": "integer"
 				},
 				"option_2": {
 					"type": "checkbox",
-					"top": 202,
-					"left": 247,
+					"top": 33,
+					"left": 235,
 					"width": 173,
 					"height": 16,
-					"sizingY": "move",
 					"text": ":xliff:ignoreBlankLines",
 					"focusable": false,
 					"method": "ObjectMethods/option_2.4dm",
 					"events": [
 						"onClick"
-					]
+					],
+					"dataSourceTypeHint": "integer"
 				},
 				"b.escape": {
 					"type": "button",
-					"top": 388,
+					"top": 381,
 					"left": 200,
 					"width": 100,
 					"height": 22,
@@ -191,7 +149,7 @@
 				},
 				"Bouton": {
 					"type": "button",
-					"top": 388,
+					"top": 381,
 					"left": 320,
 					"width": 100,
 					"height": 22,
@@ -207,25 +165,15 @@
 						"onClick"
 					]
 				},
-				"Texte": {
-					"type": "text",
-					"top": 10,
-					"left": 9,
-					"width": 170,
-					"height": 16,
-					"fontWeight": "bold",
-					"text": ":xliff:pastAs",
-					"stroke": "#696969"
-				},
 				"preview": {
 					"type": "input",
-					"top": 231,
+					"top": 220,
 					"left": 3,
 					"width": 422,
 					"height": 142,
 					"sizingX": "grow",
 					"sizingY": "grow",
-					"dataSource": "Form:C1466.text",
+					"dataSource": "Form:C1466.preview",
 					"fontFamily": "Lucida Grande",
 					"fontSize": 11,
 					"fill": "transparent",
@@ -236,8 +184,8 @@
 				},
 				"Splitter": {
 					"type": "button",
-					"top": 229,
-					"left": 0,
+					"top": 218,
+					"left": -1,
 					"width": 465,
 					"height": 1,
 					"sizingX": "grow",
@@ -248,42 +196,21 @@
 						"onClick"
 					]
 				},
-				"back.line.hresize": {
-					"type": "line",
-					"top": 32,
-					"left": 0,
-					"width": 440,
-					"sizingX": "grow",
-					"stroke": "#BBBBBB",
-					"height": 0,
-					"startPoint": "topLeft"
-				},
-				"back.line.hresize1": {
-					"type": "line",
-					"top": 188,
-					"left": 0,
-					"width": 440,
-					"sizingX": "grow",
-					"sizingY": "move",
-					"stroke": "#BBBBBB",
-					"height": 0,
-					"startPoint": "topLeft"
-				},
 				"back.line.hresize3": {
 					"type": "line",
-					"top": 374,
-					"left": 0,
-					"width": 440,
+					"top": 363,
+					"left": -1,
+					"width": 441,
 					"sizingX": "grow",
 					"sizingY": "move",
 					"stroke": "#BBBBBB",
-					"height": 0,
-					"startPoint": "topLeft"
+					"height": 1,
+					"startPoint": "bottomLeft"
 				},
 				"Rectangle1": {
 					"type": "rectangle",
-					"top": 272,
-					"left": 455,
+					"top": 261,
+					"left": 452,
 					"width": 11,
 					"height": 148,
 					"sizingX": "move",
@@ -293,11 +220,21 @@
 				"Rectangle2": {
 					"type": "rectangle",
 					"top": 0,
-					"left": 455,
+					"left": 452,
 					"width": 11,
 					"height": 148,
 					"sizingX": "move",
 					"fill": "transparent"
+				},
+				"back.line.hresize4": {
+					"type": "line",
+					"top": 1,
+					"left": 215,
+					"width": 1,
+					"sizingY": "grow",
+					"stroke": "#BBBBBB",
+					"height": 217,
+					"startPoint": "topLeft"
 				}
 			}
 		}
@@ -305,5 +242,13 @@
 	"$4d": {
 		"version": "1",
 		"kind": "form"
+	},
+	"geometryStamp": 175,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
 	}
 }

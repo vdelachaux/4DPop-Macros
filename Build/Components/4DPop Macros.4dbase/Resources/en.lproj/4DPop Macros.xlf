@@ -1,483 +1,1 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-   <!--                          Translation file for 4D products.Copyright(C)2006 4D SA.This file is distributed under the same license as the 4D product package.-->
-<xliff version="1.0" xmlns:d4="http://www.4d.com/d4-ns">
-   <file datatype="x-STR#" date="2007-01-01" original="undefined" product-name="4DPop" product-version="2007" source-language="en" target-language="en">
-      <header>
-         <prop-group name="Xliff-Editor.4dbase">
-            <prop prop-type="version">1.0</prop>
-         </prop-group>
-      </header>
-      <body>
-         <group resname="declaration">
-            <trans-unit id="69" resname="Alpha">
-               <source>Alpha</source>
-               <target>Alpha</target>
-            </trans-unit>
-            <trans-unit id="70" resname="Text">
-               <source>Text</source>
-               <target>Text</target>
-            </trans-unit>
-            <trans-unit id="71" resname="Real">
-               <source>Real</source>
-               <target>Real</target>
-            </trans-unit>
-            <trans-unit id="72" resname="Integer">
-               <source>Integer</source>
-               <target>Integer</target>
-            </trans-unit>
-            <trans-unit id="73" resname="LongInteger">
-               <source>Long Integer</source>
-               <target>Long Integer</target>
-            </trans-unit>
-            <trans-unit id="74" resname="Date">
-               <source>Date</source>
-               <target>Date</target>
-            </trans-unit>
-            <trans-unit id="75" resname="Time">
-               <source>Time</source>
-               <target>Time</target>
-            </trans-unit>
-            <trans-unit id="76" resname="Boolean">
-               <source>Boolean</source>
-               <target>Boolean</target>
-            </trans-unit>
-            <trans-unit id="77" resname="Picture">
-               <source>Picture</source>
-               <target>Picture</target>
-            </trans-unit>
-            <trans-unit id="78" resname="Graph">
-               <source>Graph</source>
-               <target>Graph</target>
-            </trans-unit>
-            <trans-unit id="79" resname="BLOB">
-               <source>BLOB</source>
-               <target>BLOB</target>
-            </trans-unit>
-            <trans-unit id="80" resname="Float">
-               <source>Float</source>
-               <target>Float</target>
-            </trans-unit>
-            <trans-unit id="13" resname="Pointer">
-               <source>Pointer</source>
-               <target>Pointer</target>
-            </trans-unit>
-            <trans-unit id="14" resname="Variables">
-               <source>Variables</source>
-               <target>Variables</target>
-            </trans-unit>
-            <trans-unit id="15" resname="Array">
-               <source>Array</source>
-               <target>Array</target>
-            </trans-unit>
-            <trans-unit id="16" resname="MethodSyntax_Option">
-               <source>Method syntax</source>
-               <target>Method syntax</target>
-            </trans-unit>
-            <trans-unit id="17" resname="OneLine_Option">
-               <source>A line for each variable</source>
-               <target>A line for each variable</target>
-            </trans-unit>
-            <trans-unit id="36" resname="Button_Options">
-               <source>Options</source>
-               <target>Options</target>
-            </trans-unit>
-            <trans-unit id="37" resname="Button_Back">
-               <source>Back</source>
-               <target>Back</target>
-            </trans-unit>
-            <trans-unit id="38" resname="OneLine_Comment">
-               <source>If this option is checked, a line of declaration will be created for each variable.</source>
-               <target>If this option is checked, a line of declaration will be created for each variable.</target>
-            </trans-unit>
-            <trans-unit id="39" resname="MethodSyntax_Comment">
-               <source>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</source>
-               <target>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</target>
-            </trans-unit>
-            <trans-unit id="40" resname="Label_Type">
-               <source>Type</source>
-               <target>Type</target>
-            </trans-unit>
-            <trans-unit id="41" resname="Label_Pattern">
-               <source>Pattern</source>
-               <target>Pattern</target>
-            </trans-unit>
-            <trans-unit id="42" resname="Label_SyntaxList">
-               <source>RULES OF SYNTAX</source>
-               <target>RULES OF SYNTAX</target>
-            </trans-unit>
-            <trans-unit id="42" resname="Label_VariableList">
-               <source>VARIABLES LIST</source>
-               <target>VARIABLES LIST</target>
-            </trans-unit>
-            <trans-unit id="44" resname="Label_NumberOfVariablesPerLine">
-               <source>Number of variable per line :</source>
-               <target>Number of variable per line :</target>
-            </trans-unit>
-            <trans-unit id="60" resname="DeclarationignoreCompilerDirectives">
-               <source>Ignore compiler directives</source>
-               <target>Ignore compiler directives</target>
-            </trans-unit>
-            <trans-unit id="61" resname="DeclarationtheVariablesDeclaredButNotUsedWill">
-               <source>The variables declared but not used will be removed.</source>
-               <target>The variables declared but not used will be removed.</target>
-            </trans-unit>
-            <trans-unit id="62" resname="DeclarationtheNameOfALocalVariableAlwaysStartsWithADollarSign">
-               <source>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</source>
-               <target>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</target>
-            </trans-unit>
-            <trans-unit id="63" resname="DeclarationthisVariableIsAlreadyUsedInThisMethod">
-               <source>This variable is already used in this method.
-
-Would you like to continue?</source>
-               <target>This variable is already used in this method.
-
-Would you like to continue?</target>
-            </trans-unit>
-            <trans-unit id="64" resname="removeUnnecessaryBlankLines">
-               <source>Remove unnecessary blank lines</source>
-               <target>Remove unnecessary blank lines</target>
-            </trans-unit>
-            <trans-unit id="65" resname="multipleEmptyLinesWillBeDeleted">
-               <source>Multiple empty lines will be replaced by one. Empty lines at the end of the method will be ignored.</source>
-               <target>Multiple empty lines will be replaced by one. Empty lines at the end of the method will be ignored.</target>
-            </trans-unit>
-            <trans-unit id="66" resname="replaceObsoleteTypes">
-               <source>Replace obsolete types</source>
-               <target>Replace obsolete types</target>
-            </trans-unit>
-            <trans-unit id="67" resname="c_text&amp;TextArrayWillBeUsedInsteadC_alpha&amp;ArrayString">
-               <source>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</source>
-               <target>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</target>
-            </trans-unit>
-            <trans-unit id="81" resname="Object" type="unit">
-               <source>Object</source>
-               <target>Object</target>
-            </trans-unit>
-            <trans-unit id="99" resname="DeclarationUpdateTheMethodComment">
-               <source>Update the method's comment</source>
-               <target>Update the method's comment</target>
-            </trans-unit>
-            <trans-unit id="100" resname="DeclarationCommentTooltip">
-               <source>The description of the syntax will be added at the beginning of the comment and will be used, by 4D, for the tooltip in the code editor.</source>
-               <target>The description of the syntax will be added at the beginning of the comment and will be used, by 4D, for the tooltip in the code editor.</target>
-            </trans-unit>
-            <trans-unit id="104" resname="Collection">
-               <source>Collection</source>
-               <target>Collection</target>
-            </trans-unit>
-            <trans-unit id="kzNK2hCEcU3FGL1TQFryuQ" resname="Variant">
-               <source>Variant</source>
-               <target>Variant</target>
-            </trans-unit>
-         </group>
-         <group resname="Common">
-            <trans-unit id="18" resname="Common_Escape">
-               <source>Escape</source>
-               <target>Escape</target>
-            </trans-unit>
-            <trans-unit id="19" resname="Common_OK">
-               <source>OK</source>
-               <target>OK</target>
-            </trans-unit>
-            <trans-unit id="53" resname="Common_Paste">
-               <source>Paste</source>
-               <target>Paste</target>
-            </trans-unit>
-         </group>
-         <group id="42" resname="From 4D STR# 42">
-            <trans-unit id="2" resname="If">
-               <source>If</source>
-               <target>If</target>
-            </trans-unit>
-            <trans-unit id="3" resname="Else">
-               <source>Else</source>
-               <target>Else</target>
-            </trans-unit>
-            <trans-unit id="4" resname="EndIf">
-               <source>End if</source>
-               <target>End if</target>
-            </trans-unit>
-            <trans-unit id="5" resname="CaseOf">
-               <source>Case of</source>
-               <target>Case of</target>
-            </trans-unit>
-            <trans-unit id="7" resname="EndCase">
-               <source>End case</source>
-               <target>End case</target>
-            </trans-unit>
-            <trans-unit id="8" resname="While">
-               <source>While</source>
-               <target>While</target>
-            </trans-unit>
-            <trans-unit id="9" resname="EndWhile">
-               <source>End while</source>
-               <target>End while</target>
-            </trans-unit>
-            <trans-unit id="10" resname="For">
-               <source>For</source>
-               <target>For</target>
-            </trans-unit>
-            <trans-unit id="11" resname="EndFor">
-               <source>End for</source>
-               <target>End for</target>
-            </trans-unit>
-            <trans-unit id="12.2" resname="Repeat">
-               <source>Repeat</source>
-               <target>Repeat</target>
-            </trans-unit>
-            <trans-unit id="13" resname="Until">
-               <source>Until</source>
-               <target>Until</target>
-            </trans-unit>
-         </group>
-         <group id="36" resname="From 4D STR# 36">
-            <trans-unit id="35" resname="Form Method">
-               <source>Form Method: </source>
-               <target>Form Method: </target>
-            </trans-unit>
-            <trans-unit id="36" resname="Trigger">
-               <source>Trigger: </source>
-               <target>Trigger: </target>
-            </trans-unit>
-            <trans-unit id="37" resname="Form">
-               <source>Form: </source>
-               <target>Form: </target>
-            </trans-unit>
-            <trans-unit id="39" resname="Method">
-               <source>Method: </source>
-               <target>Method: </target>
-            </trans-unit>
-            <trans-unit id="43" resname="ObjectMethod">
-               <source>Object Method: </source>
-               <target>Object Method: </target>
-            </trans-unit>
-         </group>
-         <group resname="Comments">
-            <trans-unit id="45" resname="bInsert">
-               <source>Insert</source>
-               <target>Insert</target>
-            </trans-unit>
-            <trans-unit id="85" resname="comments">
-               <source>Comments</source>
-               <target>Comments</target>
-            </trans-unit>
-         </group>
-         <group resname="specialPasteGroup">
-            <trans-unit id="46" resname="as_1">
-               <source>String</source>
-               <target>String</target>
-            </trans-unit>
-            <trans-unit id="47" resname="as_2">
-               <source>Comments</source>
-               <target>Comments</target>
-            </trans-unit>
-            <trans-unit id="48" resname="as_3">
-               <source>HTML</source>
-               <target>HTML</target>
-            </trans-unit>
-            <trans-unit id="49" resname="as_4">
-               <source>Regex Pattern</source>
-               <target>Regex Pattern</target>
-            </trans-unit>
-            <trans-unit id="58" resname="as_5">
-               <source>Pathname</source>
-               <target>Pathname</target>
-            </trans-unit>
-            <trans-unit id="67" resname="as_6">
-               <source>Insert in text</source>
-               <target>Insert in text</target>
-            </trans-unit>
-            <trans-unit id="76" resname="as_7">
-               <source>JSON code</source>
-               <target>JSON code</target>
-            </trans-unit>
-            <trans-unit id="52" resname="deleteIndentation">
-               <source>Delete indentation</source>
-               <target>Delete indentation</target>
-            </trans-unit>
-            <trans-unit id="54" resname="ignoreBlankLines">
-               <source>Ignore blank lines</source>
-               <target>Ignore blank lines</target>
-            </trans-unit>
-            <trans-unit id="50" resname="pastAs">
-               <source>PAST AS:</source>
-               <target>PAST AS:</target>
-            </trans-unit>
-            <trans-unit id="68" resname="posix">
-               <source>POSIX</source>
-               <target>POSIX</target>
-            </trans-unit>
-            <trans-unit id="51" resname="relative">
-               <source>Relative</source>
-               <target>Relative</target>
-            </trans-unit>
-            <trans-unit id="55" resname="specialPaste">
-               <source>Special Paste</source>
-               <target>Special Paste</target>
-            </trans-unit>
-            <trans-unit id="105" resname="as_8">
-               <source>Tokenized</source>
-               <target>Tokenized</target>
-            </trans-unit>
-         </group>
-         <group resname="messages">
-            <trans-unit id="57" resname="Mess_LocalizedVersionOfTheMacroFile">
-               <source>A localized version of the macros file "4DPop" has been successfully installed.
-
-The localized macros will be available next time you start the application.</source>
-               <target>A localized version of the macros file "4DPop" has been successfully installed.
-
-The localized macros will be available next time you start the application.</target>
-            </trans-unit>
-            <trans-unit id="68" resname="MessagestoTryANewMacro">
-               <source>To try a new macro: create a method called exactly "4DPop_TEST_Macros" and don't forget to share this method.
-
-Your code will be executed instead of this alert.
-
-It's the best way to begin with macros without opening an XML editor ;-)</source>
-               <target>To try a new macro: create a method called exactly "4DPop_TEST_Macros" and don't forget to share this method.
-
-Your code will be executed instead of this alert.
-
-It's the best way to begin with macros without opening an XML editor ;-)</target>
-            </trans-unit>
-            <trans-unit id="77" resname="testMethodForMacros">
-               <source>//Test method for macros
-//This method will be called when you choose the "Macro test" macro
-</source>
-               <target>//Test method for macros
-//This method will be called when you choose the "Macro test" macro
-</target>
-            </trans-unit>
-            <trans-unit id="78" resname="wouldYouWantToCreateThisMethodNow?">
-               <source>Would you want to create this method now?</source>
-               <target>Would you want to create this method now?</target>
-            </trans-unit>
-            <trans-unit id="79" resname="in_txt_methodTheFullMethodContent">
-               <source>//In $Txt_method, the full method content
-</source>
-               <target>//In $Txt_method, the full method content
-</target>
-            </trans-unit>
-            <trans-unit id="80" resname="in_txt_highlightedTheHighlightedText">
-               <source>//In $Txt_highlighted, the highlighted text of the method if any
-</source>
-               <target>//In $Txt_highlighted, the highlighted text of the method if any
-</target>
-            </trans-unit>
-         </group>
-         <group resname="Method Properties">
-            <trans-unit id="publishedInWsdl" resname="Proc_info_publishedInWsdl">
-               <source>Published in WSDL</source>
-               <target>Published in WSDL</target>
-            </trans-unit>
-            <trans-unit id="availableThrough4dHtml" resname="Proc_info_availableThrough4dHtml">
-               <source>Available through 4D HTML tags and URLs</source>
-               <target>Available through 4D HTML tags and URLs</target>
-            </trans-unit>
-            <trans-unit id="sharedByComponentsAndHostDatabase" resname="Proc_info_sharedByComponentsAndHostDatabase">
-               <source>Shared by components and host database</source>
-               <target>Shared by components and host database</target>
-            </trans-unit>
-            <trans-unit id="invisible" resname="Proc_info_invisible">
-               <source>Invisible</source>
-               <target>Invisible</target>
-            </trans-unit>
-            <trans-unit id="availableThroughSql" resname="Proc_info_availableThroughSql">
-               <source>Available through SQL</source>
-               <target>Available through SQL</target>
-            </trans-unit>
-            <trans-unit id="executeOnServer" resname="Proc_info_executeOnServer">
-               <source>Execute on Server</source>
-               <target>Execute on Server</target>
-            </trans-unit>
-            <trans-unit id="offeredAsAWebService" resname="Proc_info_offeredAsAWebService">
-               <source>Offered as a Web Service</source>
-               <target>Offered as a Web Service</target>
-            </trans-unit>
-         </group>
-         <group resname="new_method">
-            <trans-unit id="82" resname="methodName">
-               <source>Method name:</source>
-               <target>Method name:</target>
-            </trans-unit>
-            <trans-unit id="83" resname="methodN">
-               <source>Method {count}</source>
-               <target>Method {count}</target>
-            </trans-unit>
-            <trans-unit id="84" resname="error_AlreadyMethodeWithThatName">
-               <source>There is already a method with that name.</source>
-               <target>There is already a method with that name.</target>
-            </trans-unit>
-         </group>
-         <group resname="beautifier">
-            <trans-unit id="86" resname="removeEmptyLinesAtTheBeginOfMethod">
-               <source>Remove empty lines at the begin of method</source>
-               <target>Remove empty lines at the begin of method</target>
-            </trans-unit>
-            <trans-unit id="87" resname="removeEmptyLinesAtTheEndOfMethod">
-               <source>Remove empty lines at the end of method</source>
-               <target>Remove empty lines at the end of method</target>
-            </trans-unit>
-            <trans-unit id="88" resname="lineBreakBeforeBranchingStructures">
-               <source>Line break before branching structures</source>
-               <target>Line break before branching structures</target>
-            </trans-unit>
-            <trans-unit id="89" resname="lineBreakBeforeAndAfterSequentialStructuresIncluded">
-               <source>Line break before and after sequential structures included</source>
-               <target>Line break before and after sequential structures included</target>
-            </trans-unit>
-            <trans-unit id="90" resname="separationLineForCaseOf">
-               <source>Separation lines for Case of</source>
-               <target>Separation lines for Case of</target>
-            </trans-unit>
-            <trans-unit id="91" resname="lineBreakBeforeLoopingStructures">
-               <source>Line break before looping structures</source>
-               <target>Line break before looping structures</target>
-            </trans-unit>
-            <trans-unit id="101" resname="splitKeyValueLines">
-               <source>Put a key / value per line for commands with key / value pairs</source>
-               <target>Put a key / value per line for commands with key / value pairs</target>
-            </trans-unit>
-            <trans-unit id="92" resname="addTheIncrementForTheLoops">
-               <source>Add the increment for the loops</source>
-               <target>Add the increment for the loops</target>
-            </trans-unit>
-            <trans-unit id="93" resname="groupingClosureInstructions">
-               <source>Grouping closure instructions</source>
-               <target>Grouping closure instructions</target>
-            </trans-unit>
-            <trans-unit id="94" resname="removeConsecutiveBlankLines">
-               <source>Remove consecutive blank lines</source>
-               <target>Remove consecutive blank lines</target>
-            </trans-unit>
-            <trans-unit id="95" resname="aLineOfCommentsMustBePrecededByALineBreak">
-               <source>A line of comments must be preceded by a line break</source>
-               <target>A line of comments must be preceded by a line break</target>
-            </trans-unit>
-            <trans-unit id="96" resname="splitTestLines">
-               <source>Split test lines with "&amp;" and "|"</source>
-               <target>Split test lines with "&amp;" and "|"</target>
-            </trans-unit>
-            <trans-unit id="97" resname="replaceComparisonsToAnEmptyStringByLengthTest">
-               <source>Replace comparisons to an empty string by length test</source>
-               <target>Replace comparisons to an empty string by length test</target>
-            </trans-unit>
-            <trans-unit id="98" resname="replaceIfElseEndIfByChoose">
-               <source>Replace "If(test) var:=x Else var:=y End if" by "var:=Choose(test;x;y)"</source>
-               <target>Replace "If(test) var:=x Else var:=y End if" by "var:=Choose(test;x;y)"</target>
-            </trans-unit>
-            <trans-unit id="103" resname="replaceDeprecatedCommand">
-               <source>Replace deprecated command</source>
-               <target>Replace deprecated command</target>
-            </trans-unit>
-         </group>
-         <group resname="dialogs">
-            <trans-unit id="102" resname="preferences">
-               <source>Settings</source>
-               <target>Settings</target>
-            </trans-unit>
-         </group>
-      </body>
-   </file>
-</xliff>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!--                          Translation file for 4D products.Copyright(C)2006 4D SA.This file is distributed under the same license as the 4D product package.--><xliff version="1.0" xmlns:d4="http://www.4d.com/d4-ns">  <file datatype="x-STR#" date="2007-01-01" original="undefined" product-name="4DPop" product-version="2007" source-language="en" target-language="en">    <header>      <prop-group name="Xliff-Editor.4dbase">        <prop prop-type="version">2.0</prop>      </prop-group>    </header>    <body>      <group resname="declaration">        <trans-unit id="69" resname="Alpha">          <source>Alpha</source>          <target>Alpha</target>        </trans-unit>        <trans-unit id="70" resname="Text">          <source>Text</source>          <target>Text</target>        </trans-unit>        <trans-unit id="71" resname="Real">          <source>Real</source>          <target>Real</target>        </trans-unit>        <trans-unit id="72" resname="Integer">          <source>Integer</source>          <target>Integer</target>        </trans-unit>        <trans-unit id="73" resname="LongInteger">          <source>Long Integer</source>          <target>Long Integer</target>        </trans-unit>        <trans-unit id="74" resname="Date">          <source>Date</source>          <target>Date</target>        </trans-unit>        <trans-unit id="75" resname="Time">          <source>Time</source>          <target>Time</target>        </trans-unit>        <trans-unit id="76" resname="Boolean">          <source>Boolean</source>          <target>Boolean</target>        </trans-unit>        <trans-unit id="77" resname="Picture">          <source>Picture</source>          <target>Picture</target>        </trans-unit>        <trans-unit id="78" resname="Graph">          <source>Graph</source>          <target>Graph</target>        </trans-unit>        <trans-unit id="79" resname="BLOB">          <source>BLOB</source>          <target>BLOB</target>        </trans-unit>        <trans-unit id="80" resname="Float">          <source>Float</source>          <target>Float</target>        </trans-unit>        <trans-unit id="13" resname="Pointer">          <source>Pointer</source>          <target>Pointer</target>        </trans-unit>        <trans-unit id="14" resname="Variables">          <source>Variables</source>          <target>Variables</target>        </trans-unit>        <trans-unit id="15" resname="Array">          <source>Array</source>          <target>Array</target>        </trans-unit>        <trans-unit id="16" resname="MethodSyntax_Option">          <source>Method syntax</source>          <target>Method syntax</target>        </trans-unit>        <trans-unit id="17" resname="OneLine_Option">          <source>A line for each variable</source>          <target>A line for each variable</target>        </trans-unit>        <trans-unit id="36" resname="Button_Options">          <source>Options</source>          <target>Options</target>        </trans-unit>        <trans-unit id="37" resname="Button_Back">          <source>Back</source>          <target>Back</target>        </trans-unit>        <trans-unit id="38" resname="OneLine_Comment">          <source>If this option is checked, a line of declaration will be created for each variable.</source>          <target>If this option is checked, a line of declaration will be created for each variable.</target>        </trans-unit>        <trans-unit id="39" resname="MethodSyntax_Comment">          <source>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</source>          <target>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</target>        </trans-unit>        <trans-unit id="40" resname="Label_Type">          <source>Type</source>          <target>Type</target>        </trans-unit>        <trans-unit id="41" resname="Label_Pattern">          <source>Pattern</source>          <target>Pattern</target>        </trans-unit>        <trans-unit id="42" resname="Label_SyntaxList">          <source>RULES OF SYNTAX</source>          <target>RULES OF SYNTAX</target>        </trans-unit>        <trans-unit id="42" resname="Label_VariableList">          <source>VARIABLES LIST</source>          <target>VARIABLES LIST</target>        </trans-unit>        <trans-unit id="44" resname="Label_NumberOfVariablesPerLine">          <source>Number of variable per line :</source>          <target>Number of variable per line :</target>        </trans-unit>        <trans-unit id="60" resname="DeclarationignoreCompilerDirectives">          <source>Ignore compiler directives</source>          <target>Ignore compiler directives</target>        </trans-unit>        <trans-unit id="61" resname="DeclarationtheVariablesDeclaredButNotUsedWill">          <source>The variables declared but not used will be removed.</source>          <target>The variables declared but not used will be removed.</target>        </trans-unit>        <trans-unit id="62" resname="DeclarationtheNameOfALocalVariableAlwaysStartsWithADollarSign">          <source>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</source>          <target>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</target>        </trans-unit>        <trans-unit id="63" resname="DeclarationthisVariableIsAlreadyUsedInThisMethod">          <source>This variable is already used in this method.Would you like to continue?</source>          <target>This variable is already used in this method.Would you like to continue?</target>        </trans-unit>        <trans-unit id="64" resname="removeUnnecessaryBlankLines">          <source>Remove unnecessary blank lines</source>          <target>Remove unnecessary blank lines</target>        </trans-unit>        <trans-unit id="65" resname="multipleEmptyLinesWillBeDeleted">          <source>Multiple empty lines will be replaced by one. Empty lines at the end of the method will be ignored.</source>          <target>Multiple empty lines will be replaced by one. Empty lines at the end of the method will be ignored.</target>        </trans-unit>        <trans-unit id="66" resname="replaceObsoleteTypes">          <source>Replace obsolete types</source>          <target>Replace obsolete types</target>        </trans-unit>        <trans-unit id="67" resname="c_text&amp;TextArrayWillBeUsedInsteadC_alpha&amp;ArrayString">          <source>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</source>          <target>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</target>        </trans-unit>        <trans-unit id="81" resname="Object" type="unit">          <source>Object</source>          <target>Object</target>        </trans-unit>        <trans-unit id="99" resname="DeclarationUpdateTheMethodComment">          <source>Update the method's comment</source>          <target>Update the method's comment</target>        </trans-unit>        <trans-unit id="100" resname="DeclarationCommentTooltip">          <source>The description of the syntax will be added at the beginning of the comment and will be used, by 4D, for the tooltip in the code editor.</source>          <target>The description of the syntax will be added at the beginning of the comment and will be used, by 4D, for the tooltip in the code editor.</target>        </trans-unit>        <trans-unit id="104" resname="Collection">          <source>Collection</source>          <target>Collection</target>        </trans-unit>        <trans-unit id="kzNK2hCEcU3FGL1TQFryuQ" resname="Variant">          <source>Variant</source>          <target>Variant</target>        </trans-unit>      </group>      <group resname="Common">        <trans-unit id="18" resname="Common_Escape">          <source>Escape</source>          <target>Escape</target>        </trans-unit>        <trans-unit id="19" resname="Common_OK">          <source>OK</source>          <target>OK</target>        </trans-unit>        <trans-unit id="53" resname="Common_Paste">          <source>Paste</source>          <target>Paste</target>        </trans-unit>      </group>      <group id="42" resname="From 4D STR# 42">        <trans-unit id="2" resname="If">          <source>If</source>          <target>If</target>        </trans-unit>        <trans-unit id="3" resname="Else">          <source>Else</source>          <target>Else</target>        </trans-unit>        <trans-unit id="4" resname="EndIf">          <source>End if</source>          <target>End if</target>        </trans-unit>        <trans-unit id="5" resname="CaseOf">          <source>Case of</source>          <target>Case of</target>        </trans-unit>        <trans-unit id="7" resname="EndCase">          <source>End case</source>          <target>End case</target>        </trans-unit>        <trans-unit id="8" resname="While">          <source>While</source>          <target>While</target>        </trans-unit>        <trans-unit id="9" resname="EndWhile">          <source>End while</source>          <target>End while</target>        </trans-unit>        <trans-unit id="10" resname="For">          <source>For</source>          <target>For</target>        </trans-unit>        <trans-unit id="11" resname="EndFor">          <source>End for</source>          <target>End for</target>        </trans-unit>        <trans-unit id="12.2" resname="Repeat">          <source>Repeat</source>          <target>Repeat</target>        </trans-unit>        <trans-unit id="13" resname="Until">          <source>Until</source>          <target>Until</target>        </trans-unit>      </group>      <group id="36" resname="From 4D STR# 36">        <trans-unit id="35" resname="Form Method">          <source>Form Method: </source>          <target>Form Method: </target>        </trans-unit>        <trans-unit id="36" resname="Trigger">          <source>Trigger: </source>          <target>Trigger: </target>        </trans-unit>        <trans-unit id="37" resname="Form">          <source>Form: </source>          <target>Form: </target>        </trans-unit>        <trans-unit id="39" resname="Method">          <source>Method: </source>          <target>Method: </target>        </trans-unit>        <trans-unit id="43" resname="ObjectMethod">          <source>Object Method: </source>          <target>Object Method: </target>        </trans-unit>      </group>      <group resname="Comments">        <trans-unit id="45" resname="bInsert">          <source>Insert</source>          <target>Insert</target>        </trans-unit>        <trans-unit id="85" resname="comments">          <source>Comments</source>          <target>Comments</target>        </trans-unit>      </group>      <group resname="specialPasteGroup">        <trans-unit id="52" resname="deleteIndentation">          <source>Delete indentation</source>          <target>Delete indentation</target>        </trans-unit>        <trans-unit id="54" resname="ignoreBlankLines">          <source>Ignore blank lines</source>          <target>Ignore blank lines</target>        </trans-unit>        <trans-unit id="68" resname="posix">          <source>POSIX</source>          <target>POSIX</target>        </trans-unit>        <trans-unit id="51" resname="relative">          <source>Relative</source>          <target>Relative</target>        </trans-unit>        <trans-unit id="55" resname="specialPaste">          <source>Special Paste</source>          <target>Special Paste</target>        </trans-unit>        <trans-unit id="ImsOvpYTN7EsmiC/witJNg" resname="string">          <source>String</source>          <target>String</target>        </trans-unit>        <trans-unit id="4cBCYjlIIKxtrhrO+Phh4A" resname="htmlCode">          <source>HTML Code</source>          <target>HTML Code</target>        </trans-unit>        <trans-unit id="oUkxMo4a2Pv3Npd7Xzz9Xg" resname="patternRegex">          <source>Pattern Regex</source>          <target>Pattern Regex</target>        </trans-unit>        <trans-unit id="AdvaquBsrIbHxCMZEhSLvg" resname="insertInText">          <source>Insert in text</source>          <target>Insert in text</target>        </trans-unit>        <trans-unit id="/y3J0XWtrrQ1vPQN1U5JqA" resname="jsonCode">          <source>JSON code</source>          <target>JSON code</target>        </trans-unit>        <trans-unit id="Y5kWkxJpPxkyHb3IRjpkJA" resname="tokenized">          <source>Tokenized</source>          <target>Tokenized</target>        </trans-unit>        <trans-unit id="wzXbHJmlc9A6HhfgwpSCYQ" resname="pathname">          <source>Pathname</source>          <target>Pathname</target>        </trans-unit>        <trans-unit id="rMddOlosHIiJzzWhdVlnjg" resname="htmlExpression">          <source>HTML expression</source>          <target>HTML expression</target>        </trans-unit>        <trans-unit id="0vU/+AFjeR/AYMmwRBLHTw" resname="toUTF8">          <source>To UTF-8</source>          <target>To UTF-8</target>        </trans-unit>        <trans-unit id="iHJgdCRo1zZGzsw+K8a/rA" resname="fromUTF8">          <source>Text From UTF8</source>          <target>Text From UTF8</target>        </trans-unit>      </group>      <group resname="messages">        <trans-unit id="57" resname="Mess_LocalizedVersionOfTheMacroFile">          <source>A localized version of the macros file "4DPop" has been successfully installed.The localized macros will be available next time you start the application.</source>          <target>A localized version of the macros file "4DPop" has been successfully installed.The localized macros will be available next time you start the application.</target>        </trans-unit>        <trans-unit id="68" resname="MessagestoTryANewMacro">          <source>To try a new macro: create a method called exactly "4DPop_TEST_Macros" and don't forget to share this method.Your code will be executed instead of this alert.It's the best way to begin with macros without opening an XML editor ;-)</source>          <target>To try a new macro: create a method called exactly "4DPop_TEST_Macros" and don't forget to share this method.Your code will be executed instead of this alert.It's the best way to begin with macros without opening an XML editor ;-)</target>        </trans-unit>        <trans-unit id="77" resname="testMethodForMacros">          <source>//Test method for macros//This method will be called when you choose the "Macro test" macro</source>          <target>//Test method for macros//This method will be called when you choose the "Macro test" macro</target>        </trans-unit>        <trans-unit id="78" resname="wouldYouWantToCreateThisMethodNow?">          <source>Would you want to create this method now?</source>          <target>Would you want to create this method now?</target>        </trans-unit>        <trans-unit id="79" resname="in_txt_methodTheFullMethodContent">          <source>//In $Txt_method, the full method content</source>          <target>//In $Txt_method, the full method content</target>        </trans-unit>        <trans-unit id="80" resname="in_txt_highlightedTheHighlightedText">          <source>//In $Txt_highlighted, the highlighted text of the method if any</source>          <target>//In $Txt_highlighted, the highlighted text of the method if any</target>        </trans-unit>      </group>      <group resname="Method Properties">        <trans-unit id="publishedInWsdl" resname="Proc_info_publishedInWsdl">          <source>Published in WSDL</source>          <target>Published in WSDL</target>        </trans-unit>        <trans-unit id="availableThrough4dHtml" resname="Proc_info_availableThrough4dHtml">          <source>Available through 4D HTML tags and URLs</source>          <target>Available through 4D HTML tags and URLs</target>        </trans-unit>        <trans-unit id="sharedByComponentsAndHostDatabase" resname="Proc_info_sharedByComponentsAndHostDatabase">          <source>Shared by components and host database</source>          <target>Shared by components and host database</target>        </trans-unit>        <trans-unit id="invisible" resname="Proc_info_invisible">          <source>Invisible</source>          <target>Invisible</target>        </trans-unit>        <trans-unit id="availableThroughSql" resname="Proc_info_availableThroughSql">          <source>Available through SQL</source>          <target>Available through SQL</target>        </trans-unit>        <trans-unit id="executeOnServer" resname="Proc_info_executeOnServer">          <source>Execute on Server</source>          <target>Execute on Server</target>        </trans-unit>        <trans-unit id="offeredAsAWebService" resname="Proc_info_offeredAsAWebService">          <source>Offered as a Web Service</source>          <target>Offered as a Web Service</target>        </trans-unit>      </group>      <group resname="new_method">        <trans-unit id="82" resname="methodName">          <source>Method name:</source>          <target>Method name:</target>        </trans-unit>        <trans-unit id="83" resname="methodN">          <source>Method {count}</source>          <target>Method {count}</target>        </trans-unit>        <trans-unit id="84" resname="error_AlreadyMethodeWithThatName">          <source>There is already a method with that name.</source>          <target>There is already a method with that name.</target>        </trans-unit>      </group>      <group resname="beautifier">        <trans-unit id="86" resname="removeEmptyLinesAtTheBeginOfMethod">          <source>Remove empty lines at the begin of method</source>          <target>Remove empty lines at the begin of method</target>        </trans-unit>        <trans-unit id="87" resname="removeEmptyLinesAtTheEndOfMethod">          <source>Remove empty lines at the end of method</source>          <target>Remove empty lines at the end of method</target>        </trans-unit>        <trans-unit id="88" resname="lineBreakBeforeBranchingStructures">          <source>Line break before branching structures</source>          <target>Line break before branching structures</target>        </trans-unit>        <trans-unit id="89" resname="lineBreakBeforeAndAfterSequentialStructuresIncluded">          <source>Line break before and after sequential structures included</source>          <target>Line break before and after sequential structures included</target>        </trans-unit>        <trans-unit id="90" resname="separationLineForCaseOf">          <source>Separation lines for Case of</source>          <target>Separation lines for Case of</target>        </trans-unit>        <trans-unit id="91" resname="lineBreakBeforeLoopingStructures">          <source>Line break before looping structures</source>          <target>Line break before looping structures</target>        </trans-unit>        <trans-unit id="101" resname="splitKeyValueLines">          <source>Put a key / value per line for commands with key / value pairs</source>          <target>Put a key / value per line for commands with key / value pairs</target>        </trans-unit>        <trans-unit id="92" resname="addTheIncrementForTheLoops">          <source>Add the increment for the loops</source>          <target>Add the increment for the loops</target>        </trans-unit>        <trans-unit id="93" resname="groupingClosureInstructions">          <source>Grouping closure instructions</source>          <target>Grouping closure instructions</target>        </trans-unit>        <trans-unit id="94" resname="removeConsecutiveBlankLines">          <source>Remove consecutive blank lines</source>          <target>Remove consecutive blank lines</target>        </trans-unit>        <trans-unit id="95" resname="aLineOfCommentsMustBePrecededByALineBreak">          <source>A line of comments must be preceded by a line break</source>          <target>A line of comments must be preceded by a line break</target>        </trans-unit>        <trans-unit id="96" resname="splitTestLines">          <source>Split test lines with "&amp;" and "|"</source>          <target>Split test lines with "&amp;" and "|"</target>        </trans-unit>        <trans-unit id="97" resname="replaceComparisonsToAnEmptyStringByLengthTest">          <source>Replace comparisons to an empty string by length test</source>          <target>Replace comparisons to an empty string by length test</target>        </trans-unit>        <trans-unit id="98" resname="replaceIfElseEndIfByChoose">          <source>Replace "If(test) var:=x Else var:=y End if" by "var:=Choose(test;x;y)"</source>          <target>Replace "If(test) var:=x Else var:=y End if" by "var:=Choose(test;x;y)"</target>        </trans-unit>        <trans-unit id="103" resname="replaceDeprecatedCommand">          <source>Replace deprecated command</source>          <target>Replace deprecated command</target>        </trans-unit>      </group>      <group resname="dialogs">        <trans-unit id="102" resname="preferences">          <source>Settings</source>          <target>Settings</target>        </trans-unit>      </group>    </body>  </file></xliff>
