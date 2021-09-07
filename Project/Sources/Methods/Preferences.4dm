@@ -1,29 +1,30 @@
 //%attributes = {"invisible":true}
-  // ----------------------------------------------------
-  // Method : Preferences
-  // Created 05/05/06 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
-C_BOOLEAN:C305($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_POINTER:C301($3)
-
-C_BLOB:C604($x)
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($l;$Lon_Parameters)
-C_POINTER:C301($Ptr_value)
-C_TEXT:C284($Dom_node;$Dom_root;$t;$Txt_EntryPoint;$Txt_key;$Txt_property)
-C_OBJECT:C1216($o;$Obj_preferences;$Obj_shared;$Obj_xml;$oo)
+// ----------------------------------------------------
+// Method : Preferences
+// Created 05/05/06 by Vincent de Lachaux
+// ----------------------------------------------------
+// Description
+//
+// ----------------------------------------------------
+var $0 : Boolean
+var $1 : Text
+var $2 : Text
+var $3 : Pointer
 
 If (False:C215)
-	C_BOOLEAN:C305(Preferences ;$0)
-	C_TEXT:C284(Preferences ;$1)
-	C_TEXT:C284(Preferences ;$2)
-	C_POINTER:C301(Preferences ;$3)
+	C_BOOLEAN:C305(Preferences; $0)
+	C_TEXT:C284(Preferences; $1)
+	C_TEXT:C284(Preferences; $2)
+	C_POINTER:C301(Preferences; $3)
 End if 
+
+var $Dom_node; $Dom_root; $t; $Txt_EntryPoint; $Txt_key; $Txt_property : Text
+var $l; $Lon_Parameters : Integer
+var $Ptr_value : Pointer
+var $x : Blob
+var $o; $Obj_preferences; $Obj_shared; $Obj_xml : Object
+var $src; $tgt : 4D:C1709.File
+var $folder : 4D:C1709.Folder
 
 $Lon_Parameters:=Count parameters:C259
 
@@ -47,51 +48,67 @@ OK:=Num:C11(Storage:C1525.macros#Null:C1517)
 
 If (OK=0)
 	
-	$o:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop")
-	$o.create()
+	$folder:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop")
+	$folder.create()
 	
-	$o:=$o.file("4DPop Macros.xml").original
+	$tgt:=$folder.file("4DPop Preferences.xml").original
 	
-	If (Not:C34($o.exists))  // Get the old preference file if any
+	If (Not:C34($tgt.exists))  // Let's try with a old file
 		
-		$oo:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop v11/preferences.xml")
+		$src:=$folder.file("4DPop Macros.xml")
 		
-		If ($oo.exists)
+		If ($src.exists)
 			
-			$oo.copyTo($o.parent;"4DPop Macros.xml")
+			$Obj_xml:=xml_fileToObject($src.platformPath)
+			
+			If ($Obj_xml.value.M_4DPop#Null:C1517)
+				
+				$src.copyTo($tgt.parent; "4DPop Preferences.xml")
+				$src.delete()
+				
+			End if 
+		End if 
+	End if 
+	
+	If (Not:C34($tgt.exists))  // Let's try with a very old preference file...
+		
+		$src:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop v11/preferences.xml")
+		
+		If ($src.exists)
+			
+			$src.copyTo($tgt.parent; "4DPop Preferences.xml")
 			
 		End if 
 	End if 
 	
-	If (Not:C34($o.exists))  // Create default
+	If (Not:C34($tgt.exists))  // Create default preferences
 		
-		$oo:=Folder:C1567(fk resources folder:K87:11).file("4DPop_Macros.xml")
-		
-		$oo.copyTo($o.parent)
+		$src:=Folder:C1567(fk resources folder:K87:11).file("preferences.template")
+		$src.copyTo($tgt.parent; "4DPop Preferences.xml")
 		
 	End if 
 	
 	Use (Storage:C1525)
 		
-		Storage:C1525.macros:=New shared object:C1526("lastUsed";"")
+		Storage:C1525.macros:=New shared object:C1526("lastUsed"; "")
 		
 		Use (Storage:C1525.macros)
 			
 			Storage:C1525.macros.preferences:=New shared object:C1526
 			
-			If ($o.exists)
+			If ($tgt.exists)
 				
 				Use (Storage:C1525.macros.preferences)
 					
-					Storage:C1525.macros.preferences.platformPath:=$o.platformPath
+					Storage:C1525.macros.preferences.platformPath:=$tgt.platformPath
 					
 				End use 
 				
-				OK:=Num:C11(Preferences ("load"))
+				OK:=Num:C11(Preferences("load"))
 				
 			Else 
 				
-				ALERT:C41(Get localized string:C991("File not found.")+" : \""+$o.path+"\"")
+				ALERT:C41(Get localized string:C991("File not found.")+" : \""+$tgt.path+"\"")
 				
 			End if 
 		End use 
@@ -102,18 +119,18 @@ $Obj_preferences:=Storage:C1525.macros.preferences
 
 Case of 
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: (OK=0)
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Init")
 		
-		  // <NOTHING MORE TO DO>
+		// <NOTHING MORE TO DO>
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="load")
 		
-		$Obj_xml:=xml_fileToObject ($Obj_preferences.platformPath)
+		$Obj_xml:=xml_fileToObject($Obj_preferences.platformPath)
 		OK:=Num:C11($Obj_xml.success)
 		
 		If (OK=1)
@@ -122,17 +139,17 @@ Case of
 			
 			Use ($Obj_preferences)
 				
-				For each ($Txt_property;$Obj_xml.preferences)
+				For each ($Txt_property; $Obj_xml.preferences)
 					
 					If ($Obj_xml.preferences[$Txt_property].$#Null:C1517)
 						
 						$t:=$Obj_xml.preferences[$Txt_property].$
-						TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
+						TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
 						BASE64 DECODE:C896($x)
-						$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-						SET BLOB SIZE:C606($x;0)
+						$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+						SET BLOB SIZE:C606($x; 0)
 						
-						$Obj_preferences[$Txt_property]:=Choose:C955(str_isNumeric ($t);Num:C11($t);$t)
+						$Obj_preferences[$Txt_property]:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
 						
 					End if 
 				End for each 
@@ -150,13 +167,13 @@ Case of
 				
 				Storage:C1525.macros.declarations.declaration:=New shared collection:C1527
 				
-				For each ($o;$Obj_xml.declarations.declaration)
+				For each ($o; $Obj_xml.declarations.declaration)
 					
 					$Obj_shared:=New shared object:C1526
 					
 					Use ($Obj_shared)
 						
-						For each ($Txt_property;$o)
+						For each ($Txt_property; $o)
 							
 							$Obj_shared[$Txt_property]:=$o[$Txt_property]
 							
@@ -169,70 +186,70 @@ Case of
 			End use 
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Get_Value")
 		
 		$Dom_root:=DOM Parse XML source:C719(String:C10($Obj_preferences.platformPath))
 		
 		If (OK=1)
 			
-			$Dom_node:=DOM Find XML element:C864($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
+			$Dom_node:=DOM Find XML element:C864($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 			
 			If (OK=1)
 				
-				DOM GET XML ELEMENT VALUE:C731($Dom_node;$t)
+				DOM GET XML ELEMENT VALUE:C731($Dom_node; $t)
 				
 			End if 
 			
 			DOM CLOSE XML:C722($Dom_root)
 			
-			TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-			SET BLOB SIZE:C606($x;0)
+			$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+			SET BLOB SIZE:C606($x; 0)
 			
 			Case of 
 					
-					  //…………………………………………………………
+					//…………………………………………………………
 				: (OK=0)
 					
-					  //…………………………………………………………
+					//…………………………………………………………
 				: ($Txt_key="@_file")
 					
 					OK:=Num:C11(Test path name:C476($t)=Is a document:K24:1)
 					
-					  //…………………………………………………………
+					//…………………………………………………………
 				: ($Txt_key="@_folder")
 					
 					OK:=Num:C11(Test path name:C476($t)=Is a folder:K24:2)
 					
-					  //…………………………………………………………
+					//…………………………………………………………
 				: ($Txt_key="@_path")
 					
 					OK:=Num:C11(Test path name:C476($t)#-43)
 					
-					  //…………………………………………………………
+					//…………………………………………………………
 			End case 
 			
 			If (OK=1)
 				
-				$Ptr_value->:=Choose:C955(str_isNumeric ($t);Num:C11($t);$t)
+				$Ptr_value->:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
 				
 			End if 
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Set_Value")  // Set a preference value
 		
 		$Dom_root:=DOM Parse XML source:C719($Obj_preferences.platformPath)
 		
 		If (OK=1)
 			
-			$Dom_node:=DOM Find XML element:C864($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
+			$Dom_node:=DOM Find XML element:C864($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 			
 			If (OK=0)
 				
-				$Dom_node:=DOM Create XML element:C865($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
+				$Dom_node:=DOM Create XML element:C865($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 				
 			End if 
 			
@@ -254,27 +271,27 @@ Case of
 					
 				End if 
 				
-				TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
+				TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
 				BASE64 ENCODE:C895($x)
-				$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-				SET BLOB SIZE:C606($x;0)
+				$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+				SET BLOB SIZE:C606($x; 0)
 				
-				DOM SET XML ELEMENT VALUE:C868($Dom_node;$t)
+				DOM SET XML ELEMENT VALUE:C868($Dom_node; $t)
 				
 				If (OK=1)
 					
-					DOM EXPORT TO FILE:C862($Dom_root;$Obj_preferences.platformPath)
+					DOM EXPORT TO FILE:C862($Dom_root; $Obj_preferences.platformPath)
 					
 				End if 
 			End if 
 			
 			DOM CLOSE XML:C722($Dom_root)
 			
-			Preferences ("load")
+			Preferences("load")
 			
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 End case 
 
 $0:=(OK=1)
