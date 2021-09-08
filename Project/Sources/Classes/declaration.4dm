@@ -238,7 +238,16 @@ Function setType($type : Integer; $target : Object)
 	
 	var $o : Object
 	
-	$o:=Choose:C955(Count parameters:C259>=2; $target; Form:C1466.current)
+	If (Count parameters:C259>=2)
+		
+		$o:=$target
+		
+	Else 
+		
+		// A "If" statement should never omit "Else" 
+		$o:=Form:C1466.current
+		
+	End if 
 	
 	$o.type:=$type
 	$o.icon:=This:C1470.types[$o.type].icon
