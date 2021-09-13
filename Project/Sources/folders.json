@@ -3,9 +3,6 @@
 		"methods": [
 			"_o_localizedControlFlow",
 			"_o_Preferences_Set"
-		],
-		"forms": [
-			"DECLARATIONS"
 		]
 	},
 	"(00_NEW)": {},
@@ -47,6 +44,16 @@
 			"test_"
 		]
 	},
+	"Binary database": {
+		"methods": [
+			"DECLARATION",
+			"OPTIONS_GET",
+			"OPTIONS_SET"
+		],
+		"forms": [
+			"DECLARATIONS"
+		]
+	},
 	"classes": {
 		"classes": [
 			"button",
@@ -67,6 +74,8 @@
 		"classes": [
 			"declaration",
 			"macro",
+			"preferences",
+			"settings",
 			"specialPaste"
 		]
 	},
@@ -90,7 +99,6 @@
 			"COMMENTS",
 			"Compiler_",
 			"COMPILER_component",
-			"DECLARATION",
 			"declaration_UI",
 			"DOT_NOTATION",
 			"EXTRACT_LOCAL_VARIABLES",
@@ -104,8 +112,6 @@
 			"METHOD_ANALYSE_TO_ARRAYS",
 			"METHOD_Syntax",
 			"METHODS",
-			"OPTIONS_GET",
-			"OPTIONS_SET",
 			"Preferences",
 			"Preferences_Get",
 			"Private_Boo_Paste_Regex_Pattern",

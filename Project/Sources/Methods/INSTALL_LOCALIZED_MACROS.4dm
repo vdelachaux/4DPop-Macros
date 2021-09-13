@@ -17,7 +17,13 @@ ARRAY TEXT:C222($results; 0)
 ARRAY LONGINT:C221($childTypes; 0)
 
 // ----------------------------------------------------
-$file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml").original
+$file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml")
+
+If ($file.original#Null:C1517)
+	
+	$file:=$file.original
+	
+End if 
 
 If ($file.exists)
 	

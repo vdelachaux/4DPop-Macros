@@ -44,6 +44,15 @@ Function init()
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
 	//=== === === === === === === === === === === === === === === === === === === === ===
+	//exposed Function exposed($x : Blob)->$y : Blob
+	
+	//var $i : Integer
+	
+	//For ($i; 1; BLOB size($x); 1)
+	
+	//End for 
+	
+	//=== === === === === === === === === === === === === === === === === === === === ===
 Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	
 	var $icon : Picture
@@ -52,7 +61,6 @@ Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	$y:=$x
 	
 	//exposed Function get computedName()->$name : Text  //comments
-	
 	//$name:=Uppercase(This.Name)
 	
 	This:C1470.colorScheme:=FORM Get color scheme:C1761

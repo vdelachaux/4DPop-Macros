@@ -40,6 +40,17 @@ If (False:C215)
 	
 Else 
 	
-	METHOD SET COMMENTS:C1193("4DPop_Macros"; "TEST"; *)
+	//METHOD SET COMMENTS("4DPop_Macros"; "TEST"; *)
+	
+	
+	//$file:=$x
+	
+	//$toto:=Substring($hello; 1; 1)
+	//$world:=Num($toto)
+	
+	_O_C_STRING:C293(10; $alpha)
+	
+	//C_LONGINT($indx)
+	//$indx:=Form.rule.indexOf(Form.ruleSelected[0])
 	
 End if 
