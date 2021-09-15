@@ -1,11 +1,11 @@
 //%attributes = {"invisible":true}
-  // ----------------------------------------------------
-  // Method : Preferences
-  // Created 05/05/06 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
+// ----------------------------------------------------
+// Method : Preferences
+// Created 05/05/06 by Vincent de Lachaux
+// ----------------------------------------------------
+// Description
+//
+// ----------------------------------------------------
 C_BOOLEAN:C305($0)
 C_TEXT:C284($1)
 C_TEXT:C284($2)
@@ -13,16 +13,16 @@ C_POINTER:C301($3)
 
 C_BLOB:C604($x)
 C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($l;$Lon_Parameters)
+C_LONGINT:C283($l; $Lon_Parameters)
 C_POINTER:C301($Ptr_value)
-C_TEXT:C284($Dom_node;$Dom_root;$t;$Txt_EntryPoint;$Txt_key;$Txt_property)
-C_OBJECT:C1216($o;$Obj_preferences;$Obj_shared;$Obj_xml;$oo)
+C_TEXT:C284($Dom_node; $Dom_root; $t; $Txt_EntryPoint; $Txt_key; $Txt_property)
+C_OBJECT:C1216($o; $Obj_preferences; $Obj_shared; $Obj_xml; $oo)
 
 If (False:C215)
-	C_BOOLEAN:C305(Preferences ;$0)
-	C_TEXT:C284(Preferences ;$1)
-	C_TEXT:C284(Preferences ;$2)
-	C_POINTER:C301(Preferences ;$3)
+	C_BOOLEAN:C305(Preferences; $0)
+	C_TEXT:C284(Preferences; $1)
+	C_TEXT:C284(Preferences; $2)
+	C_POINTER:C301(Preferences; $3)
 End if 
 
 $Lon_Parameters:=Count parameters:C259
@@ -58,14 +58,14 @@ If (OK=0)
 		
 		If ($oo.exists)
 			
-			$oo.copyTo($o.parent;"4DPop Macros.xml")
+			$oo.copyTo($o.parent; "4DPop Macros.xml")
 			
 		End if 
 	End if 
 	
 	If (Not:C34($o.exists))  // Create default
 		
-		$oo:=Folder:C1567(fk resources folder:K87:11).file("4DPop Macros.xml")
+		$oo:=Folder:C1567(fk resources folder:K87:11).file("4DPop_Macros.xml")
 		
 		$oo.copyTo($o.parent)
 		
@@ -73,7 +73,7 @@ If (OK=0)
 	
 	Use (Storage:C1525)
 		
-		Storage:C1525.macros:=New shared object:C1526("lastUsed";"")
+		Storage:C1525.macros:=New shared object:C1526("lastUsed"; "")
 		
 		Use (Storage:C1525.macros)
 			
@@ -84,10 +84,10 @@ If (OK=0)
 				Use (Storage:C1525.macros.preferences)
 					
 					Storage:C1525.macros.preferences.platformPath:=$o.platformPath
-					
+					Storage:C1525.macros.preferences.options:=28
 				End use 
 				
-				OK:=Num:C11(Preferences ("load"))
+				OK:=Num:C11(Preferences("load"))
 				
 			Else 
 				
@@ -102,42 +102,48 @@ $Obj_preferences:=Storage:C1525.macros.preferences
 
 Case of 
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: (OK=0)
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Init")
 		
-		  // <NOTHING MORE TO DO>
+		// <NOTHING MORE TO DO>
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="load")
 		
-		$Obj_xml:=xml_fileToObject ($Obj_preferences.platformPath)
+		$Obj_xml:=xml_fileToObject($Obj_preferences.platformPath)
 		OK:=Num:C11($Obj_xml.success)
 		
 		If (OK=1)
 			
 			$Obj_xml:=$Obj_xml.value.M_4DPop
-			
 			Use ($Obj_preferences)
 				
-				For each ($Txt_property;$Obj_xml.preferences)
-					
-					If ($Obj_xml.preferences[$Txt_property].$#Null:C1517)
+				Case of 
+					: ($Obj_xml=Null:C1517)
+					: ($Obj_xml.preferences=Null:C1517)
 						
-						$t:=$Obj_xml.preferences[$Txt_property].$
-						TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
-						BASE64 DECODE:C896($x)
-						$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-						SET BLOB SIZE:C606($x;0)
+					Else 
 						
-						$Obj_preferences[$Txt_property]:=Choose:C955(str_isNumeric ($t);Num:C11($t);$t)
-						
-					End if 
-				End for each 
+						For each ($Txt_property; $Obj_xml.preferences)
+							
+							If ($Obj_xml.preferences[$Txt_property].$#Null:C1517)
+								
+								$t:=$Obj_xml.preferences[$Txt_property].$
+								TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
+								BASE64 DECODE:C896($x)
+								$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+								SET BLOB SIZE:C606($x; 0)
+								
+								$Obj_preferences[$Txt_property]:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
+								
+							End if 
+						End for each 
+				End case 
+				
 			End use 
-			
 			Use (Storage:C1525.macros)
 				
 				Storage:C1525.macros.declarations:=New shared object:C1526
@@ -150,89 +156,98 @@ Case of
 				
 				Storage:C1525.macros.declarations.declaration:=New shared collection:C1527
 				
-				For each ($o;$Obj_xml.declarations.declaration)
-					
-					$Obj_shared:=New shared object:C1526
-					
-					Use ($Obj_shared)
+				Case of 
+					: ($Obj_xml=Null:C1517)
+					: ($Obj_xml.declarations=Null:C1517)
+					: ($Obj_xml.declarations.declaration=Null:C1517)
 						
-						For each ($Txt_property;$o)
+					Else 
+						
+						For each ($o; $Obj_xml.declarations.declaration)
 							
-							$Obj_shared[$Txt_property]:=$o[$Txt_property]
+							$Obj_shared:=New shared object:C1526
 							
+							Use ($Obj_shared)
+								
+								For each ($Txt_property; $o)
+									
+									$Obj_shared[$Txt_property]:=$o[$Txt_property]
+									
+								End for each 
+								
+								Storage:C1525.macros.declarations.declaration.push($Obj_shared)
+								
+							End use 
 						End for each 
-						
-						Storage:C1525.macros.declarations.declaration.push($Obj_shared)
-						
-					End use 
-				End for each 
+				End case 
 			End use 
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Get_Value")
 		
 		$Dom_root:=DOM Parse XML source:C719(String:C10($Obj_preferences.platformPath))
-		
-		If (OK=1)
-			
-			$Dom_node:=DOM Find XML element:C864($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
-			
+		If ($t#"")
 			If (OK=1)
 				
-				DOM GET XML ELEMENT VALUE:C731($Dom_node;$t)
+				$Dom_node:=DOM Find XML element:C864($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 				
-			End if 
-			
-			DOM CLOSE XML:C722($Dom_root)
-			
-			TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
-			BASE64 DECODE:C896($x)
-			$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-			SET BLOB SIZE:C606($x;0)
-			
-			Case of 
+				If (OK=1)
 					
-					  //…………………………………………………………
-				: (OK=0)
+					DOM GET XML ELEMENT VALUE:C731($Dom_node; $t)
 					
-					  //…………………………………………………………
-				: ($Txt_key="@_file")
-					
-					OK:=Num:C11(Test path name:C476($t)=Is a document:K24:1)
-					
-					  //…………………………………………………………
-				: ($Txt_key="@_folder")
-					
-					OK:=Num:C11(Test path name:C476($t)=Is a folder:K24:2)
-					
-					  //…………………………………………………………
-				: ($Txt_key="@_path")
-					
-					OK:=Num:C11(Test path name:C476($t)#-43)
-					
-					  //…………………………………………………………
-			End case 
-			
-			If (OK=1)
+				End if 
 				
-				$Ptr_value->:=Choose:C955(str_isNumeric ($t);Num:C11($t);$t)
+				DOM CLOSE XML:C722($Dom_root)
 				
+				TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
+				BASE64 DECODE:C896($x)
+				$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+				SET BLOB SIZE:C606($x; 0)
+				
+				Case of 
+						
+						//…………………………………………………………
+					: (OK=0)
+						
+						//…………………………………………………………
+					: ($Txt_key="@_file")
+						
+						OK:=Num:C11(Test path name:C476($t)=Is a document:K24:1)
+						
+						//…………………………………………………………
+					: ($Txt_key="@_folder")
+						
+						OK:=Num:C11(Test path name:C476($t)=Is a folder:K24:2)
+						
+						//…………………………………………………………
+					: ($Txt_key="@_path")
+						
+						OK:=Num:C11(Test path name:C476($t)#-43)
+						
+						//…………………………………………………………
+				End case 
+				
+				If (OK=1)
+					ALERT:C41("value  $T:"+String:C10($t)+"End")
+					
+					$Ptr_value->:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
+					
+				End if 
 			End if 
 		End if 
-		
-		  //______________________________________________________
+		//______________________________________________________
 	: ($Txt_EntryPoint="Set_Value")  // Set a preference value
 		
 		$Dom_root:=DOM Parse XML source:C719($Obj_preferences.platformPath)
 		
 		If (OK=1)
 			
-			$Dom_node:=DOM Find XML element:C864($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
+			$Dom_node:=DOM Find XML element:C864($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 			
 			If (OK=0)
 				
-				$Dom_node:=DOM Create XML element:C865($Dom_root;"/M_4DPop/preferences/"+$Txt_key)
+				$Dom_node:=DOM Create XML element:C865($Dom_root; "/M_4DPop/preferences/"+$Txt_key)
 				
 			End if 
 			
@@ -254,27 +269,27 @@ Case of
 					
 				End if 
 				
-				TEXT TO BLOB:C554($t;$x;Mac text without length:K22:10)
+				TEXT TO BLOB:C554($t; $x; Mac text without length:K22:10)
 				BASE64 ENCODE:C895($x)
-				$t:=BLOB to text:C555($x;Mac text without length:K22:10)
-				SET BLOB SIZE:C606($x;0)
+				$t:=BLOB to text:C555($x; Mac text without length:K22:10)
+				SET BLOB SIZE:C606($x; 0)
 				
-				DOM SET XML ELEMENT VALUE:C868($Dom_node;$t)
+				DOM SET XML ELEMENT VALUE:C868($Dom_node; $t)
 				
 				If (OK=1)
 					
-					DOM EXPORT TO FILE:C862($Dom_root;$Obj_preferences.platformPath)
+					DOM EXPORT TO FILE:C862($Dom_root; $Obj_preferences.platformPath)
 					
 				End if 
 			End if 
 			
 			DOM CLOSE XML:C722($Dom_root)
 			
-			Preferences ("load")
+			Preferences("load")
 			
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 End case 
 
 $0:=(OK=1)
