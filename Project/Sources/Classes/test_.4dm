@@ -6,6 +6,29 @@ Function empty
 	
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
+Function group($a : Text)
+	
+Function subform($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function thermometer($a : Text)->$this : Object
+	
+	var $x : Blob
+	var $o : Object
+	
+	$o:=New object:C1471
+	SET BLOB SIZE:C606($x; 0)
+	
+	$this:=This:C1470
+	
+Function formObject($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function button($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function addToGroup($g : Object)
+	
 Function init()
 	
 	var $group : cs:C1710.group
@@ -50,7 +73,7 @@ Function init()
 	
 	//For ($i; 1; BLOB size($x); 1)
 	
-	//End for 
+	//End for
 	
 	//=== === === === === === === === === === === === === === === === === === === === ===
 Function updateColorScheme($x : 4D:C1709.File)->$y : Object

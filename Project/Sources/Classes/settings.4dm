@@ -1,6 +1,8 @@
 Class extends preferences
 
-Class constructor
+Class constructor($page : Text)
+	
+	var $indx : Integer
 	
 	Super:C1705()
 	
@@ -12,6 +14,20 @@ Class constructor
 	
 	This:C1470.loadSettings()
 	
+	This:C1470.pages:=New collection:C1472("beautifier"; "declarations")
+	This:C1470.page:=1
+	
+	If (Count parameters:C259>=1)
+		
+		$indx:=This:C1470.pages.indexOf($page)
+		
+		If ($indx#-1)
+			
+			This:C1470.page:=$indx+1
+			
+		End if 
+	End if 
+	
 	DIALOG:C40("SETTINGS"; This:C1470)
 	
 	CLOSE WINDOW:C154(This:C1470.windowRef)
@@ -20,8 +36,9 @@ Class constructor
 Function loadSettings()
 	
 	var $key : Text
-	
+	var $o : Object
 	var $fileSettings : 4D:C1709.File
+	
 	$fileSettings:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
 	
 	If ($fileSettings.original#Null:C1517)
@@ -69,8 +86,8 @@ Function convertXmlPrefToJson()->$settings : Object
 	var $key : Text
 	var $l : Integer
 	var $x : Blob
-	var $o; $xml : Object
-	var $c : Collection
+	var $o; $oo; $xml : Object
+	var $c; $keywords : Collection
 	
 	If (This:C1470.file.exists)
 		
@@ -123,7 +140,8 @@ Function convertXmlPrefToJson()->$settings : Object
 			$c[112]:=222
 			$c[113]:=1221
 			
-			var $keywords : Collection
+			$c[122]:=284
+			
 			$keywords:=New collection:C1472
 			$keywords.push(New object:C1471("no"; 283; "key"; "Integer"))
 			$keywords.push(New object:C1471("no"; 284; "key"; "Text"))
@@ -143,7 +161,6 @@ Function convertXmlPrefToJson()->$settings : Object
 				$o.label:=Command name:C538($c[$o.type])+":C"+String:C10($c[$o.type])
 				
 				// Replace with keywords if any
-				var $oo : Object
 				
 				For each ($oo; $keywords)
 					
@@ -164,43 +181,93 @@ Function convertXmlPrefToJson()->$settings : Object
 				"trimEmptyLines"; $l ?? 29; \
 				"generateComments"; $l ?? 31)
 			
-			TEXT TO BLOB:C554($xml.preferences.numberOfVariablePerLine.$; $x; Mac text without length:K22:10)
-			BASE64 DECODE:C896($x)
-			$settings.declaration.options.numberOfVariablePerLine:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
+			If ($xml.preferences.numberOfVariablePerLine.$#Null:C1517)
+				
+				TEXT TO BLOB:C554($xml.preferences.numberOfVariablePerLine.$; $x; Mac text without length:K22:10)
+				BASE64 DECODE:C896($x)
+				$settings.declaration.options.numberOfVariablePerLine:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
+				
+			Else 
+				
+				$settings.declaration.options.numberOfVariablePerLine:=10
+				
+			End if 
 			
-			TEXT TO BLOB:C554($xml.preferences["beautifier-options"].$; $x; Mac text without length:K22:10)
-			BASE64 DECODE:C896($x)
-			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
+			If ($xml.preferences["beautifier-options"].$#Null:C1517)
+				
+				TEXT TO BLOB:C554($xml.preferences["beautifier-options"].$; $x; Mac text without length:K22:10)
+				BASE64 DECODE:C896($x)
+				$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
+				
+				$settings.beautifier:=New object:C1471(\
+					"replaceDeprecatedCommand"; $l ?? 15; \
+					"removeConsecutiveBlankLines"; $l ?? 10; \
+					"removeEmptyLinesAtTheBeginOfMethod"; $l ?? 1; \
+					"removeEmptyLinesAtTheEndOfMethod"; $l ?? 2; \
+					"lineBreakBeforeBranchingStructures"; $l ?? 3; \
+					"lineBreakBeforeLoopingStructures"; $l ?? 6; \
+					"lineBreakBeforeAndAfterSequentialStructuresIncluded"; $l ?? 4; \
+					"separationLineForCaseOf"; $l ?? 5; \
+					"aLineOfCommentsMustBePrecededByALineBreak"; $l ?? 11; \
+					"groupingClosureInstructions"; $l ?? 9; \
+					"addTheIncrementForTheLoops"; $l ?? 8; \
+					"splitTestLines"; $l ?? 12; \
+					"replaceComparisonsToAnEmptyStringByLengthTest"; $l ?? 13; \
+					"replaceIfElseEndIfByChoose"; $l ?? 14; \
+					"splitKeyValueLines"; $l ?? 7)
+				
+			Else 
+				
+				$settings.beautifier:=New object:C1471(\
+					"replaceDeprecatedCommand"; True:C214; \
+					"removeConsecutiveBlankLines"; True:C214; \
+					"removeEmptyLinesAtTheBeginOfMethod"; True:C214; \
+					"removeEmptyLinesAtTheEndOfMethod"; True:C214; \
+					"lineBreakBeforeBranchingStructures"; True:C214; \
+					"lineBreakBeforeLoopingStructures"; True:C214; \
+					"lineBreakBeforeAndAfterSequentialStructuresIncluded"; True:C214; \
+					"separationLineForCaseOf"; True:C214; \
+					"aLineOfCommentsMustBePrecededByALineBreak"; True:C214; \
+					"groupingClosureInstructions"; True:C214; \
+					"addTheIncrementForTheLoops"; True:C214; \
+					"splitTestLines"; True:C214; \
+					"replaceComparisonsToAnEmptyStringByLengthTest"; True:C214; \
+					"replaceIfElseEndIfByChoose"; False:C215; \
+					"splitKeyValueLines"; True:C214)
+				
+			End if 
 			
-			$settings.beautifier:=New object:C1471(\
-				"replaceDeprecatedCommand"; $l ?? 15; \
-				"removeConsecutiveBlankLines"; $l ?? 10; \
-				"removeEmptyLinesAtTheBeginOfMethod"; $l ?? 1; \
-				"removeEmptyLinesAtTheEndOfMethod"; $l ?? 2; \
-				"lineBreakBeforeBranchingStructures"; $l ?? 3; \
-				"lineBreakBeforeLoopingStructures"; $l ?? 6; \
-				"lineBreakBeforeAndAfterSequentialStructuresIncluded"; $l ?? 4; \
-				"separationLineForCaseOf"; $l ?? 5; \
-				"aLineOfCommentsMustBePrecededByALineBreak"; $l ?? 11; \
-				"groupingClosureInstructions"; $l ?? 9; \
-				"addTheIncrementForTheLoops"; $l ?? 8; \
-				"splitTestLines"; $l ?? 12; \
-				"replaceComparisonsToAnEmptyStringByLengthTest"; $l ?? 13; \
-				"replaceIfElseEndIfByChoose"; $l ?? 14; \
-				"splitKeyValueLines"; $l ?? 7)
+			If ($xml.preferences.specialPasteChoice.$#Null:C1517)
+				
+				TEXT TO BLOB:C554($xml.preferences.specialPasteChoice.$; $x; Mac text without length:K22:10)
+				BASE64 DECODE:C896($x)
+				$settings.specialPast:=New object:C1471(\
+					"selected"; Num:C11(BLOB to text:C555($x; \
+					Mac text without length:K22:10)))
+				
+			Else 
+				
+				$settings.specialPast:=New object:C1471(\
+					"selected"; 1)
+				
+			End if 
 			
-			TEXT TO BLOB:C554($xml.preferences.specialPasteChoice.$; $x; Mac text without length:K22:10)
-			BASE64 DECODE:C896($x)
-			$settings.specialPast:=New object:C1471(\
-				"selected"; Num:C11(BLOB to text:C555($x; \
-				Mac text without length:K22:10)))
-			
-			TEXT TO BLOB:C554($xml.preferences.specialPasteOptions.$; $x; Mac text without length:K22:10)
-			BASE64 DECODE:C896($x)
-			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
-			$settings.specialPast.options:=New object:C1471(\
-				"ignoreBlankLines"; $l ?? 10; \
-				"deleteIndentation"; $l ?? 11)
+			If ($xml.preferences.specialPasteOptions.$#Null:C1517)
+				
+				TEXT TO BLOB:C554($xml.preferences.specialPasteOptions.$; $x; Mac text without length:K22:10)
+				BASE64 DECODE:C896($x)
+				$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
+				$settings.specialPast.options:=New object:C1471(\
+					"ignoreBlankLines"; $l ?? 10; \
+					"deleteIndentation"; $l ?? 11)
+				
+			Else 
+				
+				$settings.specialPast.options:=New object:C1471(\
+					"ignoreBlankLines"; False:C215; \
+					"deleteIndentation"; False:C215)
+				
+			End if 
 			
 		Else 
 			

@@ -79,7 +79,6 @@
 					"events": [
 						"onSelectionChange"
 					],
-					"sortable": false,
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"fontWeight": "normal",
@@ -216,17 +215,17 @@
 					"listboxType": "collection",
 					"dataSource": "Form:C1466.rule",
 					"showHeaders": false,
-					"resizingMode": "rightToLeft",
+					"resizingMode": "legacy",
 					"selectedItemsSource": "Form:C1466.ruleSelected",
 					"hideFocusRing": true,
 					"selectionMode": "single",
 					"method": "ObjectMethods/rule.4dm",
 					"scrollbarHorizontal": "hidden",
-					"sortable": false,
 					"verticalAlign": "middle",
-					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"currentItemPositionSource": "Form:C1466.ruleIndex",
+					"currentItemSource": "Form:C1466.ruleCurrent",
+					"horizontalLineStroke": "transparent",
 					"columns": [
 						{
 							"header": {
@@ -238,7 +237,8 @@
 							"footer": {
 								"name": "footer1"
 							},
-							"width": 260
+							"width": 10,
+							"enterable": false
 						}
 					]
 				},

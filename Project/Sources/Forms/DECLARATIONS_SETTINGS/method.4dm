@@ -1,6 +1,6 @@
-C_BOOLEAN:C305($bInit)
-C_TEXT:C284($rule)
-C_OBJECT:C1216($e)
+var $rule : Text
+var $indx : Integer
+var $e; $o : Object
 
 $e:=FORM Event:C1606
 
@@ -26,6 +26,8 @@ Case of
 			
 		End if 
 		
+		OBJECT SET SCROLLBAR:C843(*; "rule"; 0; 2)
+		
 		SET TIMER:C645(-1)
 		
 		//______________________________________________________
@@ -48,6 +50,8 @@ Case of
 					
 					Form:C1466.rule.push(New object:C1471(\
 						"value"; $rule))
+					
+					LISTBOX SELECT ROW:C912(*; "rule"; 1; lk replace selection:K53:1)
 					
 				End for each 
 				

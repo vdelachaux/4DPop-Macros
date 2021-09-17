@@ -5,6 +5,7 @@ Class constructor
 	Super:C1705()
 	
 	// Preferences
+	var $fileSettings : 4D:C1709.File
 	$fileSettings:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
 	
 	If ($fileSettings.original#Null:C1517)
@@ -832,7 +833,7 @@ Function setType($type : Integer; $target : Object)
 Function apply()
 	
 	var $buffer; $compilerDirectives; $method; $t : Text
-	var $codeError; $i; $l : Integer
+	var $codeError; $i; $l; $length : Integer
 	var $o; $type : Object
 	var $c; $cc : Collection
 	
@@ -974,7 +975,7 @@ Function apply()
 		End if 
 	End if 
 	
-	$method:=This:C1470.return($method)
+	$method:=This:C1470.addNewLine($method)
 	
 	// ② LOCAL VARIABLES WITH SIMPLE TYPE
 	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null")
@@ -1024,8 +1025,11 @@ Function apply()
 					End for 
 				End if 
 				
-				$method:=$method+"var "+$cc.join("; ")+" :"+$type.name+"\r"
-				
+				If ($cc.length>0)
+					
+					$method:=$method+"var "+$cc.join("; ")+" :"+$type.name+"\r"
+					
+				End if 
 			End if 
 		End for each 
 	End if 
@@ -1043,7 +1047,7 @@ Function apply()
 		
 	End if 
 	
-	$method:=This:C1470.return($method)
+	$method:=This:C1470.addNewLine($method)
 	
 	// ④ ARRAYS
 	$c:=This:C1470.variables.query("array=true & count>0 & static=false")
@@ -1070,14 +1074,28 @@ Function apply()
 		
 	End if 
 	
-	$method:=This:C1470.return($method)
+	If (Length:C16($method)>0)
+		
+		While ($method="@\r")
+			
+			$method:=Delete string:C232($method; Length:C16($method); 1)
+			
+		End while 
+	End if 
 	
-	If (Not:C34(This:C1470.class))
+	$method:=$method+"\r"
+	
+	If (This:C1470.class)
+		
+		$method:=$method+kCaret
+		
+	Else 
 		
 		// Look for the first empty or declaration line
 		For each ($o; This:C1470.lines) While ($l#MAXLONG:K35:2)
 			
 			$t:=String:C10($o.type)
+			$length:=Length:C16($method)
 			
 			Case of 
 					
@@ -1091,20 +1109,20 @@ Function apply()
 					//___________________
 				: ($t="empty")
 					
-					$method:=$buffer+Substring:C12($method; 1; Length:C16($method)-1)
+					$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
 					$l:=MAXLONG:K35:2
 					
 					//___________________
 				Else 
 					
-					If ($l=0)
+					If ($l<=0)
 						
 						// Insert before
-						$method:=$method+"\r\r"
+						$method:=$method+kCaret
 						
 					Else 
 						
-						$method:=$buffer+Substring:C12($method; 1; Length:C16($method)-1)
+						$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
 						
 					End if 
 					
@@ -1113,6 +1131,9 @@ Function apply()
 					//___________________
 			End case 
 		End for each 
+		
+		$method:=This:C1470.addNewLine($method)
+		
 	End if 
 	
 	// Restore the code
@@ -1130,7 +1151,8 @@ Function apply()
 				//___________________
 			: ($t="empty")
 				
-				If ($method="@\r\r")
+				If ($method="@\r\r")\
+					 | ($method=("@"+kCaret+"\r"))
 					
 					// Skip
 					
@@ -1154,7 +1176,7 @@ Function apply()
 	
 	If (Bool:C1537($options.trimEmptyLines))
 		
-		$codeError:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$method)
+		$codeError:=Rgx_SubstituteText("\\r{2,}"; "\r\r"; ->$method)
 		$codeError:=Rgx_SubstituteText("(\\r*)$"; ""; ->$method)
 		
 	End if 
@@ -1162,17 +1184,24 @@ Function apply()
 	This:C1470.method:=$method
 	
 	//==============================================================
-Function return($text : Text)->$formatted : Text
+Function addNewLine($text : Text)->$result : Text
 	
-	$formatted:=$text
+	$result:=$text
 	
-	If (Length:C16($formatted)>0)
+	If (Length:C16($result)>0)
 		
-		While ($formatted#"@\r\r")
+		If ($result=("@"+kCaret))
 			
-			$formatted:=$formatted+"\r"
+			$result:=$result+"\r"
 			
-		End while 
+		Else 
+			
+			While ($result#"@\r\r")
+				
+				$result:=$result+"\r"
+				
+			End while 
+		End if 
 	End if 
 	
 	//==============================================================

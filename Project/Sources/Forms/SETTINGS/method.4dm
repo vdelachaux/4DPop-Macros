@@ -4,9 +4,7 @@
 // Created #2-12-2013 by Vincent de Lachaux
 // ----------------------------------------------------
 // Declarations
-C_POINTER:C301($ptr)
-C_TEXT:C284($t)
-C_OBJECT:C1216($e; $o)
+var $e; $o : Object
 
 // ----------------------------------------------------
 // Initialisations
@@ -14,13 +12,14 @@ $e:=FORM Event:C1606
 
 // ----------------------------------------------------
 Case of 
-		
 		//______________________________________________________
 	: ($e.code=On Load:K2:1)
 		
 		OBJECT SET VALUE:C1742("declarations"; New object:C1471(\
 			"rules"; Form:C1466.settings.declaration.rules.orderBy("label desc"); \
 			"options"; Form:C1466.settings.declaration.options))
+		
+		FORM GOTO PAGE:C247(Form:C1466.page)
 		
 		SET TIMER:C645(-1)
 		
@@ -39,9 +38,6 @@ Case of
 	: ($e.code=On Timer:K2:25)
 		
 		SET TIMER:C645(0)
-		
-		//$ptr:=OBJECT Get pointer(Object named; "declarations")
-		//$ptr->:=$ptr->
 		
 		//______________________________________________________
 	Else 
