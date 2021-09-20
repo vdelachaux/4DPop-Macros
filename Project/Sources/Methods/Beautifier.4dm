@@ -32,51 +32,46 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$Lon_parameters:=Count parameters:C259
+var $beautifier : cs:C1710.beautifier
+$beautifier:=cs:C1710.beautifier.new()
 
-If (Asserted:C1132($Lon_parameters>=0; "Missing parameter"))
+If (Count parameters:C259>=1)
 	
-	If ($Lon_parameters>=1)
-		
-		$Txt_code:=$1  //Text to format
-		
-		If ($Lon_parameters>=2)
-			
-			$Boo_macro:=$2  //Must be true if called from a macro method
-			
-		End if 
-	End if 
+	$Txt_code:=$1  //Text to format
 	
-	If ($Boo_macro\
-		 & (Length:C16($Txt_code)=0))
+	If (Count parameters:C259>=2)
 		
-		GET MACRO PARAMETER:C997(Full method text:K5:17; $Txt_code)
+		$Boo_macro:=$2  //Must be true if called from a macro method
 		
 	End if 
+End if 
+
+If ($Boo_macro\
+ & (Length:C16($Txt_code)=0))
 	
-	If (Not:C34(Preferences("Get_Value"; "beautifier-options"; ->$Lon_options)))
-		
-		$Lon_options:=Beautifier_init  // Default values
-		
-	End if 
-	
-	$Lon_options:=$Lon_options ?+ 15
-	
-	ARRAY TEXT:C222($tTxt_lineComment; 0x0000)
-	APPEND TO ARRAY:C911($tTxt_lineComment; "__")
-	APPEND TO ARRAY:C911($tTxt_lineComment; "--")
-	APPEND TO ARRAY:C911($tTxt_lineComment; "..")
-	APPEND TO ARRAY:C911($tTxt_lineComment; "…")
-	APPEND TO ARRAY:C911($tTxt_lineComment; "!!")
-	APPEND TO ARRAY:C911($tTxt_lineComment; "::")
-	
-	_o_localizedControlFlow(""; ->$tTxt_controlFlow)
-	
-Else 
-	
-	ABORT:C156
+	//GET MACRO PARAMETER(Full method text; $Txt_code)
+	$Txt_code:=$beautifier.method
 	
 End if 
+
+If (Not:C34(Preferences("Get_Value"; "beautifier-options"; ->$Lon_options)))
+	
+	$Lon_options:=Beautifier_init  // Default values
+	
+End if 
+
+$Lon_options:=$Lon_options ?+ 15
+
+ARRAY TEXT:C222($tTxt_lineComment; 0x0000)
+APPEND TO ARRAY:C911($tTxt_lineComment; "__")
+APPEND TO ARRAY:C911($tTxt_lineComment; "--")
+APPEND TO ARRAY:C911($tTxt_lineComment; "..")
+APPEND TO ARRAY:C911($tTxt_lineComment; "…")
+APPEND TO ARRAY:C911($tTxt_lineComment; "!!")
+APPEND TO ARRAY:C911($tTxt_lineComment; "::")
+
+_o_localizedControlFlow(""; ->$tTxt_controlFlow)
+
 
 // ----------------------------------------------------
 If (Length:C16($Txt_code)>0)

@@ -101,3 +101,38 @@ Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	End for each 
 	
 	//var $color : cs.color
+	
+Function setDatasource()
+	
+	If (Form:C1466._dataclassesItem#Null:C1517)
+		
+		If (Form:C1466.choiceList.dataSource=Null:C1517)
+			
+			Form:C1466.choiceList.dataSource:=New object:C1471("dataClass"; Form:C1466._dataclassesItem.name)
+			
+		Else 
+			
+			Form:C1466.choiceList.dataSource.dataClass:=Form:C1466._dataclassesItem.name
+			
+		End if 
+		
+		If (Form:C1466._attributesItem#Null:C1517)
+			
+			Form:C1466.choiceList.dataSource.field:=Form:C1466._attributesItem.name
+			
+		Else 
+			
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "field")
+			
+		End if 
+		
+	Else 
+		
+		If (Form:C1466.choiceList.dataSource#Null:C1517)
+			
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "dataClass")
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "field")
+			
+		End if 
+	End if 
+	

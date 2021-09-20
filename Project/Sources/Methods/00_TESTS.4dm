@@ -40,6 +40,8 @@ If (False:C215)
 	
 Else 
 	
+	$o:=cs:C1710.beautifier.new()
+	
 	//METHOD SET COMMENTS("4DPop_Macros"; "TEST"; *)
 	
 	

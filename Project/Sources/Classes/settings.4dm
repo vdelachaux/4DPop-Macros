@@ -237,6 +237,8 @@ Function convertXmlPrefToJson()->$settings : Object
 				
 			End if 
 			
+			$settings.beautifier.formatComments:=True:C214
+			
 			If ($xml.preferences.specialPasteChoice.$#Null:C1517)
 				
 				TEXT TO BLOB:C554($xml.preferences.specialPasteChoice.$; $x; Mac text without length:K22:10)
