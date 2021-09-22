@@ -70,16 +70,19 @@ Class constructor
 	//==============================================================
 Function split($useSelection : Boolean)
 	
-	If ($useSelection)
+	var $target : Text
+	
+	If (Count parameters:C259>=1)
 		
-		// Selection
-		This:C1470.lineTexts:=Split string:C1554(This:C1470.highlighted; "\r"; sk trim spaces:K86:2)
+		$target:=Choose:C955($useSelection; This:C1470.highlighted; This:C1470.method)
 		
 	Else 
 		
-		This:C1470.lineTexts:=Split string:C1554(This:C1470.method; "\r"; sk trim spaces:K86:2)
+		$target:=Choose:C955(This:C1470.withSelection; This:C1470.highlighted; This:C1470.method)
 		
 	End if 
+	
+	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
 	
 	//==============================================================
 Function localized($en : Text)->$localized : Text
@@ -101,6 +104,23 @@ Function localized($en : Text)->$localized : Text
 		$localized:=This:C1470._controlFlow.fr($index)
 		
 	End if 
+	
+	//==============================================================
+Function paste($text : Text; $useSelection : Boolean)
+	
+	var $target : Integer
+	
+	If (Count parameters:C259>=2)
+		
+		$target:=Choose:C955($useSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		
+	Else 
+		
+		$target:=Choose:C955(This:C1470.withSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		
+	End if 
+	
+	SET MACRO PARAMETER:C998($target; $text)
 	
 	//==============================================================
 Function setMethodText($text : Text)

@@ -6,6 +6,29 @@ Function empty
 	
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
+Function group($a : Text)
+	
+Function subform($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function thermometer($a : Text)->$this : Object
+	
+	var $x : Blob
+	var $o : Object
+	
+	$o:=New object:C1471
+	SET BLOB SIZE:C606($x; 0)
+	
+	$this:=This:C1470
+	
+Function formObject($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function button($a : Text)->$this : Object
+	$this:=This:C1470
+	
+Function addToGroup($g : Object)
+	
 Function init()
 	
 	var $group : cs:C1710.group
@@ -44,6 +67,15 @@ Function init()
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
 	//=== === === === === === === === === === === === === === === === === === === === ===
+	//exposed Function exposed($x : Blob)->$y : Blob
+	
+	//var $i : Integer
+	
+	//For ($i; 1; BLOB size($x); 1)
+	
+	//End for
+	
+	//=== === === === === === === === === === === === === === === === === === === === ===
 Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	
 	var $icon : Picture
@@ -52,7 +84,6 @@ Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	$y:=$x
 	
 	//exposed Function get computedName()->$name : Text  //comments
-	
 	//$name:=Uppercase(This.Name)
 	
 	This:C1470.colorScheme:=FORM Get color scheme:C1761
@@ -70,3 +101,38 @@ Function updateColorScheme($x : 4D:C1709.File)->$y : Object
 	End for each 
 	
 	//var $color : cs.color
+	
+Function setDatasource()
+	
+	If (Form:C1466._dataclassesItem#Null:C1517)
+		
+		If (Form:C1466.choiceList.dataSource=Null:C1517)
+			
+			Form:C1466.choiceList.dataSource:=New object:C1471("dataClass"; Form:C1466._dataclassesItem.name)
+			
+		Else 
+			
+			Form:C1466.choiceList.dataSource.dataClass:=Form:C1466._dataclassesItem.name
+			
+		End if 
+		
+		If (Form:C1466._attributesItem#Null:C1517)
+			
+			Form:C1466.choiceList.dataSource.field:=Form:C1466._attributesItem.name
+			
+		Else 
+			
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "field")
+			
+		End if 
+		
+	Else 
+		
+		If (Form:C1466.choiceList.dataSource#Null:C1517)
+			
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "dataClass")
+			OB REMOVE:C1226(Form:C1466.choiceList.dataSource; "field")
+			
+		End if 
+	End if 
+	

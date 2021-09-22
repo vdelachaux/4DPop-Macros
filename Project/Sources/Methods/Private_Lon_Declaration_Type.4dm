@@ -6,33 +6,25 @@
 // Modified by vdl (23/10/07)
 // Syntaxe preferences implementation
 //_____________________________________________________
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_POINTER:C301($2)
+var $0 : Integer
+var $1 : Text
+var $2 : Pointer
 
-C_LONGINT:C283($Lon_error;$Lon_i;$Lon_j;$Lon_type)
-C_TEXT:C284($Txt_pattern;$Txt_target)
+var $Txt_pattern; $Txt_target : Text
+var $Lon_error; $Lon_i; $Lon_j; $Lon_type : Integer
 
-ARRAY TEXT:C222($tTxt_values;0)
 
-If (False:C215)
-	C_LONGINT:C283(Private_Lon_Declaration_Type;$0)
-	C_TEXT:C284(Private_Lon_Declaration_Type;$1)
-	C_POINTER:C301(Private_Lon_Declaration_Type;$2)
-End if 
-
-If (False:C215)
-End if 
+ARRAY TEXT:C222($tTxt_values; 0)
 
 $Txt_target:=$1
 
-For ($Lon_i;1;Size of array:C274(<>tTxt_2D_Declaration_Patterns);1)
+For ($Lon_i; 1; Size of array:C274(<>tTxt_2D_Declaration_Patterns); 1)
 	
-	For ($Lon_j;1;Size of array:C274(<>tTxt_2D_Declaration_Patterns{$Lon_i});1)
+	For ($Lon_j; 1; Size of array:C274(<>tTxt_2D_Declaration_Patterns{$Lon_i}); 1)
 		
 		$Txt_pattern:=<>tTxt_2D_Declaration_Patterns{$Lon_i}{$Lon_j}
 		
-		If (Match regex:C1019($Txt_pattern;Substring:C12($Txt_target;2);1))
+		If (Match regex:C1019($Txt_pattern; Substring:C12($Txt_target; 2); 1))
 			
 			$Lon_type:=<>tLon_Declaration_Types{$Lon_i}
 			
@@ -41,9 +33,9 @@ For ($Lon_i;1;Size of array:C274(<>tTxt_2D_Declaration_Patterns);1)
 				If ($Lon_type=1)\
 					 | ($Lon_type=101)
 					
-					If (Position:C15("(";$Txt_pattern)>0)
+					If (Position:C15("("; $Txt_pattern)>0)
 						
-						$Lon_error:=Rgx_ExtractText($Txt_pattern;$Txt_target;"1";->$tTxt_values)
+						$Lon_error:=Rgx_ExtractText($Txt_pattern; $Txt_target; "1"; ->$tTxt_values)
 						
 						If ($Lon_error=0)
 							

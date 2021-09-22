@@ -327,15 +327,7 @@ Case of
 		//______________________________________________________
 	: ($Txt_action="beautifier")  //#v13 Beautification
 		
-		If (Length:C16($Obj_macro.highlighted)=0)
-			
-			Beautifier($Obj_macro.method; $Obj_macro.process)
-			
-		Else 
-			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; Beautifier($Obj_macro.highlighted))
-			
-		End if 
+		cs:C1710.beautifier.new().beautify()
 		
 		//______________________________________________________
 	: ($Txt_action="Choose")  // v13+ replace If(test) var:=x Else var:=y End if by var:=Choose(test;x;y)

@@ -8,9 +8,10 @@
 //
 // ----------------------------------------------------
 // Declarations
-C_BOOLEAN:C305($Boo_params; $Boo_result)
-C_LONGINT:C283($Lon_error; $Lon_i; $Lon_parameters)
-C_TEXT:C284($Txt_input; $Txt_line; $Txt_method; $Txt_ouput; $Txt_params; $Txt_pattern; $Txt_result)
+var $Txt_input; $Txt_line; $Txt_method; $Txt_ouput; $Txt_params; $Txt_pattern : Text
+var $Txt_result : Text
+var $Boo_params; $Boo_result : Boolean
+var $Lon_error; $Lon_i; $Lon_parameters : Integer
 
 // ----------------------------------------------------
 // Initialisations

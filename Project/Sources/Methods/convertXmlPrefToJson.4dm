@@ -2,19 +2,31 @@
 C_BLOB:C604($x)
 C_LONGINT:C283($l)
 C_TEXT:C284($t)
-C_OBJECT:C1216($fileSettings;$o;$oBuffer;$oSettings)
+C_OBJECT:C1216($fileSettings; $o; $oBuffer; $oSettings)
 C_COLLECTION:C1488($c)
 
-$fileSettings:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings").original
+$fileSettings:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
+
+If ($fileSettings.original#Null:C1517)
+	
+	$fileSettings:=$fileSettings.original
+	
+End if 
 
 If (Not:C34($fileSettings.exists))
 	
-	  // Try to get the xml format
-	$o:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.xml").original
+	// Try to get the xml format
+	$o:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.xml")
+	
+	If ($o.original#Null:C1517)
+		
+		$o:=$o.original
+		
+	End if 
 	
 	If ($o.exists)
 		
-		$oBuffer:=xml_fileToObject ($o.platformPath)
+		$oBuffer:=xml_fileToObject($o.platformPath)
 		
 		If ($oBuffer.success)
 			
@@ -24,15 +36,15 @@ If (Not:C34($fileSettings.exists))
 			
 			$oSettings.version:=New object:C1471
 			
-			For each ($t;$oBuffer["version"])
+			For each ($t; $oBuffer["version"])
 				
 				$oSettings.version[$t]:=$oBuffer["version"][$t].$
 				
 			End for each 
 			
 			$oSettings.declaration:=New object:C1471(\
-				"version";$oBuffer["declarations"]["version"];\
-				"rules";$oBuffer["declarations"]["declaration"])
+				"version"; $oBuffer["declarations"]["version"]; \
+				"rules"; $oBuffer["declarations"]["declaration"])
 			
 			$c:=New collection:C1472
 			$c[1]:=293
@@ -63,77 +75,77 @@ If (Not:C34($fileSettings.exists))
 			$c[112]:=222
 			$c[113]:=1221
 			
-			For each ($o;$oSettings.declaration.rules)
+			For each ($o; $oSettings.declaration.rules)
 				
 				$l:=$o.type
 				$o.label:=Command name:C538($c[$l])+":C"+String:C10($c[$l])
 				
 			End for each 
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"].options.$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"].options.$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$l:=Num:C11(BLOB to text:C555($x;Mac text without length:K22:10))
+			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			
 			$oSettings.declaration.options:=New object:C1471(\
-				"methodDeclaration";$l ?? 27;\
-				"oneLinePerVariable";$l ?? 28;\
-				"trimEmptyLines";$l ?? 29;\
-				"replaceObsoleteTypes";$l ?? 30;\
-				"generateComments";$l ?? 31)
+				"methodDeclaration"; $l ?? 27; \
+				"oneLinePerVariable"; $l ?? 28; \
+				"trimEmptyLines"; $l ?? 29; \
+				"replaceObsoleteTypes"; $l ?? 30; \
+				"generateComments"; $l ?? 31)
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"].ignoreDeclarations.$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"].ignoreDeclarations.$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$oSettings.declaration.options.ignoreDeclarations:=Bool:C1537(Num:C11(BLOB to text:C555($x;Mac text without length:K22:10)))
+			$oSettings.declaration.options.ignoreDeclarations:=Bool:C1537(Num:C11(BLOB to text:C555($x; Mac text without length:K22:10)))
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"].numberOfVariablePerLine.$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"].numberOfVariablePerLine.$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$oSettings.declaration.options.numberOfVariablePerLine:=Num:C11(BLOB to text:C555($x;Mac text without length:K22:10))
+			$oSettings.declaration.options.numberOfVariablePerLine:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"]["beautifier-options"].$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"]["beautifier-options"].$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$l:=Num:C11(BLOB to text:C555($x;Mac text without length:K22:10))
+			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			
 			$oSettings.beautifier:=New object:C1471(\
-				"replaceDeprecatedCommand";$l ?? 15;\
-				"removeConsecutiveBlankLines";$l ?? 10;\
-				"removeEmptyLinesAtTheBeginOfMethod";$l ?? 1;\
-				"removeEmptyLinesAtTheEndOfMethod";$l ?? 2;\
-				"lineBreakBeforeBranchingStructures";$l ?? 3;\
-				"lineBreakBeforeLoopingStructures";$l ?? 6;\
-				"lineBreakBeforeAndAfterSequentialStructuresIncluded";$l ?? 4;\
-				"separationLineForCaseOf";$l ?? 5;\
-				"aLineOfCommentsMustBePrecededByALineBreak";$l ?? 11;\
-				"groupingClosureInstructions";$l ?? 9;\
-				"addTheIncrementForTheLoops";$l ?? 8;\
-				"splitTestLines";$l ?? 12;\
-				"replaceComparisonsToAnEmptyStringByLengthTest";$l ?? 13;\
-				"replaceIfElseEndIfByChoose";$l ?? 14;\
-				"splitKeyValueLines";$l ?? 7)
+				"replaceDeprecatedCommand"; $l ?? 15; \
+				"removeConsecutiveBlankLines"; $l ?? 10; \
+				"removeEmptyLinesAtTheBeginOfMethod"; $l ?? 1; \
+				"removeEmptyLinesAtTheEndOfMethod"; $l ?? 2; \
+				"lineBreakBeforeBranchingStructures"; $l ?? 3; \
+				"lineBreakBeforeLoopingStructures"; $l ?? 6; \
+				"lineBreakBeforeAndAfterSequentialStructuresIncluded"; $l ?? 4; \
+				"separationLineForCaseOf"; $l ?? 5; \
+				"aLineOfCommentsMustBePrecededByALineBreak"; $l ?? 11; \
+				"groupingClosureInstructions"; $l ?? 9; \
+				"addTheIncrementForTheLoops"; $l ?? 8; \
+				"splitTestLines"; $l ?? 12; \
+				"replaceComparisonsToAnEmptyStringByLengthTest"; $l ?? 13; \
+				"replaceIfElseEndIfByChoose"; $l ?? 14; \
+				"splitKeyValueLines"; $l ?? 7)
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"]["specialPasteChoice"].$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"]["specialPasteChoice"].$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
 			$oSettings.specialPast:=New object:C1471(\
-				"selected";Num:C11(BLOB to text:C555($x;Mac text without length:K22:10)))
+				"selected"; Num:C11(BLOB to text:C555($x; Mac text without length:K22:10)))
 			
-			TEXT TO BLOB:C554($oBuffer["preferences"]["specialPasteOptions"].$;$x;Mac text without length:K22:10)
+			TEXT TO BLOB:C554($oBuffer["preferences"]["specialPasteOptions"].$; $x; Mac text without length:K22:10)
 			BASE64 DECODE:C896($x)
-			$l:=Num:C11(BLOB to text:C555($x;Mac text without length:K22:10))
+			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			$oSettings.specialPast.options:=New object:C1471(\
-				"ignoreBlankLines";$l ?? 10;\
-				"deleteIndentation";$l ?? 11)
+				"ignoreBlankLines"; $l ?? 10; \
+				"deleteIndentation"; $l ?? 11)
 			
-			$fileSettings.setText(JSON Stringify:C1217($oSettings;*))
+			$fileSettings.setText(JSON Stringify:C1217($oSettings; *))
 			
 		Else 
 			
-			  // PARSING ERROR
+			// PARSING ERROR
 			
 		End if 
 	End if 
 	
 Else 
 	
-	  // Use default settings
-	$fileSettings:=File:C1566("/RESOURCES/default.settings").copyTo($fileSettings.parent;"4DPop Macros.settings")
+	// Use default settings
+	$fileSettings:=File:C1566("/RESOURCES/default.settings").copyTo($fileSettings.parent; "4DPop Macros.settings")
 	
 End if 

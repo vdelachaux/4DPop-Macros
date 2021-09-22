@@ -51,7 +51,13 @@ If (OK=0)
 	$folder:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop")
 	$folder.create()
 	
-	$tgt:=$folder.file("4DPop Preferences.xml").original
+	$tgt:=$folder.file("4DPop Preferences.xml")
+	
+	If ($tgt.original#Null:C1517)
+		
+		$tgt:=$tgt.original
+		
+	End if 
 	
 	If (Not:C34($tgt.exists))  // Let's try with a old file
 		

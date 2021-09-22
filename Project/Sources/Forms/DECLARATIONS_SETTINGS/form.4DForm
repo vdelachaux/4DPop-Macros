@@ -13,6 +13,7 @@
 		"onLoad",
 		"onActivate",
 		"onTimer",
+		"onSelectionChange",
 		"onBoundVariableChange"
 	],
 	"windowTitle": ":xliff:preferences",
@@ -78,8 +79,6 @@
 					"events": [
 						"onSelectionChange"
 					],
-					"method": "ObjectMethods/rules.4dm",
-					"sortable": false,
 					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
 					"fontWeight": "normal",
@@ -114,33 +113,15 @@
 								"fontSize": 11
 							},
 							"stroke": "automatic",
-							"dataSource": "Replace string:C233(Parse formula:C1576(This:C1470.label);\"C_\";\"\")",
+							"dataSource": "Replace string:C233(Parse formula:C1576(This:C1470.label); \"C_\"; \"\")",
 							"fontTheme": "normal"
 						}
 					]
 				},
-				"oneLinePerVariable": {
-					"type": "checkbox",
-					"top": 301,
-					"left": 53,
-					"width": 258,
-					"height": 16,
-					"sizingX": "move",
-					"tooltip": ":xliff:OneLine_Comment",
-					"text": ":xliff:OneLine_Option",
-					"focusable": false,
-					"method": "ObjectMethods/oneLinePerVariable.4dm",
-					"events": [
-						"onClick"
-					],
-					"dataSource": "Form:C1466.options.oneLinePerVariable",
-					"style": "regular",
-					"dataSourceTypeHint": "boolean"
-				},
 				"variableNumber": {
 					"type": "input",
-					"top": 321,
-					"left": 266,
+					"top": 315,
+					"left": 215,
 					"width": 35,
 					"height": 14,
 					"sizingX": "move",
@@ -162,10 +143,10 @@
 				},
 				"variableNumber.label": {
 					"type": "text",
-					"top": 321,
-					"left": 59,
-					"width": 200,
-					"height": 16,
+					"top": 305,
+					"left": 54,
+					"width": 150,
+					"height": 24,
 					"sizingX": "move",
 					"textAlign": "right",
 					"text": ":xliff:Label_NumberOfVariablesPerLine",
@@ -174,9 +155,9 @@
 				},
 				"projectMethodDirective": {
 					"type": "checkbox",
-					"top": 338,
-					"left": 53,
-					"width": 258,
+					"top": 342,
+					"left": 215,
+					"width": 139,
 					"height": 16,
 					"sizingX": "move",
 					"tooltip": ":xliff:MethodSyntax_Comment",
@@ -185,24 +166,11 @@
 					"dataSource": "Form:C1466.options.methodDeclaration",
 					"dataSourceTypeHint": "boolean"
 				},
-				"ignoreDirectives": {
-					"type": "checkbox",
-					"top": 357,
-					"left": 53,
-					"width": 256,
-					"height": 16,
-					"sizingX": "move",
-					"tooltip": ":xliff:DeclarationtheVariablesDeclaredButNotUsedWill",
-					"text": ":xliff:DeclarationignoreCompilerDirectives",
-					"focusable": false,
-					"dataSource": "Form:C1466.options.ignoreDeclarations",
-					"dataSourceTypeHint": "boolean"
-				},
 				"trimEmptyLines": {
 					"type": "checkbox",
-					"top": 376,
-					"left": 53,
-					"width": 256,
+					"top": 364,
+					"left": 215,
+					"width": 231,
 					"height": 16,
 					"sizingX": "move",
 					"tooltip": ":xliff:multipleEmptyLinesWillBeDeleted",
@@ -211,24 +179,11 @@
 					"dataSource": "Form:C1466.options.trimEmptyLines",
 					"dataSourceTypeHint": "boolean"
 				},
-				"alphaToText": {
-					"type": "checkbox",
-					"top": 396,
-					"left": 53,
-					"width": 256,
-					"height": 16,
-					"sizingX": "move",
-					"tooltip": ":xliff:c_text&TextArrayWillBeUsedInsteadC_alpha&ArrayString",
-					"text": ":xliff:replaceObsoleteTypes",
-					"focusable": false,
-					"dataSource": "Form:C1466.options.replaceObsoleteTypes",
-					"dataSourceTypeHint": "boolean"
-				},
 				"generateComments": {
 					"type": "checkbox",
-					"top": 416,
-					"left": 53,
-					"width": 256,
+					"top": 387,
+					"left": 215,
+					"width": 224,
 					"height": 16,
 					"sizingX": "move",
 					"tooltip": ":xliff:DeclarationCommentTooltip",
@@ -261,17 +216,16 @@
 					"dataSource": "Form:C1466.rule",
 					"showHeaders": false,
 					"resizingMode": "legacy",
-					"currentItemSource": "",
 					"selectedItemsSource": "Form:C1466.ruleSelected",
 					"hideFocusRing": true,
 					"selectionMode": "single",
-					"currentItemPositionSource": "",
 					"method": "ObjectMethods/rule.4dm",
 					"scrollbarHorizontal": "hidden",
-					"sortable": false,
 					"verticalAlign": "middle",
-					"horizontalLineStroke": "transparent",
 					"verticalLineStroke": "transparent",
+					"currentItemPositionSource": "Form:C1466.ruleIndex",
+					"currentItemSource": "Form:C1466.ruleCurrent",
+					"horizontalLineStroke": "transparent",
 					"columns": [
 						{
 							"header": {
@@ -282,7 +236,9 @@
 							"dataSource": "This:C1470.value",
 							"footer": {
 								"name": "footer1"
-							}
+							},
+							"width": 10,
+							"enterable": false
 						}
 					]
 				},
@@ -337,21 +293,26 @@
 			"entryOrder": [
 				"rules",
 				"rule",
-				"input",
-				"oneLinePerVariable",
-				"projectMethodDirective",
-				"ignoreDirectives",
-				"trimEmptyLines",
-				"alphaToText",
-				"generateComments",
-				"variableNumber",
 				"add",
-				"remove"
+				"remove",
+				"input",
+				"variableNumber",
+				"projectMethodDirective",
+				"trimEmptyLines",
+				"generateComments"
 			]
 		}
 	],
 	"method": "method.4dm",
 	"formSizeAnchor": "_background",
 	"rightMargin": 0,
-	"bottomMargin": 0
+	"bottomMargin": 0,
+	"geometryStamp": 40,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
 }

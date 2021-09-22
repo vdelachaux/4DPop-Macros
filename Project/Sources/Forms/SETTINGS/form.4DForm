@@ -155,8 +155,7 @@
 					"borderStyle": "none",
 					"events": [
 						"onGettingFocus"
-					],
-					"method": "ObjectMethods/declarations.4dm"
+					]
 				}
 			}
 		}
@@ -166,5 +165,13 @@
 		"kind": "form"
 	},
 	"width": 580,
-	"height": 560
+	"height": 560,
+	"geometryStamp": 2,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
 }
