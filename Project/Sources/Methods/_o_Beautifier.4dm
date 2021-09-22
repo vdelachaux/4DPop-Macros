@@ -16,7 +16,7 @@ C_BOOLEAN:C305($2)
 C_BOOLEAN:C305($Boo_addLine; $Boo_closure; $Boo_comment; $Boo_emptyLine; $Boo_isClosure; $Boo_lineComment)
 C_BOOLEAN:C305($Boo_macro; $Boo_return; $Boo_severalLines; $Boo_skipLineAfter; $Boo_testLineAfter; $Boo_testLineBefore)
 C_BOOLEAN:C305($Boo_us)
-C_LONGINT:C283($Lon_error; $Lon_i; $Lon_levelCase; $Lon_Lines; $Lon_options; $Lon_parameters)
+C_LONGINT:C283($errorCode; $Lon_i; $level; $Lon_Lines; $Lon_options; $Lon_parameters)
 C_TEXT:C284($kTxt_pattern; $Txt_buffer; $Txt_code; $Txt_lineCode; $Txt_pattern; $Txt_replacement)
 C_TEXT:C284($Txt_tempo)
 
@@ -25,9 +25,9 @@ ARRAY TEXT:C222($tTxt_lines; 0)
 ARRAY TEXT:C222($tTxt_controlFlow; 0)
 
 If (False:C215)
-	C_TEXT:C284(Beautifier; $0)
-	C_TEXT:C284(Beautifier; $1)
-	C_BOOLEAN:C305(Beautifier; $2)
+	C_TEXT:C284(_o_Beautifier; $0)
+	C_TEXT:C284(_o_Beautifier; $1)
+	C_BOOLEAN:C305(_o_Beautifier; $2)
 End if 
 
 // ----------------------------------------------------
@@ -37,14 +37,15 @@ $beautifier:=cs:C1710.beautifier.new()
 
 If (Count parameters:C259>=1)
 	
-	$Txt_code:=$1  //Text to format
+	$Txt_code:=$1  // Text to format
 	
 	If (Count parameters:C259>=2)
 		
-		$Boo_macro:=$2  //Must be true if called from a macro method
+		$Boo_macro:=$2  // Must be true if called from a macro method
 		
 	End if 
 End if 
+
 
 If ($Boo_macro\
  & (Length:C16($Txt_code)=0))
@@ -54,51 +55,30 @@ If ($Boo_macro\
 	
 End if 
 
-If (Not:C34(Preferences("Get_Value"; "beautifier-options"; ->$Lon_options)))
-	
-	$Lon_options:=Beautifier_init  // Default values
-	
-End if 
-
-$Lon_options:=$Lon_options ?+ 15
-
-ARRAY TEXT:C222($tTxt_lineComment; 0x0000)
-APPEND TO ARRAY:C911($tTxt_lineComment; "__")
-APPEND TO ARRAY:C911($tTxt_lineComment; "--")
-APPEND TO ARRAY:C911($tTxt_lineComment; "..")
-APPEND TO ARRAY:C911($tTxt_lineComment; "…")
-APPEND TO ARRAY:C911($tTxt_lineComment; "!!")
-APPEND TO ARRAY:C911($tTxt_lineComment; "::")
-
 _o_localizedControlFlow(""; ->$tTxt_controlFlow)
-
 
 // ----------------------------------------------------
 If (Length:C16($Txt_code)>0)
 	
-	//Remove consecutive blank lines
-	If ($Lon_options ?? 9)
+	If (Bool:C1537($beautifier.settings.removeConsecutiveBlankLines))
 		
-		$Lon_error:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_code)
-		
-	End if 
-	
-	//Remove empty lines at the end of method
-	If ($Lon_options ?? 1)
-		
-		$Lon_error:=Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_code)
 		
 	End if 
 	
-	//Remove empty lines at the begin of the method
-	If ($Lon_options ?? 0)
+	If (Bool:C1537($beautifier.settings.removeEmptyLinesAtTheEndOfMethod))
 		
-		$Lon_error:=Rgx_SubstituteText("^(\\r*)"; ""; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_code)
 		
 	End if 
 	
-	//Replace comparisons to an empty string by length test (Length(xxx)=0) -> (length(xxx)=0)
-	If ($Lon_options ?? 12)
+	If (Bool:C1537($beautifier.settings.removeEmptyLinesAtTheBeginOfMethod))
+		
+		$errorCode:=Rgx_SubstituteText("^(\\r*)"; ""; ->$Txt_code)
+		
+	End if 
+	
+	If (Bool:C1537($beautifier.settings.replaceComparisonsToAnEmptyStringByLengthTest))
 		
 		ARRAY TEXT:C222($tTxt_2D_result; 0x0000; 0x0000)
 		
@@ -115,7 +95,7 @@ If (Length:C16($Txt_code)>0)
 		End if 
 	End if 
 	
-	If ($Lon_options ?? 13)  //Replace "If(test) var:=x Else var:=y End if" by "var:=Choose(test;x;y)"
+	If (Bool:C1537($beautifier.settings.replaceIfElseEndIfByChoose))
 		
 		$Boo_us:=(Command name:C538(1)="Sum")
 		
@@ -129,12 +109,12 @@ If (Length:C16($Txt_code)>0)
 		$Txt_replacement:="\\2:="+Command name:C538(955)+"(\\1;\\3;\\5) \\4 \\6"
 		
 		$Txt_code:=Replace string:C233($Txt_code; "\\"; "§§")
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; $Txt_replacement; ->$Txt_code; 0)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; $Txt_replacement; ->$Txt_code; 0)
 		$Txt_code:=Replace string:C233($Txt_code; "§§"; "\\")
 		
 	End if 
 	
-	If ($Lon_options ?? 14)  //Replace deprecated command
+	If (Bool:C1537($beautifier.settings.replaceDeprecatedCommand))
 		
 		ARRAY TEXT:C222($tTxt_pattern; 0x0000)
 		ARRAY TEXT:C222($tTxt_replacement; 0x0000)
@@ -167,48 +147,48 @@ If (Length:C16($Txt_code)>0)
 	End if 
 	
 	$Txt_pattern:="("+$tTxt_controlFlow{1}+" \\([^\\r]*\\r)\\r*"  //If
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
 	$Txt_pattern:="("+$tTxt_controlFlow{4}+"[^\\r]*\\r)\\r*"  //case of
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
 	$Txt_pattern:="("+$tTxt_controlFlow{6}+" \\([^\\r]*\\r)\\r*"  //While
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
 	$Txt_pattern:="("+$tTxt_controlFlow{8}+" \\([^\\r]*\\r)\\r*"  //For
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
 	$Txt_pattern:="("+$tTxt_controlFlow{10}+"[^\\r]*\\r)\\r*"  //Repeat
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
 	$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{2}+"[^\\r]*\\r)\\r*"  //Else
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 	
-	If ($Lon_options ?? 8)  //Grouping closure instructions
+	If (Bool:C1537($beautifier.settings.groupingClosureInstructions))
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{3}+"[^\\r]*\\r)\\r*"  //End If
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{5}+"[^\\r]*\\r)\\r*"  //End case
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{7}+"[^\\r]*\\r)\\r*"  //End while
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{9}+"[^\\r]*\\r)\\r*"  //End for
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{11}+" \\([^\\r]*\\r)\\r*"  //Until
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r: \\([^\\r]*\\r)\\r*"  //Case of test
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{13}+"[^\\r]*\\r)\\r*"  //End use
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 		$Txt_pattern:="\\r*(\\r"+$tTxt_controlFlow{15}+"[^\\r]*\\r)\\r*"  //End for each
-		$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText($Txt_pattern; "\\1"; ->$Txt_code)
 		
 	End if 
 	
@@ -265,7 +245,9 @@ If (Length:C16($Txt_code)>0)
 					
 					If (Not:C34($Boo_comment))  //multiline
 						
-						$Boo_testLineBefore:=Choose:C955($Lon_i>1; ($Lon_options ?? 10); False:C215)\
+						
+						
+						$Boo_testLineBefore:=Choose:C955($Lon_i>1; Bool:C1537($beautifier.settings.aLineOfCommentsMustBePrecededByALineBreak); False:C215)\
 							 & ($Txt_lineCode#(kCommentMark+"}"))\
 							 & ($Txt_lineCode#(kCommentMark+"]"))\
 							 & ($Txt_lineCode#(kCommentMark+")"))
@@ -278,11 +260,11 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{1}+"\\b"; $Txt_lineCode)=0)  //If
 					
-					$Boo_testLineBefore:=($Lon_options ?? 2) & Not:C34($Boo_comment)
+					$Boo_testLineBefore:=Bool:C1537($beautifier.settings.lineBreakBeforeBranchingStructures) & Not:C34($Boo_comment)
 					
-					If ($Lon_options ?? 11)
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
@@ -295,7 +277,7 @@ If (Length:C16($Txt_code)>0)
 					Else 
 						
 						APPEND TO ARRAY:C911($tLon_branchAndLoop; 1)
-						$Boo_testLineAfter:=($Lon_options ?? 3)
+						$Boo_testLineAfter:=Bool:C1537($beautifier.settings.lineBreakBeforeAndAfterSequentialStructuresIncluded)
 						$Boo_skipLineAfter:=False:C215
 						
 					End if 
@@ -335,13 +317,14 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{12}+"\\b"; $Txt_lineCode)=0)  // Use
 					
-					If ($Lon_options ?? 11)
+					
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
-					$Boo_testLineBefore:=($Lon_options ?? 2) & Not:C34($Boo_comment)
+					$Boo_testLineBefore:=Bool:C1537($beautifier.settings.lineBreakBeforeBranchingStructures) & Not:C34($Boo_comment)
 					$Boo_testLineAfter:=True:C214
 					$Boo_skipLineAfter:=False:C215
 					
@@ -363,13 +346,13 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{14}+"\\b"; $Txt_lineCode)=0)  // For each
 					
-					If ($Lon_options ?? 11)
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
-					$Boo_testLineBefore:=($Lon_options ?? 2) & Not:C34($Boo_comment)
+					$Boo_testLineBefore:=Bool:C1537($beautifier.settings.lineBreakBeforeBranchingStructures) & Not:C34($Boo_comment)
 					$Boo_testLineAfter:=True:C214
 					$Boo_skipLineAfter:=False:C215
 					
@@ -391,7 +374,7 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{4}+"\\b"; $Txt_lineCode)=0)  //Case of
 					
-					$Lon_levelCase:=$Lon_levelCase+1
+					$level:=$level+1
 					
 					$Boo_testLineBefore:=Not:C34($Boo_comment)
 					$Boo_testLineAfter:=True:C214
@@ -401,13 +384,13 @@ If (Length:C16($Txt_code)>0)
 					
 				: (Position:C15(": ("; $Txt_lineCode)=1)  //item in Case of
 					
-					If ($Lon_options ?? 11)
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
-					$Boo_addLine:=($Lon_options ?? 4)
+					$Boo_addLine:=Bool:C1537($beautifier.settings.separationLineForCaseOf)
 					$Boo_testLineBefore:=Not:C34($Boo_comment)
 					$Boo_testLineAfter:=True:C214
 					$Boo_skipLineAfter:=False:C215
@@ -415,7 +398,7 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{5}+"\\b"; $Txt_lineCode)=0)  //End case
 					
-					$Boo_addLine:=($Lon_options ?? 4)
+					$Boo_addLine:=Bool:C1537($beautifier.settings.separationLineForCaseOf)
 					$Boo_testLineBefore:=(Not:C34($Boo_comment) | Not:C34($Boo_closure))\
 						 & Not:C34($Boo_lineComment)
 					$Boo_testLineAfter:=Not:C34($Boo_skipLineAfter)
@@ -432,9 +415,9 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{6}+"\\b"; $Txt_lineCode)=0)  //While
 					
-					If ($Lon_options ?? 11)
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
@@ -464,8 +447,7 @@ If (Length:C16($Txt_code)>0)
 					$Boo_testLineAfter:=True:C214
 					$Boo_skipLineAfter:=False:C215
 					
-					//Add an increment if not exist
-					If ($Lon_options ?? 7)
+					If (Bool:C1537($beautifier.settings.addTheIncrementForTheLoops))
 						
 						$Txt_pattern:="\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)$"
 						ARRAY TEXT:C222($tTxt_result; 0x0000)
@@ -507,9 +489,9 @@ If (Length:C16($Txt_code)>0)
 					//……………………………………………………………
 				: (Rgx_MatchText("(?<!//)"+$tTxt_controlFlow{11}+"\\b"; $Txt_lineCode)=0)  //Until
 					
-					If ($Lon_options ?? 11)
+					If (Bool:C1537($beautifier.settings.splitTestLines))
 						
-						$Lon_error:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
+						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$Txt_lineCode)
 						
 					End if 
 					
@@ -547,7 +529,7 @@ If (Length:C16($Txt_code)>0)
 			End case 
 			
 			// #18-8-2017
-			If ($Lon_options ?? 15)  // Add a space before the comment and capitalize the first letter
+			If (Bool:C1537($beautifier.settings.formatComments))  // Add a space before the comment and capitalize the first letter
 				
 				If (Not:C34(Match regex:C1019("(?m-si)(.)\\1{4,}"; $Txt_lineCode; 1)))  // Not for a comment with at least 5 occurrences of the same character
 					
@@ -581,17 +563,27 @@ If (Length:C16($Txt_code)>0)
 					
 					If (Not:C34($Boo_lineComment))
 						
-						$Lon_levelCase:=Choose:C955($Lon_levelCase>Size of array:C274($tTxt_lineComment); Size of array:C274($tTxt_lineComment); $Lon_levelCase)
-						$Lon_levelCase:=Choose:C955($Lon_levelCase<1; 1; $Lon_levelCase)
+						If ($level>$beautifier.numberOfSeparators)
+							
+							$level:=$beautifier.numberOfSeparators
+							
+						Else 
+							
+							If ($level<1)
+								
+								$level:=1
+								
+							End if 
+						End if 
 						
 						$Txt_lineCode:=kCommentMark\
-							+($tTxt_lineComment{$Lon_levelCase}*20)\
+							+($beautifier.separators[$level]*(20-($level\2)))\
 							+"\r"\
 							+$Txt_lineCode
 						
 					End if 
 					
-					$Lon_levelCase:=$Lon_levelCase-Num:C11($tLon_branchAndLoop{0}=-5)
+					$level:=$level-Num:C11($tLon_branchAndLoop{0}=-5)
 					
 					$Boo_lineComment:=False:C215
 					$Boo_addLine:=False:C215
@@ -617,37 +609,37 @@ If (Length:C16($Txt_code)>0)
 					
 					//______________________________________________________
 				: ($Boo_severalLines)\
-					 | (Not:C34($Lon_options ?? 6))
+					 | (Not:C34(Bool:C1537($beautifier.settings.splitKeyValueLines)))
 					
 					//#7-4-2017 ________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(1471)); $Txt_lineCode)=0)  //New object
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 1471)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 1471)
 					
 					//__________________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(1220)); $Txt_lineCode)=0)  //OB SET
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 1220)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 1220)
 					
 					//__________________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(1055)); $Txt_lineCode)=0)  //SVG SET ATTRIBUTE
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 1055)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 1055)
 					
 					//__________________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(865)); $Txt_lineCode)=0)  //DOM Create XML element
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 865)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 865)
 					
 					//__________________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(866)); $Txt_lineCode)=0)  //DOM SET XML ATTRIBUTE
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 866)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 866)
 					
 					//__________________________________________________________________________________________
 				: (Rgx_MatchText(Replace string:C233($kTxt_pattern; "{command}"; Command name:C538(1093)); $Txt_lineCode)=0)  //ST SET ATTRIBUTES 
 					
-					$Txt_lineCode:=beautifier_Split_key_value($Txt_lineCode; 1093)
+					$Txt_lineCode:=_o_beautifier_Split_key_value($Txt_lineCode; 1093)
 					
 					//______________________________________________________
 			End case 
@@ -665,16 +657,15 @@ If (Length:C16($Txt_code)>0)
 		End for 
 	End if 
 	
-	//Remove consecutive blank lines
-	If ($Lon_options ?? 9)
+	If (Bool:C1537($beautifier.settings.removeConsecutiveBlankLines))
 		
-		$Lon_error:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_code)
+		$errorCode:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_code)
 		
 	End if 
 	
 	// #14-1-2015 - remove the line feed, if any, before a compiler directive closure
 	$Txt_pattern:="(?mi-s)\\r\\r.*(//%W\\+\\d{1,}\\.\\d{1,})\\r"
-	$Lon_error:=Rgx_SubstituteText($Txt_pattern; "\r\\1\r"; ->$Txt_code)
+	$errorCode:=Rgx_SubstituteText($Txt_pattern; "\r\\1\r"; ->$Txt_code)
 	
 	If ($Boo_macro)
 		

@@ -69,6 +69,17 @@ Function loadSettings()
 	
 	This:C1470.settings:=JSON Parse:C1218(This:C1470.file.getText())
 	
+	
+	// Format comments
+	If (This:C1470.settings.beautifier.formatComments=Null:C1517)
+		
+		This:C1470.settings.beautifier.formatComments:=True:C214
+		
+	End if 
+	
+	// Obsolete
+	OB REMOVE:C1226(This:C1470.settings.beautifier; "replaceDeprecatedCommand")
+	
 	This:C1470.beautifier:=New collection:C1472
 	
 	For each ($key; This:C1470.settings.beautifier)

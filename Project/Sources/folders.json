@@ -1,6 +1,9 @@
 {
 	"_o_OBSOLETES": {
 		"methods": [
+			"_o_Beautifier",
+			"_o_beautifier_Next_semicolon",
+			"_o_beautifier_Split_key_value",
 			"_o_localizedControlFlow",
 			"_o_Preferences_Set"
 		]
@@ -72,6 +75,7 @@
 			"shared"
 		],
 		"classes": [
+			"beautifier",
 			"declaration",
 			"macro",
 			"preferences",
@@ -88,10 +92,7 @@
 	"private": {
 		"methods": [
 			"ABOUT",
-			"Beautifier",
 			"Beautifier_init",
-			"beautifier_Next_semicolon",
-			"beautifier_Split_key_value",
 			"CODE_TO_EXECUTE",
 			"CODE_TO_EXECUTE_FORMULA",
 			"codeForCollection",

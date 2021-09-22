@@ -137,16 +137,16 @@ If (False:C215)
 	C_TEXT:C284(doc_SET_TYPE_AND_CREATOR; $3)
 	
 	// BEAUTIFIER
-	C_TEXT:C284(Beautifier; $0)
-	C_TEXT:C284(Beautifier; $1)
-	C_BOOLEAN:C305(Beautifier; $2)
+	C_TEXT:C284(_o_Beautifier; $0)
+	C_TEXT:C284(_o_Beautifier; $1)
+	C_BOOLEAN:C305(_o_Beautifier; $2)
 	
-	C_LONGINT:C283(beautifier_Next_semicolon; $0)
-	C_TEXT:C284(beautifier_Next_semicolon; $1)
+	C_LONGINT:C283(_o_beautifier_Next_semicolon; $0)
+	C_TEXT:C284(_o_beautifier_Next_semicolon; $1)
 	
-	C_TEXT:C284(beautifier_Split_key_value; $0)
-	C_TEXT:C284(beautifier_Split_key_value; $1)
-	C_LONGINT:C283(beautifier_Split_key_value; $2)
+	C_TEXT:C284(_o_beautifier_Split_key_value; $0)
+	C_TEXT:C284(_o_beautifier_Split_key_value; $1)
+	C_LONGINT:C283(_o_beautifier_Split_key_value; $2)
 	
 	// Private_GET_OPTIONS
 	C_LONGINT:C283(OPTIONS_GET; ${1})
