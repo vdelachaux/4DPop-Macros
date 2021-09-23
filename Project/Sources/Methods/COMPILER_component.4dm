@@ -127,14 +127,10 @@ If (False:C215)
 	// Private_Boo_Install_Regex
 	C_BOOLEAN:C305(Install_regex; $0)
 	
-	C_BOOLEAN:C305(Preferences; $0)
-	C_TEXT:C284(Preferences; $1)
-	C_TEXT:C284(Preferences; $2)
-	C_POINTER:C301(Preferences; $3)
-	
-	C_TEXT:C284(doc_SET_TYPE_AND_CREATOR; $1)
-	C_TEXT:C284(doc_SET_TYPE_AND_CREATOR; $2)
-	C_TEXT:C284(doc_SET_TYPE_AND_CREATOR; $3)
+	C_BOOLEAN:C305(_o_Preferences; $0)
+	C_TEXT:C284(_o_Preferences; $1)
+	C_TEXT:C284(_o_Preferences; $2)
+	C_POINTER:C301(_o_Preferences; $3)
 	
 	// BEAUTIFIER
 	C_TEXT:C284(_o_Beautifier; $0)
@@ -161,15 +157,6 @@ If (False:C215)
 	C_BOOLEAN:C305(Init; $0)
 	C_TEXT:C284(Init; $1)
 	
-	// Private_Encode_Text
-	//C_TEXT(Text_Encode; $0)
-	//C_TEXT(Text_Encode; $1)
-	//C_TEXT(Text_Encode; $2)
-	
-	// Private_Decode_Text
-	//C_TEXT(Text_Decode; $0)
-	//C_TEXT(Text_Decode; $1)
-	//C_TEXT(Text_Decode; $2)
 	
 	// COMMENTS
 	C_TEXT:C284(COMMENTS; $1)
@@ -187,29 +174,12 @@ If (False:C215)
 	C_LONGINT:C283(INVERT_EXPRESSION; $6)
 	
 	// Str_gBoo_IsNumeric
-	C_BOOLEAN:C305(str_isNumeric; $0)
-	C_TEXT:C284(str_isNumeric; $1)
+	C_BOOLEAN:C305(_o_isNumeric; $0)
+	C_TEXT:C284(_o_isNumeric; $1)
 	
-	// Doc_gTxt_Add_Folder_To_Path
-	C_TEXT:C284(doc_gTxt_Add_Folder_To_Path; $0)
-	C_TEXT:C284(doc_gTxt_Add_Folder_To_Path; $1)
-	C_TEXT:C284(doc_gTxt_Add_Folder_To_Path; $2)
-	C_BOOLEAN:C305(doc_gTxt_Add_Folder_To_Path; $3)
-	
-	// Doc_gTxt_Add_DocumentToFolder
-	C_TEXT:C284(doc_gTxt_Add_DocumentToFolder; $0)
-	C_TEXT:C284(doc_gTxt_Add_DocumentToFolder; $1)
-	C_TEXT:C284(doc_gTxt_Add_DocumentToFolder; $2)
 	
 	// PRIVATE_4DPOP_ABOUT
 	C_TEXT:C284(ABOUT; $1)
-	
-	// Str_FindBalencingChar
-	C_LONGINT:C283(str_FindBalencingChar; $0)
-	C_POINTER:C301(str_FindBalencingChar; $1)
-	C_TEXT:C284(str_FindBalencingChar; $2)
-	C_TEXT:C284(str_FindBalencingChar; $3)
-	C_LONGINT:C283(str_FindBalencingChar; $4)
 	
 	// Str_gLon_Hex_To_Long
 	C_LONGINT:C283(str_gLon_Hex_To_Long; $0)
@@ -223,15 +193,12 @@ If (False:C215)
 	C_TEXT:C284(str_hyphenation; $4)
 	
 	// Doc_gTxt_Files_And_Folders
-	C_TEXT:C284(doc_gTxt_Files_And_Folders; $0)
-	C_TEXT:C284(doc_gTxt_Files_And_Folders; $1)
-	C_TEXT:C284(doc_gTxt_Files_And_Folders; $2)
-	C_TEXT:C284(doc_gTxt_Files_And_Folders; $3)
-	C_BOOLEAN:C305(doc_gTxt_Files_And_Folders; $4)
+	C_TEXT:C284(_o_Files_And_Folders; $0)
+	C_TEXT:C284(_o_Files_And_Folders; $1)
+	C_TEXT:C284(_o_Files_And_Folders; $2)
+	C_TEXT:C284(_o_Files_And_Folders; $3)
+	C_BOOLEAN:C305(_o_Files_And_Folders; $4)
 	
-	// Doc_gTxt_Resolve_Alias
-	C_TEXT:C284(doc_gTxt_Resolve_Alias; $0)
-	C_TEXT:C284(doc_gTxt_Resolve_Alias; $1)
 	
 	// Win_NOT_UNDER_TOOLBAR
 	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
@@ -246,8 +213,8 @@ If (False:C215)
 	C_POINTER:C301(Private_Lon_Declaration_Type; $2)
 	
 	// Private_EXTRACT_LOCAL_VARIABLES
-	C_TEXT:C284(EXTRACT_LOCAL_VARIABLES; $1)
-	C_POINTER:C301(EXTRACT_LOCAL_VARIABLES; $2)
+	C_TEXT:C284(_o_EXTRACT_LOCAL_VARIABLES; $1)
+	C_POINTER:C301(_o_EXTRACT_LOCAL_VARIABLES; $2)
 	
 	//C_TEXT(SETTINGS; $1)
 	

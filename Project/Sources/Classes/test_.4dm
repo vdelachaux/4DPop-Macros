@@ -3,10 +3,11 @@ Class constructor($x : 4D:C1709.File)  //comments
 	This:C1470.test:=$x
 	
 Function empty
-	
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
 Function group($a : Text)
+	var $x : Blob
+	
 	
 Function subform($a : Text)->$this : Object
 	$this:=This:C1470

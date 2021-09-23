@@ -12,10 +12,10 @@ var $2 : Text
 var $3 : Pointer
 
 If (False:C215)
-	C_BOOLEAN:C305(Preferences; $0)
-	C_TEXT:C284(Preferences; $1)
-	C_TEXT:C284(Preferences; $2)
-	C_POINTER:C301(Preferences; $3)
+	C_BOOLEAN:C305(_o_Preferences; $0)
+	C_TEXT:C284(_o_Preferences; $1)
+	C_TEXT:C284(_o_Preferences; $2)
+	C_POINTER:C301(_o_Preferences; $3)
 End if 
 
 var $Dom_node; $Dom_root; $t; $Txt_EntryPoint; $Txt_key; $Txt_property : Text
@@ -110,7 +110,7 @@ If (OK=0)
 					
 				End use 
 				
-				OK:=Num:C11(Preferences("load"))
+				OK:=Num:C11(_o_Preferences("load"))
 				
 			Else 
 				
@@ -155,7 +155,7 @@ Case of
 						$t:=BLOB to text:C555($x; Mac text without length:K22:10)
 						SET BLOB SIZE:C606($x; 0)
 						
-						$Obj_preferences[$Txt_property]:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
+						$Obj_preferences[$Txt_property]:=Choose:C955(_o_isNumeric($t); Num:C11($t); $t)
 						
 					End if 
 				End for each 
@@ -239,7 +239,7 @@ Case of
 			
 			If (OK=1)
 				
-				$Ptr_value->:=Choose:C955(str_isNumeric($t); Num:C11($t); $t)
+				$Ptr_value->:=Choose:C955(_o_isNumeric($t); Num:C11($t); $t)
 				
 			End if 
 		End if 
@@ -293,7 +293,7 @@ Case of
 			
 			DOM CLOSE XML:C722($Dom_root)
 			
-			Preferences("load")
+			_o_Preferences("load")
 			
 		End if 
 		

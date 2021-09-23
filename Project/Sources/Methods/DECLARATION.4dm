@@ -292,7 +292,7 @@ Else
 				
 				If ($number>0)
 					
-					Preferences("Get_Value"; "numberOfVariablePerLine"; ->$Lon_variablePerLine)
+					_o_Preferences("Get_Value"; "numberOfVariablePerLine"; ->$Lon_variablePerLine)
 					
 					ARRAY TEXT:C222($tTxt_Names; $number)
 					ARRAY LONGINT:C221($tLon_Declaration_Types; $number)
@@ -654,7 +654,7 @@ Else
 			$cDirectives:=Form:C1466.settings.directives
 			$cArrays:=Form:C1466.settings.arrays
 			
-			Preferences("Get_Value"; "ignoreDeclarations"; ->$Lon_ignoreDeclarations)
+			_o_Preferences("Get_Value"; "ignoreDeclarations"; ->$Lon_ignoreDeclarations)
 			
 			If ($Lon_parameters>=3)
 				
@@ -776,7 +776,7 @@ Else
 					
 					For ($Lon_j; Size of array:C274($tTxt_nonLocals); 1; -1)
 						
-						If (str_isNumeric($tTxt_nonLocals{$Lon_j}))
+						If (_o_isNumeric($tTxt_nonLocals{$Lon_j}))
 							
 							DELETE FROM ARRAY:C228($tTxt_nonLocals; $Lon_j; 1)
 							
@@ -863,7 +863,7 @@ Else
 				
 				For ($Lon_j; Size of array:C274($tTxt_nonLocals); 1; -1)
 					
-					If (str_isNumeric($tTxt_nonLocals{$Lon_j}))
+					If (_o_isNumeric($tTxt_nonLocals{$Lon_j}))
 						
 						DELETE FROM ARRAY:C228($tTxt_nonLocals; $Lon_j; 1)
 						
@@ -962,7 +962,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayLONGINT
 						$t:=Replace string:C233($t; $cArrays[5]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1012,7 +1012,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayTEXT
 						$t:=Replace string:C233($t; $cArrays[10]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1062,7 +1062,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayBOOLEAN
 						$t:=Replace string:C233($t; $cArrays[2]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1112,7 +1112,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayBLOB
 						$t:=Replace string:C233($t; $cArrays[1]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1162,7 +1162,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayDATE
 						$t:=Replace string:C233($t; $cArrays[3]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1212,7 +1212,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayTIME
 						$t:=Replace string:C233($t; $cArrays[6]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1262,7 +1262,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayPOINTER
 						$t:=Replace string:C233($t; $cArrays[8]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1312,7 +1312,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayPICTURE
 						$t:=Replace string:C233($t; $cArrays[7]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1362,7 +1362,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayOBJECT
 						$t:=Replace string:C233($t; $cArrays[11]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1412,7 +1412,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayREAL
 						$t:=Replace string:C233($t; $cArrays[9]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1471,7 +1471,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayALPHA
 						$t:=Replace string:C233($t; $cArrays[0]+"("; ""; 1)
 						
-						$Lon_stringLength:=util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						$Lon_stringLength:=_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1523,7 +1523,7 @@ Else
 						$Ptr_array:=->$tTxt_arrayINTEGER
 						$t:=Replace string:C233($t; $cArrays[4]+"("; ""; 1)
 						
-						util_Lon_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
+						_o_array_declaration($t; $Ptr_array; ->$tTxt_local; ->$Lon_size; ->$Boo_2Darray)
 						
 						If ($Ptr_array->>0)
 							
@@ -1655,7 +1655,7 @@ Else
 					
 					$tLon_sortOrder{$i}:=2*Num:C11(Position:C15("{"; $tTxt_local{$i})>0)
 					
-					If (str_isNumeric(Replace string:C233(Replace string:C233(Substring:C12($tTxt_local{$i}; 2); "{"; ""); "}"; "")))
+					If (_o_isNumeric(Replace string:C233(Replace string:C233(Substring:C12($tTxt_local{$i}; 2); "{"; ""); "}"; "")))
 						
 						//
 						
@@ -1900,7 +1900,7 @@ Else
 									//………………………………………………
 							End case 
 							
-							$Lon_type:=$Lon_type+(1000*Num:C11(($t="${@") | (str_isNumeric(Substring:C12($t; 2)))))
+							$Lon_type:=$Lon_type+(1000*Num:C11(($t="${@") | (_o_isNumeric(Substring:C12($t; 2)))))
 							SET LIST ITEM PARAMETER:C986((Form:C1466.list)->; $i; "type"; $Lon_type)
 							
 							// Set styles
@@ -1952,11 +1952,7 @@ Else
 			//______________________________________________________
 		: ($Txt_entryPoint="_init")
 			
-			menu.append(":xliff:CommonMenuFile"; menu\
-				.append(":xliff:CommonClose"; "closeWindow").shortcut("W")\
-				.append(":xliff:CommonMenuItemQuit").action(ak quit:K76:61).shortcut("Q"))\
-				.append(":xliff:CommonMenuEdit"; menu.editMenu())\
-				.setBar()
+			cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
 			
 			Compiler_
 			

@@ -1,14 +1,20 @@
 {
 	"_o_OBSOLETES": {
 		"methods": [
+			"_o_array_Attributes",
+			"_o_array_declaration",
 			"_o_Beautifier",
 			"_o_beautifier_Next_semicolon",
 			"_o_beautifier_Split_key_value",
+			"_o_CENTERED",
+			"_o_EXTRACT_LOCAL_VARIABLES",
+			"_o_Files_And_Folders",
+			"_o_isNumeric",
 			"_o_localizedControlFlow",
+			"_o_Preferences",
 			"_o_Preferences_Set"
 		]
 	},
-	"(00_NEW)": {},
 	"00_dev": {
 		"methods": [
 			"__test",
@@ -85,6 +91,8 @@
 	},
 	"lib": {
 		"groups": [
+			"classes",
+			"pseudo-classes",
 			"rgx",
 			"xml (thread-safe)"
 		]
@@ -102,7 +110,6 @@
 			"COMPILER_component",
 			"declaration_UI",
 			"DOT_NOTATION",
-			"EXTRACT_LOCAL_VARIABLES",
 			"Get_resource",
 			"Get_Version",
 			"Init",
@@ -113,12 +120,10 @@
 			"METHOD_ANALYSE_TO_ARRAYS",
 			"METHOD_Syntax",
 			"METHODS",
-			"Preferences",
 			"Preferences_Get",
 			"Private_Boo_Paste_Regex_Pattern",
 			"Private_Lon_Declaration_Type",
 			"SETTINGS",
-			"util_Lon_array_declaration",
 			"util_Lon_Local_in_line",
 			"Util_SPLIT_METHOD"
 		],
@@ -135,8 +140,8 @@
 	},
 	"pseudo-classes": {
 		"methods": [
+			"_o_menu",
 			"COMPILER_class",
-			"menu",
 			"rgx",
 			"str",
 			"test_rgx"
@@ -164,17 +169,9 @@
 	},
 	"Tools": {
 		"methods": [
-			"doc_gTxt_Add_DocumentToFolder",
-			"doc_gTxt_Add_Folder_To_Path",
-			"doc_gTxt_Files_And_Folders",
-			"doc_gTxt_Resolve_Alias",
-			"doc_SET_TYPE_AND_CREATOR",
 			"NoError",
-			"Obj_CENTERED",
-			"str_FindBalencingChar",
 			"str_gLon_Hex_To_Long",
 			"str_hyphenation",
-			"util_array_Attributes",
 			"win_NOT_UNDER_TOOLBAR",
 			"win_title",
 			"xml_cleanup"
@@ -193,9 +190,5 @@
 			"xml_refToObject"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(00_NEW)"
-		]
-	}
+	"trash": {}
 }

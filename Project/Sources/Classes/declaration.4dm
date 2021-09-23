@@ -201,7 +201,7 @@ Function parse()->$this : cs:C1710.declaration
 				This:C1470.parseParameters($line)
 				
 				//______________________________________________________
-			: (Match regex:C1019("(?m-si)^(?!//).*\\sFunction\\s.*$"; $line.code; 1))  // Function
+			: (Match regex:C1019("(?m-si)^(?!//)(?:.*\\s)?Function\\s.*$"; $line.code; 1))  // Function
 				
 				$line.type:="Function"
 				$line.skip:=True:C214

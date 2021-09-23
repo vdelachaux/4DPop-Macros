@@ -343,7 +343,7 @@ Case of
 	: ($Txt_action="locals_list")  // • List of local variables
 		
 		ARRAY TEXT:C222(<>tTxt_Labels; 0x0000)
-		EXTRACT_LOCAL_VARIABLES("Method"; -><>tTxt_Labels)
+		_o_EXTRACT_LOCAL_VARIABLES("Method"; -><>tTxt_Labels)
 		$Boo_OK:=(Size of array:C274(<>tTxt_Labels)>0)
 		
 		If ($Boo_OK)
@@ -458,7 +458,7 @@ Case of
 		//______________________________________________________
 	: ($Txt_action="convert_hexa")  // • Change the selection by Hexadecimal
 		
-		$Boo_OK:=str_isNumeric($Obj_macro.highlighted)
+		$Boo_OK:=_o_isNumeric($Obj_macro.highlighted)
 		
 		If ($Boo_OK)
 			

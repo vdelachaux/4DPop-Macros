@@ -64,10 +64,10 @@ Class constructor()
 		var $options; $selected : Integer
 		
 		$selected:=This:C1470.currentTargetIndex
-		Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
+		_o_Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
 		
 		$options:=This:C1470.options
-		Preferences("Set_Value"; "specialPasteOptions"; ->$options)
+		_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
 		
 		This:C1470.setSelectedText(This:C1470.preview+kCaret)
 		
@@ -99,14 +99,14 @@ Function onLoad()
 		// Get the raw text
 		This:C1470.original:=Get text from pasteboard:C524
 		
-		Preferences("Get_Value"; "specialPasteChoice"; ->$selected)
+		_o_Preferences("Get_Value"; "specialPasteChoice"; ->$selected)
 		This:C1470.selected:=Choose:C955(($selected>This:C1470.target.length) | ($selected<=0); 1; $selected)
 		
 	End if 
 	
 	LISTBOX SELECT ROW:C912(*; "choice"; This:C1470.selected; lk replace selection:K53:1)
 	
-	Preferences("Get_Value"; "specialPasteOptions"; ->$options)
+	_o_Preferences("Get_Value"; "specialPasteOptions"; ->$options)
 	This:C1470.options:=$options
 	
 	OBJECT SET VALUE:C1742("option_2"; Num:C11($options ?? 10))
