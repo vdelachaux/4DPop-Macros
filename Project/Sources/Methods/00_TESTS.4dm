@@ -55,4 +55,7 @@ Else
 	//C_LONGINT($indx)
 	//$indx:=Form.rule.indexOf(Form.ruleSelected[0])
 	
+	var $o : 4D:C1709.File
+	$o:=4D:C1709.File.new()
+	
 End if 

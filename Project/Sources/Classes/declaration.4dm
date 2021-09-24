@@ -485,49 +485,50 @@ declaration macro must omit the parameters of a formula
 										
 										If ($variable.type=Null:C1517)
 											
-											$l:=This:C1470.getTypeFromRules($t)
+											$variable.type:=This:C1470.clairvoyant($t; $line.code)
 											
-											If ($l#0)  // Got a type from syntax parameters
+											If ($variable.type=0)
 												
-												If ($l>100)
+												$l:=This:C1470.getTypeFromRules($t)
+												
+												If ($l#0)  // Got a type from syntax parameters
 													
-													$variable.array:=True:C214
-													$l:=$l-100
+													If ($l>100)
+														
+														$variable.array:=True:C214
+														$l:=$l-100
+														
+													End if 
 													
-												End if 
-												
-												$variable.type:=Choose:C955($l; \
-													-1; \
-													Is text:K8:3; \
-													Is BLOB:K8:12; \
-													Is boolean:K8:9; \
-													Is date:K8:7; \
-													Is longint:K8:6; \
-													Is longint:K8:6; \
-													-1; \
-													Is time:K8:8; \
-													Is picture:K8:10; \
-													Is pointer:K8:14; \
-													Is real:K8:4; \
-													Is text:K8:3; \
-													Is object:K8:27; \
-													Is collection:K8:32; \
-													Is variant:K8:33)
-												
-											Else 
-												
-												$variable.type:=This:C1470.getTypeFromDeclaration($line.code)
-												
-												If ($variable.type=0)
-													
-													$variable.type:=This:C1470.clairvoyant($t; $line.code)
+													$variable.type:=Choose:C955($l; \
+														-1; \
+														Is text:K8:3; \
+														Is BLOB:K8:12; \
+														Is boolean:K8:9; \
+														Is date:K8:7; \
+														Is longint:K8:6; \
+														Is longint:K8:6; \
+														-1; \
+														Is time:K8:8; \
+														Is picture:K8:10; \
+														Is pointer:K8:14; \
+														Is real:K8:4; \
+														Is text:K8:3; \
+														Is object:K8:27; \
+														Is collection:K8:32; \
+														Is variant:K8:33)
 													
 												Else 
 													
-													If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1; $pos; $len))
+													$variable.type:=This:C1470.getTypeFromDeclaration($line.code)
+													
+													If ($variable.type#0)
 														
-														$variable.array:=True:C214
-														
+														If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1))
+															
+															$variable.array:=True:C214
+															
+														End if 
 													End if 
 												End if 
 											End if 
@@ -542,6 +543,40 @@ declaration macro must omit the parameters of a formula
 								End if 
 								
 								$variable.type:=This:C1470.replaceObsoleteType($variable.type)
+								
+								If ($variable.type=Is object:K8:27)
+									
+									Case of 
+											//______________________________________________________
+										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":=((?:cs|4d)\\.\\w*)\\."; $line.code; 1; $pos; $len))
+											
+											$variable.class:=Substring:C12($line.code; $pos{1}; $len{1})
+											
+											//______________________________________________________
+										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+											
+											$variable.class:="4D.File"
+											
+											//______________________________________________________
+										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+											
+											$variable.class:="4D.Folder"
+											
+											//______________________________________________________
+										: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))?$"; $line.code; 1))
+											
+											// MARK:   #TODO - get from member fonction or attribute
+											$variable.type:=0
+											
+											//______________________________________________________
+										Else 
+											
+											// A "Case of" statement should never omit "Else"
+											
+											//______________________________________________________
+									End case 
+									
+								End if 
 								
 							End for each 
 						End if 
@@ -1528,28 +1563,28 @@ Function removeDirective
 	End if 
 	
 	//==============================================================
-Function replaceObsoleteType($obsolete : Integer)->$type : Integer
+Function replaceObsoleteType($current : Integer)->$type : Integer
 	
 	Case of 
 			
 			//………………………………………………
-		: ($obsolete=1)  // C_STRING to Text
+		: ($current=1)  // C_STRING to Text
 			
 			$type:=12
 			
 			//………………………………………………
-		: ($obsolete=5)  // C_INTEGER to Integer
+		: ($current=5)  // C_INTEGER to Integer
 			
 			$type:=6
 			
 			//………………………………………………
-		: ($obsolete=101)  // ARRAY STRING to ARRAY TEXT
+		: ($current=101)  // ARRAY STRING to ARRAY TEXT
 			
 			$type:=112
 			
 		Else 
 			
-			$type:=$obsolete
+			$type:=$current
 			
 			//………………………………………………
 	End case 

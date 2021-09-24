@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true}
 If (False:C215)
 	C_TEXT:C284(DECLARE; $1)
 	C_VARIANT:C1683(DECLARE; $2)

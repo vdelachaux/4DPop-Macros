@@ -7,7 +7,7 @@
 	"windowSizingY": "variable",
 	"windowMinWidth": 470,
 	"windowMinHeight": 459,
-	"windowMaxWidth": 600,
+	"windowMaxWidth": 800,
 	"windowMaxHeight": 32767,
 	"events": [
 		"onLoad",
@@ -30,7 +30,7 @@
 					"left": 19,
 					"top": 33,
 					"width": 296,
-					"height": 366,
+					"height": 318,
 					"events": [
 						"onSelectionChange",
 						"onMouseMove"
@@ -51,6 +51,7 @@
 					"showHeaders": false,
 					"scrollbarVertical": "visible",
 					"hideSystemHighlight": true,
+					"resizingMode": "legacy",
 					"columns": [
 						{
 							"header": {
@@ -87,12 +88,12 @@
 							},
 							"name": "count",
 							"dataSource": "This:C1470.count",
-							"width": 35,
-							"textAlign": "center",
+							"width": 10,
+							"textAlign": "right",
 							"footer": {
 								"name": "Footer3"
 							},
-							"minWidth": 35,
+							"minWidth": 10,
 							"maxWidth": 35,
 							"enterable": false,
 							"resizable": true
@@ -101,7 +102,7 @@
 				},
 				"text": {
 					"type": "radio",
-					"top": 316,
+					"top": 319,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -119,7 +120,7 @@
 				},
 				"integer": {
 					"type": "radio",
-					"top": 181,
+					"top": 179,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -140,7 +141,7 @@
 				},
 				"real": {
 					"type": "radio",
-					"top": 289,
+					"top": 291,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -158,7 +159,7 @@
 				},
 				"boolean": {
 					"type": "radio",
-					"top": 76,
+					"top": 71,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -179,7 +180,7 @@
 				},
 				"date": {
 					"type": "radio",
-					"top": 154,
+					"top": 152,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -197,7 +198,7 @@
 				},
 				"time": {
 					"type": "radio",
-					"top": 343,
+					"top": 347,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -239,7 +240,7 @@
 				},
 				"blob": {
 					"type": "radio",
-					"top": 102,
+					"top": 98,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -260,7 +261,7 @@
 				},
 				"pointer": {
 					"type": "radio",
-					"top": 262,
+					"top": 263,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -278,7 +279,7 @@
 				},
 				"object": {
 					"type": "radio",
-					"top": 208,
+					"top": 207,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -299,7 +300,7 @@
 				},
 				"collection": {
 					"type": "radio",
-					"top": 128,
+					"top": 125,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -317,7 +318,7 @@
 				},
 				"variant": {
 					"type": "radio",
-					"top": 370,
+					"top": 375,
 					"left": 343,
 					"width": 107,
 					"height": 15,
@@ -354,12 +355,12 @@
 				"Line": {
 					"type": "line",
 					"top": 399,
-					"left": 335,
-					"width": 115,
-					"height": 0,
+					"left": 19,
+					"width": 431,
+					"height": 1,
 					"stroke": "#c0c0c0",
-					"startPoint": "topLeft",
-					"sizingX": "move",
+					"startPoint": "bottomLeft",
+					"sizingX": "grow",
 					"sizingY": "move"
 				},
 				"array": {
@@ -405,7 +406,7 @@
 				},
 				"filter": {
 					"type": "button",
-					"text": ":xliff:all",
+					"text": "_FILTER_",
 					"top": 5,
 					"left": 19,
 					"width": 91,
@@ -417,11 +418,47 @@
 					"icon": "/RESOURCES/Images/filter.png",
 					"textPlacement": "right",
 					"focusable": false
+				},
+				"Input": {
+					"type": "input",
+					"left": 21,
+					"top": 361,
+					"width": 294,
+					"height": 33,
+					"dataSource": "Form:C1466.current.code",
+					"enterable": false,
+					"contextMenu": "automatic",
+					"borderStyle": "none",
+					"fill": "transparent",
+					"fontStyle": "italic",
+					"stroke": "#c0c0c0",
+					"fontSize": 12,
+					"sizingY": "move",
+					"sizingX": "grow",
+					"showSelection": true,
+					"textAlign": "center"
+				},
+				"Input1": {
+					"type": "input",
+					"left": 362,
+					"top": 222,
+					"width": 101,
+					"height": 14,
+					"dataSource": "Form:C1466.current.class",
+					"enterable": false,
+					"focusable": false,
+					"contextMenu": "none",
+					"borderStyle": "none",
+					"fill": "transparent",
+					"fontStyle": "italic",
+					"stroke": "#b1c4dd",
+					"fontSize": 10,
+					"sizingX": "move"
 				}
 			}
 		}
 	],
-	"geometryStamp": 402,
+	"geometryStamp": 452,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",

@@ -43,22 +43,29 @@ This tool analyses the selection or the complete text\* of the method to extract
 
 <p align="center"><img src="./Documentation/declaration.png" width="500"></p>
 
-* The list displays first the parameters, then the local variables.
-* For each element, an icon represents the type deduced, and the number of uses in the analyzed code is displayed on the right.
-* The elements for which the type could not be determined are displayed in red.
-* A tooltip displays the line of code in which the first occurrence of the element was found.
+* ① The list displays first the parameters, then the local variables.
+	* For each element, an icon represents the type deduced, and the number of uses in the analyzed code is displayed on the right.
+	* The elements for which the type could not be determined are displayed in red.
+	* Items that were found in a statement instruction, but are not used, are displayed in orange. They will not be included in the created directives.
+	* Arrays are underlined.
 
-<p align="center"><img src="./Documentation/tooltip.png" width="300"></p>
+* ② The line of code in which the first occurrence of the element was found is displayed under the list
+	* The same information is available via the tooltip.
+	
+	<p align="center"><img src="./Documentation/tooltip.png" width="300"></p>
 
-* If a variable is not used the line is displayed in orange. It will not be included in the created directives.
-* Arrays are underlined.
-* To the right are the available types. The shortcut for each type is option+the underlined letter of the label
-* The Filter menu allows you to display only certain items.
+
+* ③ To the right are the available types. 
+	* The shortcut for each type is `option + the underlined letter` of the label
+	* The class is displayed when relevant. 
+
+
+* ④ The Filter menu allows you to display only certain items.
 
 <p align="center"><img src="./Documentation/filter.png" width="200"></p>
 
-* If you close the window with the close box, the method is not changed.
-* If you validate, the directives are pasted at the top of the method or selection, before the first line which is not a comment. Untyped or unused variables are ignored, declarations that have been made throughout the method, as well as all previous declarative blocks are deleted.
+* ⑤ If you validate, the directives are pasted at the top of the method or selection, before the first line which is not a comment. Untyped or unused variables are ignored, declarations that have been made throughout the method, as well as all previous declarative blocks are deleted.
+	* If you close the window with the close box, the method is not changed.
 
 **Arrays**:
 > 📍Since declaration and sizing use the same command, you can force the position of the command by using hexadecimal notation (or a variable) for the size, i.e.:
