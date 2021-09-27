@@ -137,3 +137,58 @@ Function setDatasource()
 		End if 
 	End if 
 	
+Function setURL
+	
+	var $1 : Text
+	
+	If (Count parameters:C259>=1)
+		
+		This:C1470.url:=$1
+		
+		// Add missing / if necessary
+		If (Not:C34(Match regex:C1019("/$"; This:C1470.url; 1)))
+			
+			This:C1470.url:=This:C1470.url+"/"
+			
+		End if 
+		
+		// Add missing handler if needed
+		If (Not:C34(Match regex:C1019(This:C1470.handler+"/$"; This:C1470.url; 1)))
+			
+			This:C1470.url:=This:C1470.url+This:C1470.handler+"/"
+			
+		End if 
+		
+	Else 
+		
+		// Default url to the current database
+		var $o : Object
+		$o:=WEB Get server info:C1531
+		
+/*
+WARNING: "localhost" may not find the server if the computer is connected to a network.
+127.0.0.1, on the other hand, will connect directly without going out to the network.
+*/
+		
+		Case of 
+				
+				//________________________________________
+			: (Bool:C1537($o.security.HTTPEnabled))  // Priority for http
+				
+				This:C1470.url:="http://127.0.0.1:"+String:C10($o.options.webPortID)+"/"+This:C1470.handler+"/"
+				
+				//________________________________________
+			: (Bool:C1537($o.security.HTTPSEnabled))  // Only https, use it
+				
+				This:C1470.url:="https://127.0.0.1:"+String:C10($o.options.webHTTPSPortID)+"/"+This:C1470.handler+"/"
+				
+				//________________________________________
+			Else 
+				
+				This:C1470.url:="http://127.0.0.1:"+String:C10(WEB Get server info:C1531.options.webPortID)+"/"+This:C1470.handler+"/"
+				
+				//________________________________________
+		End case 
+	End if 
+	
+	

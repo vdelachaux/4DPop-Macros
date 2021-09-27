@@ -24,3 +24,20 @@ $Txt_source:=""
 $Txt_state:=""
 $Txt_target:=""
 $Txt_value:=""
+
+
+// The declaration must win
+var $pi : Real
+var $toto : Integer
+var $x : Object
+var $y : Collection
+var $catalog; $datastore : cs:C1710.catalog
+
+$datastore:=cs:C1710.catalog.new()
+$catalog:=cs:C1710.catalog.new()
+
+$y:=cs:C1710.catalog.new().buildExposedCatalog()
+$toto:=1
+$pi:=3.14116
+
+$x:=cs:C1710.catalog.new().buildExposedDatastore()

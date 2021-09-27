@@ -10,3 +10,6 @@
 //$extension:=File("/RESOURCES/dummy.txt").extension
 //$folder:=Folder(fk desktop folder)
 //$result:=$param
+
+//var $server : cs.Mark4DDown
+//$server:=cs.Mark4DDown.new().instance

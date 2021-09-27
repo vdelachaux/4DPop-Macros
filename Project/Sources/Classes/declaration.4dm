@@ -181,58 +181,58 @@ Function parse()->$this : cs:C1710.declaration
 		
 		Case of 
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (Length:C16($text)=0)  // EMPTY LINE
 				
 				$line.type:=Choose:C955(This:C1470.$inCommentBlock; "comment"; "empty")
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (Position:C15("#DECLARE"; $line.code)=1)  // #DECLARE
 				
 				$line.type:="#DECLARE"
 				$line.skip:=True:C214
 				This:C1470.parseParameters($line)
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (Position:C15("Class constructor"; $line.code)=1)  // Constructor
 				
 				$line.type:="Class constructor"
 				$line.skip:=True:C214
 				This:C1470.parseParameters($line)
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (Match regex:C1019("(?m-si)^(?!//)(?:.*\\s)?Function\\s.*$"; $line.code; 1))  // Function
 				
 				$line.type:="Function"
 				$line.skip:=True:C214
 				This:C1470.parseParameters($line)
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (Match regex:C1019("(?mi-s)^(//)|(/\\*)|(?:.*(\\*/))"; $line.code; 1; $pos; $len))  // COMMENTS
 				
 				$line.type:="comment"
 				
 				Case of 
 						
-						//___________________________________
+						//======================================
 					: ($pos{2}>0)  // Begin comment block
 						
 						This:C1470.$inCommentBlock:=Not:C34(Match regex:C1019("(?mi-s)^/\\*.*\\*/"; $line.code; 1))
 						
-						//___________________________________
+						//======================================
 					: ($pos{3}>0)  // End comment block
 						
 						This:C1470.$inCommentBlock:=False:C215
 						
-						//___________________________________
+						//======================================
 				End case 
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			: (This:C1470.$inCommentBlock)  // In comment block
 				
 				$line.type:="comment"
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 			Else 
 				
 				// Remove textual values
@@ -245,7 +245,7 @@ Function parse()->$this : cs:C1710.declaration
 				
 /*------------------------------------------------------
 declaration macro must omit the parameters of a formula
---> https://github.com/vdelachaux/4DPop-Macros/issues/6
+--> https:// Github.com/vdelachaux/4DPop-Macros/issues/6
 --------------------------------------------------------*/
 				$t:=$text
 				$l:=Position:C15(Parse formula:C1576(":C1597")+"("; $text; 1; *)
@@ -332,7 +332,7 @@ declaration macro must omit the parameters of a formula
 				
 				Case of 
 						
-						//______________________________________________________
+						//======================================
 					: (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // DECLARATION LINE
 						
 						$line.type:="declaration"
@@ -378,7 +378,8 @@ declaration macro must omit the parameters of a formula
 											"value"; $t; \
 											"code"; $line.code; \
 											"count"; 0; \
-											"label"; $t)
+											"label"; $t; \
+											"inDeclaration"; True:C214)
 										
 										This:C1470.locales.push($variable)
 										
@@ -410,7 +411,7 @@ declaration macro must omit the parameters of a formula
 							End for each 
 						End if 
 						
-						//______________________________________________________
+						//======================================
 					: (Match regex:C1019("(?mi-s)^(?:ARRAY|TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $pos; $len))  // ARRAY DECLARATION
 						
 						$static:=Match regex:C1019("(?mi-s)0x"; $text; 1)
@@ -447,7 +448,7 @@ declaration macro must omit the parameters of a formula
 						$variable.static:=$static
 						$variable.type:=This:C1470.getTypeFromDeclaration($text)
 						
-						//______________________________________________________
+						//======================================
 					Else   // EXTRACT LOCAL VARIABLES
 						
 						$rgx:=Rgx_match(New object:C1471(\
@@ -542,49 +543,72 @@ declaration macro must omit the parameters of a formula
 									End if 
 								End if 
 								
-								$variable.type:=This:C1470.replaceObsoleteType($variable.type)
-								
-								If ($variable.type=Is object:K8:27)
+								If ($variable#Null:C1517)
 									
-									Case of 
-											//______________________________________________________
-										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":=((?:cs|4d)\\.\\w*)\\."; $line.code; 1; $pos; $len))
-											
-											$variable.class:=Substring:C12($line.code; $pos{1}; $len{1})
-											
-											//______________________________________________________
-										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
-											
-											$variable.class:="4D.File"
-											
-											//______________________________________________________
-										: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
-											
-											$variable.class:="4D.Folder"
-											
-											//______________________________________________________
-										: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))?$"; $line.code; 1))
-											
-											// MARK:   #TODO - get from member fonction or attribute
-											$variable.type:=0
-											
-											//______________________________________________________
-										Else 
-											
-											// A "Case of" statement should never omit "Else"
-											
-											//______________________________________________________
-									End case 
+									If ($variable.type=Is object:K8:27)
+										
+										Case of 
+												
+												//……………………………………………………………………………………………………
+											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line.code; 1; $pos; $len))
+												
+												$variable.class:=Substring:C12($line.code; $pos{1}; $len{1})
+												
+												//……………………………………………………………………………………………………
+											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+												
+												$variable.class:="4D.File"
+												
+												//……………………………………………………………………………………………………
+											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+												
+												$variable.class:="4D.Folder"
+												
+												//……………………………………………………………………………………………………
+											: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))?$"; $line.code; 1))
+												
+												Case of 
+														
+														//------------------------------------
+													: (Bool:C1537($variable.inDeclaration))
+														
+														// THE DECLARATION MUST WIN
+														
+														//------------------------------------
+													: (False:C215)
+														
+														// MARK:   #TODO - get from member fonction or attribute
+														
+														//------------------------------------
+													Else 
+														
+														$variable.type:=0
+														
+														//------------------------------------
+												End case 
+												
+												//……………………………………………………………………………………………………
+											Else 
+												
+												// A "Case of" statement should never omit "Else"
+												
+												//……………………………………………………………………………………………………
+										End case 
+										
+									End if 
+									
+								Else 
+									
+									// ie. : This.url:=$1
 									
 								End if 
-								
 							End for each 
 						End if 
 						
-						//______________________________________________________
+						//======================================
 				End case 
 				
-				//______________________________________________________
+				//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 		End case 
 		
 		This:C1470.lines.push($line)
@@ -802,8 +826,7 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:Object)|(?:cs\\.)|(?:4D\\.)"; $text; 1)
+			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)
 			
 			$type:=Is object:K8:27
 			
@@ -1252,7 +1275,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 	Case of 
 			
 			//______________________________________________________
-		: (Match regex:C1019("(?m-si)(\\$.*):=((?:cs|4D)\\.[^\\.]*)\\.new\\("; $line; 1; $pos; $len))  // Class
+		: (Match regex:C1019("(?m-si)(\\$\\w*):=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line; 1; $pos; $len))  // Class
 			
 			$varType:=Is object:K8:27
 			
@@ -1561,31 +1584,4 @@ Function removeDirective
 			
 		End if 
 	End if 
-	
-	//==============================================================
-Function replaceObsoleteType($current : Integer)->$type : Integer
-	
-	Case of 
-			
-			//………………………………………………
-		: ($current=1)  // C_STRING to Text
-			
-			$type:=12
-			
-			//………………………………………………
-		: ($current=5)  // C_INTEGER to Integer
-			
-			$type:=6
-			
-			//………………………………………………
-		: ($current=101)  // ARRAY STRING to ARRAY TEXT
-			
-			$type:=112
-			
-		Else 
-			
-			$type:=$current
-			
-			//………………………………………………
-	End case 
 	
