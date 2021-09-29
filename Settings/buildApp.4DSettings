@@ -27,7 +27,9 @@
       <CurrentVers>1</CurrentVers>
       <HardLink></HardLink>
       <AllowMacSiliconClient>False</AllowMacSiliconClient>
-      <CompiledDatabaseFolder></CompiledDatabaseFolder>
+      <CompiledDatabaseFolder/>
+      <MacCompiledDatabaseToWinIncludeIt>False</MacCompiledDatabaseToWinIncludeIt>
+      <MacCompiledDatabaseToWin></MacCompiledDatabaseToWin>
     </CS>
     <BuildApplicationName>4DPop Macros</BuildApplicationName>
     <BuildMacDestFolder>:Build:</BuildMacDestFolder>
@@ -50,6 +52,7 @@
       <MacCertificate></MacCertificate>
       <AdHocSign>True</AdHocSign></SignApplication>
   </BuildApp>
+
 
 
 </Preferences4D>

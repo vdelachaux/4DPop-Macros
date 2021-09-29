@@ -28,6 +28,10 @@ Function formObject($a : Text)->$this : Object
 Function button($a : Text)->$this : Object
 	$this:=This:C1470
 	
+Function field($x : 4D:C1709.File)->$field : Object
+	
+	$field:=$x.platformPath
+	
 Function addToGroup($g : Object)
 	
 Function init()

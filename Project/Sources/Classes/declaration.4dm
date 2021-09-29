@@ -699,7 +699,8 @@ Function parseParameters($line : Object)
 					"code"; $line.code; \
 					"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getTypeFromDeclaration($t)); \
 					"count"; 0; \
-					"order"; $index)
+					"order"; $index; \
+					"inDeclaration"; True:C214)
 				
 				$parameter.label:="← "+$parameter.value
 				
@@ -729,7 +730,8 @@ Function parseParameters($line : Object)
 				"code"; $line.code; \
 				"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getTypeFromDeclaration($rgx.match[4].data)); \
 				"count"; 0; \
-				"order"; 0)
+				"order"; 0; \
+				"inDeclaration"; True:C214)
 			
 			If ($c.length=2)
 				
@@ -826,7 +828,9 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)
+			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Object"; $text; 1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:4D|cs)\\.\\w*$"; $text; 1)
 			
 			$type:=Is object:K8:27
 			
