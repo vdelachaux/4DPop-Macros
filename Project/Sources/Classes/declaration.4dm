@@ -706,6 +706,7 @@ Function parseParameters($line : Object)
 					"count"; 0; \
 					"order"; $index)
 				
+				$parameter.inDeclaration:=($parameter.type#0)
 				$parameter.label:="← "+$parameter.value
 				
 				If ($c.length=2)
@@ -735,6 +736,8 @@ Function parseParameters($line : Object)
 				"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getTypeFromDeclaration($rgx.match[4].data)); \
 				"count"; 0; \
 				"order"; 0)
+			
+			$parameter.inDeclaration:=($parameter.type#0)
 			
 			If ($c.length=2)
 				
@@ -783,67 +786,67 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C285"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C219"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real$"; $text; 1)
 			
 			$type:=Is real:K8:4
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C286"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C279"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture$"; $text; 1)
 			
 			$type:=Is picture:K8:10
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C301"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C280"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer$"; $text; 1)
 			
 			$type:=Is pointer:K8:14
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C305"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C223"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean$"; $text; 1)
 			
 			$type:=Is boolean:K8:9
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C306"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1223"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time$"; $text; 1)
 			
 			$type:=Is time:K8:8
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C307"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C224"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date$"; $text; 1)
 			
 			$type:=Is date:K8:7
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C604"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1222"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob$"; $text; 1)
 			
 			$type:=Is BLOB:K8:12
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)
-			
+			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Object$"; $text; 1)
 			$type:=Is object:K8:27
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1488"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection$"; $text; 1)
 			
 			$type:=Is collection:K8:32
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1683"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant$"; $text; 1)
 			
 			$type:=Is variant:K8:33
 			

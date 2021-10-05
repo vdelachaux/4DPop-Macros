@@ -195,4 +195,42 @@ WARNING: "localhost" may not find the server if the computer is connected to a n
 		End case 
 	End if 
 	
+Function addField($field : Object; $fields : Collection)
 	
+	var $ok : Boolean
+	var $index : Integer
+	
+	$ok:=True:C214
+	
+	If ($field.fieldType=8859)
+		
+		// 1-N relation with published related data class
+		$ok:=(Form:C1466.dataModel[String:C10($field.relatedTableNumber)]#Null:C1517)
+		
+	End if 
+	
+	If ($ok)
+		
+		If ($field.fieldType#8859)  // Not 1-N relation
+			
+			$index:=$fields.indexOf(Null:C1517)
+			
+			If (($index#-1))
+				
+				// Set
+				$fields[$index]:=$field
+				
+			Else 
+				
+				// Append
+				$fields.push($field)
+				
+			End if 
+			
+		Else 
+			
+			// Append
+			$fields.push($field)
+			
+		End if 
+	End if 

@@ -1,13 +1,13 @@
 {
-  "postBuild": {
-    "buildNumber": true, 
-    "owner": "VDL", 
-    "InfoPlist": true, 
-    "remove": [
-      "Build/",
-      "Data/",
-      "Resources/php.ini",
-      "_config.yml"
-    ]
-  }
+    "postBuild": {
+        "InfoPlist": true,
+        "buildNumber": true,
+        "owner": "vdl",
+        "remove": [
+            "Build/",
+            "Data/",
+            "Resources/php.ini",
+            "_config.yml"
+        ]
+    }
 }
