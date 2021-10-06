@@ -770,83 +770,85 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C283"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C221"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Integer"; $text; 1)\
-			 | (Position:C15(Parse formula:C1576(":C282"); $text)=1)
+			 | (Position:C15(Parse formula:C1576(":C282"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Integer\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is longint:K8:6
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C284"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C222"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Text"; $text; 1)\
-			 | (Position:C15(Parse formula:C1576(":C293"); $text)=1)
+			 | (Position:C15(Parse formula:C1576(":C293"); $text)=1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Text\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is text:K8:3
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C285"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C219"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is real:K8:4
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C286"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C279"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is picture:K8:10
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C301"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C280"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is pointer:K8:14
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C305"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C223"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is boolean:K8:9
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C306"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1223"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is time:K8:8
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C307"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C224"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is date:K8:7
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C604"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1222"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is BLOB:K8:12
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
 			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Object$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Object$"; $text; 1)\
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:4d|cs)\\.\\w*\\s*(?:/[/*].*)?$"; $text; 1)
+			
 			$type:=Is object:K8:27
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1488"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is collection:K8:32
 			
 			//______________________________________________________
 		: (Position:C15(Parse formula:C1576(":C1683"); $text)=1)\
-			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant$"; $text; 1)
+			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is variant:K8:33
 			

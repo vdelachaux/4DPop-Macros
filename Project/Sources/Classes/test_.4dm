@@ -80,8 +80,24 @@ Function init()
 	
 	//End for
 	
+	// —————————————————————————————————————————————————————————————————————————————————
+	// Removes the element set by $node
+Function remove($node : Text)->$this : cs:C1710.xml
+	
+	If (This:C1470._requiredParams(Count parameters:C259; 1))
+		
+		If (This:C1470._requiredRef($node))
+			
+			DOM REMOVE XML ELEMENT:C869($node)
+			This:C1470.success:=Bool:C1537(OK)
+			
+		End if 
+	End if 
+	
+	$this:=This:C1470
+	
 	//=== === === === === === === === === === === === === === === === === === === === ===
-Function updateColorScheme($x : 4D:C1709.File)->$y : Object
+Function updateColorScheme($x : 4D:C1709.File)->$y : 4D:C1709.Blob
 	
 	var $icon : Picture
 	var $file : 4D:C1709.File
