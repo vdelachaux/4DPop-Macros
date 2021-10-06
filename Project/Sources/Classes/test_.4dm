@@ -121,6 +121,13 @@ Function updateColorScheme($x : 4D:C1709.File)->$y : 4D:C1709.Blob
 		
 	End for each 
 	
+Function popAttribute($node; $attribute : Text)->$value
+	
+	var $o; $toto
+	
+	$o:=$node
+	$toto:=$node
+	
 	//var $color : cs.color
 	
 Function setDatasource()

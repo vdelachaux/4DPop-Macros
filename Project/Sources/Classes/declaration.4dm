@@ -925,9 +925,16 @@ Function apply()
 				
 				For each ($o; $c.query("order > 0"))
 					
-					$method:=$method+(";"*Num:C11($o.order>1))+$o.value+":"\
-						+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
-					
+					If (This:C1470.types[$o.type].value=Is variant:K8:33)
+						
+						$method:=$method+(";"*Num:C11($o.order>1))+$o.value
+						
+					Else 
+						
+						$method:=$method+(";"*Num:C11($o.order>1))+$o.value+":"\
+							+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
+						
+					End if 
 				End for each 
 				
 				$method:=$method+")"
@@ -937,16 +944,32 @@ Function apply()
 				
 				If ($o#Null:C1517)
 					
-					If ($o.code="C_@")\
-						 | ($o.code="var @")
+					If (This:C1470.types[$o.type].value=Is variant:K8:33)
 						
-						$method:=$method+"\rvar "+$o.value+":"+This:C1470.types[$o.type].name
+						If ($o.code="C_@")\
+							 | ($o.code="var @")
+							
+							$method:=$method+"\rvar "+$o.value
+							
+						Else 
+							
+							$method:=$method+"->"+$o.value
+							
+						End if 
 						
 					Else 
 						
-						$method:=$method+"->"+$o.value+":"\
-							+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
-						
+						If ($o.code="C_@")\
+							 | ($o.code="var @")
+							
+							$method:=$method+"\rvar "+$o.value+":"+This:C1470.types[$o.type].name
+							
+						Else 
+							
+							$method:=$method+"->"+$o.value+":"\
+								+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
+							
+						End if 
 					End if 
 				End if 
 				
@@ -1083,19 +1106,41 @@ Function apply()
 				var $variablesNumberPerLine : Integer
 				$variablesNumberPerLine:=Choose:C955($options.numberOfVariablePerLine=Null:C1517; 10; $options.numberOfVariablePerLine)
 				
-				If ($cc.length>$variablesNumberPerLine)
+				If ($type.value=Is variant:K8:33)
 					
-					For ($i; 1; $cc.length; $variablesNumberPerLine)
+					If ($cc.length>$variablesNumberPerLine)
 						
-						$method:=$method+"var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+" :"+$type.name+"\r"
-						$cc.remove(0; $variablesNumberPerLine)
-						
-					End for 
-				End if 
-				
-				If ($cc.length>0)
+						For ($i; 1; $cc.length; $variablesNumberPerLine)
+							
+							$method:=$method+"var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+"\r"
+							$cc.remove(0; $variablesNumberPerLine)
+							
+						End for 
+					End if 
 					
-					$method:=$method+"var "+$cc.join("; ")+" :"+$type.name+"\r"
+					If ($cc.length>0)
+						
+						$method:=$method+"var "+$cc.join("; ")+"\r"
+						
+					End if 
+					
+				Else 
+					
+					If ($cc.length>$variablesNumberPerLine)
+						
+						For ($i; 1; $cc.length; $variablesNumberPerLine)
+							
+							$method:=$method+"var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+" :"+$type.name+"\r"
+							$cc.remove(0; $variablesNumberPerLine)
+							
+						End for 
+					End if 
+					
+					If ($cc.length>0)
+						
+						$method:=$method+"var "+$cc.join("; ")+" :"+$type.name+"\r"
+						
+					End if 
 					
 				End if 
 			End if 
