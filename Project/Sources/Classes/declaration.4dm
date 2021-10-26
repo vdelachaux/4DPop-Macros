@@ -160,7 +160,7 @@ Function parse()->$this : cs:C1710.declaration
 	var $comment; $t; $text : Text
 	var $static : Boolean
 	var $index; $l : Integer
-	var $line; $o; $parameter; $rgx; $variable : Object
+	var $line; $o; $parameter; $rgx; $var : Object
 	var $c : Collection
 	
 	ARRAY LONGINT:C221($len; 0x0000)
@@ -370,22 +370,22 @@ declaration macro must omit the parameters of a formula
 									
 								Else 
 									
-									$variable:=This:C1470.locales.query("value=:1"; $t).pop()
+									$var:=This:C1470.locales.query("value=:1"; $t).pop()
 									
-									If ($variable=Null:C1517)
+									If ($var=Null:C1517)
 										
-										$variable:=New object:C1471(\
+										$var:=New object:C1471(\
 											"value"; $t; \
 											"code"; $line.code; \
 											"count"; 0; \
 											"label"; $t; \
 											"inDeclaration"; True:C214)
 										
-										This:C1470.locales.push($variable)
+										This:C1470.locales.push($var)
 										
 									Else 
 										
-										$variable.count:=$variable.count+1
+										$var.count:=$var.count+1
 										
 									End if 
 									
@@ -393,17 +393,17 @@ declaration macro must omit the parameters of a formula
 										
 										If ($pos{1}#-1)
 											
-											$variable.class:=Substring:C12($text; $pos{1}; $len{1})
+											$var.class:=Substring:C12($text; $pos{1}; $len{1})
 											
 										End if 
 										
-										$variable.type:=Is object:K8:27
+										$var.type:=Is object:K8:27
 										
 										//OB REMOVE($line; "type")
 										
 									Else 
 										
-										$variable.type:=This:C1470.getTypeFromDeclaration($text)
+										$var.type:=This:C1470.getTypeFromDeclaration($text)
 										
 									End if 
 									
@@ -425,28 +425,28 @@ declaration macro must omit the parameters of a formula
 						
 						$t:=Substring:C12($line.code; $pos{1}; $len{1})
 						
-						$variable:=This:C1470.locales.query("value=:1"; $t).pop()
+						$var:=This:C1470.locales.query("value=:1"; $t).pop()
 						
-						If ($variable=Null:C1517)
+						If ($var=Null:C1517)
 							
-							$variable:=New object:C1471(\
+							$var:=New object:C1471(\
 								"value"; $t; \
 								"code"; $line.code; \
 								"count"; 0; \
 								"label"; $t)
 							
-							This:C1470.locales.push($variable)
+							This:C1470.locales.push($var)
 							
 						Else 
 							
-							$variable.count:=$variable.count+1
+							$var.count:=$var.count+1
 							
 						End if 
 						
-						$variable.array:=True:C214
-						$variable.dimension:=1+Num:C11(($pos{2}#-1))
-						$variable.static:=$static
-						$variable.type:=This:C1470.getTypeFromDeclaration($text)
+						$var.array:=True:C214
+						$var.dimension:=1+Num:C11(($pos{2}#-1))
+						$var.static:=$static
+						$var.type:=This:C1470.getTypeFromDeclaration($text)
 						
 						//======================================
 					Else   // EXTRACT LOCAL VARIABLES
@@ -462,33 +462,33 @@ declaration macro must omit the parameters of a formula
 								
 								If (Not:C34(Match regex:C1019("(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)"; $t; 1)))
 									
-									$variable:=This:C1470.parameters.query("value=:1"; $t).pop()
+									$var:=This:C1470.parameters.query("value=:1"; $t).pop()
 									
-									If ($variable=Null:C1517)
+									If ($var=Null:C1517)
 										
-										$variable:=This:C1470.locales.query("value=:1"; $t).pop()
+										$var:=This:C1470.locales.query("value=:1"; $t).pop()
 										
-										If ($variable=Null:C1517)
+										If ($var=Null:C1517)
 											
-											$variable:=New object:C1471(\
+											$var:=New object:C1471(\
 												"value"; $t; \
 												"code"; $line.code; \
 												"count"; 1; \
 												"label"; $t)
 											
-											This:C1470.locales.push($variable)
+											This:C1470.locales.push($var)
 											
 										Else 
 											
-											$variable.count:=$variable.count+1
+											$var.count:=$var.count+1
 											
 										End if 
 										
-										If ($variable.type=Null:C1517)
+										If ($var.type=Null:C1517)
 											
-											$variable.type:=This:C1470.clairvoyant($t; $line.code)
+											$var.type:=This:C1470.clairvoyant($t; $line.code)
 											
-											If ($variable.type=0)
+											If ($var.type=0)
 												
 												$l:=This:C1470.getTypeFromRules($t)
 												
@@ -496,12 +496,12 @@ declaration macro must omit the parameters of a formula
 													
 													If ($l>100)
 														
-														$variable.array:=True:C214
+														$var.array:=True:C214
 														$l:=$l-100
 														
 													End if 
 													
-													$variable.type:=Choose:C955($l; \
+													$var.type:=Choose:C955($l; \
 														-1; \
 														Is text:K8:3; \
 														Is BLOB:K8:12; \
@@ -521,13 +521,13 @@ declaration macro must omit the parameters of a formula
 													
 												Else 
 													
-													$variable.type:=This:C1470.getTypeFromDeclaration($line.code)
+													$var.type:=This:C1470.getTypeFromDeclaration($line.code)
 													
-													If ($variable.type#0)
+													If ($var.type#0)
 														
 														If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1))
 															
-															$variable.array:=True:C214
+															$var.array:=True:C214
 															
 														End if 
 													End if 
@@ -538,46 +538,46 @@ declaration macro must omit the parameters of a formula
 									Else 
 										
 										// Its a parameter
-										$variable.count:=$variable.count+1
+										$var.count:=$var.count+1
 										
 									End if 
 								End if 
 								
-								If ($variable#Null:C1517)
+								If ($var#Null:C1517)
 									
-									If ($variable.type=Is object:K8:27)
+									If ($var.type=Is object:K8:27)
 										
 										Case of 
 												
 												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line.code; 1; $pos; $len))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line.code; 1; $pos; $len))
 												
-												$variable.class:=Substring:C12($line.code; $pos{1}; $len{1})
-												
-												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
-												
-												$variable.class:="4D.File"
+												$var.class:=Substring:C12($line.code; $pos{1}; $len{1})
 												
 												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\"+$variable.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
 												
-												$variable.class:="4D.Folder"
+												$var.class:="4D.File"
 												
 												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))?$"; $line.code; 1))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+												
+												$var.class:="4D.Folder"
+												
+												//……………………………………………………………………………………………………
+											: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))$"; $line.code; 1))
 												
 												Case of 
 														
 														//------------------------------------
-													: (Bool:C1537($variable.inDeclaration))
+													: (Bool:C1537($var.inDeclaration))
 														
 														// THE DECLARATION MUST WIN
 														
 														//------------------------------------
-													: ($variable.class#Null:C1517)
+													: ($var.class#Null:C1517)
 														
-														$variable.type:=38
+														$var.type:=38
 														
 														//------------------------------------
 													: (False:C215)
@@ -587,7 +587,7 @@ declaration macro must omit the parameters of a formula
 														//------------------------------------
 													Else 
 														
-														$variable.type:=0
+														$var.type:=0
 														
 														//------------------------------------
 												End case 
@@ -861,7 +861,7 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 	End case 
 	
 	//==============================================================
-Function getTypeFromRules($variable : Text)->$type : Integer
+Function getTypeFromRules($varName : Text)->$type : Integer
 	
 	var $pattern : Text
 	var $o : Object
@@ -870,7 +870,7 @@ Function getTypeFromRules($variable : Text)->$type : Integer
 		
 		For each ($pattern; Split string:C1554($o.value; ";")) While ($type=0)
 			
-			If (Match regex:C1019($pattern; Delete string:C232($variable; 1; 1); 1))
+			If (Match regex:C1019($pattern; Delete string:C232($varName; 1; 1); 1))
 				
 				$type:=$o.type
 				
@@ -1424,7 +1424,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 					
 					For each ($pattern; This:C1470.gramSyntax[$type]) While ($varType=0)
 						
-						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t)+"(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"; $line; 1))
+						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t)+"(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"+")"; $line; 1))
 							
 							$varType:=Num:C11($type)
 							
@@ -1468,7 +1468,8 @@ Function loadGramSyntax
 	If ($file.exists)
 		
 		$patterns:=New object:C1471
-		$patterns.affectation:="(?m-is)\\%:=(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
+		//$patterns.affectation:="(?m-is)\\%:=(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
+		$patterns.affectation:="(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
 		$patterns.affectationSuite:="|(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
 		$patterns.first:="(?m-is)#\\s*\\(\\%"
 		
