@@ -82,8 +82,10 @@ Function init()
 	
 	// —————————————————————————————————————————————————————————————————————————————————
 	// Removes the element set by $node
+	//%W-550.4
 Function remove($node : Text)->$this : cs:C1710.xml
-	
+	//%W+550.4
+	//%W-550.2
 	If (This:C1470._requiredParams(Count parameters:C259; 1))
 		
 		If (This:C1470._requiredRef($node))
@@ -93,6 +95,7 @@ Function remove($node : Text)->$this : cs:C1710.xml
 			
 		End if 
 	End if 
+	//%W+550.2
 	
 	$this:=This:C1470
 	

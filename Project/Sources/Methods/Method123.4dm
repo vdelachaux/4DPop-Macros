@@ -27,6 +27,7 @@ $Txt_value:=""
 
 
 // The declaration must win
+//%W-550.4
 var $pi : Real
 var $toto : Integer
 var $x : Object
@@ -41,3 +42,4 @@ $toto:=1
 $pi:=3.14116
 
 $x:=cs:C1710.catalog.new().buildExposedDatastore()
+//%W+550.4

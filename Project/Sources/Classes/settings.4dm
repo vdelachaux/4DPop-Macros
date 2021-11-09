@@ -172,10 +172,9 @@ Function convertXmlPrefToJson()->$settings : Object
 				$o.label:=Command name:C538($c[$o.type])+":C"+String:C10($c[$o.type])
 				
 				// Replace with keywords if any
-				
 				For each ($oo; $keywords)
 					
-					If (Position:C15($o.label; Parse formula:C1576(":C"+String:C10($oo.no)))=1)
+					If (Position:C15($o.label; Parse formula:C1576("4d:C"+String:C10($oo.no)))=1)
 						
 						$o.label:=$oo.key
 						

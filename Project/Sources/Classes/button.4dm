@@ -65,7 +65,7 @@ Function asBoolean()
 	If (This:C1470.type=Object type checkbox:K79:26)
 		If (This:C1470.assignable)
 			
-			EXECUTE FORMULA:C63(":C305((:C1124(:K67:5;This.name))->)")
+			EXECUTE FORMULA:C63("C_BOOLEAN:C305((OBJECT Get pointer:C1124(Object named:K67:5;This.name))->)")
 			
 		End if 
 	End if 

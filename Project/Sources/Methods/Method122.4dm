@@ -1,4 +1,6 @@
 //%attributes = {}
+//%W-550.4
+//%W-550.2
 var $xmlStructure : Text
 var $structure : Object
 var $svg : cs:C1710.svg
@@ -12,3 +14,5 @@ $structure:=$xml.toObject()
 $svg:=cs:C1710.svg.new()
 
 $xml.close()
+//%W+550.2
+//%W+550.4

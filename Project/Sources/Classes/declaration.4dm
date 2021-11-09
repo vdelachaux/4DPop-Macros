@@ -248,7 +248,7 @@ declaration macro must omit the parameters of a formula
 --> https:// Github.com/vdelachaux/4DPop-Macros/issues/6
 --------------------------------------------------------*/
 				$t:=$text
-				$l:=Position:C15(Parse formula:C1576(":C1597")+"("; $text; 1; *)
+				$l:=Position:C15(Parse formula:C1576("Formula:C1597")+"("; $text; 1; *)
 				
 				If ($l>0)
 					
@@ -555,12 +555,12 @@ declaration macro must omit the parameters of a formula
 												$var.class:=Substring:C12($line.code; $pos{1}; $len{1})
 												
 												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576(":C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("File:C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
 												
 												$var.class:="4D.File"
 												
 												//……………………………………………………………………………………………………
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576(":C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Folder:C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
 												
 												$var.class:="4D.Folder"
 												
@@ -768,86 +768,86 @@ Function getTypeFromDeclaration($text : Text)->$type : Integer
 	Case of 
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C283"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C221"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C282"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_LONGINT:C283"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY LONGINT:C221"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("C_INTEGER:C282"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Integer\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is longint:K8:6
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C284"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C222"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C293"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_TEXT:C284"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY TEXT:C222"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("C_STRING:C293"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Text\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is text:K8:3
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C285"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C219"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_REAL:C285"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY REAL:C219"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Real\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is real:K8:4
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C286"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C279"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_PICTURE:C286"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY PICTURE:C279"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Picture\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is picture:K8:10
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C301"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C280"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_POINTER:C301"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY POINTER:C280"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Pointer\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is pointer:K8:14
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C305"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C223"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_BOOLEAN:C305"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY BOOLEAN:C223"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Boolean\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is boolean:K8:9
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C306"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1223"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_TIME:C306"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY TIME:C1223"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Time\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is time:K8:8
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C307"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C224"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_DATE:C307"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY DATE:C224"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Date\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is date:K8:7
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C604"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1222"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_BLOB:C604"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY BLOB:C1222"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Blob\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is BLOB:K8:12
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1216"); $text)=1)\
-			 | (Position:C15(Parse formula:C1576(":C1221"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_OBJECT:C1216"); $text)=1)\
+			 | (Position:C15(Parse formula:C1576("ARRAY OBJECT:C1221"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Object$"; $text; 1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*(?:4d|cs)\\.\\w*\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is object:K8:27
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1488"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_COLLECTION:C1488"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Collection\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is collection:K8:32
 			
 			//______________________________________________________
-		: (Position:C15(Parse formula:C1576(":C1683"); $text)=1)\
+		: (Position:C15(Parse formula:C1576("C_VARIANT:C1683"); $text)=1)\
 			 | Match regex:C1019("(?mi-s)\\s*:\\s*Variant\\s*(?:/[/*].*)?$"; $text; 1)
 			
 			$type:=Is variant:K8:33
@@ -988,12 +988,12 @@ Function apply()
 					If ($o.class#Null:C1517)
 						
 						$method:=$method+"var "+$o.value+":"+$o.class+"\r"
-						$compilerDirectives:=$compilerDirectives+":C1216("+This:C1470.name+";"+$o.value+")\r"
+						$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";"+$o.value+")\r"
 						
 					Else 
 						
 						$method:=$method+"var "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
-						$compilerDirectives:=$compilerDirectives+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
+						$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
 						
 					End if 
 				End for each 
@@ -1011,12 +1011,12 @@ Function apply()
 					If ($o.class#Null:C1517)
 						
 						$method:=$method+$o.class
-						$compilerDirectives:=$compilerDirectives+":C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
 						
 					Else 
 						
 						$method:=$method+This:C1470.types[$o.type].name
-						$compilerDirectives:=$compilerDirectives+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
 						
 					End if 
 				End for each 
@@ -1039,12 +1039,12 @@ Function apply()
 						If ($o.class#Null:C1517)
 							
 							$method:=$method+$o.class
-							$compilerDirectives:=$compilerDirectives+":C1216("+This:C1470.name+";$0)\r"
+							$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";$0)\r"
 							
 						Else 
 							
 							$method:=$method+This:C1470.types[$o.type].name
-							$compilerDirectives:=$compilerDirectives+":C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
+							$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
 							
 						End if 
 					End if 
@@ -1175,7 +1175,7 @@ Function apply()
 				
 				If ($o.dimension#Null:C1517)
 					
-					$method:=$method+Parse formula:C1576(":C"+String:C10($type.arrayCommand))\
+					$method:=$method+Parse formula:C1576("4d:C"+String:C10($type.arrayCommand))\
 						+"("+$o.value+(";0"*$o.dimension)+")\r"
 					
 				End if 
@@ -1371,7 +1371,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $line; 1))\
-			 | (Match regex:C1019("(?m-si):="+Parse formula:C1576(":C1466")+"[^.]"; $line; 1))
+			 | (Match regex:C1019("(?m-si):="+Parse formula:C1576("Form:C1466")+"[^.]"; $line; 1))
 			
 			$varType:=Is object:K8:27
 			
@@ -1547,12 +1547,12 @@ Function loadGramSyntax
 				
 				If (This:C1470.gramSyntax[String:C10($return)].length=0)
 					
-					This:C1470.gramSyntax[String:C10($return)].push(Replace string:C233($patterns.affectation; "#"; Parse formula:C1576(":C"+String:C10($i))))
+					This:C1470.gramSyntax[String:C10($return)].push(Replace string:C233($patterns.affectation; "#"; Parse formula:C1576("4d:C"+String:C10($i))))
 					
 				Else 
 					
 					This:C1470.gramSyntax[String:C10($return)][0]:=This:C1470.gramSyntax[String:C10($return)][0]\
-						+Replace string:C233($patterns.affectationSuite; "#"; Parse formula:C1576(":C"+String:C10($i)))
+						+Replace string:C233($patterns.affectationSuite; "#"; Parse formula:C1576("4d:C"+String:C10($i)))
 					
 				End if 
 			End if 
@@ -1609,7 +1609,7 @@ Function loadGramSyntax
 			
 			If ($first#-1)
 				
-				This:C1470.gramSyntax[String:C10($first)+"_1"].push(Replace string:C233($patterns.first; "#"; Parse formula:C1576(":C"+String:C10($i))))
+				This:C1470.gramSyntax[String:C10($first)+"_1"].push(Replace string:C233($patterns.first; "#"; Parse formula:C1576("4d:C"+String:C10($i))))
 				
 			End if 
 		End for each 
