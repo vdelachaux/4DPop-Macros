@@ -26,9 +26,9 @@ That's why they have an associated shortcut 😉
 |------|------|:-------:|:----------:|:--------:|
 | [Declarations…](#declaration) |Help with the declaration of parameters and local variables|✔︎||⌘ ⌥ c|
 | [Compiler directive…](#compilerDirectives) |Help to enclose selection with [//%W](https://doc.4d.com/4Dv19/4D/19/Compiler-window.300-5416883.en.html) directive|✔︎||⌘ ⌥ ⇧ c|
-| [Beautifier…](#beautifier) |A code formatter with|✔︎||⌘ §|
+| [Beautifier…](#beautifier) |A code formatter|✔︎||⌘ §|
 | [Copy and replace](#copyReplace) |Swaps the selection with the contents of the clipboard|✔︎||⌘ ⌥ c|
-| [Special paste…](#specialPaste) |Pastes the text contained in the clipboard after transformations|✔︎|_p|⌘ ⌥ v|
+| [Special paste…](#specialPaste) |Paste the text contained in the clipboard by applying transformations|✔︎|_p|⌘ ⌥ v|
 | Duplicate and comment |The selected text is saved as a comment immediately before the selection. This allows you to preserve a piece of code before editing it.|✔︎||⌘ ⌥ d|
 | Replay last macro |Replays the last macro used for the method being edited|✔︎||⌘ +|
 
@@ -88,14 +88,6 @@ This tool analyses the selection or the complete text\* of the method to extract
 	* And finally, if the type has still not been found using the nomenclature that you can define in the [preferences](#prefDeclaration).
 * You can always force a type by selecting the one you want using the radio buttons on the right.
 
-## <a name="compilerDirectives">Compiler directive…</a>
-
-When the compiler [displays warnings](https://doc.4d.com/4Dv19/4D/19/Compiler-window.300-5416883.en.html) to draw your attention to instructions that could lead to runtime errors, you can, after analysis, selectively disable some of them during compilation.
-
-To do this, select the line(s) of code in the method editor that cause this warning and call the macro. The tool asks for the number displayed in brackets (e.g. 538.3) and when you validate, surrounds the selected code with the pattern `//%W-538.3` ... `//%W+538.3`.
-
-<p align="center"><img src="./Documentation/disablingWarning.png" width="300">
-
 ## <a name="copyReplace">Copy and replace</a>
 This macro is often useful even if the explanation of its operation seems complex. The usage scenario is as follows:
 
@@ -127,6 +119,18 @@ The available transformations are :
 6. **Insert in text**: Allows you to insert an expression into a string by surrounding the clipboard content with `"+` and `+"`. The text thus created replaces the text selected in the string or is inserted at the cursor position.
 7. **JSON code**: Transforms a JSON text into code to create a 4D object
 8. **Tokenized**: Paste code with tokens
+
+## <a name="compilerDirectives">Compiler directive…</a>
+
+When the compiler [displays warnings](https://doc.4d.com/4Dv19/4D/19/Compiler-window.300-5416883.en.html) to draw your attention to instructions that could lead to runtime errors, you can, after analysis, selectively disable some of them during compilation.
+
+To do this, select the line(s) of code in the method editor that cause this warning and select the "Compiler directive…" action from the macro menu. The tool asks for the number displayed in brackets (e.g. 538.3) and when you validate, surrounds the selected code with the pattern `//%W-538.3` ... `//%W+538.3`.
+
+<p align="center"><img src="./Documentation/disablingWarning.png" width="300">
+
+## <a name="copyToken">🆕 Copy with tokens</a>
+
+As the name suggests, the selected code is copied with the tokens.
 
 ## <a name="redo">Replay last macro</a>
 

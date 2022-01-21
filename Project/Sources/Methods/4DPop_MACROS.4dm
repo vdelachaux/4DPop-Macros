@@ -406,6 +406,21 @@ Case of
 		$t:=$c.join("\r")
 		SET TEXT TO PASTEBOARD:C523($t)
 		
+		//______________________________________________________
+	: ($Txt_action="copyWithTokens")
+		
+		var $line : Text
+		var $c : Collection
+		
+		$c:=New collection:C1472
+		
+		For each ($line; Split string:C1554($Obj_macro.highlighted; "\r"))
+			
+			$c.push(Parse formula:C1576($line; Formula out with tokens:K88:3))
+			
+		End for each 
+		
+		SET TEXT TO PASTEBOARD:C523($c.join("\r"))
 		
 		//______________________________________________________
 	: ($Txt_action="Asserted")  // #24-8-2017 - Conditional assertion
