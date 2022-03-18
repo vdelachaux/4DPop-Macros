@@ -29,7 +29,7 @@ That's why they have an associated shortcut 😉
 | [Beautifier…](#beautifier) |A code formatter|✔︎||⌘ §|
 | [Copy and replace](#copyReplace) |Swaps the selection with the contents of the clipboard|✔︎||⌘ ⌥ c|
 | [Special paste…](#specialPaste) |Paste the text contained in the clipboard by applying transformations|✔︎|_p|⌘ ⌥ v|
-| Duplicate and comment |The selected text is saved as a comment immediately before the selection. This allows you to preserve a piece of code before editing it.|✔︎||⌘ ⌥ d|
+| [Duplicate and comment](#duplicate)|The selected text is saved as a comment immediately before the selection.|✔︎||⌘ ⌥ d|
 | Replay last macro |Replays the last macro used for the method being edited|✔︎||⌘ +|
 
 \*Shortcuts may be displayed incorrectly in the macro menu because they are interpreted. e.g. `⌘ ⌥ c` will be displayed `⌘ ©`
@@ -127,6 +127,12 @@ When the compiler [displays warnings](https://doc.4d.com/4Dv19/4D/19/Compiler-wi
 To do this, select the line(s) of code in the method editor that cause this warning and select the "Compiler directive…" action from the macro menu. The tool asks for the number displayed in brackets (e.g. 538.3) and when you validate, surrounds the selected code with the pattern `//%W-538.3` ... `//%W+538.3`.
 
 <p align="center"><img src="./Documentation/disablingWarning.png" width="300">
+
+
+## <a name="duplicate">Duplicate & comment</a>
+
+I use it when I want to preserve a piece of code before editing it, but an image is better than text ;-)
+<p align="center"><img src="./Documentation/duplicate.gif">
 
 ## <a name="copyToken">🆕 Copy with tokens</a>
 

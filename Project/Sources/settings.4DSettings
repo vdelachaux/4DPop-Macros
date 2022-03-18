@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="19">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="20">
 	<com.4d>
 		<interface>
 			<misc/>
@@ -47,7 +47,7 @@
 				<configuration allow_ssl="false" automatic_session_management="false" ip_address="0"/>
 				<webservices>
 					<server allow_requests="false"/>                            </webservices>                                                                      </remote>                            </web>
-		<general execute_host_database_event="true">
+		<general component_classStore_name="" execute_host_database_event="true">
 			<mover always_display_dialog="2"/>
 		</general>
 		<deployment>

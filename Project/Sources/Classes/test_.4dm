@@ -22,6 +22,16 @@ Function thermometer($a : Text)->$this : Object
 	
 	$this:=This:C1470
 	
+Function return($a) : Object
+	
+	var $x : Blob
+	var $o; $this : Object
+	
+	$o:=New object:C1471
+	SET BLOB SIZE:C606($x; 0)
+	
+	$this:=This:C1470
+	
 Function formObject($a : Text)->$this : Object
 	$this:=This:C1470
 	
@@ -85,6 +95,7 @@ Function init()
 	//%W-550.4
 Function remove($node : Text)->$this : cs:C1710.xml
 	//%W+550.4
+	
 	//%W-550.2
 	If (This:C1470._requiredParams(Count parameters:C259; 1))
 		

@@ -149,13 +149,15 @@ Function init()
 	This:C1470.loadGramSyntax()
 	
 	//==============================================================
-Function split()->$this : cs:C1710.declaration
+Function split() : cs:C1710.declaration
 	
 	Super:C1706.split(This:C1470.withSelection)
 	
+	return (This:C1470)
+	
 	//==============================================================
 	// Parses the code to extract parameters and local variables
-Function parse()->$this : cs:C1710.declaration
+Function parse() : cs:C1710.declaration
 	
 	var $comment; $t; $text : Text
 	var $static : Boolean
@@ -399,14 +401,11 @@ declaration macro must omit the parameters of a formula
 										
 										$var.type:=Is object:K8:27
 										
-										//OB REMOVE($line; "type")
-										
 									Else 
 										
 										$var.type:=This:C1470.getTypeFromDeclaration($text)
 										
 									End if 
-									
 								End if 
 							End for each 
 						End if 
@@ -424,7 +423,6 @@ declaration macro must omit the parameters of a formula
 						End if 
 						
 						$t:=Substring:C12($line.code; $pos{1}; $len{1})
-						
 						$var:=This:C1470.locales.query("value=:1"; $t).pop()
 						
 						If ($var=Null:C1517)
@@ -582,7 +580,7 @@ declaration macro must omit the parameters of a formula
 														//------------------------------------
 													: (False:C215)
 														
-														// MARK:   #TODO - get from member fonction or attribute
+														// MARK:#TODO - get from member fonction or attribute
 														
 														//------------------------------------
 													Else 
@@ -639,7 +637,7 @@ declaration macro must omit the parameters of a formula
 	// Finally do a flat list
 	This:C1470.variables:=This:C1470.parameters.combine(This:C1470.locales)
 	
-	$this:=This:C1470
+	return (This:C1470)
 	
 	//==============================================================
 Function parseParameters($line : Object)
@@ -659,12 +657,12 @@ Function parseParameters($line : Object)
 			//______________________________________________________
 		: ($line.type="Function")
 			
-			$pattern:="(?m-si)^(?!//)(.*)"+$line.type+"\\s([^(]*)(?:\\s*\\(([^)]*)\\))?(?:\\s*->\\s*([^/]*))?\\s*(//[^$]*)?$"
+			$pattern:="(?m-si)^(?!//)(.*)"+$line.type+"\\s([^(]*)(?:\\s*\\(([^)]*)\\))?(?:\\s*(?:->\\s*)?([^/]*))?\\s*(//[^$]*)?$"
 			
 			//______________________________________________________
 		: ($line.type="#DECLARE")
 			
-			$pattern:="(?m-si)^(?!//)()"+$line.type+"()(?:\\s*\\(([^)]*)\\))?(?:\\s*->\\s*([^/]*))?\\s*(//[^$]*)?$"
+			$pattern:="(?m-si)^(?!//)()"+$line.type+"()(?:\\s*\\(([^)]*)\\))?(?:\\s*(?:->\\s*)?([^/]*))?\\s*(//[^$]*)?$"
 			
 			//______________________________________________________
 	End case 
@@ -748,7 +746,7 @@ Function parseParameters($line : Object)
 				End if 
 			End if 
 			
-			$parameter.label:="→ "+$parameter.value
+			$parameter.label:="→ "+(Length:C16($parameter.value)>0 ? $parameter.value : "return()")
 			
 			This:C1470.parameters.push($parameter)
 			
@@ -908,7 +906,7 @@ Function apply()
 	var $options : Object
 	$options:=This:C1470.settings.options
 	
-	// ① PARAMETERS
+	// MARK:PARAMETERS
 	$c:=This:C1470.variables.query("parameter=true")
 	$o:=This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop()
 	
@@ -925,21 +923,14 @@ Function apply()
 				
 				For each ($o; $c.query("order > 0"))
 					
-					If (This:C1470.types[$o.type].value=Is variant:K8:33)
-						
-						$method:=$method+(";"*Num:C11($o.order>1))+$o.value
-						
-					Else 
-						
-						$method:=$method+(";"*Num:C11($o.order>1))+$o.value+":"\
-							+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
-						
-					End if 
+					$method+=(Num:C11($o.order)>1 ? ";" : "")+$o.value
+					$method+=(This:C1470.types[$o.type].value#Is variant:K8:33) ? ":"+(($o.class#Null:C1517) ? String:C10($o.class) : This:C1470.types[$o.type].name) : ""
+					
 				End for each 
 				
 				$method:=$method+")"
 				
-				// *RETURN OF THE METHOD
+				// * RETURN OF THE METHOD
 				$o:=$c.query("order = 0").pop()
 				
 				If ($o#Null:C1517)
@@ -949,11 +940,11 @@ Function apply()
 						If ($o.code="C_@")\
 							 | ($o.code="var @")
 							
-							$method:=$method+"\rvar "+$o.value
+							$method+="\rvar "+$o.value
 							
 						Else 
 							
-							$method:=$method+"->"+$o.value
+							$method+=(Length:C16($o.value)>0 ? "->"+$o.value : "")
 							
 						End if 
 						
@@ -962,19 +953,19 @@ Function apply()
 						If ($o.code="C_@")\
 							 | ($o.code="var @")
 							
-							$method:=$method+"\rvar "+$o.value+":"+This:C1470.types[$o.type].name
+							$method+="\rvar "+$o.value+":"+This:C1470.types[$o.type].name
 							
 						Else 
 							
-							$method:=$method+"->"+$o.value+":"\
-								+Choose:C955($o.class#Null:C1517; String:C10($o.class); This:C1470.types[$o.type].name)
+							$method+=(Length:C16($o.value)>0 ? "->"+$o.value : "")+":"\
+								+($o.class#Null:C1517 ? String:C10($o.class) : This:C1470.types[$o.type].name)
 							
 						End if 
 					End if 
 				End if 
 				
-				$method:=$method+String:C10(This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop().comment)
-				$method:=$method+"\r"
+				$method+=String:C10(This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop().comment)
+				$method+="\r"
 				
 			End if 
 			
@@ -987,13 +978,13 @@ Function apply()
 					
 					If ($o.class#Null:C1517)
 						
-						$method:=$method+"var "+$o.value+":"+$o.class+"\r"
-						$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";"+$o.value+")\r"
+						$method+="var "+$o.value+":"+$o.class+"\r"
+						$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";"+$o.value+")\r"
 						
 					Else 
 						
-						$method:=$method+"var "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
-						$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
+						$method+="var "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
+						$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
 						
 					End if 
 				End for each 
@@ -1006,59 +997,64 @@ Function apply()
 				
 				For each ($o; $c.query("order > 0"))
 					
-					$method:=$method+(";"*Num:C11($o.order>1))+$o.value+":"
+					$method+=(";"*Num:C11($o.order>1))+$o.value
 					
 					If ($o.class#Null:C1517)
 						
-						$method:=$method+$o.class
-						$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						$method+=":"+$o.class
+						$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
 						
 					Else 
 						
-						$method:=$method+This:C1470.types[$o.type].name
-						$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
+						If ($o.type#Is variant:K8:33)
+							
+							$method+=":"+This:C1470.types[$o.type].name
+							
+						End if 
+						
+						$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
 						
 					End if 
 				End for each 
 				
-				$method:=$method+")"
+				$method+=")"
 				
-				// *RETURN OF THE METHOD
+				// * RETURN OF THE METHOD
 				$o:=$c.query("order = 0").pop()
 				
 				If ($o#Null:C1517)
 					
 					If ($o.code="C_@")
 						
-						$method:=$method+"\rvar "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
+						$method+="\rvar "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
 						
 					Else 
 						
-						$method:=$method+"->"+$o.value+":"
+						$method+=(Length:C16($o.value)>0) ? "->"+$o.value+":" : ":"
 						
 						If ($o.class#Null:C1517)
 							
-							$method:=$method+$o.class
-							$compilerDirectives:=$compilerDirectives+"C_OBJECT:C1216("+This:C1470.name+";$0)\r"
+							$method+=$o.class
+							$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";$0)\r"
 							
 						Else 
 							
-							$method:=$method+This:C1470.types[$o.type].name
-							$compilerDirectives:=$compilerDirectives+"4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
+							$method+=This:C1470.types[$o.type].name
+							$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
 							
 						End if 
 					End if 
 				End if 
 				
-				$method:=$method+String:C10(This:C1470.lines.query("type = :1"; "#DECLARE").pop().comment)
+				$method+=String:C10(This:C1470.lines.query("type = :1"; "#DECLARE").pop().comment)
 				
 			End if 
 			
-			// *COMPILER DIRECTIVES
+			// * COMPILER DIRECTIVES
 			If (This:C1470.projectMethod)\
 				 & (Bool:C1537($options.methodDeclaration))
 				
-				$method:=$method+"\r\r"+This:C1470.localized("If")+"(:C215)\r"\
+				$method+="\r\r"+This:C1470.localized("If")+"(:C215)\r"\
 					+Delete string:C232($compilerDirectives; Length:C16($compilerDirectives); 1)+"\r"\
 					+This:C1470.localized("End if")
 				
@@ -1068,7 +1064,7 @@ Function apply()
 	
 	$method:=This:C1470.addNewLine($method)
 	
-	// ② LOCAL VARIABLES WITH SIMPLE TYPE
+	// MARK:LOCAL VARIABLES WITH SIMPLE TYPE
 	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null")
 	
 	If ($c.length>0)
@@ -1147,7 +1143,7 @@ Function apply()
 		End for each 
 	End if 
 	
-	// ③ LOCAL VARIABLES LINKED TO A CLASSE
+	// MARK:LOCAL VARIABLES LINKED TO A CLASSE
 	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class!=null")
 	
 	If ($c.length>0)
@@ -1162,7 +1158,7 @@ Function apply()
 	
 	$method:=This:C1470.addNewLine($method)
 	
-	// ④ ARRAYS
+	// MARK:ARRAYS
 	$c:=This:C1470.variables.query("array=true & count>0 & static=false")
 	
 	If ($c.length>0)
