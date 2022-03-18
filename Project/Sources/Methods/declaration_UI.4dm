@@ -1,30 +1,35 @@
 //%attributes = {"invisible":true}
-var $0 : Object
-var $1 : Text
-var $2 : Object
+#DECLARE($entryPoint : Text; $data : Object)->$meta : Object
+
+If (False:C215)
+	C_TEXT:C284(declaration_UI; $1)
+	C_OBJECT:C1216(declaration_UI; $2)
+	C_OBJECT:C1216(declaration_UI; $0)
+End if 
 
 var $t : Text
 var $bottom; $height; $left; $right; $top; $width : Integer
-var $menu; $o; $subMenu : Object
+var $o : Object
 var $types : Collection
+var $menu; $subMenu : cs:C1710.menu
 
 Case of 
 		
 		//______________________________________________________
 	: (Count parameters:C259=0)  // Listbox UI
 		
-		$0:=New object:C1471
+		$meta:=New object:C1471
 		
-		$0.cell:=New object:C1471
+		$meta.cell:=New object:C1471
 		
-		$0.cell.count:=New object:C1471(\
+		$meta.cell.count:=New object:C1471(\
 			"textDecoration"; "normal"; \
 			"fontWeight"; "normal"; \
 			"fontStyle"; "normal")
 		
 		If (Bool:C1537(This:C1470.array))
 			
-			$0.cell.value:=New object:C1471(\
+			$meta.cell.value:=New object:C1471(\
 				"textDecoration"; "underline")
 			
 		End if 
@@ -33,19 +38,28 @@ Case of
 			
 			If (This:C1470.type=0)
 				
-				$0.stroke:="white"
-				$0.fill:="red"
+				$meta.stroke:="white"
+				$meta.fill:="red"
 				
 			Else 
 				
 				If (This:C1470.count=0)
 					
-					$0.stroke:="white"
-					$0.fill:="orange"
+					If (This:C1470.label="→ return()")
+						
+						$meta.stroke:="automatic"
+						$meta.fill:="dodgerblue"
+						
+					Else 
+						
+						$meta.stroke:="white"
+						$meta.fill:="orange"
+						
+					End if 
 					
 				Else 
 					
-					$0.fill:="dodgerblue"
+					$meta.fill:="dodgerblue"
 					
 				End if 
 			End if 
@@ -54,28 +68,36 @@ Case of
 			
 			If (This:C1470.type=0)
 				
-				$0.stroke:="red"
+				$meta.stroke:="red"
 				
 			Else 
 				
 				If (This:C1470.count=0)
 					
-					$0.stroke:="orange"
+					If (This:C1470.label="→ return()")
+						
+						$meta.stroke:="automatic"
+						
+					Else 
+						
+						$meta.stroke:="orange"
+						
+					End if 
 					
 				Else 
 					
-					$0.fontWeight:="bold"
+					$meta.fontWeight:="bold"
 					
 				End if 
 			End if 
 		End if 
 		
 		//______________________________________________________
-	: ($1="refresh")  // Update UI
+	: ($entryPoint="refresh")  // Update UI
 		
 		If (Count parameters:C259>=2)
 			
-			$o:=$2
+			$o:=$data
 			
 		Else 
 			
@@ -123,7 +145,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
-	: ($1="filter")
+	: ($entryPoint="filter")
 		
 		$menu:=cs:C1710.menu.new()
 		$menu.append("all"; "all"; "all"=String:C10(Form:C1466.currentFilter))
@@ -212,7 +234,7 @@ Case of
 		//______________________________________________________
 	Else 
 		
-		ASSERT:C1129(False:C215; "Unknown entry point: "+$1)
+		ASSERT:C1129(False:C215; "Unknown entry point: "+$entryPoint)
 		
 		//______________________________________________________
 End case 

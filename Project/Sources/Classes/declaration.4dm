@@ -44,15 +44,18 @@ Function init()
 	
 	var $icon : Picture
 	var $root : Object
+	var $suffix : Text
 	
 	$root:=Folder:C1567("/RESOURCES/Images/fieldIcons")
 	
-	READ PICTURE FILE:C678($root.file("field_00.png").platformPath; $icon)
+	$suffix:=(Get Application color scheme:C1763(*)="dark") ? "_dark.png" : ".png"
+	
+	READ PICTURE FILE:C678($root.file("field_00"+$suffix).platformPath; $icon)
 	This:C1470.types[0]:=New object:C1471(\
 		"name"; "undefined"; \
 		"icon"; $icon)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is object:K8:27); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is object:K8:27); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is object:K8:27]:=New object:C1471(\
 		"name"; "object"; \
 		"icon"; $icon; \
@@ -60,14 +63,14 @@ Function init()
 		"arrayCommand"; 1221; \
 		"directive"; 1216)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is collection:K8:32); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is collection:K8:32); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is collection:K8:32]:=New object:C1471(\
 		"name"; "collection"; \
 		"icon"; $icon; \
 		"value"; Is collection:K8:32; \
 		"directive"; 1488)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is longint:K8:6); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is longint:K8:6); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is longint:K8:6]:=New object:C1471(\
 		"name"; "integer"; \
 		"icon"; $icon; \
@@ -75,7 +78,7 @@ Function init()
 		"arrayCommand"; 221; \
 		"directive"; 283)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is boolean:K8:9); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is boolean:K8:9); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is boolean:K8:9]:=New object:C1471(\
 		"name"; "boolean"; \
 		"icon"; $icon; \
@@ -83,7 +86,7 @@ Function init()
 		"arrayCommand"; 223; \
 		"directive"; 305)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is text:K8:3); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is text:K8:3); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is text:K8:3]:=New object:C1471(\
 		"name"; "text"; \
 		"icon"; $icon; \
@@ -91,7 +94,7 @@ Function init()
 		"arrayCommand"; 222; \
 		"directive"; 284)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is date:K8:7); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is date:K8:7); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is date:K8:7]:=New object:C1471(\
 		"name"; "date"; \
 		"icon"; $icon; \
@@ -99,7 +102,7 @@ Function init()
 		"arrayCommand"; 224; \
 		"directive"; 307)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is time:K8:8); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is time:K8:8); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is time:K8:8]:=New object:C1471(\
 		"name"; "time"; \
 		"icon"; $icon; \
@@ -107,7 +110,7 @@ Function init()
 		"arrayCommand"; 1223; \
 		"directive"; 306)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is picture:K8:10); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is picture:K8:10); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is picture:K8:10]:=New object:C1471(\
 		"name"; "picture"; \
 		"icon"; $icon; \
@@ -115,14 +118,14 @@ Function init()
 		"arrayCommand"; 279; \
 		"directive"; 286)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is variant:K8:33); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is variant:K8:33); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is variant:K8:33]:=New object:C1471(\
 		"name"; "variant"; \
 		"icon"; $icon; \
 		"value"; Is variant:K8:33; \
 		"directive"; 1683)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is pointer:K8:14); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is pointer:K8:14); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is pointer:K8:14]:=New object:C1471(\
 		"name"; "pointer"; \
 		"icon"; $icon; \
@@ -130,7 +133,7 @@ Function init()
 		"arrayCommand"; 280; \
 		"directive"; 301)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is BLOB:K8:12); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is BLOB:K8:12); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is BLOB:K8:12]:=New object:C1471(\
 		"name"; "blob"; \
 		"icon"; $icon; \
@@ -138,7 +141,7 @@ Function init()
 		"arrayCommand"; 1222; \
 		"directive"; 604)
 	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is real:K8:4); "00")+".png").platformPath; $icon)
+	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is real:K8:4); "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is real:K8:4]:=New object:C1471(\
 		"name"; "real"; \
 		"icon"; $icon; \
@@ -1315,6 +1318,7 @@ Function addNewLine($text : Text)->$result : Text
 	
 	//==============================================================
 Function clairvoyant($text : Text; $line : Text)->$varType : Integer
+	
 	var $pattern; $t; $type : Text
 	var $indx : Integer
 	
@@ -1434,6 +1438,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 	
 	//==============================================================
 Function loadGramSyntax
+	
 	var $t : Text
 	var $first; $i; $return : Integer
 	var $file; $patterns : Object
@@ -1614,10 +1619,10 @@ Function loadGramSyntax
 	//==============================================================
 	// Remove the compilation directives
 Function removeDirective
+	
 	var $len; $pos : Integer
 	var $pattern : Text
 	
-	//$pattern:="(?mi-s)((?:If|Si)\\s*\\((?:False|Faux)\\)\\R(?:\\s*C_[^(]*\\("+This.name+";.*\\R)+(?:End if|Fin de si)[^\\R]*\\R\\R)"
 	$pattern:="(?-msi)(\\R(?:If|Si)\\s*\\((?:False|Faux)\\)\\R(?:C_.*\\("+This:C1470.name+";.*\\)\\R)*(?:End if|Fin de si)\\s*\\R)"
 	
 	If (This:C1470.withSelection)

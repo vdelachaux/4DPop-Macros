@@ -199,7 +199,7 @@
 					"left": 5,
 					"width": 105,
 					"height": 16,
-					"stroke": "#808080"
+					"stroke": "#c0c0c0"
 				},
 				"rule": {
 					"type": "listbox",
