@@ -37,7 +37,7 @@ That's why they have an associated shortcut 😉
 
 ## <a name="declaration">Declaration…</a>
 
-This tool analyses the selection or the complete text\* of the method to extract the parameters and local variables, then tries to discover their type and displays the list of elements found, allowing you to change their type. Once validated, the declarations are placed at the top of the method or selection according to your choice. The declaration tool is able to parse the [C_xxx directives](https://doc.4d.com/4Dv19/4D/19/Compiler-Commands.300-5392141.en.html) and replace it using the [`var` keyword](https://developer.4d.com/docs/en/Concepts/variables.html#using-the-var-keyword).
+This tool operate on the selected text of the frontmost method (or on the whole method if there is no selection\*). It extract the parameters and local variables, then tries to discover their type and displays the list of elements found, allowing you to change their type. Once validated, the declarations are placed at the top of the method or selection according to your choice. The declaration tool is able to parse the [C_xxx directives](https://doc.4d.com/4Dv19/4D/19/Compiler-Commands.300-5392141.en.html) and replace it using the [`var` keyword](https://developer.4d.com/docs/en/Concepts/variables.html#using-the-var-keyword).
 
 \*Not yet for a class method, so it's best to work with the selection for now. 
 
