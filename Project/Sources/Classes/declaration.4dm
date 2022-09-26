@@ -1437,11 +1437,12 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 	End case 
 	
 	//==============================================================
-Function loadGramSyntax
+Function loadGramSyntax()
 	
 	var $t : Text
 	var $first; $i; $return : Integer
-	var $file; $patterns : Object
+	var $patterns : Object
+	var $file : 4D:C1709.File
 	
 	This:C1470.gramSyntax:=New object:C1471(\
 		String:C10(Is object:K8:27); New collection:C1472; \
@@ -1464,19 +1465,20 @@ Function loadGramSyntax
 		String:C10(Is time:K8:8)+"_1"; New collection:C1472; \
 		String:C10(Is BLOB:K8:12)+"_1"; New collection:C1472)
 	
-	$file:=Folder:C1567(Get 4D folder:C485(-1); fk platform path:K87:2).file("gram.4dsyntax")
+	$file:=Is macOS:C1572\
+		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/gram.4dsyntax")\
+		 : File:C1566(Application file:C491; fk platform path:K87:2).parent.file("Resources/gram.4dsyntax")
 	
 	If ($file.exists)
 		
 		$patterns:=New object:C1471
-		//$patterns.affectation:="(?m-is)\\%:=(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
 		$patterns.affectation:="(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
 		$patterns.affectationSuite:="|(?:#)(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"
 		$patterns.first:="(?m-is)#\\s*\\(\\%"
 		
 		For each ($t; Split string:C1554($file.getText(); "\r"; sk trim spaces:K86:2))
 			
-			$i:=$i+1
+			$i+=1
 			$return:=-1
 			$first:=-1
 			
