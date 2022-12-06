@@ -93,7 +93,7 @@ Function init()
 	// —————————————————————————————————————————————————————————————————————————————————
 	// Removes the element set by $node
 	//%W-550.4
-Function remove($node : Text)->$this : cs:C1710.xml
+Function remove($node : Text)->$this : cs:C1710.test_
 	//%W+550.4
 	
 	//%W-550.2

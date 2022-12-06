@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="20">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="21">
 	<com.4d>
 		<interface>
 			<misc/>
 			<user can_change_password="true" default_user="0" print_progress="false"/>
-			<developper allow_read_only_structure="true" design_acces="0"/>
+			<developper allow_read_only_structure="true" design_acces="0" display_toolbar="true"/>
 			<shortcuts>
 				<accept_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
 				<add_subform alt="false" command="false" ctrl="false" key_code="0" shift="false"/>                                      </shortcuts>                                                    </interface>
