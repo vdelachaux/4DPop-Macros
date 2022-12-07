@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="20">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="21">
 	<com.4d>
 		<interface>
 			<misc/>
@@ -17,7 +17,7 @@
 		<database>
 			<data_storage allow_data_read_only="true"/>
 			<cache size_fixed="32" size_maximum="100" size_reserved="128"/>
-			<misc/>                </database>
+			<misc mac_use_lf="true" no_bom="true" prefer_null_than_blank_values="false" standard_xpath="true"/>                </database>
 		<server>
 			<network>
 				<client_server update_resources_folder="3"/>
