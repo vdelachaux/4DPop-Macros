@@ -2,33 +2,62 @@
 .*
 !.gitignore
 
-# Ignore data files
-Data/
+#--------------------------------
+# Ignore data file
+#--------------------------------
+[dD][aA][tT][aA]/
+*.4DD
+*.4DIndx
+*.4DIndy
+*.Match
+*.journal
 
-# Ignore derived data except the Documentation
-DerivedData/
+#--------------------------------
+# Ignore derived data
+#--------------------------------
+Project/DerivedData/
 
-# Ignore user preferences
-userPreferences.*
+#--------------------------------
+# Ignore logs
+#--------------------------------
+Logs/
+
+#--------------------------------
+# Ignore settings & preferences
+#--------------------------------
 Preferences/
-!4DPop AppMaker.xml
+!4DPop AppMaker.*
 
-# Ignore settings
 Settings/
-!buildApp.4DSettings
+#!buildApp.4DSettings
 
+userPreferences.*/
+
+#--------------------------------
 # Ignore Trash
+#--------------------------------
 Project/Trash/
 
-# Others
-Resources/FR_US Commands.xml
 Resources/php.ini
-Resources/FR_US.xml
-Resources/Macro_FR_US.xml
 
-Build/Components/4DPop Macros.4dbase/Resources/php.ini
-Build/Components/4DPop Macros.4dbase/Resources/FR_US Commands.xml
-Project/Sources/Methods/Method118.4dm
-DossierWeb/index.html
+#--------------------------------
+# Miscellaneous
+#--------------------------------
+*__Orphan__*
+*symbols.txt
+ehthumbs.db
+Thumbs.db
+
+#--------------------------------
+# Added by user
+#--------------------------------
+Components/
+!Build/Components
+
 _gsdata_
-Build/Components/4DPop Macros.dmg
+
+Project/Sources/Methods/Method*.4dm
+Project/Sources/Methods/00_*.4dm
+
+Libraries/lib4d-arm64.dylib
+DossierWeb
