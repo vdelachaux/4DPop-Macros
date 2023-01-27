@@ -88,7 +88,7 @@ Function onLoad()
 	
 	This:C1470.original:=Get file from pasteboard:C976(1)
 	
-	If (Bool:C1537(OK))
+	If (Length:C16(This:C1470.original)>0)
 		
 		// Find a file or a folder
 		LISTBOX SELECT ROW:C912(*; "choice"; 5; lk replace selection:K53:1)
@@ -304,9 +304,9 @@ Function pathname()->$converted : Text
 	
 	$pathname:=Get file from pasteboard:C976(1)
 	
-	If (Bool:C1537(OK))
+	If (Length:C16($pathname)>0)
 		
-		$file:=File:C1566($pathname)
+		$file:=File:C1566($pathname; fk platform path:K87:2)
 		$folder:=Folder:C1567(Folder:C1567(fk resources folder:K87:11; *).platformPath; fk platform path:K87:2)
 		
 		If (This:C1470.options ?? 10)  // POSIX
@@ -319,7 +319,7 @@ Function pathname()->$converted : Text
 			
 			If (Position:C15($folder.path; $pathname; *)=1)
 				
-				$pathname:=Delete string:C232($pathname; 1; Length:C16($folder.path))
+				$pathname:="/RESOURCES/"+Delete string:C232($pathname; 1; Length:C16($folder.path))
 				
 			End if 
 		End if 
