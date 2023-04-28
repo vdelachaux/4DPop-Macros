@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 var $cmd; $Dom_root; $Dom_target; $node; $t : Text
 var $i; $Lon_id : Integer
 var $folder : 4D:C1709.Folder

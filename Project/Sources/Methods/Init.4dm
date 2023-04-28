@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Nom utilisateur (OS) : Vincent de Lachaux
 // Date et heure : 02/02/06, 10:11:40

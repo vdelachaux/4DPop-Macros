@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //#DECLARE($param)->$result : 4D.File
 //var $dummy : Text
 

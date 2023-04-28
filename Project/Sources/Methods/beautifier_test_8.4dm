@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 C_BOOLEAN:C305($Boo_something)
 C_LONGINT:C283($Lon_count;$Lon_x)
 C_TEXT:C284($Txt_that;$Txt_this)

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   //1220
 C_PICTURE:C286($Pic_buffer)
 C_TEXT:C284($Dom_buffer)

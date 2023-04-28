@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   //1220
 C_LONGINT:C283($Lon_height;$Lon_id;$Lon_r;$Lon_viewPortHeight;$Lon_viewPortWidth;$Lon_width)
 C_LONGINT:C283($Lon_x;$Lon_y)

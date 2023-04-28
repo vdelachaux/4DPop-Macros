@@ -1,3 +1,3 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 rgxError:=ERROR
 

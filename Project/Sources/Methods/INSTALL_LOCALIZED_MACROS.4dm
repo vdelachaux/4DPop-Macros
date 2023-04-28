@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method :  INSTALL_LOCALIZED_MACROS
 // Created 12/05/10 by Vincent de Lachaux

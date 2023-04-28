@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Project method : METHOD_ANALYSE_TO_ARRAYS
   // ID[343B51683A1C4F40A7E8BC192481999C]

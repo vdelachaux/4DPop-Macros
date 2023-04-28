@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Project method : rgx
   // ID[091975F1C6DC4791A66BD7A5314B92CF]

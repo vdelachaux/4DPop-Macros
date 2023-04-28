@@ -30,7 +30,7 @@
       <CompiledDatabaseFolder/>
       <MacCompiledDatabaseToWinIncludeIt>False</MacCompiledDatabaseToWinIncludeIt>
       <MacCompiledDatabaseToWin></MacCompiledDatabaseToWin>
-    </CS>
+      <ServerEmbedsProjectDirectoryFile>False</ServerEmbedsProjectDirectoryFile></CS>
     <BuildApplicationName>4DPop Macros</BuildApplicationName>
     <BuildMacDestFolder>:Build:</BuildMacDestFolder>
     <BuildWinDestFolder>..\Build/</BuildWinDestFolder>
@@ -48,10 +48,14 @@
         <ItemsCount>0</ItemsCount></ArrayLicenseMac>
     </Licenses>
     <SignApplication>
-      <MacSignature>False</MacSignature>
-      <MacCertificate></MacCertificate>
+      <MacSignature>True</MacSignature>
+      <MacCertificate>Vincent de Lachaux (DYRKW64QA9)</MacCertificate>
       <AdHocSign>True</AdHocSign></SignApplication>
+    <ArrayExcludedModuleName>
+      <ItemsCount>0</ItemsCount>
+    </ArrayExcludedModuleName>
   </BuildApp>
+
 
 
 

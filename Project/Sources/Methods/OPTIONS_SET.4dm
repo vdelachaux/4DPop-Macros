@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method : OPTIONS_SET
 // Created 02/05/06 by Vincent de Lachaux

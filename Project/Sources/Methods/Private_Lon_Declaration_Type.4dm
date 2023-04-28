@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 //_____________________________________________________
 // Méthode : private_Lon_Declaration_Type
 // Created 1/03/05 par Vincent de Lachaux

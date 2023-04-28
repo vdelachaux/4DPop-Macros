@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //C_TEXT($1)
 //C_VARIANT($2)
 //C_LONGINT($0)//comments

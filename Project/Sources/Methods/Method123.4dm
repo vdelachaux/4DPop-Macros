@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //// A "If" statement should never omit "Else"
 //#DECLARE($a : Text)
 //If (False)

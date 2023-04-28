@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Method : Rgx_SubstituteText
   // Created 28/09/07 by Vincent

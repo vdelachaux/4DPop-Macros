@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 
 C_LONGINT:C283(<>list)
 

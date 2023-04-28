@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 C_TEXT:C284($t)
 C_OBJECT:C1216($o)
 

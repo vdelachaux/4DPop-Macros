@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Méthode : private_CODE_TO_EXECUTE
 // Created 24/10/05 par Vincent de Lachaux

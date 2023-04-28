@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true,"shared":true}
+//%attributes = {"invisible":true,"shared":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Méthode : 4DPop_MACROS
 // Created 24/10/05 by Vincent de Lachaux

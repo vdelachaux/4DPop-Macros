@@ -1,1 +1,1 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   //C_TEXT($0)
   //C_TEXT($1)
   //C_BOOLEAN($2)

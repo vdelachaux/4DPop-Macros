@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Project method : localizedControlFlow
 // ID[02A8ABB2DFC04C12B2514A4D2E7D0916]

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Méthode : x_gTxt_Files_And_Folders_Hdl
 // Created 08/12/00 par Vincent de Lachaux

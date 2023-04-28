@@ -1,5 +1,5 @@
 {
-	"_o_OBSOLETES": {
+	"_o_": {
 		"methods": [
 			"_o_array_Attributes",
 			"_o_array_declaration",
@@ -15,6 +15,17 @@
 			"_o_Preferences_Set"
 		]
 	},
+	"- #️⃣ API": {},
+	"-👥 NAMESPACE": {},
+	"# 🚧 DEV": {},
+	"♻️ LIBRAIRIES": {},
+	"⚙️ MACROS": {
+		"methods": [
+			"4DPop_MACROS"
+		]
+	},
+	"📦 COMPONENT": {},
+	"🛠️ Tools": {},
 	"00_dev": {
 		"methods": [
 			"__test",
@@ -51,6 +62,13 @@
 		],
 		"classes": [
 			"test_"
+		]
+	},
+	"4️⃣ 4DPop": {
+		"methods": [
+			"_4DPopMacros",
+			"COMPILER_4DPop",
+			"options"
 		]
 	},
 	"Binary database": {
@@ -162,7 +180,6 @@
 	},
 	"shared": {
 		"methods": [
-			"4DPop_MACROS",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS"
 		]

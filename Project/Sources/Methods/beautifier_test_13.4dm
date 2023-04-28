@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   //1220
 C_LONGINT:C283($Lon_viewPortHeight;$Lon_viewPortWidth)
 C_TEXT:C284($Dom_root)

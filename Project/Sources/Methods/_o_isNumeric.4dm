@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //  ----------------------------------------------------
 //  Méthode : str_isNumeric
 //  Created 26/10/05 by Vincent de Lachaux

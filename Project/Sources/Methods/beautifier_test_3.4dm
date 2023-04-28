@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 C_LONGINT:C283($end;$Lon_i)
 If (True:C214)
 	For ($Lon_i;1;$end;10)

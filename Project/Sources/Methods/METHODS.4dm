@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
   // ----------------------------------------------------
   // Project method : Private_Methods - (4DPop Macros)
   // ID[EA5BBFB3373B41AC87508A85117393FA]

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
   // ----------------------------------------------------
   // Project method : win_title
   // Database: 4DPop Macros

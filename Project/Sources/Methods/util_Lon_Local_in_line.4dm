@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method :  util_Lon_Local_in_line
 // Created 28/12/06 by Vincent de Lachaux

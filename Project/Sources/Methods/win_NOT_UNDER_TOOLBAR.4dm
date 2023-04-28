@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
   // ----------------------------------------------------
   // Méthode : win_NOT_UNDER_TOOBAR
   // Created 28/10/05 par Vincent de Lachaux

@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 C_BLOB:C604($x)
 C_BOOLEAN:C305($b)
 C_DATE:C307($d)

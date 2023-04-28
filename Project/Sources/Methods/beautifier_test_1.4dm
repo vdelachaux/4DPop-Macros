@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 
 ////THIS LINE WILL BE THE FIRST LINE OF THE METHOD
 //C_LONGINT($count; $i; $x)

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Méthode : private_INVERT_EXPRESSION
 // Created 24/10/05 par Vincent de Lachaux

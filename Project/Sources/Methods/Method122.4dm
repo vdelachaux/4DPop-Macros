@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //%W-550.4
 //%W-550.2
 var $xmlStructure : Text

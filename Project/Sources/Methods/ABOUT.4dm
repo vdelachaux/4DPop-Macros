@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Method : ABOUT
 // Created 24/03/06 by Vincent de Lachaux

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method : Private_GET_OPTIONS
 // Created 02/05/06 by Vincent de Lachaux

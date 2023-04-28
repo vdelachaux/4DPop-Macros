@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Méthode : str_gLon_Hex_To_Long
   // Alias zRes_Hex_en_décimal

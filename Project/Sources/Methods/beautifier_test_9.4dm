@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //C_LONGINT($1)
 
 //C_LONGINT($Lon_count;$Lon_parameters;$Lon_x)

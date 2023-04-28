@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 C_LONGINT:C283($Lon_platform)
 C_TEXT:C284($Txt_buffer; $Txt_fontFamily)
 

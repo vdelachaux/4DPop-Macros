@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 var $o : Object
 var $t : Text
 

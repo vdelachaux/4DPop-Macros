@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Method : Util_SPLIT_METHOD
   // Created 28/12/06 by Vincent de Lachaux

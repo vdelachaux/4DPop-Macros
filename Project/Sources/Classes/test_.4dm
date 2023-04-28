@@ -40,7 +40,7 @@ Function button($a : Text)->$this : Object
 	
 Function field($x : 4D:C1709.File)->$field : Object
 	
-	$field:=$x.platformPath
+	$field.test:=$x.platformPath
 	
 Function addToGroup($g : Object)
 	

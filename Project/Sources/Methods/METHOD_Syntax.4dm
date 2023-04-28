@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Project method : METHOD_Syntax
   // ID[D8D6EBA99147457E8AF91D1BE651AF8B]

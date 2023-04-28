@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Method : private_EXTRACT_LOCAL_VARIABLES
 // Created 14/04/06 by Vincent de Lachaux

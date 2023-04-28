@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 ARRAY LONGINT:C221($x;0)
 C_LONGINT:C283($i)
 For ($i;1;Size of array:C274($x))

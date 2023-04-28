@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 //var $1 : Text
 //C_BOOLEAN($2; $3)
 

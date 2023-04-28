@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Project method : menu
 // ID[7F62512A7B7C487C97E780DCE95400AB]

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method : util_array_Attributes
 // Created 29/06/07 by Vincent de Lachaux

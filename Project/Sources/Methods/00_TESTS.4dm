@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 If (False:C215)
 	
 	//var $t; $tt; $ttt : Text

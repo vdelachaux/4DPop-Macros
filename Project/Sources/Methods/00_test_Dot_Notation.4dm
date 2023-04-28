@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 C_BOOLEAN:C305($Boo_)
 C_TEXT:C284($Txt_buffer;$Txt_referenceLanguage)
 C_OBJECT:C1216($Obj_)

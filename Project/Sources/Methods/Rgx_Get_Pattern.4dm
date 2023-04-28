@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Method : Rgx_Get_Pattern
   // Created 16/12/05 by Vincent de Lachaux

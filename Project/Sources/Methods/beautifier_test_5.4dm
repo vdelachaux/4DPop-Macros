@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 C_TEXT:C284($Txt)
 If (True:C214\
  | False:C215)

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Method : Rgx_ExtractText
   // Created 28/09/07 by Vincent de Lachaux

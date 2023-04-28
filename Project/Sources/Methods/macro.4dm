@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Project method : macro
 // ID[E9112C04084E4605AEB7BC7D0FD3E53B]

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
   // ----------------------------------------------------
   // Method : Private_Boo_Paste_Regex_Pattern
   // Created 08/10/07 by Vincent de Lachaux

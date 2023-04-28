@@ -1,4 +1,4 @@
-//%attributes = {}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 C_LONGINT:C283($l)
 C_TEXT:C284($kTxt_separator;$t;$tComment;$tContent;$tMarkDown;$tPlainText)
 C_TEXT:C284($tSyntax)

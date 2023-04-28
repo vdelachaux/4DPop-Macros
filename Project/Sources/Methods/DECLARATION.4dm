@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Method : DECLARATION
 // Alias zPop_o_dlg_DECLARATIONS

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
 // Project method : Private_CODE_TO_EXECUTE
 // ID[AE63DE138BAC461AA60933E0CF35F72A]

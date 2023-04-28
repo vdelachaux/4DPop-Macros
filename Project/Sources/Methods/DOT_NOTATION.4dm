@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
   // ----------------------------------------------------
   // Project method : DOT_NOTATION
   // Database: 4DPop Macros

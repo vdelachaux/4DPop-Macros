@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 #DECLARE($entryPoint : Text; $data : Object)->$meta : Object
 
 If (False:C215)

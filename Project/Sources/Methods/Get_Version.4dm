@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
   // ----------------------------------------------------
   // Method : Private_Txt_Get_Version
   // Created 06/05/06 by Vincent de Lachaux

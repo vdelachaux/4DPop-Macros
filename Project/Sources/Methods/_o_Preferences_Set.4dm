@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 // ----------------------------------------------------
 // Method : Private_Boo_Set_Preferences
 // Created 06/05/06 by Vincent de Lachaux

@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"incapable"}
 
 If (False:C215)
 	C_LONGINT:C283(_o_array_declaration; $0)

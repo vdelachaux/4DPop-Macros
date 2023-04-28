@@ -1,4 +1,4 @@
-//%attributes = {"invisible":true}
+//%attributes = {"invisible":true,"preemptive":"capable"}
 var $0 : Text
 var $1 : Collection
 var $2 : Text
