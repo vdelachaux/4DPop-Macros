@@ -15,15 +15,30 @@
 			"_o_Preferences_Set"
 		]
 	},
-	"- #️⃣ API": {},
-	"-👥 NAMESPACE": {},
-	"# 🚧 DEV": {},
+	"# 🚧 DEV": {
+		"methods": [
+			"0_DOCUMENTATION",
+			"00_convertComments",
+			"00_RUN",
+			"00_TESTS",
+			"4DPop_TEST_Macros",
+			"COMPILER_TESTS",
+			"createSymbolicLink",
+			"macro",
+			"Method120",
+			"Method121",
+			"Method122",
+			"Method123"
+		]
+	},
+	"#️⃣ API": {},
 	"♻️ LIBRAIRIES": {},
 	"⚙️ MACROS": {
 		"methods": [
 			"4DPop_MACROS"
 		]
 	},
+	"👥 NAMESPACE": {},
 	"📦 COMPONENT": {},
 	"🛠️ Tools": {},
 	"00_dev": {
