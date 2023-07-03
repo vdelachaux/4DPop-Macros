@@ -18,7 +18,7 @@
         <text><method>4DPop_TEST_Macros</method></text>
     </macro>
     
-    <macro name="Redo the last executed macro/+" 
+    <macro name="Replay the last macro run" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
@@ -29,7 +29,7 @@
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>4DPop_MACROS("declarations";"<method_path/>")</method></text>
+        <text><method>4DPop_MACROS("Declarations";"<method_path/>")</method></text>
     </macro>
     
     <macro name="Compiler directive… /¢" 
@@ -56,102 +56,20 @@
         version="2">        
         <text><method>4DPop_MACROS("method-new")</method></text>        
     </macro>
-    
-<!-- 
-    <macro name="Export method…" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_method" 
-        version="2">        
-        <text><method>4DPop_MACROS("method-export";"<method_path/>")</method></text>        
-    </macro>
- -->
         
     <macro name="Beautifier/§" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>4DPop_MACROS("beautifier")</method></text>        
+        <text><method>4DPop_MACROS("Beautifier")</method></text>        
     </macro>
     
     <macro name="Remove blank lines/*" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>4DPop_MACROS("removeBlankLines")</method></text>        
+        <text><method>4DPop_MACROS("RemoveBlankLines")</method></text>        
     </macro>
-    
-<!-- 
-    <macro name="Set method attribute…" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_method" 
-        version="2">        
-        <text><method>4DPop_MACROS("method-attributes";"<method_path/>")</method></text>        
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Edit the method's comment…" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_method" 
-        version="2">        
-        <text><method>4DPop_MACROS("method-comments";"<method_path/>")</method></text>        
-    </macro>
-    
- -->
-<!-- 
-    <macro name="Save method/ß" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("backup_method";"<method_name/>")</method></text>
-    </macro>
- -->
-    
-    <!-- ******************************* LISTS ******************************* -->
-<!--     <macro name="-" in_menu="true" type_ahead="false"><text/></macro> -->
-    
-<!-- 
-    <macro name="Local var list" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="$" 
-        version="2">
-        <text><method>4DPop_MACROS("locals_list")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Groups list" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_g" 
-        version="2">
-        <text><method>4DPop_MACROS("groups_list")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Users list" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_u" 
-        version="2">
-        <text><method>4DPop_MACROS("users_list")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Methods list/£" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="_method" 
-        version="2">        
-        <text><method>4DPop_MACROS("method-list")</method></text>        
-    </macro>
- -->
     
     <!-- ******************************* COPY PASTE ******************************* -->
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="Scomber scombrus : lol">
@@ -162,14 +80,14 @@
         in_menu="true"
         type_ahead="false"
         version="2">
-        <text><method>4DPop_MACROS("copyWithTokens")</method></text>
+        <text><method>4DPop_MACROS("CopyWithTokens")</method></text>
     </macro>
     
     <macro name="Copy and replace/©" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>4DPop_MACROS("paste_and_keep")</method></text>
+        <text><method>4DPop_MACROS("PasteAndKeepTarget")</method></text>
     </macro>
     
     <macro name="Special paste.../◊" 
@@ -177,7 +95,7 @@
         type_ahead="true" 
         type_ahead_text="_p"
         version="2">
-        <text><method>4DPop_MACROS("special_paste")</method></text>
+        <text><method>4DPop_MACROS("SpecialPaste")</method></text>
     </macro>
     
     <macro name="Past a color expression" 
@@ -185,17 +103,8 @@
         type_ahead="true" 
         type_ahead_text="_c"
         version="2">
-        <text><method>4DPop_MACROS("insert_color")</method></text>
+        <text><method>4DPop_MACROS("PasteColor")</method></text>
     </macro>
-    
-<!-- 
-    <macro name="Copy with indentation" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("copyWithIndentation")</method></text>
-    </macro>
- -->
     
     <!-- ******************************* COMMENTS ******************************* -->
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="4d macro">
@@ -216,26 +125,6 @@
         <text><method>4DPop_MACROS("commentBlock")</method></text>
     </macro>
     
-<!-- 
-    <macro name="Edit comments..." 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="Comments"
-        version="2">
-        <text><method>4DPop_MACROS("edit_comment")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Comment current level" 
-        in_menu="true" 
-        type_ahead="true" 
-        type_ahead_text="Comments"
-        version="2">
-        <text><method>4DPop_MACROS("comment_current_level")</method></text>
-    </macro>
- -->
-    
     <!-- ******************************* REFACTORING ******************************* -->
     <macro name="-" type_ahead="false"><text/></macro>
     
@@ -244,6 +133,13 @@
         type_ahead="false" 
         version="2">
         <text><method>4DPop_MACROS("Asserted")</method></text>
+    </macro>
+    
+    <macro name="Convert to call with token" 
+        in_menu="true" 
+        type_ahead="false" 
+        version="2">
+        <text><method>4DPop_MACROS("ConvertToCallWithToken")</method></text>
     </macro>
     
     <macro name="Dot notation" 
@@ -259,15 +155,6 @@
         version="2">        
         <text><method>4DPop_MACROS("Choose")</method></text>        
     </macro>
-    
-<!-- 
-    <macro name="C_ALPHA -> C_TEXT" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("AlphaToTextDeclaration")</method></text>
-    </macro>
- -->
     
     <macro name="EXECUTE METHOD" 
         in_menu="true" 
@@ -287,33 +174,6 @@
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="Maquereau 4D : mdr">
         <text>Scomber scombrus : <caret/></text>
     </macro>
-    
-<!-- 
-    <macro name="Text to html" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("convert_to_html")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="Text to UTF-8" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("convert_to_utf8")</method></text>
-    </macro>
- -->
-    
-<!-- 
-    <macro name="UTF-8 to Text" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("convert_from_utf8")</method></text>
-    </macro>
- -->
     
     <macro name="Convert to Hexa" 
         in_menu="true" 

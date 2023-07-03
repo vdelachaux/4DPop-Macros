@@ -629,7 +629,7 @@ Function beautify()
 			
 		End if 
 		
-		This:C1470.paste($code)
+		This:C1470._paste($code)
 		
 	Else 
 		

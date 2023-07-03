@@ -11,17 +11,17 @@
 // v12
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_TEXT:C284($3)
+#DECLARE($action : Text; $text : Text; $title : Text)
 C_POINTER:C301(${4})
 
 C_BLOB:C604($x)
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($i; $l; $Lon_bottom; $Lon_height; $Lon_left; $Lon_right)
-C_LONGINT:C283($Lon_size; $Lon_top; $Lon_width; $l; $Lon_x)
-C_TEXT:C284($t; $tt; $Txt_action; $Txt_converted; $Txt_Path)
-C_OBJECT:C1216($o; $Obj_macro)
+C_BOOLEAN:C305($success)
+C_LONGINT:C283($i; $winRef; $bottom; $height; $left; $right)
+C_LONGINT:C283($size; $top; $width; $winRef; $process; $pos)
+C_TEXT:C284($t; $tt; $converted; $Txt_Path)
+C_OBJECT:C1216($o)
+
+var $macro : cs:C1710.macro
 
 If (False:C215)
 	C_TEXT:C284(4DPop_MACROS; $1)
@@ -34,9 +34,7 @@ End if
 // Initialisations
 If (Count parameters:C259>=1)
 	
-	$Txt_action:=$1
-	
-	If ($Txt_action#"_@")
+	If ($action#"_@")
 		
 		If (Storage:C1525.macros=Null:C1517)
 			
@@ -46,20 +44,20 @@ If (Count parameters:C259>=1)
 		
 		Use (Storage:C1525.macros)
 			
-			Storage:C1525.macros.lastUsed:=$Txt_action
+			Storage:C1525.macros.lastUsed:=$action
 			
 		End use 
 	End if 
 	
-	$Txt_action:=Storage:C1525.macros.lastUsed
+	$action:=Storage:C1525.macros.lastUsed
 	
 End if 
 
-$Obj_macro:=macro($Txt_action)
+$macro:=cs:C1710.macro.new()  //macro($action)
 
-$Boo_OK:=True:C214
+$success:=True:C214
 
-If ($Obj_macro.process)  // Install menu bar to allow Copy - Paste
+If ($macro.macroCall)  // Install menu bar to allow Copy - Paste
 	
 	cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
 	
@@ -69,50 +67,68 @@ End if
 Case of 
 		
 		//______________________________________________________
-	: ($Txt_action="upperCase")\
-		 | ($Txt_action="lowerCase")\
-		 | ($Txt_action="string_list")\
-		 | ($Txt_action="resource_to_text")\
-		 | ($Txt_action="text_from_resource")\
-		 | ($Txt_action="backup_method")\
-		 | ($Txt_action="Constant_Values")\
-		 | ($Txt_action="syntax")\
-		 | ($Txt_action="4D_variable_list")\
-		 | ($Txt_action="lists_list")\
-		 | ($Txt_action="filters_list")\
-		 | ($Txt_action="methods_list")\
-		 | ($Txt_action="groups_list")\
-		 | ($Txt_action="groups_list")\
-		 | ($Txt_action="users_list")\
-		 | ($Txt_action="pictures_list")\
-		 | ($Txt_action="ascii_list")\
-		 | ($Txt_action="_syntax_@")\
-		 | ($Txt_action="_paste_as_string")\
-		 | ($Txt_action="copyWithIndentation")\
-		 | ($Txt_action="camelCase")\
-		 | ($Txt_action="AlphaToTextDeclaration")  // [OBSOLETE]
+	: (OB Instance of:C1731($macro[$action]; 4D:C1709.Function))
+		
+		$macro[$action]()
+		
+		//______________________________________________________
+	: ($action="upperCase")\
+		 | ($action="lowerCase")\
+		 | ($action="string_list")\
+		 | ($action="resource_to_text")\
+		 | ($action="text_from_resource")\
+		 | ($action="backup_method")\
+		 | ($action="Constant_Values")\
+		 | ($action="syntax")\
+		 | ($action="4D_variable_list")\
+		 | ($action="lists_list")\
+		 | ($action="filters_list")\
+		 | ($action="methods_list")\
+		 | ($action="groups_list")\
+		 | ($action="groups_list")\
+		 | ($action="users_list")\
+		 | ($action="pictures_list")\
+		 | ($action="ascii_list")\
+		 | ($action="_syntax_@")\
+		 | ($action="_paste_as_string")\
+		 | ($action="copyWithIndentation")\
+		 | ($action="camelCase")\
+		 | ($action="AlphaToTextDeclaration")  // [OBSOLETE]
 		
 		ALERT:C41("OBSOLETE ACTION\rNo longer available or included in 4D")
 		
 		//______________________________________________________
-	: ($Txt_action="4d_folder")  // • Open "Macro v2" folder in the current 4D folder
+	: ($action="_paste_as_string")\
+		 | ($action="_paste_in_string")\
+		 | ($action="paste_html")\
+		 | ($action="paste_regex_pattern")\
+		 | ($action="paste_with_escape_characters")\
+		 | ($action="paste_in_comment")\
+		 | ($action="convert_from_utf8")\
+		 | ($action="convert_to_utf8")\
+		 | ($action="convert_to_html")  // [=>] moved to SpecialPaste
+		
+		$macro.SpecialPaste()
+		
+		//______________________________________________________
+	: ($action="4d_folder")  // • Open "Macro v2" folder in the current 4D folder
 		
 		$o:=Folder:C1567(fk user preferences folder:K87:10).folder("Macros v2")
 		$o.create()
 		SHOW ON DISK:C922($o.platformPath; *)
 		
 		//______________________________________________________
-	: ($Txt_action="method-export")  // #10-2-2016 - export the method
+	: ($action="method-export")  // #10-2-2016 - export the method
 		
-		METHODS("export"; $2)
-		
-		//______________________________________________________
-	: ($Txt_action="method-new")  //#v14 Create a method with the selection
-		
-		METHODS("new"; $Obj_macro.highlighted)
+		METHODS("export"; $text)
 		
 		//______________________________________________________
-	: ($Txt_action="method-comments")  // Edit method's comments
+	: ($action="method-new")  //#v14 Create a method with the selection
+		
+		METHODS("new"; $macro.highlighted)
+		
+		//______________________________________________________
+	: ($action="method-comments")  // Edit method's comments
 		
 		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
 			
@@ -120,17 +136,17 @@ Case of
 			
 		Else 
 			
-			COMMENTS("method"; $2)
+			COMMENTS("method"; $text)
 			
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="method-list")  // Display a hierarchical methods' menu
+	: ($action="method-list")  // Display a hierarchical methods' menu
 		
 		METHODS("list")
 		
 		//______________________________________________________
-	: ($Txt_action="method-attributes")  //#v13 Set methodes attributes
+	: ($action="method-attributes")  //#v13 Set methodes attributes
 		
 		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
 			
@@ -138,82 +154,50 @@ Case of
 			
 		Else 
 			
-			METHODS("attributes"; $2)
+			METHODS("attributes"; $text)
 			
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="3D_button")  //#v12 Rapid 3D button génération
+	: ($action="3D_button")  //#v12 Rapid 3D button génération
 		
-		$l:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+		$winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		DIALOG:C40("CREATE_BUTTON")
 		CLOSE WINDOW:C154
-		
 		//______________________________________________________
-	: ($Txt_action="insert_color")  //#v11 Insert a color expression
-		
-		$Obj_macro.color()
-		
-		//______________________________________________________
-	: ($Txt_action="special_paste")  //#v11 Paste after transformations
-		
-		cs:C1710.specialPaste.new()
-		
-		//______________________________________________________
-	: ($Txt_action="_paste_as_string")\
-		 | ($Txt_action="_paste_in_string")\
-		 | ($Txt_action="paste_html")\
-		 | ($Txt_action="paste_regex_pattern")\
-		 | ($Txt_action="paste_with_escape_characters")\
-		 | ($Txt_action="paste_in_comment")\
-		 | ($Txt_action="convert_from_utf8")\
-		 | ($Txt_action="convert_to_utf8")\
-		 | ($Txt_action="convert_to_html")  // [=>] moved to special_paste
-		
-		4DPop_MACROS("special_paste")
-		
-		//______________________________________________________
-	: ($Txt_action="edit_comment")  // • Edit comments
+	: ($action="edit_comment")  // • Edit comments
 		
 		COMMENTS("edit")
 		
 		//______________________________________________________
-	: ($Txt_action="about")
+	: ($action="about")
 		
-		If ($Obj_macro.process)
+		If ($macro.macroCall)
 			
-			If (Count parameters:C259>=2)
-				
-				$t:=$2
-				
-			End if 
-			
-			$Lon_x:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $t)
-			
-			//SET MACRO PARAMETER(Highlighted method text;"// 4DPop Macros v 3.0")
+			$process:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $text)
 			
 		Else 
 			
-			ABOUT($2)
+			ABOUT($text)
 			
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="_display_list@")
+	: ($action="_display_list@")
 		
 		C_TEXT:C284(<>Txt_Title)
-		$Lon_size:=Size of array:C274(<>tTxt_Labels)
+		$size:=Size of array:C274(<>tTxt_Labels)
 		
-		If ($Lon_size>0)
+		If ($size>0)
 			
-			ARRAY TEXT:C222(<>tTxt_Comments; $Lon_size)
-			GET WINDOW RECT:C443($Lon_left; $Lon_top; $Lon_right; $Lon_bottom; Frontmost window:C447)
-			$Lon_left:=$Lon_left+60
-			$Lon_top:=$Lon_top+60
-			FORM GET PROPERTIES:C674("LIST"; $Lon_width; $Lon_height)
-			$l:=Open window:C153($Lon_left; $Lon_top; $Lon_left+$Lon_width; $Lon_top; Pop up window:K34:14)
+			ARRAY TEXT:C222(<>tTxt_Comments; $size)
+			GET WINDOW RECT:C443($left; $top; $right; $bottom; Frontmost window:C447)
+			$left+=60
+			$top+=60
+			FORM GET PROPERTIES:C674("LIST"; $width; $height)
+			$winRef:=Open window:C153($left; $top; $left+$width; $top; Pop up window:K34:14)
 			
-			If ($Txt_action#"@not_sorted@")
+			If ($action#"@not_sorted@")
 				
 				SORT ARRAY:C229(<>tTxt_Labels)
 				
@@ -229,7 +213,7 @@ Case of
 						// .....................................................
 					: (Count parameters:C259=3)
 						
-						$t:=Replace string:C233($2+"%"+$3; "%"; <>tTxt_Labels{<>tTxt_Labels})
+						$t:=Replace string:C233($text+"%"+$title; "%"; <>tTxt_Labels{<>tTxt_Labels})
 						
 						// .....................................................
 					: (Count parameters:C259=1)
@@ -237,35 +221,35 @@ Case of
 						$t:=<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="*")  // Method with syntax
+					: ($text="*")  // Method with syntax
 						
 						4DPop_MACROS("_syntax_"+<>tTxt_Labels{<>tTxt_Labels})
 						$t:=<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="+")  // Return the selected value
+					: ($text="+")  // Return the selected value
 						
 						$t:=<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="id")
+					: ($text="id")
 						
 						$t:=<>tTxt_Comments{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="str")
+					: ($text="str")
 						
-						$t:=$Obj_macro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
+						$t:=$macro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="STR#")
+					: ($text="STR#")
 						
 						$t:=<>tTxt_Comments{<>tTxt_Labels}
-						$Lon_x:=Position:C15(" - "; $t)
-						$t:=Command name:C538(510)+"("+Substring:C12($t; 1; $Lon_x-1)+";"+Substring:C12($t; $Lon_x+3)+")`"+<>tTxt_Labels{<>tTxt_Labels}
+						$pos:=Position:C15(" - "; $t)
+						$t:=Command name:C538(510)+"("+Substring:C12($t; 1; $pos-1)+";"+Substring:C12($t; $pos+3)+")`"+<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
-					: ($2="none")
+					: ($text="none")
 						
 						$t:=""
 						
@@ -273,7 +257,7 @@ Case of
 					Else 
 						
 						$t:=Choose:C955(Macintosh option down:C545 | Windows Alt down:C563; <>tTxt_Comments{<>tTxt_Labels}; <>tTxt_Labels{<>tTxt_Labels})
-						$t:=Replace string:C233($2+"%"+$2; "%"; $t)
+						$t:=Replace string:C233($text+"%"+$text; "%"; $t)
 						
 						// .....................................................
 				End case 
@@ -293,60 +277,29 @@ Case of
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="_se_Placer_au_Debut")
+	: ($action="_se_Placer_au_Debut")
 		
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
 		SET MACRO PARAMETER:C998(Full method text:K5:17; kCaret+$t)
 		
 		//______________________________________________________
-	: (Length:C16($Obj_macro.method)=0)  // ******************************** All the macros below need a method *********************************
+	: (Length:C16($macro.method)=0)  // ******************************** All the macros below need a method *********************************
 		
-		$Boo_OK:=False:C215
-		
-		//______________________________________________________
-	: ($Txt_action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
-		
-		DOT_NOTATION($Obj_macro.highlighted)
+		$success:=False:C215
 		
 		//______________________________________________________
-	: ($Txt_action="removeBlankLines")  // #17-7-2014 Removes blank lines from the selection or the full method if no text highlighted.
+	: ($action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
 		
-		$t:=Choose:C955(Length:C16($Obj_macro.highlighted)=0; $Obj_macro.method; $Obj_macro.highlighted)
-		
-		For each ($t; Split string:C1554($t; "\r"; sk ignore empty strings:K86:1))
-			
-			If ($t#"// ")
-				
-				$Txt_converted:=$Txt_converted+$t+"\r"
-				
-			End if 
-		End for each 
-		
-		SET MACRO PARAMETER:C998(Choose:C955(Length:C16($Obj_macro.highlighted)=0; Full method text:K5:17; Highlighted method text:K5:18); $Txt_converted)
+		DOT_NOTATION($macro.highlighted)
 		
 		//______________________________________________________
-	: ($Txt_action="beautifier")  //#v13 Beautification
-		
-		cs:C1710.beautifier.new().beautify()
-		
-		//______________________________________________________
-	: ($Txt_action="Choose")  // v13+ replace If(test) var:=x Else var:=y End if by var:=Choose(test;x;y)
-		
-		$Boo_OK:=$Obj_macro.choose().success
-		
-		//______________________________________________________
-	: ($Txt_action="declarations")  // • Compiler Directives for local variables
-		
-		DECLARATION
-		
-		//______________________________________________________
-	: ($Txt_action="locals_list")  // • List of local variables
+	: ($action="locals_list")  // • List of local variables
 		
 		ARRAY TEXT:C222(<>tTxt_Labels; 0x0000)
 		_o_EXTRACT_LOCAL_VARIABLES("Method"; -><>tTxt_Labels)
-		$Boo_OK:=(Size of array:C274(<>tTxt_Labels)>0)
+		$success:=(Size of array:C274(<>tTxt_Labels)>0)
 		
-		If ($Boo_OK)
+		If ($success)
 			
 			If (Size of array:C274(<>tTxt_Labels)=1)  // One line
 				
@@ -361,29 +314,29 @@ Case of
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="Keywords")  // [IN WORKS] Keywords list
+	: ($action="Keywords")  // [IN WORKS] Keywords list
 		
 		// (method, commands, variables and more)
 		//______________________________________________________
-	: ($Txt_action="Comment_method")  // [IN WORKS]
+	: ($action="Comment_method")  // [IN WORKS]
 		
 		// Create a standard comment for the method according to the declaration.
 		// This comment could be past in the comment part of the explorer
 		
 		//______________________________________________________
-	: (Length:C16($Obj_macro.highlighted)=0)  // ******************************* All the macros below need a selection *******************************
+	: (Length:C16($macro.highlighted)=0)  // ******************************* All the macros below need a selection *******************************
 		
-		$Boo_OK:=False:C215
+		$success:=False:C215
 		
 		//______________________________________________________
-	: ($Txt_action="copyWithoutIndentation")
+	: ($action="copyWithoutIndentation")
 		
 		var $t : Text
 		var $i; $tab : Integer
-		var $Obj_macro : Object
+		//var $macro : Object
 		var $c : Collection
 		
-		$c:=Split string:C1554($Obj_macro.highlighted; "\r")
+		$c:=Split string:C1554($macro.highlighted; "\r")
 		
 		$t:=$c[0]
 		
@@ -407,29 +360,13 @@ Case of
 		SET TEXT TO PASTEBOARD:C523($t)
 		
 		//______________________________________________________
-	: ($Txt_action="copyWithTokens")
+	: ($action="Asserted")  // #24-8-2017 - Conditional assertion
 		
-		var $line : Text
-		var $c : Collection
-		
-		$c:=New collection:C1472
-		
-		For each ($line; Split string:C1554($Obj_macro.highlighted; "\r"))
-			
-			$c.push(Parse formula:C1576($line; Formula out with tokens:K88:3))
-			
-		End for each 
-		
-		SET TEXT TO PASTEBOARD:C523($c.join("\r"))
-		
-		//______________________________________________________
-	: ($Txt_action="Asserted")  // #24-8-2017 - Conditional assertion
-		
-		$t:=Command name:C538(1132)+"("+$Obj_macro.highlighted+";\""+kCaret+"\")"
+		$t:=Command name:C538(1132)+"("+$macro.highlighted+";\""+kCaret+"\")"
 		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $t)
 		
 		//______________________________________________________
-	: ($Txt_action="compiler_directive")  // Add compiler directive around the highlighted text
+	: ($action="compiler_directive")  // Add compiler directive around the highlighted text
 		
 		$t:=Request:C163("Warning reference:"; "xxx.x")
 		
@@ -438,7 +375,7 @@ Case of
 			
 			If ($t="@.@")
 				
-				SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$Obj_macro.highlighted+"\r//%W+"+$t)
+				SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
 				
 			Else 
 				
@@ -446,83 +383,78 @@ Case of
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="googleSearch")
+	: ($action="googleSearch")
 		
-		OPEN URL:C673("www.google.fr/search?q="+$Obj_macro.highlighted)
-		
-		//______________________________________________________
-	: ($Txt_action="commentBlock")
-		
-		COMMENTS("commentBlock"; $Obj_macro.highlighted)
+		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
 		
 		//______________________________________________________
-	: ($Txt_action="duplicateAndComment")
+	: ($action="commentBlock")
 		
-		COMMENTS("duplicateAndComment"; $Obj_macro.highlighted)
+		COMMENTS("commentBlock"; $macro.highlighted)
 		
 		//______________________________________________________
-	: ($Txt_action="comment_current_level")  // Comments the first and the last line of a logic block
+	: ($action="duplicateAndComment")
+		
+		COMMENTS("duplicateAndComment"; $macro.highlighted)
+		
+		//______________________________________________________
+	: ($action="comment_current_level")  // Comments the first and the last line of a logic block
 		
 		COMMENTS("bloc")
 		
 		//______________________________________________________
-	: ($Txt_action="paste_and_keep")  // • Paste the contents of the clipboard and copy the selection
+	: ($action="convert_hexa")  // • Change the selection by Hexadecimal
 		
-		$Obj_macro.swapPasteboard()
+		$success:=_o_isNumeric($macro.highlighted)
 		
-		//______________________________________________________
-	: ($Txt_action="convert_hexa")  // • Change the selection by Hexadecimal
-		
-		$Boo_OK:=_o_isNumeric($Obj_macro.highlighted)
-		
-		If ($Boo_OK)
+		If ($success)
 			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(Num:C11($Obj_macro.highlighted); "&x")+kCaret)
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(Num:C11($macro.highlighted); "&x")+kCaret)
 			
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="convert_decimal")  // • Change the selection by Decimal
+	: ($action="convert_decimal")  // • Change the selection by Decimal
 		
-		$Boo_OK:=($Obj_macro.highlighted="0x@")
+		$success:=($macro.highlighted="0x@")
 		
-		If ($Boo_OK)
+		If ($success)
 			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(str_gLon_Hex_To_Long($Obj_macro.highlighted))+kCaret)
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(str_gLon_Hex_To_Long($macro.highlighted))+kCaret)
 			
 		End if 
 		
 		//______________________________________________________
-	: ($Txt_action="invert_expression")  // Reverse expression
+	: ($action="invert_expression")  // Reverse expression
 		
 		INVERT_EXPRESSION
 		
 		//______________________________________________________
-	: ($Txt_action="convert_to_execute")  // EXECUTER METHODE [New v13]
+	: ($action="convert_to_execute")  // EXECUTER METHODE [New v13]
 		
 		CODE_TO_EXECUTE
 		
 		//______________________________________________________
-	: ($Txt_action="convert_to_formula")  // EXECUTER FORMULE
+	: ($action="convert_to_formula")  // EXECUTER FORMULE
 		
 		CODE_TO_EXECUTE_FORMULA
 		
 		//______________________________________________________
 	Else 
 		
-		$Boo_OK:=False:C215
+		$success:=False:C215
 		
 		//______________________________________________________
 End case 
 
-If (Not:C34($Boo_OK))\
- & ($Txt_action#"_@")  //error
+If (Not:C34($success))\
+ & ($action#"_@")  //error
 	
 	BEEP:C151
 	
 End if 
 
-If ($Obj_macro.process)
+If ($macro.macroCall)
 	
 	//
 	

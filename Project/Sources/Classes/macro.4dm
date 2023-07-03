@@ -40,7 +40,6 @@ Class constructor
 		
 	End if 
 	
-	//
 	This:C1470.method:=""
 	This:C1470.highlighted:=""
 	This:C1470.withSelection:=False:C215
@@ -67,73 +66,100 @@ Class constructor
 	GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $t)
 	This:C1470.decimalSeparator:=$t
 	
-	//==============================================================
+	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
+Function get macroCall() : Boolean
+	
+	var $name : Text
+	var $state; $time : Integer
+	
+	PROCESS PROPERTIES:C336(Current process:C322; $name; $state; $time)
+	return $name="Macro_Call"
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split($useSelection : Boolean)
 	
 	var $target : Text
 	
 	If (Count parameters:C259>=1)
 		
-		$target:=Choose:C955($useSelection; This:C1470.highlighted; This:C1470.method)
+		$target:=$useSelection ? This:C1470.highlighted : This:C1470.method
 		
 	Else 
 		
-		$target:=Choose:C955(This:C1470.withSelection; This:C1470.highlighted; This:C1470.method)
+		$target:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
 		
 	End if 
 	
 	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
 	
-	//==============================================================
-Function localized($en : Text)->$localized : Text
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function localized($en : Text) : Text
 	
-	If (This:C1470._controlFlow=Null:C1517)  // First call
-		
-		This:C1470._controlFlow:=JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
-		
-	End if 
+	var $index : Integer
 	
-	If (Command name:C538(41)="ALERT")  // US
-		
-		$localized:=$en
-		
-	Else 
-		
-		var $index : Integer
-		$index:=This:C1470._controlFlow.intl.indexOf($en)
-		$localized:=This:C1470._controlFlow.fr($index)
-		
-	End if 
+	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
+	return Command name:C538(41)="ALERT" ? $en : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($en))
 	
-	//==============================================================
-Function paste($text : Text; $useSelection : Boolean)
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function PasteColor()
 	
-	var $target : Integer
+	var $color : Integer
 	
-	If (Count parameters:C259>=2)
+	$color:=Select RGB color:C956($color)
+	
+	If (Bool:C1537(OK))
 		
-		$target:=Choose:C955($useSelection; Highlighted method text:K5:18; Full method text:K5:17)
-		
-	Else 
-		
-		$target:=Choose:C955(This:C1470.withSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		This:C1470._setSelectedText(String:C10($color & 0x00FFFFFF; "&x")+kCaret)
 		
 	End if 
 	
-	SET MACRO PARAMETER:C998($target; $text)
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	/// Compiler Directives for local variables
+Function Declarations()
 	
-	//==============================================================
-Function setMethodText($text : Text)
+	DECLARATION
 	
-	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function Beautifier()
 	
-	//==============================================================
-Function setSelectedText($text : Text)
+	cs:C1710.beautifier.new().beautify()
 	
-	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	//#v11 Paste after transformations
+Function SpecialPaste()
 	
-	//==============================================================
-Function choose()
+	cs:C1710.specialPaste.new()
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Paste the contents of the clipboard and copy the selection
+Function PasteAndKeepTarget()
+	
+	var $t : Text
+	
+	If (This:C1470._noSelection())
+		
+		return 
+		
+	End if 
+	
+	$t:=Get text from pasteboard:C524  // Get the text content of the clipboard
+	
+	If (Length:C16($t)=0)
+		
+		ALERT:C41("No text into the pasteboard")
+		
+	End if 
+	
+	// Put the highlighted text on the clipboard…
+	CLEAR PASTEBOARD:C402
+	SET TEXT TO PASTEBOARD:C523(This:C1470.highlighted)
+	
+	// …and replace it with the previous one.
+	This:C1470._setSelectedText($t)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// v13+ replace If(test) var:=x Else var:=y End if by var:=Choose(test;x;y)
+Function Choose()
 	
 	var $t : Text
 	var $affect; $index : Integer
@@ -169,7 +195,7 @@ Function choose()
 							+Substring:C12($c[3]; $affect+2)\
 							+")"
 						
-						This:C1470.setSelectedText($t)
+						This:C1470._setSelectedText($t)
 						
 					End if 
 				End if 
@@ -181,3 +207,110 @@ Function choose()
 		BEEP:C151
 		
 	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	/// Copy the selected text
+Function CopyWithTokens()
+	
+	var $line : Text
+	var $c : Collection
+	
+	If (This:C1470._noSelection())
+		
+		return 
+		
+	End if 
+	
+	$c:=New collection:C1472
+	
+	For each ($line; Split string:C1554(This:C1470.highlighted; "\r"))
+		
+		$c.push(Parse formula:C1576($line; Formula out with tokens:K88:3))
+		
+	End for each 
+	
+	SET TEXT TO PASTEBOARD:C523($c.join("\r"))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	/// Replaces a method name in quotation marks with a tokenized call
+Function ConvertToCallWithToken()
+	
+	If (This:C1470._noSelection())
+		
+		return 
+		
+	End if 
+	
+	If (This:C1470.highlighted="\"@") & (This:C1470.highlighted="@\"")
+		
+		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "Formula:C1597("+Replace string:C233(This:C1470.highlighted; "\""; "")+").source")
+		POST KEY:C465(3)
+		
+	Else 
+		
+		ALERT:C41("Selected text must be enclosed in quotation marks")
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function RemoveBlankLines()
+	
+	var $line; $out : Text
+	
+	For each ($line; Split string:C1554(Length:C16(This:C1470.highlighted)=0 ? This:C1470.method : This:C1470.highlighted; "\r"; sk ignore empty strings:K86:1))
+		
+		If ($line#"// ")
+			
+			$out:=$out+$line+"\r"
+			
+		End if 
+	End for each 
+	
+	If (Length:C16(This:C1470.highlighted)=0)
+		
+		This:C1470._setMethodText($out)
+		
+	Else 
+		
+		This:C1470._setSelectedText($out)
+		
+	End if 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _noSelection() : Boolean
+	
+	If (Not:C34(This:C1470.withSelection))
+		
+		BEEP:C151
+		ALERT:C41("This macro requires text to be selected before it is called.")
+		return True:C214
+		
+	End if 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _paste($text : Text; $useSelection : Boolean)
+	
+	var $target : Integer
+	
+	If (Count parameters:C259>=2)
+		
+		$target:=Choose:C955($useSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		
+	Else 
+		
+		$target:=Choose:C955(This:C1470.withSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		
+	End if 
+	
+	SET MACRO PARAMETER:C998($target; $text)
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _setMethodText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _setSelectedText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
+	
