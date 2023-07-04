@@ -1,7 +1,6 @@
 # Ignore invisible files/folders except .gitignore
 .*
 !.gitignore
-!.gitattributes
 
 #--------------------------------
 # Ignore data file
@@ -64,14 +63,6 @@ DEV/
 # [!] Never omit forms
 #--------------------------------
 !**/Forms/*/
-
-#--------------------------------
-# Don't ignore .github workflow
-#--------------------------------
-
-!.github/
-!.github/**/.*
-.github/.DS_Store
 
 #--------------------------------
 # Added by user
