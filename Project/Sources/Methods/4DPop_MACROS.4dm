@@ -14,7 +14,9 @@
 #DECLARE($action : Text; $text : Text; $title : Text)
 C_POINTER:C301(${4})
 
-C_BLOB:C604($x)
+
+var $x : Blob
+
 C_BOOLEAN:C305($success)
 C_LONGINT:C283($i; $winRef; $bottom; $height; $left; $right)
 C_LONGINT:C283($size; $top; $width; $winRef; $process; $pos)
