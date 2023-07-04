@@ -93,12 +93,12 @@ Function split($useSelection : Boolean)
 	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function localized($en : Text) : Text
+Function localizedControlFlow($control : Text) : Text
 	
 	var $index : Integer
 	
 	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
-	return Command name:C538(41)="ALERT" ? $en : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($en))
+	return Command name:C538(41)="ALERT" ? $control : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($control))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function PasteColor()

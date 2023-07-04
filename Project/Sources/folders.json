@@ -38,7 +38,16 @@
 			"4DPop_MACROS"
 		]
 	},
-	"👥 NAMESPACE": {},
+	"👥 NAMESPACE": {
+		"classes": [
+			"beautifier",
+			"declaration",
+			"macro",
+			"preferences",
+			"settings",
+			"specialPaste"
+		]
+	},
 	"📦 COMPONENT": {},
 	"🛠️ Tools": {},
 	"00_dev": {
@@ -112,14 +121,6 @@
 		"groups": [
 			"private",
 			"shared"
-		],
-		"classes": [
-			"beautifier",
-			"declaration",
-			"macro",
-			"preferences",
-			"settings",
-			"specialPaste"
 		]
 	},
 	"lib": {

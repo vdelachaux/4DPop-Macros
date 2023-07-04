@@ -12,28 +12,25 @@
 // ----------------------------------------------------
 // Declarations
 #DECLARE($action : Text; $text : Text; $title : Text)
-C_POINTER:C301(${4})
+//C_POINTER(${4})
 
-
-var $x : Blob
-var $success : Boolean
-
-C_LONGINT:C283($i; $winRef; $bottom; $height; $left; $right)
-C_LONGINT:C283($size; $top; $width; $winRef; $process; $pos)
-C_TEXT:C284($t; $tt; $converted; $Txt_Path)
-C_OBJECT:C1216($o)
-
-var $macro : cs:C1710.macro
+var ${4} : Pointer
 
 If (False:C215)
 	C_TEXT:C284(4DPop_MACROS; $1)
 	C_TEXT:C284(4DPop_MACROS; $2)
 	C_TEXT:C284(4DPop_MACROS; $3)
-	C_POINTER:C301(4DPop_MACROS; ${4})
+	C_POINTER:C301(4DPop_MACROS; $4)
 End if 
 
-// ----------------------------------------------------
-// Initialisations
+var $t : Text
+var $success : Boolean
+var $bottom; $height; $i; $left; $pos; $process : Integer
+var $right; $size; $tab; $top; $width; $winRef : Integer
+var $o : Object
+var $c : Collection
+var $macro : cs:C1710.macro
+
 If (Count parameters:C259>=1)
 	
 	If ($action#"_@")
@@ -55,7 +52,7 @@ If (Count parameters:C259>=1)
 	
 End if 
 
-$macro:=cs:C1710.macro.new()  //macro($action)
+$macro:=cs:C1710.macro.new()
 
 $success:=True:C214
 
@@ -65,7 +62,6 @@ If ($macro.macroCall)  // Install menu bar to allow Copy - Paste
 	
 End if 
 
-// ----------------------------------------------------
 Case of 
 		
 		//______________________________________________________
@@ -187,7 +183,6 @@ Case of
 		//______________________________________________________
 	: ($action="_display_list@")
 		
-		C_TEXT:C284(<>Txt_Title)
 		$size:=Size of array:C274(<>tTxt_Labels)
 		
 		If ($size>0)
@@ -333,11 +328,6 @@ Case of
 		//______________________________________________________
 	: ($action="copyWithoutIndentation")
 		
-		var $t : Text
-		var $i; $tab : Integer
-		//var $macro : Object
-		var $c : Collection
-		
 		$c:=Split string:C1554($macro.highlighted; "\r")
 		
 		$t:=$c[0]
@@ -372,16 +362,12 @@ Case of
 		
 		$t:=Request:C163("Warning reference:"; "xxx.x")
 		
-		If (OK=1)\
-			 & (Length:C16($t)>0)
+		If (Bool:C1537(OK))\
+			 && (Length:C16($t)>0)\
+			 && ($t="@.@")
 			
-			If ($t="@.@")
-				
-				SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
-				
-			Else 
-				
-			End if 
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
+			
 		End if 
 		
 		//______________________________________________________

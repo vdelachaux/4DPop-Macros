@@ -1055,11 +1055,11 @@ Function apply()
 			
 			// * COMPILER DIRECTIVES
 			If (This:C1470.projectMethod)\
-				 & (Bool:C1537($options.methodDeclaration))
+				 && (Bool:C1537($options.methodDeclaration))
 				
-				$method+="\r\r"+This:C1470.localized("If")+"(:C215)\r"\
-					+Delete string:C232($compilerDirectives; Length:C16($compilerDirectives); 1)+"\r"\
-					+This:C1470.localized("End if")
+				$method+="\r\r"+This:C1470.localizedControlFlow("If")+"(:C215)\r"
+				$method+=Delete string:C232($compilerDirectives; Length:C16($compilerDirectives); 1)+"\r"
+				$method+=This:C1470.localizedControlFlow("End if")
 				
 			End if 
 		End if 
