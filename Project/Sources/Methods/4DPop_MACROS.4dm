@@ -16,8 +16,8 @@ C_POINTER:C301(${4})
 
 
 var $x : Blob
+var $success : Boolean
 
-C_BOOLEAN:C305($success)
 C_LONGINT:C283($i; $winRef; $bottom; $height; $left; $right)
 C_LONGINT:C283($size; $top; $width; $winRef; $process; $pos)
 C_TEXT:C284($t; $tt; $converted; $Txt_Path)
