@@ -1317,13 +1317,28 @@ Function addNewLine($text : Text)->$result : Text
 	End if 
 	
 	//==============================================================
-Function clairvoyant($text : Text; $line : Text)->$varType : Integer
+Function clairvoyant($text : Text; $line : Text) : Integer
 	
 	var $pattern; $t; $type : Text
-	var $indx : Integer
+	var $indx; $varType : Integer
 	
-	ARRAY LONGINT:C221($pos; 0)
 	ARRAY LONGINT:C221($len; 0)
+	ARRAY LONGINT:C221($pos; 0)
+	
+	Case of 
+			
+			//______________________________________________________
+		: (Match regex:C1019("(?mi-s).*:=\\{"; $line; 1; *))  // Object literal
+			
+			return (Is object:K8:27)
+			
+			//______________________________________________________
+		: (Match regex:C1019("(?mi-s).*:=\\["; $line; 1; *))  // Collection literal
+			
+			return (Is collection:K8:32)
+			
+			//______________________________________________________
+	End case 
 	
 	$t:=Replace string:C233(Replace string:C233($text; "{"; "\\{"); "}"; "\\}")
 	
@@ -1332,19 +1347,19 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)(\\$\\w*):=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line; 1; $pos; $len))  // Class
 			
-			$varType:=Is object:K8:27
-			
 			// Keep class definition
 			This:C1470.classes.push(New object:C1471(\
 				"value"; Substring:C12($line; \
 				$pos{1}; $len{1}); \
 				"class"; Substring:C12($line; $pos{2}; $len{2})))
 			
+			return (Is object:K8:27)
+			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=\"[^\"]*\""\
 			+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $line; 1))  // Length
 			
-			$varType:=Is text:K8:3
+			return (Is text:K8:3)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+[."+This:C1470.decimalSeparator+"]\\d+"; $line; 1))\
@@ -1353,7 +1368,7 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:3"); $line; 1))\
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:4"); $line; 1))
 			
-			$varType:=Is real:K8:4
+			return (Is real:K8:4)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"[:><]?[=><]?\\d+"; $line; 1))\
@@ -1362,44 +1377,44 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:2"); $line; 1))\
 			 | (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:3"); $line; 1))
 			
-			$varType:=Is longint:K8:6
+			return (Is longint:K8:6)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"; $line; 1))
 			
-			$varType:=Is boolean:K8:9
+			return (Is boolean:K8:9)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $line; 1))\
 			 | (Match regex:C1019("(?m-si):="+Parse formula:C1576("Form:C1466")+"[^.]"; $line; 1))
 			
-			$varType:=Is object:K8:27
+			return (Is object:K8:27)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:!\\d+-\\d+-\\d+!)"; $line; 1))
 			
-			$varType:=Is date:K8:7
+			return (Is date:K8:7)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:\\?\\d+:\\d+:\\d+\\?)"; $line; 1))
 			
-			$varType:=Is time:K8:8
+			return (Is time:K8:8)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?mi-s)\\"+$t+":=->"; $line; 1))\
 			 | (Match regex:C1019("(?mi-s)\\"+$t+"->"; $line; 1))
 			
-			$varType:=Is pointer:K8:14
+			return (Is pointer:K8:14)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)(?:For|Boucle)\\s\\((?:[^;]*;\\s*){0,3}(\\"+$t+")"; $line; 1))
 			
-			$varType:=Is longint:K8:6
+			return (Is longint:K8:6)
 			
 			//______________________________________________________
 		: (Match regex:C1019("(?m-si)(?:If|Si|Not|Non)\\s*\\(\\"+$t+"\\)"; $line; 1))
 			
-			$varType:=Is boolean:K8:9
+			return (Is boolean:K8:9)
 			
 			//______________________________________________________
 			
@@ -1411,22 +1426,22 @@ Function clairvoyant($text : Text; $line : Text)->$varType : Integer
 				
 				If ($indx>0)
 					
-					For each ($pattern; This:C1470.gramSyntax[$type]) While ($varType=0)
+					For each ($pattern; This:C1470.gramSyntax[$type])
 						
 						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t); $line; 1))
 							
-							$varType:=Num:C11(Substring:C12($type; 1; $indx-1))
+							return Num:C11(Substring:C12($type; 1; $indx-1))
 							
 						End if 
 					End for each 
 					
 				Else 
 					
-					For each ($pattern; This:C1470.gramSyntax[$type]) While ($varType=0)
+					For each ($pattern; This:C1470.gramSyntax[$type])
 						
 						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t)+"(?=$|\\(|(?:\\s*//)|(?:\\s*/\\*))"+")"; $line; 1))
 							
-							$varType:=Num:C11($type)
+							return Num:C11($type)
 							
 						End if 
 					End for each 

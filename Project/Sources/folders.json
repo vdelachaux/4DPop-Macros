@@ -78,6 +78,7 @@
 			"DECLARATION_Formula",
 			"DECLARATION_Test",
 			"DECLARE",
+			"literals",
 			"test_replace_o",
 			"TrueMethod"
 		],
