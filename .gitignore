@@ -65,6 +65,14 @@ DEV/
 !**/Forms/*/
 
 #--------------------------------
+# Don't ignore .github workflow
+#--------------------------------
+
+!.github/
+!.github/**/.*
+.github/**/.DS_Store
+
+#--------------------------------
 # Added by user
 #--------------------------------
 DossierWeb/index.html
