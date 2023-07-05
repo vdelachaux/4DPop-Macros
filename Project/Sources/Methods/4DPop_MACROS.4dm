@@ -12,7 +12,6 @@
 // ----------------------------------------------------
 // Declarations
 #DECLARE($action : Text; $text : Text; $title : Text)
-//C_POINTER(${4})
 
 var ${4} : Pointer
 
