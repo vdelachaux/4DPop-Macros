@@ -26,7 +26,7 @@ That's why they have an associated shortcut 😉
 
 | Name | Goal | <a name="menu">Menu</a> | <a name="input">Input</a> | <a name="shortcut">Shortcut</a>\* |
 |------|------|:-------:|:----------:|:--------:|
-| [Declarations…](#declaration) |Help with the declaration of parameters and local variables|✔︎||⌘ ⌥ c|
+| [Declarations…](#declaration) |Help with the declaration of parameters and local variables|✔︎||⌘ $|
 | [Compiler directive…](#compilerDirectives) |Help to enclose selection with [//%W](https://doc.4d.com/4Dv19/4D/19/Compiler-window.300-5416883.en.html) directive|✔︎||⌘ ⌥ ⇧ c|
 | [Beautifier…](#beautifier) |A code formatter|✔︎||⌘ §|
 | [Copy and replace](#copyReplace) |Swaps the selection with the contents of the clipboard|✔︎||⌘ ⌥ c|
