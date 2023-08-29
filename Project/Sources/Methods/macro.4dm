@@ -106,9 +106,6 @@ Else
 			
 			If ($o.success)
 				
-				ARRAY LONGINT:C221($tLon_positions; 0x0000)
-				ARRAY LONGINT:C221($tLon_lengths; 0x0000)
-				
 				If (Match regex:C1019(Choose:C955(Command name:C538(1)="Sum"; "If"; "Si")+"\\s*\\(([^\\)]*)\\).*"; $c[0]; 1; $tLon_positions; $tLon_lengths))
 					
 					$l:=Position:C15(":="; $c[1])
