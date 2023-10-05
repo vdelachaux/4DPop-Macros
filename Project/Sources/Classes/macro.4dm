@@ -253,6 +253,89 @@ Function ConvertToCallWithToken()
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function zipForShare()
+	
+	var $name : Text
+	var $folder; $zipArchive; $folderTempo; $o : Object
+	
+/*
+zip the current database folder after performing some cleanup :
+- delete invisible files & folders (name beginning with a dot)
+- delete files and folders whose names begin with a "_" character.)
+- delete the Preferences, Settings, Trash & DerivedData folders…
+- delete the userPreferences.xxx folders
+	
+The zip archive is created at the same level as the selected folder.
+*/
+	
+	$folder:=Folder:C1567(Folder:C1567(fk database folder:K87:14; *).platformPath; fk platform path:K87:2)  // Folder(DOCUMENT; fk platform path)
+	
+	$folderTempo:=$folder.copyTo(Folder:C1567(Temporary folder:C486; fk platform path:K87:2); $folder.name; fk overwrite:K87:5)
+	
+	For each ($o; $folderTempo.files(fk recursive:K87:7).query("(fullName =.@) OR (fullName =_@)"))
+		
+		$o.delete()
+		
+	End for each 
+	
+	For each ($o; $folderTempo.folders(fk recursive:K87:7).query("(fullName =.@) OR (fullName =_@) OR (fullName =Logs)"))
+		
+		$o.delete(Delete with contents:K24:24)
+		
+	End for each 
+	
+	For each ($o; $folderTempo.folders().query("fullName =userPreferences.@"))
+		
+		$o.delete(Delete with contents:K24:24)
+		
+	End for each 
+	
+	For each ($name; [\
+		"Settings"; \
+		"Preferences"; \
+		"Project/DerivedData"; \
+		"Project/Trash"; \
+		"Data"; \
+		"Build"; \
+		"Libraries"\
+		])
+		
+		$o:=$folderTempo.folder($name)
+		
+		If ($o.exists)
+			
+			$o.delete(Delete with contents:K24:24)
+			
+		End if 
+	End for each 
+	
+	For each ($name; [\
+		"LICENSE"; \
+		"make.json"; \
+		"lastbuild"; \
+		"readme.md"; \
+		"Info.plist"\
+		])
+		
+		$o:=$folderTempo.file($name)
+		
+		If ($o.exists)
+			
+			$o.delete()
+			
+		End if 
+	End for each 
+	
+	$zipArchive:=$folder.parent.file($folder.name+".zip")
+	$zipArchive.delete(Delete with contents:K24:24)
+	
+	If (ZIP Create archive:C1640($folderTempo; $zipArchive; ZIP Without enclosing folder:K91:7).success)
+		
+		SHOW ON DISK:C922($zipArchive.platformPath)
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function RemoveBlankLines()
 	
 	var $line; $out : Text

@@ -15,6 +15,7 @@
 			"_o_Preferences_Set"
 		]
 	},
+	"(Component)": {},
 	"# 🚧 DEV": {
 		"methods": [
 			"0_DOCUMENTATION",
@@ -48,7 +49,12 @@
 			"specialPaste"
 		]
 	},
-	"📦 COMPONENT": {},
+	"📦 COMPONENT": {
+		"groups": [
+			"private",
+			"shared"
+		]
+	},
 	"🛠️ Tools": {},
 	"00_dev": {
 		"methods": [
@@ -116,12 +122,6 @@
 			"scrollable",
 			"static",
 			"widget"
-		]
-	},
-	"Component": {
-		"groups": [
-			"private",
-			"shared"
 		]
 	},
 	"lib": {
@@ -224,5 +224,9 @@
 			"xml_refToObject"
 		]
 	},
-	"trash": {}
+	"trash": {
+		"groups": [
+			"(Component)"
+		]
+	}
 }
