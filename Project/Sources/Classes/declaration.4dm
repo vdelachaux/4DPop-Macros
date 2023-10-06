@@ -1,5 +1,8 @@
 Class extends macro
 
+property lines; locales : Collection
+property parameters; types : Collection
+
 Class constructor
 	
 	Super:C1705()
@@ -1417,7 +1420,6 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 			return (Is boolean:K8:9)
 			
 			//______________________________________________________
-			
 		Else   // Use gram.syntax
 			
 			For each ($type; This:C1470.gramSyntax) While ($varType=0)
