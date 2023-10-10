@@ -118,18 +118,18 @@
         <text>Maquereau 4D : <caret/></text>        
     </macro>
     
+    <macro name="Commenter"
+        in_menu="true"
+        type_ahead="false"
+        version="2">
+        <text><method>4DPop_MACROS("comment")</method></text>
+    </macro>
+    
     <macro name="Dupliquer et commenter/∂" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
         <text><method>4DPop_MACROS("duplicateAndComment")</method></text>    
-    </macro>
-    
-    <macro name="Bloc de commentaires" 
-        in_menu="true" 
-        type_ahead="false" 
-        version="2">
-        <text><method>4DPop_MACROS("commentBlock")</method></text>
     </macro>
     
     <!-- ******************************* REFACTORING ******************************* -->

@@ -2,7 +2,7 @@
 <!DOCTYPE macros SYSTEM "http://www.4d.com/dtd/2007/macros.dtd" >
 
 <!--
-    4DPop macros - [US]
+    4DPop macros - [EN]
     vincent@de-lachaux.net
 -->
 
@@ -118,18 +118,18 @@
         <text>Maquereau 4D : <caret/></text>        
     </macro>
     
-    <macro name="Duplicate and comment/∂" 
-        in_menu="true" 
-        type_ahead="false" 
+    <macro name="Comment"
+        in_menu="true"
+        type_ahead="false"
         version="2">
-        <text><method>4DPop_MACROS("duplicateAndComment")</method></text>
+        <text><method>4DPop_MACROS("comment")</method></text>
     </macro>
     
-    <macro name="Comment block" 
-        in_menu="true" 
-        type_ahead="false" 
+    <macro name="Duplicate and comment/∂"
+        in_menu="true"
+        type_ahead="false"
         version="2">
-        <text><method>4DPop_MACROS("commentBlock")</method></text>
+        <text><method>4DPop_MACROS("duplicateAndComment")</method></text>
     </macro>
     
     <!-- ******************************* REFACTORING ******************************* -->

@@ -12,7 +12,6 @@ C_TEXT:C284(<>Txt_buffer; <>Txt_method)
 
 C_TEXT:C284(<>Txt_Title)
 
-C_BOOLEAN:C305(<>Private_inited)
 
 C_TEXT:C284(<>regexFilePath)
 
@@ -39,6 +38,8 @@ ARRAY TEXT:C222(<>tTxt_Comments; 0)
 ARRAY TEXT:C222(<>tTxt_Labels; 0)
 
 ARRAY TEXT:C222(M_4DPop_tTxt_Buffer; 0)
+
+var v1; v2; v3; v4 : Variant
 
 If (False:C215)
 	
@@ -154,8 +155,7 @@ If (False:C215)
 	C_TEXT:C284(4DPop_MACROS; $3)
 	
 	// M_4DPOP_OBOO_INIT
-	C_BOOLEAN:C305(Init; $0)
-	C_TEXT:C284(Init; $1)
+	C_BOOLEAN:C305(4DPopMacrosINIT; $0)
 	
 	
 	// COMMENTS

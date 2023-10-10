@@ -1,246 +1,263 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
-  // ----------------------------------------------------
-  // Méthode : COMMENTS
-  // Created 28/10/05 par Vincent de Lachaux
-  // ----------------------------------------------------
-  // Modifée le 28/10/05 par Vincent de Lachaux
-  // Modifie par : Vincent de Lachaux (27/01/06)
-  // ----------------------------------------------------
-  // Modified #18-10-2013 by Vincent de Lachaux
-  // Add method's comments
-  // ----------------------------------------------------
-  // Modified #07-02-2020 by Vincent de Lachaux
-  // Adapt method's comments for project mode
-  // ----------------------------------------------------
-  // Description
-  // Management method macros for the comments
-  // ----------------------------------------------------
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_TEXT:C284($3)
-
-C_BOOLEAN:C305($bReplace;$success)
-C_LONGINT:C283($i;$indx;$l;$Lon_type;$start;$Win_hdl)
-C_POINTER:C301($ptr)
-C_TEXT:C284($t;$t_code;$t_name;$t_selector;$tComments;$tReplacement)
-C_TEXT:C284($tResult;$tSeparator;$tSyntax;$tt;$tTitle)
-C_OBJECT:C1216($o)
-C_COLLECTION:C1488($c)
-
-ARRAY LONGINT:C221($tLon_indent;0)
-ARRAY LONGINT:C221($tLon_refCount;0)
-ARRAY TEXT:C222($tTxt_controlFlow;0)
-ARRAY TEXT:C222($tTxt_Lines;0)
+// ----------------------------------------------------
+// Méthode : COMMENTS
+// Created 28/10/05 par Vincent de Lachaux
+// ----------------------------------------------------
+// Modifée le 28/10/05 par Vincent de Lachaux
+// Modifie par : Vincent de Lachaux (27/01/06)
+// ----------------------------------------------------
+// Modified #18-10-2013 by Vincent de Lachaux
+// Add method's comments
+// ----------------------------------------------------
+// Modified #07-02-2020 by Vincent de Lachaux
+// Adapt method's comments for project mode
+// ----------------------------------------------------
+// Description
+// Management method macros for the comments
+// ----------------------------------------------------
+#DECLARE($selector : Text; $selected : Text; $code : Text)
 
 If (False:C215)
-	C_TEXT:C284(COMMENTS ;$1)
-	C_TEXT:C284(COMMENTS ;$2)
-	C_TEXT:C284(COMMENTS ;$3)
+	C_TEXT:C284(COMMENTS; $1)
+	C_TEXT:C284(COMMENTS; $2)
+	C_TEXT:C284(COMMENTS; $3)
 End if 
 
-$t_selector:=$1  // Entry point
+var $t; $name; $comments; $tResult; $separator : Text
+var $tSyntax; $title : Text
+var $bReplace; $success : Boolean
+var $i; $indx; $l; $Lon_type; $start; $Win_hdl : Integer
+var $ptr : Pointer
+var $o : Object
+var $c : Collection
+
+ARRAY TEXT:C222($_controlFlow; 0)
+ARRAY LONGINT:C221($_indent; 0)
+ARRAY LONGINT:C221($_refCount; 0)
 
 Case of 
 		
-		  //______________________________________________________
-	: ($t_selector="commentBlock")  //
+		//______________________________________________________
+	: ($selector="commentBlock")
 		
-		SET MACRO PARAMETER:C998(Highlighted method text:K5:18;"/*\r"+$2+"\r*/")
+		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "/*\r"+$selected+"\r*/")
 		
-		  //______________________________________________________
-	: ($t_selector="duplicateAndComment")  // Duplicate the selected text and comment the first instance
+		//______________________________________________________
+	: ($selector="duplicateAndComment")  // Duplicate the selected text and comment the first instance
 		
-		If (Length:C16($2)>0)
+		If (Length:C16($selected)=0)
 			
-			$c:=Split string:C1554($2;"\r")
-			
-			For each ($tt;$c)
-				
-				If (Length:C16($tt)>0)
-					
-					If ($i=0)
-						
-						$tt:=kCommentMark+$tt
-						
-					Else 
-						
-						If ($c[$i-1]#"@\\")
-							
-							$tt:=kCommentMark+$tt
-							
-						End if 
-					End if 
-				End if 
-				
-				$t:=$t+$tt+"\r"
-				$i:=$i+1
-				
-			End for each 
-			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18;$t+"\r"+$2+kCaret)
+			return 
 			
 		End if 
 		
-		  //______________________________________________________
-	: ($t_selector="method-comment-generate")
+		$c:=Split string:C1554($selected; "\r")
 		
-		$t_name:=$2  // Method path
-		$t_code:=$3  // code
+		For each ($t; $c)
+			
+			If (Length:C16($t)>0)
+				
+				If ($i=0)
+					
+					$t:=kCommentMark+$t
+					
+				Else 
+					
+					If ($c[$i-1]#"@\\")
+						
+						$t:=kCommentMark+$t
+						
+					End if 
+				End if 
+			End if 
+			
+			$comments+=$t+"\r"
+			$i+=1
+			
+		End for each 
 		
-		METHOD RESOLVE PATH:C1165($t_name;$Lon_type;$ptr;$t;$t;*)
+		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $comments+"\r"+$selected+kCaret)
+		
+		//______________________________________________________
+	: ($selector="comment")
+		
+		Formula from string:C1601(":C1810(v1; v2; v3; v4)").call()
+		
+		If (v3#v4) && (v1#0)
+			
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "/*\r"+$selected+"\r*/")
+			return 
+			
+		End if 
+		
+		If (v1#0) && (v1#v2)
+			
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "/*"+$selected+"*/")
+			return 
+			
+		End if 
+		
+		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "// "+$selected)
+		
+		//______________________________________________________
+	: ($selector="method-comment-generate")
+		
+		$name:=$selected  // Method path
+		
+		METHOD RESOLVE PATH:C1165($name; $Lon_type; $ptr; $t; $t; *)
 		
 		If ($Lon_type=Path project method:K72:1)
 			
-			METHOD GET COMMENTS:C1189($t_name;$tComments;*)
+			METHOD GET COMMENTS:C1189($name; $comments; *)
 			
 			If (Path to object:C1547(Structure file:C489(*)).extension=".4DProject")  // #project mode
 				
-				$tSeparator:="--------------------------------------------------\r"
+				$separator:="--------------------------------------------------\r"
 				
-				ARRAY TEXT:C222($tTxt_comments;0x0000)
-				ARRAY TEXT:C222($tTxt_labels;0x0000)
-				ARRAY TEXT:C222($tTxt_types;0x0000)
+				ARRAY TEXT:C222($_comments; 0x0000)
+				ARRAY TEXT:C222($_labels; 0x0000)
+				ARRAY TEXT:C222($_types; 0x0000)
 				
-				METHOD_ANALYSE_TO_ARRAYS ($t_code;->$tTxt_types;->$tTxt_labels;->$tTxt_comments)
+				METHOD_ANALYSE_TO_ARRAYS($code; ->$_types; ->$_labels; ->$_comments)
 				
-				$tSyntax:=Choose:C955(Length:C16($tTxt_types{0})>0;Choose:C955(Length:C16($tTxt_labels{0})=0;$tTxt_types{0};$tTxt_labels{0})+" := "+$t_name;$t_name)
+				$tSyntax:=Choose:C955(Length:C16($_types{0})>0; Choose:C955(Length:C16($_labels{0})=0; $_types{0}; $_labels{0})+" := "+$name; $name)
 				
-				For ($i;1;Size of array:C274($tTxt_types);1)
+				For ($i; 1; Size of array:C274($_types); 1)
 					
-					  // Open parentheses or put a separator
-					$tSyntax:=Choose:C955($i=1;$tSyntax+" ( ";$tSyntax+" ; ")
+					// Open parentheses or put a separator
+					$tSyntax:=Choose:C955($i=1; $tSyntax+" ( "; $tSyntax+" ; ")
 					
-					$tSyntax:=$tSyntax+$tTxt_labels{$i}
+					$tSyntax:=$tSyntax+$_labels{$i}
 					
-					If ($i=Size of array:C274($tTxt_types))
+					If ($i=Size of array:C274($_types))
 						
-						  // Close the parentheses
+						// Close the parentheses
 						$tSyntax:=$tSyntax+" )"
 						
 					End if 
 				End for 
 				
-				  //…then describe the parameters…
+				//…then describe the parameters…
 				$tResult:=$tSyntax
 				
-				For ($i;1;Size of array:C274($tTxt_types);1)
+				For ($i; 1; Size of array:C274($_types); 1)
 					
 					$tResult:=$tResult+"\r"\
-						+" -> "+$tTxt_labels{$i}+" ("+$tTxt_types{$i}+")"\
-						+Choose:C955(Length:C16($tTxt_comments{$i})>0;" - "+$tTxt_comments{$i};"")
+						+" -> "+$_labels{$i}+" ("+$_types{$i}+")"\
+						+Choose:C955(Length:C16($_comments{$i})>0; " - "+$_comments{$i}; "")
 					
 				End for 
 				
-				  //…and the return for a function.
-				If (Length:C16($tTxt_labels{0})>0)
+				//…and the return for a function.
+				If (Length:C16($_labels{0})>0)
 					
-					$tResult:=$tResult+"\r"+" <- "+$tTxt_labels{0}+" ("+$tTxt_types{0}+")"\
-						+Choose:C955(Length:C16($tTxt_comments{0})>0;" - "+$tTxt_comments{0};"")
+					$tResult:=$tResult+"\r"+" <- "+$_labels{0}+" ("+$_types{0}+")"\
+						+Choose:C955(Length:C16($_comments{0})>0; " - "+$_comments{0}; "")
 					
 				End if 
 				
-				$t:=$tSeparator+$tResult
+				$t:=$separator+$tResult
 				
-				If (Length:C16($tComments)=0)
+				If (Length:C16($comments)=0)
 					
-					$tComments:="<!--"+$t+"-->\r"+$tSyntax
+					$comments:="<!--"+$t+"-->\r"+$tSyntax
 					
 				Else 
 					
-					$tComments:=rgx ($tComments).substitute("(?si-m)<!--(.*)-->";"<!--"+$t+"-->").result
+					$comments:=rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
 					
 				End if 
 				
 			Else   // #database mode
 				
-				$tSeparator:="\r________________________________________________________\r"
+				$separator:="\r________________________________________________________\r"
 				
-				$tComments:=ST Get plain text:C1092($tComments)
+				$comments:=ST Get plain text:C1092($comments)
 				
-				$indx:=Position:C15($tSeparator;$tComments)
+				$indx:=Position:C15($separator; $comments)
 				
 				If ($indx>0)
 					
-					$tComments:=Delete string:C232($tComments;1;$indx+Length:C16($tSeparator)-1)
+					$comments:=Delete string:C232($comments; 1; $indx+Length:C16($separator)-1)
 					
 				Else 
 					
-					  // Compatibility with older versions of separator
-					$indx:=Position:C15("\r-\r";$tComments)
+					// Compatibility with older versions of separator
+					$indx:=Position:C15("\r-\r"; $comments)
 					
 					If ($indx>0)
 						
-						$tComments:=Delete string:C232($tComments;1;$indx+2)
+						$comments:=Delete string:C232($comments; 1; $indx+2)
 						
 					Else 
 						
-						$indx:=Position:C15("\r-";$tComments)
+						$indx:=Position:C15("\r-"; $comments)
 						
 						If ($indx>0)
 							
-							$tComments:=Delete string:C232($tComments;1;$indx+1)
+							$comments:=Delete string:C232($comments; 1; $indx+1)
 							
 						End if 
 					End if 
 				End if 
 				
-				$tComments:=METHOD_Syntax ($t_code;$t_name;"")+$tSeparator+$tComments
+				$comments:=METHOD_Syntax($code; $name; "")+$separator+$comments
 				
 			End if 
 			
-			METHOD SET COMMENTS:C1193($t_name;$tComments;*)
+			METHOD SET COMMENTS:C1193($name; $comments; *)
 			
 		End if 
 		
-		  //________________________________________
-	: ($t_selector="method")  // #18-10-2013
+		//________________________________________
+	: ($selector="method")  // #18-10-2013
 		
-		$t_name:=$2
+		$name:=$selected
 		
-		METHOD RESOLVE PATH:C1165($t_name;$Lon_type;$ptr;$t;$t;*)
+		METHOD RESOLVE PATH:C1165($name; $Lon_type; $ptr; $t; $t; *)
 		
 		If ($Lon_type=Path project method:K72:1)
 			
-			METHOD GET COMMENTS:C1189($t_name;$tComments;*)
+			METHOD GET COMMENTS:C1189($name; $comments; *)
 			
-			$Win_hdl:=Open form window:C675("COMMENTS";Movable form dialog box:K39:8)
-			SET WINDOW TITLE:C213($t_name+" - "+Get localized string:C991("comments");$Win_hdl)
+			$Win_hdl:=Open form window:C675("COMMENTS"; Movable form dialog box:K39:8)
+			SET WINDOW TITLE:C213($name+" - "+Get localized string:C991("comments"); $Win_hdl)
 			$o:=New object:C1471(\
-				"text";$tComments)
-			DIALOG:C40("COMMENTS";$o)
+				"text"; $comments)
+			DIALOG:C40("COMMENTS"; $o)
 			CLOSE WINDOW:C154
 			
 			If (OK=1)
 				
-				$tComments:=$o.text
-				$tComments:=Replace string:C233($tComments;"&lt;date/&gt;";String:C10(Current date:C33))
-				$tComments:=Replace string:C233($tComments;"&lt;time/&gt;";String:C10(Current time:C178))
-				$tComments:=Replace string:C233($tComments;"&lt;user_4D/&gt;";Current user:C182)
-				$tComments:=Replace string:C233($tComments;"&lt;user_os/&gt;";Current machine:C483)
-				$tComments:=Replace string:C233($tComments;"&lt;version_4D/&gt;";Application version:C493(*))
-				$tComments:=Replace string:C233($tComments;"&lt;database_name/&gt;";Structure file:C489)
+				$comments:=$o.text
+				$comments:=Replace string:C233($comments; "&lt;date/&gt;"; String:C10(Current date:C33))
+				$comments:=Replace string:C233($comments; "&lt;time/&gt;"; String:C10(Current time:C178))
+				$comments:=Replace string:C233($comments; "&lt;user_4D/&gt;"; Current user:C182)
+				$comments:=Replace string:C233($comments; "&lt;user_os/&gt;"; Current machine:C483)
+				$comments:=Replace string:C233($comments; "&lt;version_4D/&gt;"; Application version:C493(*))
+				$comments:=Replace string:C233($comments; "&lt;database_name/&gt;"; Structure file:C489)
 				
-				METHOD SET COMMENTS:C1193($t_name;$tComments;*)
+				METHOD SET COMMENTS:C1193($name; $comments; *)
 				
 			End if 
 		End if 
 		
-		  //______________________________________________________
-	: ($t_selector="edit")
+		//______________________________________________________
+	: ($selector="edit")
 		
-		GET MACRO PARAMETER:C997(Highlighted method text:K5:18;$tComments)
+		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $comments)
 		
-		$bReplace:=Length:C16($tComments)>0
+		$bReplace:=Length:C16($comments)>0
 		
-		$c:=Split string:C1554($tComments;"\r")
+		$c:=Split string:C1554($comments; "\r")
 		
-		For each ($t;$c)
+		For each ($t; $c)
 			
-			$indx:=Position:C15(kCommentMark;$t)
+			$indx:=Position:C15(kCommentMark; $t)
 			
 			If ($indx>0)
 				
-				$c[$i]:=Substring:C12($t;$indx+Length:C16(kCommentMark))
+				$c[$i]:=Substring:C12($t; $indx+Length:C16(kCommentMark))
 				
 			End if 
 			
@@ -248,31 +265,31 @@ Case of
 			
 		End for each 
 		
-		$tComments:=$c.join("\r")
+		$comments:=$c.join("\r")
 		
-		$l:=Open form window:C675("COMMENTS";Movable dialog box:K34:7;Horizontally centered:K39:1;Vertically centered:K39:4;*)
+		$l:=Open form window:C675("COMMENTS"; Movable dialog box:K34:7; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		SET MENU BAR:C67(1)
 		$o:=New object:C1471(\
-			"text";$tComments)
-		DIALOG:C40("COMMENTS";$o)
+			"text"; $comments)
+		DIALOG:C40("COMMENTS"; $o)
 		CLOSE WINDOW:C154
 		
 		If (Bool:C1537(OK))
 			
-			$tComments:=$o.text
+			$comments:=$o.text
 			
-			If (Length:C16($tComments)>0)
+			If (Length:C16($comments)>0)
 				
-				If (Position:C15("<span";$tComments)>0)
+				If (Position:C15("<span"; $comments)>0)
 					
-					$tComments:=ST Get plain text:C1092($tComments)
+					$comments:=ST Get plain text:C1092($comments)
 					
 				End if 
 				
-				$c:=Split string:C1554($tComments;"\r")
+				$c:=Split string:C1554($comments; "\r")
 				$i:=0
 				
-				For each ($t;$c)
+				For each ($t; $c)
 					
 					If (Length:C16($t)>0)
 						
@@ -284,187 +301,187 @@ Case of
 					
 				End for each 
 				
-				$tReplacement:=$c.join("\r")
+				$comments:=$c.join("\r")
 				
-				$tReplacement:=Replace string:C233($tReplacement;"<date/>";String:C10(Current date:C33))
-				$tReplacement:=Replace string:C233($tReplacement;"<time/>";String:C10(Current time:C178))
-				$tReplacement:=Replace string:C233($tReplacement;"<user_4D/>";Current user:C182)
-				$tReplacement:=Replace string:C233($tReplacement;"<user_os/>";Current machine:C483)
-				$tReplacement:=Replace string:C233($tReplacement;"<version_4D/>";Application version:C493(*))
-				$tReplacement:=Replace string:C233($tReplacement;"<database_name/>";Structure file:C489)
+				$comments:=Replace string:C233($comments; "<date/>"; String:C10(Current date:C33))
+				$comments:=Replace string:C233($comments; "<time/>"; String:C10(Current time:C178))
+				$comments:=Replace string:C233($comments; "<user_4D/>"; Current user:C182)
+				$comments:=Replace string:C233($comments; "<user_os/>"; Current machine:C483)
+				$comments:=Replace string:C233($comments; "<version_4D/>"; Application version:C493(*))
+				$comments:=Replace string:C233($comments; "<database_name/>"; Structure file:C489)
 				
-				$tTitle:=win_title (Frontmost window:C447)
+				$title:=win_title(Frontmost window:C447)
 				
-				$tReplacement:=Replace string:C233($tReplacement;"<method_name/>";$tTitle)
-				$tTitle:=Get window title:C450(Next window:C448(Frontmost window:C447))
+				$comments:=Replace string:C233($comments; "<method_name/>"; $title)
+				$title:=Get window title:C450(Next window:C448(Frontmost window:C447))
 				
-				$indx:=Position:C15(" - ";$tTitle)
+				$indx:=Position:C15(" - "; $title)
 				
 				If ($indx>0)
 					
-					$tTitle:=Delete string:C232($tTitle;1;$indx+2)
+					$title:=Delete string:C232($title; 1; $indx+2)
 					
 				End if 
 				
-				$tTitle:=Replace string:C233($tTitle;" *";"")
+				$title:=Replace string:C233($title; " *"; "")
 				
-				If (Position:C15(Get localized string:C991("Form: ");$tTitle)>0)
+				If (Position:C15(Get localized string:C991("Form: "); $title)>0)
 					
-					$tReplacement:=Replace string:C233($tReplacement;"<form_name/>";$tTitle)
+					$comments:=Replace string:C233($comments; "<form_name/>"; $title)
 					
 				End if 
 				
-				$tReplacement:=$tReplacement+kCaret
-				SET MACRO PARAMETER:C998(Highlighted method text:K5:18;$tReplacement)
+				$comments:=$comments+kCaret
+				SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $comments)
 				
 			End if 
 		End if 
 		
-		  //______________________________________________________
-	: ($t_selector="bloc")
+		//______________________________________________________
+	: ($selector="bloc")
 		
-		GET MACRO PARAMETER:C997(Highlighted method text:K5:18;$tComments)
+		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $comments)
 		
 		$bReplace:=False:C215
 		$success:=True:C214
 		
-		$c:=Split string:C1554($tComments;"\r")
+		$c:=Split string:C1554($comments; "\r")
 		
-		For each ($t;$c) While ($i<MAXLONG:K35:2)
+		For each ($t; $c) While ($i<MAXLONG:K35:2)
 			
 			Case of 
 					
-					  //……………………………………………………………
-				: (Position:C15(":";$t)=1)  //:
+					//……………………………………………………………
+				: (Position:C15(":"; $t)=1)  //:
 					
-					$indx:=Choose:C955($tLon_indent{Size of array:C274($tLon_indent)}=5;50;99)
+					$indx:=Choose:C955($_indent{Size of array:C274($_indent)}=5; 50; 99)
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{2};$t)=1)  // Else
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{2}; $t)=1)  // Else
 					
 					Case of 
 							
-							  //.........................................
-						: ($tLon_indent{Size of array:C274($tLon_indent)}=2)  // If
+							//.........................................
+						: ($_indent{Size of array:C274($_indent)}=2)  // If
 							
 							$indx:=20
 							
-							  //.........................................
-						: ($tLon_indent{Size of array:C274($tLon_indent)}=5)  // Case of
+							//.........................................
+						: ($_indent{Size of array:C274($_indent)}=5)  // Case of
 							
 							$indx:=50
 							
-							  //.........................................
+							//.........................................
 						Else 
 							
 							$indx:=99
 							
-							  //.........................................
+							//.........................................
 					End case 
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{1};$t)=1)  // If
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{1}; $t)=1)  // If
 					
 					$indx:=2
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 					
-				: (Position:C15($tTxt_controlFlow{3};$t)=1)  // End if
+				: (Position:C15($_controlFlow{3}; $t)=1)  // End if
 					
 					$indx:=-2
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{4};$t)=1)  // Case of
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{4}; $t)=1)  // Case of
 					
 					$indx:=5
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{5};$t)=1)  // End case
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{5}; $t)=1)  // End case
 					
 					$indx:=-5
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{8};$t)=1)  // For
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{8}; $t)=1)  // For
 					
 					$indx:=10
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{9};$t)=1)  // End for
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{9}; $t)=1)  // End for
 					
 					$indx:=-10
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{6};$t)=1)  // While
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{6}; $t)=1)  // While
 					
 					$indx:=8
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{7};$t)=1)  // End while
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{7}; $t)=1)  // End while
 					
 					$indx:=-8
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{10};$t)=1)  // Repeat
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{10}; $t)=1)  // Repeat
 					
 					$indx:=12
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{11};$t)=1)  // Until
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{11}; $t)=1)  // Until
 					
 					$indx:=-12
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{12};$t)=1)  // Use
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{12}; $t)=1)  // Use
 					
 					$indx:=13
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 					
-				: (Position:C15($tTxt_controlFlow{13};$t)=1)  // End use
+				: (Position:C15($_controlFlow{13}; $t)=1)  // End use
 					
 					$indx:=-13
 					
-					  //……………………………………………………………
-				: (Position:C15($tTxt_controlFlow{14};$t)=1)  // For each
+					//……………………………………………………………
+				: (Position:C15($_controlFlow{14}; $t)=1)  // For each
 					
 					$indx:=14
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 					
-				: (Position:C15($tTxt_controlFlow{15};$t)=1)  // End for each
+				: (Position:C15($_controlFlow{15}; $t)=1)  // End for each
 					
 					$indx:=-14
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 				Else 
 					
 					$indx:=0
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 			End case 
 			
 			Case of 
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 				: ($indx=99)  // Error : Else without If or Case of
 					
 					$success:=False:C215
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 				: ($indx>=20)
 					
 					If ($indx=($start*10))\
-						 & ($tLon_refCount{$indx/10}=1)  //Else
+						 & ($_refCount{$indx/10}=1)  //Else
 						
 						$c[$i]:=kCommentMark+$t
 						
 					End if 
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 				: ($indx>0)
 					
-					$tLon_refCount{$indx}:=$tLon_refCount{$indx}+1
-					APPEND TO ARRAY:C911($tLon_indent;$indx)
+					$_refCount{$indx}:=$_refCount{$indx}+1
+					APPEND TO ARRAY:C911($_indent; $indx)
 					
 					If ($start=0)
 						
@@ -473,23 +490,23 @@ Case of
 					End if 
 					
 					If ($indx=$start)\
-						 & ($tLon_refCount{$indx}=1)  // First
+						 & ($_refCount{$indx}=1)  // First
 						
 						$c[$i]:=kCommentMark+$t
 						$bReplace:=True:C214
 						
 					End if 
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 				: ($indx<0)
 					
-					If ($tLon_indent{Size of array:C274($tLon_indent)}=Abs:C99($indx))
+					If ($_indent{Size of array:C274($_indent)}=Abs:C99($indx))
 						
-						$tLon_refCount{Abs:C99($indx)}:=$tLon_refCount{Abs:C99($indx)}-1
-						CLEAR VARIABLE:C89($tLon_indent)
+						$_refCount{Abs:C99($indx)}:=$_refCount{Abs:C99($indx)}-1
+						CLEAR VARIABLE:C89($_indent)
 						
 						If ($indx=-$start)\
-							 & ($tLon_refCount{Abs:C99($indx)}=0)  // End
+							 & ($_refCount{Abs:C99($indx)}=0)  // End
 							
 							$c[$i]:=kCommentMark+$t
 							
@@ -501,19 +518,19 @@ Case of
 						
 					End if 
 					
-					  //……………………………………………………………
+					//……………………………………………………………
 			End case 
 			
-			$i:=Choose:C955($success;$i+1;MAXLONG:K35:2)  // Stop
+			$i:=Choose:C955($success; $i+1; MAXLONG:K35:2)  // Stop
 			
 		End for each 
 		
 		If ($success & $bReplace)
 			
-			$tComments:=$c.join("\r")
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18;$tComments)
+			$comments:=$c.join("\r")
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $comments)
 			
 		End if 
 		
-		  //______________________________________________________
+		//______________________________________________________
 End case 

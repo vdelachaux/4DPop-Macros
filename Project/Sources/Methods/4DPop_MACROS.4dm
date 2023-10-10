@@ -36,7 +36,7 @@ If (Count parameters:C259>=1)
 		
 		If (Storage:C1525.macros=Null:C1517)
 			
-			Init
+			4DPopMacrosINIT
 			
 		End if 
 		
@@ -373,16 +373,6 @@ Case of
 	: ($action="googleSearch")
 		
 		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
-		
-		//______________________________________________________
-	: ($action="commentBlock")
-		
-		COMMENTS("commentBlock"; $macro.highlighted)
-		
-		//______________________________________________________
-	: ($action="duplicateAndComment")
-		
-		COMMENTS("duplicateAndComment"; $macro.highlighted)
 		
 		//______________________________________________________
 	: ($action="comment_current_level")  // Comments the first and the last line of a logic block

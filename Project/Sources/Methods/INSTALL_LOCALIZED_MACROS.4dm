@@ -8,15 +8,14 @@
 // If not, installs a localized file if any
 // ----------------------------------------------------
 // Declarations
-var $document; $macrosLanguage; $root; $t : Text
+var $content; $language; $root : Text
 var $i : Integer
-var $file; $o : Object
+var $file; $src : 4D:C1709.File
 
 ARRAY TEXT:C222($nodes; 0)
 ARRAY TEXT:C222($results; 0)
 ARRAY LONGINT:C221($childTypes; 0)
 
-// ----------------------------------------------------
 $file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml")
 
 If ($file.original#Null:C1517)
@@ -27,14 +26,12 @@ End if
 
 If ($file.exists)
 	
-	$t:=$file.getText()
-	$root:=DOM Parse XML variable:C720($t)
+	$content:=$file.getText()
+	$root:=DOM Parse XML variable:C720($content)
 	
 	If (OK=1)
 		
-		$document:=DOM Get XML document ref:C1088($root)
-		
-		DOM GET XML CHILD NODES:C1081($document; $childTypes; $nodes)
+		DOM GET XML CHILD NODES:C1081(DOM Get XML document ref:C1088($root); $childTypes; $nodes)
 		
 		Repeat 
 			
@@ -44,8 +41,8 @@ If ($file.exists)
 				
 				If (Rgx_ExtractText("\\[([^\\]]*)\\]"; $nodes{$i}; "1"; ->$results)=0)
 					
-					$macrosLanguage:=$results{1}
-					$i:=-1
+					$language:=$results{1}
+					break
 					
 				End if 
 			End if 
@@ -56,13 +53,14 @@ If ($file.exists)
 	End if 
 End if 
 
-If ($macrosLanguage#Get database localization:C1009(User system localization:K5:23))
+If ($language#Get database localization:C1009(User system localization:K5:23))
 	
-	$o:=File:C1566(Get localized document path:C1105("4DPop_Macros.xml"); fk platform path:K87:2)
+	$src:=File:C1566(Get localized document path:C1105("4DPop_Macros.xml"); fk platform path:K87:2)
 	
-	If (Bool:C1537($o.exists))
+	If (Bool:C1537($src.exists))
 		
-		$o.copyTo($file.parent; fk overwrite:K87:5)
+		$src.copyTo($file.parent; fk overwrite:K87:5)
+		RELOAD PROJECT:C1739
 		
 	End if 
 End if 

@@ -1,9 +1,15 @@
-Class constructor
-	var $t : Text
-	var $ƒ : Object
+property title; name; objectName; method; highlighted; decimalSeparator : Text
+property class; form; trigger; projectMethod; objectMethod; withSelection : Boolean
+property lineTexts : Collection
+property _controlFlow : Object
+
+Class constructor()
 	
-	ARRAY LONGINT:C221($_len; 0)
-	ARRAY LONGINT:C221($_pos; 0)
+	var $t : Text
+	var $ƒ : 4D:C1709.Function
+	
+	ARRAY LONGINT:C221($len; 0)
+	ARRAY LONGINT:C221($pos; 0)
 	
 	This:C1470.title:=Get window title:C450(Frontmost window:C447)
 	
@@ -16,21 +22,21 @@ Class constructor
 	This:C1470.form:=False:C215
 	This:C1470.trigger:=False:C215
 	
-	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $_pos; $_len))
+	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
 		
 		$ƒ:=Formula from string:C1601(Parse formula:C1576("_localized string:C1578($1)"))
-		$t:=Substring:C12(This:C1470.title; $_pos{1}; $_len{1})
+		$t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
 		This:C1470.class:=(Position:C15("Class:"; $t)=1)
 		This:C1470.form:=($t=$ƒ.call(Null:C1517; "common_form"))
 		This:C1470.trigger:=($t=$ƒ.call(Null:C1517; "common_Trigger"))
 		
-		This:C1470.name:=Substring:C12(This:C1470.title; $_pos{2}; $_len{2})
+		This:C1470.name:=Substring:C12(This:C1470.title; $pos{2}; $len{2})
 		
-		If ($_pos{3}>0)
+		If ($pos{3}>0)
 			
-			This:C1470.objectName:=Substring:C12(This:C1470.title; $_pos{3}; $_len{3})
+			This:C1470.objectName:=Substring:C12(This:C1470.title; $pos{3}; $len{3})
 			
 		End if 
 		
@@ -61,7 +67,7 @@ Class constructor
 		
 	End if 
 	
-	This:C1470.lineTexts:=New collection:C1472
+	This:C1470.lineTexts:=[]
 	
 	GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $t)
 	This:C1470.decimalSeparator:=$t
@@ -93,9 +99,17 @@ Function split($useSelection : Boolean)
 	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function localizedControlFlow($control : Text) : Text
+Function setMethodText($text : Text)
 	
-	var $index : Integer
+	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setHighlightedText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function localizedControlFlow($control : Text) : Text
 	
 	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
 	return Command name:C538(41)="ALERT" ? $control : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($control))
@@ -109,7 +123,7 @@ Function PasteColor()
 	
 	If (Bool:C1537(OK))
 		
-		This:C1470._setSelectedText(String:C10($color & 0x00FFFFFF; "&x")+kCaret)
+		This:C1470.setHighlightedText(String:C10($color & 0x00FFFFFF; "&x")+kCaret)
 		
 	End if 
 	
@@ -155,7 +169,7 @@ Function PasteAndKeepTarget()
 	SET TEXT TO PASTEBOARD:C523(This:C1470.highlighted)
 	
 	// …and replace it with the previous one.
-	This:C1470._setSelectedText($t)
+	This:C1470.setHighlightedText($t)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// v13+ replace If(test) var:=x Else var:=y End if by var:=Choose(test;x;y)
@@ -195,7 +209,7 @@ Function Choose()
 							+Substring:C12($c[3]; $affect+2)\
 							+")"
 						
-						This:C1470._setSelectedText($t)
+						This:C1470.setHighlightedText($t)
 						
 					End if 
 				End if 
@@ -351,12 +365,82 @@ Function RemoveBlankLines()
 	
 	If (Length:C16(This:C1470.highlighted)=0)
 		
-		This:C1470._setMethodText($out)
+		This:C1470.setMethodText($out)
 		
 	Else 
 		
-		This:C1470._setSelectedText($out)
+		This:C1470.setHighlightedText($out)
 		
+	End if 
+	
+	//MARK:-[COMMENTS]
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function commentBlock
+	
+	This:C1470.setHighlightedText("/*\r"+This:C1470.highlighted+"\r*/")
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function duplicateAndComment()
+	
+	If (This:C1470._noSelection())
+		
+		return 
+		
+	End if 
+	
+	This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function comment()
+	
+	If (This:C1470._noSelection())
+		
+		return 
+		
+	End if 
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	
+	If (Match regex:C1019("(?si-m)/\\*(.*)\\*/"; This:C1470.highlighted; 1; $pos; $len))
+		
+		This:C1470.setHighlightedText(Substring:C12(This:C1470.highlighted; $pos{1}; $len{1}))
+		return 
+		
+	End if 
+	
+	This:C1470.setHighlightedText(This:C1470._comment())
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _comment() : Text
+	
+	var v1; v2; v3; v4 : Variant
+	
+	Formula from string:C1601(":C1810(v1; v2; v3; v4)").call()
+	
+	If (v3=v4)
+		
+		If (v1#v2)
+			
+			return "/*"+This:C1470.highlighted+"*/"
+			
+		Else 
+			
+			return "// "+This:C1470.highlighted
+			
+		End if 
+		
+	Else 
+		
+		If (v1#v2)
+			
+			return "/*\r"+This:C1470.highlighted+"\r*/"
+			
+		Else 
+			
+			return "// "+This:C1470.highlighted
+			
+		End if 
 	End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
@@ -365,7 +449,7 @@ Function _noSelection() : Boolean
 	If (Not:C34(This:C1470.withSelection))
 		
 		BEEP:C151
-		ALERT:C41("This macro requires text to be selected before it is called.")
+		ALERT:C41("This macro requires text to be selected before it is called!")
 		return True:C214
 		
 	End if 
@@ -386,14 +470,4 @@ Function _paste($text : Text; $useSelection : Boolean)
 	End if 
 	
 	SET MACRO PARAMETER:C998($target; $text)
-	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _setMethodText($text : Text)
-	
-	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
-	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _setSelectedText($text : Text)
-	
-	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
 	

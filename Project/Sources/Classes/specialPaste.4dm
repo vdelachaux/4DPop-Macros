@@ -69,7 +69,7 @@ Class constructor()
 		$options:=This:C1470.options
 		_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
 		
-		This:C1470._setSelectedText(This:C1470.preview+kCaret)
+		This:C1470.setHighlightedText(This:C1470.preview+kCaret)
 		
 	End if 
 	

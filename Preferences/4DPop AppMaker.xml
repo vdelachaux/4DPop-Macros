@@ -17,5 +17,5 @@
       <item>./Resources/php.ini</item>
     </array>
   </delete>
-  <reveal path=""/>
+  <reveal path="./"/>
 </appMaker>
