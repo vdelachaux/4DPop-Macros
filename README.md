@@ -31,6 +31,7 @@ That's why they have an associated shortcut 😉
 | [Beautifier…](#beautifier) |A code formatter|✔︎||⌘ §|
 | [Copy and replace](#copyReplace) |Swaps the selection with the contents of the clipboard|✔︎||⌘ ⌥ c|
 | [Special paste…](#specialPaste) |Paste the text contained in the clipboard by applying transformations|✔︎|_p|⌘ ⌥ v|
+| [Comments](#comment)|Intelligent comment/uncomment|✔︎||⌘ j|
 | [Duplicate and comment](#duplicate)|The selected text is saved as a comment immediately before the selection.|✔︎||⌘ ⌥ d|
 | Replay last macro |Replays the last macro used for the method being edited|✔︎||⌘ +|
 
@@ -129,6 +130,28 @@ When the compiler [displays warnings](https://doc.4d.com/4Dv19/4D/19/Compiler-wi
 To do this, select the line(s) of code in the method editor that cause this warning and select the "Compiler directive…" action from the macro menu. The tool asks for the number displayed in brackets (e.g. 538.3) and when you validate, surrounds the selected code with the pattern `//%W-538.3` ... `//%W+538.3`.
 
 <p align="center"><img src="./Documentation/disablingWarning.png" width="300">
+
+## <a name="comment">Comments</a>
+
+If the selected text is already commented, it is uncommented. Otherwise, the macro analyzes the selected text to choose the best commenting method: 
+
+* single-line comment:
+
+```4d
+// CLOSE DOCUMENT($Doc_shortcuts)
+```
+
+* block comment:
+
+```4d
+/*	APPEND TO ARRAY($tTxt_attributeName; "editable")	APPEND TO ARRAY($tTxt_attributeValue; "false")*/
+```
+									
+* intra-line
+
+```4d
+ON ERR CALL(/*"noERROR"*/"")
+```
 
 
 ## <a name="duplicate">Duplicate & comment</a>

@@ -147,6 +147,7 @@
 			"DOT_NOTATION",
 			"Get_resource",
 			"Get_Version",
+			"Init",
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
 			"Install_resources",

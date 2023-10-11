@@ -117,8 +117,8 @@
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="4d macro">
         <text>Maquereau 4D : <caret/></text>        
     </macro>
-    
-    <macro name="Comment"
+
+    <macro name="Comments/j"
         in_menu="true"
         type_ahead="false"
         version="2">

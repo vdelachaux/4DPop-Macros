@@ -7,7 +7,8 @@ Class constructor()
 	
 	Super:C1705()
 	
-	This:C1470.windowRef:=Open form window:C675("SPECIAL_PASTE"; Movable form dialog box:K39:8; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+	//This.windowRef:=Open form window("SPECIAL_PASTE"; Movable form dialog box; Horizontally centered; Vertically centered; *)
+	This:C1470.windowRef:=Open form window:C675("SPECIAL_PASTE"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 	This:C1470.preview:=""
 	This:C1470.original:=""
 	This:C1470.columns:=80
@@ -174,38 +175,56 @@ Function comments()->$converted : Text
 	
 	$converted:=""
 	
-	$t:=Replace string:C233(This:C1470.original; "\r\n"; "\r")
-	$t:=Replace string:C233($t; "\n"; "\r")
+	$t:=Replace string:C233(This:C1470.original; "\t"; "")
 	
-	$c:=Split string:C1554($t; "\r"; sk trim spaces:K86:2)
+	If (This:C1470.options ?? 10)  // Ignore blank lines
+		
+		$c:=Split string:C1554($t; "\r"; sk ignore empty strings:K86:1)
+		
+	Else 
+		
+		$c:=Split string:C1554($t; "\r")
+		
+	End if 
 	
-	For each ($t; $c)
+	If ($c.length>1)
 		
-		If (This:C1470.options ?? 11)
-			
-			// Delete indentation
-			$t:=Replace string:C233($t; "\t"; "")
-			
-		Else 
-			
-			$t:=Replace string:C233($t; "\t"; "    ")
-			
-		End if 
+		$converted:="/*\r"+$c.join("\r")+"\r*/"
 		
-		If (This:C1470.options ?? 10)
+	Else 
+		
+		var $i : Integer
+		For each ($t; $c)
 			
-			If (Length:C16($t)#0)
+			If (This:C1470.options ?? 11)  // Delete indentation
+				
+				$c[$i]:=Replace string:C233($t; "\t"; "")
+				
+			Else 
+				
+				$c[$i]:=Replace string:C233($t; "\t"; "    ")
+				
+			End if 
+			
+			If (This:C1470.options ?? 10)  // Ignore blank lines
+				
+				If (Length:C16($t)#0)
+					
+					$converted:=$converted+kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
+					
+				End if 
+				
+			Else 
 				
 				$converted:=$converted+kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
 				
 			End if 
 			
-		Else 
+			$i+=1
 			
-			$converted:=$converted+kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
-			
-		End if 
-	End for each 
+		End for each 
+	End if 
+	
 	
 	//=========================================================================
 Function htmlCode()->$converted : Text

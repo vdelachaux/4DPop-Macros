@@ -14,7 +14,7 @@
 #DECLARE() : Boolean
 
 If (False:C215)
-	C_BOOLEAN:C305(4DPopMacrosINIT; $0)
+	C_BOOLEAN:C305(Init; $0)
 End if 
 
 If (Storage:C1525.component=Null:C1517)

@@ -388,10 +388,21 @@ Function duplicateAndComment()
 		
 	End if 
 	
-	This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)
+	If (Split string:C1554(This:C1470.highlighted; "\r").length=1)
+		
+		This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)*/
+		
+	Else 
+		
+		This:C1470.setHighlightedText(This:C1470._comment()+This:C1470.highlighted+kCaret)*/
+		
+	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function comment()
+	
+	ARRAY LONGINT:C221($len; 0)
+	ARRAY LONGINT:C221($pos; 0)
 	
 	If (This:C1470._noSelection())
 		
@@ -399,14 +410,21 @@ Function comment()
 		
 	End if 
 	
-	ARRAY LONGINT:C221($pos; 0)
-	ARRAY LONGINT:C221($len; 0)
-	
-	If (Match regex:C1019("(?si-m)/\\*(.*)\\*/"; This:C1470.highlighted; 1; $pos; $len))
+	If (Match regex:C1019("(?si-m)/\\*(.*)\\*/\\s*"; This:C1470.highlighted; 1; $pos; $len))\
+		 || (Match regex:C1019("(?mi-s)//\\s*(.*)$"; This:C1470.highlighted; 1; $pos; $len))
 		
-		This:C1470.setHighlightedText(Substring:C12(This:C1470.highlighted; $pos{1}; $len{1}))
-		return 
+		var $c : Collection
+		$c:=Split string:C1554(Substring:C12(This:C1470.highlighted; $pos{1}; $len{1}); "\r")
 		
+		If ($c.length=1)
+			
+			This:C1470.setHighlightedText($c[0]+"\r")
+			
+		Else 
+			
+			This:C1470.setHighlightedText($c.join("\r"))
+			
+		End if 
 	End if 
 	
 	This:C1470.setHighlightedText(This:C1470._comment())
@@ -414,33 +432,40 @@ Function comment()
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _comment() : Text
 	
-	var v1; v2; v3; v4 : Variant
+	var $c : Collection
+	$c:=Split string:C1554(This:C1470.highlighted; "\r")
 	
-	Formula from string:C1601(":C1810(v1; v2; v3; v4)").call()
-	
-	If (v3=v4)
+	If ($c[0]="")
 		
-		If (v1#v2)
+		$c.remove(0)
+		
+	End if 
+	
+	If ($c[$c.length-1]="")
+		
+		$c.remove($c.length-1)
+		
+	End if 
+	
+	If ($c.length=1)
+		
+		var v1; v2; v3; v4 : Variant
+		Formula from string:C1601(":C1810(v1; v2; v3; v4)").call()
+		
+		If ($c[0]=Split string:C1554(This:C1470.method; "\r")[v3])
 			
-			return "/*"+This:C1470.highlighted+"*/"
+			return "// "+This:C1470.highlighted
 			
 		Else 
 			
-			return "// "+This:C1470.highlighted
+			return "/*"+This:C1470.highlighted+"*/"
 			
 		End if 
 		
 	Else 
 		
-		If (v1#v2)
-			
-			return "/*\r"+This:C1470.highlighted+"\r*/"
-			
-		Else 
-			
-			return "// "+This:C1470.highlighted
-			
-		End if 
+		return "/*\r"+$c.join("\r")+"\r*/"+("\r"*Num:C11(v1=v2))
+		
 	End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***

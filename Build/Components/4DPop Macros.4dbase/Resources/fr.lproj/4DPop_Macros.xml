@@ -118,7 +118,7 @@
         <text>Maquereau 4D : <caret/></text>        
     </macro>
     
-    <macro name="Commenter"
+    <macro name="Commenter/j"
         in_menu="true"
         type_ahead="false"
         version="2">

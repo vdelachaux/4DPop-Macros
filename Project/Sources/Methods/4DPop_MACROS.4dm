@@ -36,7 +36,7 @@ If (Count parameters:C259>=1)
 		
 		If (Storage:C1525.macros=Null:C1517)
 			
-			4DPopMacrosINIT
+			Init
 			
 		End if 
 		
