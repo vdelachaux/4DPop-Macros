@@ -338,7 +338,7 @@ declaration macro must omit the parameters of a formula
 				Case of 
 						
 						//======================================
-					: (Match regex:C1019("(?mi-s)var\\s|C_"; $text; 1))  // DECLARATION LINE
+					: (Match regex:C1019("(?mi-s)^var\\s|^C_"; $text; 1))  // DECLARATION LINE
 						
 						$line.type:="declaration"
 						$line.skip:=True:C214
@@ -414,7 +414,7 @@ declaration macro must omit the parameters of a formula
 						End if 
 						
 						//======================================
-					: (Match regex:C1019("(?mi-s)^(?:ARRAY|TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $pos; $len))  // ARRAY DECLARATION
+					: (Match regex:C1019("(?mi-s)^(?:^ARRAY|^TABLEAU)\\s*[^(]*\\(([^;]*);\\s*[\\dx]+(?:;\\s*([\\dx]+))?\\)"; $text; 1; $pos; $len))  // ARRAY DECLARATION
 						
 						$static:=Match regex:C1019("(?mi-s)0x"; $text; 1)
 						
