@@ -2,6 +2,7 @@ property title; name; objectName; method; highlighted; decimalSeparator : Text
 property class; form; trigger; projectMethod; objectMethod; withSelection : Boolean
 property lineTexts : Collection
 property _controlFlow : Object
+property rgx : cs:C1710.regex
 
 Class constructor()
 	
@@ -71,6 +72,8 @@ Class constructor()
 	
 	GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $t)
 	This:C1470.decimalSeparator:=$t
+	
+	This:C1470.rgx:=cs:C1710.regex.new()
 	
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get macroCall() : Boolean
@@ -495,4 +498,21 @@ Function _paste($text : Text; $useSelection : Boolean)
 	End if 
 	
 	SET MACRO PARAMETER:C998($target; $text)
+	
+	// Force tokenisation
+	var $name : Text
+	var $i; $mode; $origin; $state; $time; $UID : Integer
+	
+	For ($i; 1; Count tasks:C335; 1)
+		
+		PROCESS PROPERTIES:C336($i; $name; $state; $time; $mode; $UID; $origin)
+		
+		If ($origin=Design process:K36:9)
+			
+			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
+			
+			break
+			
+		End if 
+	End for 
 	

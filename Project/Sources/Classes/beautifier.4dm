@@ -1,20 +1,21 @@
 Class extends macro
 
-//==============================================================
+property _controls; _patterns; settings : Object
+property separators; controlFlow : Collection
+property numberOfSeparators : Integer
+property specialComments : Text
+
 Class constructor()
 	
+	var $t : Text
+	var $c : Collection
 	var $file : 4D:C1709.File
 	
 	Super:C1705()
 	
 	// Preferences
 	$file:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
-	
-	If ($file.original#Null:C1517)
-		
-		$file:=$file.original
-		
-	End if 
+	$file:=$file.original ? $file.original : $file
 	
 	If ($file.exists)
 		
@@ -23,650 +24,671 @@ Class constructor()
 	End if 
 	
 	// Format comments
-	If (This:C1470.settings.formatComments=Null:C1517)
-		
-		This:C1470.settings.formatComments:=True:C214
-		
-	End if 
+	This:C1470.settings.formatComments:=This:C1470.settings.formatComments#Null:C1517 ? This:C1470.settings.formatComments : True:C214
 	
-	// Obsolete
-	OB REMOVE:C1226(This:C1470.settings; "replaceDeprecatedCommand")
-	
-	This:C1470.separators:=New collection:C1472
-	This:C1470.separators.push("")
-	This:C1470.separators.push("–––")
-	This:C1470.separators.push("==")
-	This:C1470.separators.push("……")
-	This:C1470.separators.push("--")
-	This:C1470.separators.push("··")
-	This:C1470.separators.push("~~")
-	This:C1470.separators.push("..")
-	This:C1470.separators.push("::")
-	
+	// Separators
+	This:C1470.separators:=This:C1470.settings.separators || Split string:C1554("━━━,┅┅┅,╍╍╍,╌╌╌,__,––,⩫⩫,……,--,··,~~,..;::"; ",")
 	This:C1470.numberOfSeparators:=This:C1470.separators.length-1
 	
-	$file:=File:C1566("/RESOURCES/controlFlow.json")
+	$c:=JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())[Command name:C538(41)="ALERT" ? "intl" : "fr"]
 	
-	If (Command name:C538(41)="ALERT")  // US
-		
-		This:C1470.controlFlow:=JSON Parse:C1218($file.getText()).intl
-		
-	Else 
-		
-		// Use French language
-		This:C1470.controlFlow:=JSON Parse:C1218($file.getText()).fr
-		
-	End if 
+	This:C1470._controls:={\
+		if: $c[0]; \
+		else: $c[1]; \
+		endIf: $c[2]; \
+		caseOf: $c[3]; \
+		caseOfItem: ":\\s*\\("; \
+		endCase: $c[4]; \
+		while: $c[5]; \
+		endWhile: $c[6]; \
+		for: $c[7]; \
+		endFor: $c[8]; \
+		repeat: $c[9]; \
+		until: $c[10]; \
+		use: $c[11]; \
+		endUse: $c[12]; \
+		forEach: $c[13]; \
+		endForEach: $c[14]\
+		}
 	
-	This:C1470.closurePattern:="(?<!//)(?:"+This:C1470.controlFlow[2]\
-		+"|"+This:C1470.controlFlow[4]\
-		+"|"+This:C1470.controlFlow[6]\
-		+"|"+This:C1470.controlFlow[8]\
-		+"|"+This:C1470.controlFlow[10]\
-		+"|"+This:C1470.controlFlow[12]\
-		+"|"+This:C1470.controlFlow[14]+")\\b"
+	This:C1470._patterns:={\
+		If: "(?<!//)"+This:C1470._controls.if+"\\b"; \
+		Else: "(?<!//)"+This:C1470._controls.else+"\\b"; \
+		EndIf: "(?<!//)"+This:C1470._controls.endIf+"\\b"; \
+		CaseOf: "(?<!//)"+This:C1470._controls.caseOf+"\\b"; \
+		CaseOfItem: "\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
+		EndCase: "(?<!//)"+This:C1470._controls.endCase+"\\b"; \
+		While: "(?<!//)"+This:C1470._controls.while+"\\b"; \
+		EndWhile: "(?<!//)"+This:C1470._controls.endWhile+"\\b"; \
+		For: "(?<!//)"+This:C1470._controls.for+"\\b"; \
+		EndFor: "(?<!//)"+This:C1470._controls.endFor+"\\b"; \
+		Repeat: "(?<!//)"+This:C1470._controls.repeat+"\\b"; \
+		Until: "(?<!//)"+This:C1470._controls.until+"\\b"; \
+		Use: "(?<!//)"+This:C1470._controls.use+"\\b"; \
+		EndUse: "(?<!//)"+This:C1470._controls.endUse+"\\b"; \
+		ForEach: "(?<!//)"+This:C1470._controls.forEach+"\\b"; \
+		EndForEach: "(?<!//)"+This:C1470._controls.endForEach+"\\b"; \
+		BeginSQL: "^(?<!//)"+Command name:C538(948); \
+		EndSQL: "^(?<!//)"+Command name:C538(949)\
+		}
 	
-	This:C1470.splittableCommandsPattern:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*//[^$]*)?$"
+	This:C1470._patterns.closure:="(?<!//)(?:"+[\
+		This:C1470._controls.endIf; \
+		This:C1470._controls.endCase; \
+		This:C1470._controls.endWhile; \
+		This:C1470._controls.endFor; \
+		This:C1470._controls.until; \
+		This:C1470._controls.endUse; \
+		This:C1470._controls.endForEach].join("|")\
+		+")\\b"
+	
+	$t:="\\r*(\\r{closure}[^\\r]*\\r)\\r*"
+	This:C1470._patterns.closureInstructions:=[\
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endIf); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endCase); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endWhile); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endFor); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.until); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endUse); \
+		Replace string:C233($t; "{closure}"; This:C1470._controls.endForEach)\
+		]
+	
+	// New keywords
+	This:C1470._patterns.keywords:="(?mi-s)^(?:break|continue|return)"
+	
+	// Optional code formatting
+	This:C1470._patterns.ternaryOperator:="(?-msi)"\
+		+This:C1470._controls.if\
+		+"\\s\\(([^)]*)\\)(?://.*)?\\W*(.*):=(?!.*\\$\\d)([^\\R]*?)(//.*)?\\W*"\
+		+This:C1470._controls.else\
+		+"\\r*.*\\s*\\2:=([^\\R]*?)(?://(.*))?\\s*"\
+		+This:C1470._controls.endIf
+	
+	This:C1470._patterns.choose:="(?mi-s)"+Command name:C538(955)+"\\s*\\(([^;]*);\\s*([^;]*);\\s*([^;]*)\\)([^$]*)"
+	
+	This:C1470._patterns.emptyString:="(?mi-s)(\\(|;)([^)#=;]*)(#|=)\"\"\\)([^$]*)"
+	
+	// Commands whose parameters must be divided into key/value lines
+	This:C1470._splittableCommands:=[\
+		{name: Command name:C538(1471); id: 1471}; \
+		{name: Command name:C538(1220); id: 1220}; \
+		{name: Command name:C538(1055); id: 1055}; \
+		{name: Command name:C538(865); id: 865}; \
+		{name: Command name:C538(866); id: 866}; \
+		{name: Command name:C538(1093); id: 1093}\
+		]
+	
+	This:C1470._patterns.splittableCommands:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*//[^$]*)?$"
+	
+	// Separator line is made with a comment mark and at least 5 times the same character
+	This:C1470._patterns.commentLine:="(?mi-s)"+kCommentMark+"\\s*(.)\\1{5,}"
 	
 	This:C1470.specialComments:="%}])"  // Compilation modifier & …
 	
-	//==============================================================
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function beautify()
 	
-	var $code; $line; $pattern; $replacement : Text
-	var $Boo_addLine; $Boo_lineComment; $doLineAfter; $doLineBefore; $doReturn; $intl; $isClosure : Boolean
+	var $code; $line; $pattern; $replacement; $t : Text
+	var $doAddLine; $doLineAfter; $doLineBefore; $doLineComment; $doReturn; $isClosure : Boolean
 	var $isComment; $isEmptyLine; $isEnd; $severalLines; $skipLineAfter : Boolean
-	var $errorCode; $i; $level : Integer
-	var $options : Object
-	var $lines : Collection
+	var $i; $level : Integer
+	var $o; $options : Object
+	
+	ARRAY LONGINT:C221($tLon_branchAndLoop; 0)
 	
 	$code:=Choose:C955(This:C1470.withSelection; This:C1470.highlighted; This:C1470.method)
 	$options:=This:C1470.settings
 	
-	If (Length:C16($code)>0)
-		
-		If (Bool:C1537($options.removeConsecutiveBlankLines))
-			
-			$errorCode:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$code)
-			
-		End if 
-		
-		If (Bool:C1537($options.removeEmptyLinesAtTheEndOfMethod))
-			
-			$errorCode:=Rgx_SubstituteText("(\\r*)$"; ""; ->$code)
-			
-		End if 
-		
-		If (Bool:C1537($options.removeEmptyLinesAtTheBeginOfMethod))
-			
-			$errorCode:=Rgx_SubstituteText("^(\\r*)"; ""; ->$code)
-			
-		End if 
-		
-		If (Bool:C1537($options.replaceComparisonsToAnEmptyStringByLengthTest))
-			
-			ARRAY TEXT:C222($tTxt_2D_result; 0x0000; 0x0000)
-			$pattern:="(?mi-s)(\\(|;)([^)#=;]*)(#|=)\"\"\\)"
-			
-			If (Rgx_ExtractText($pattern; $code; "0 1 2 3"; ->$tTxt_2D_result; 0)=0)
-				
-				For ($i; 1; Size of array:C274($tTxt_2D_result); 1)
-					
-					$replacement:=$tTxt_2D_result{$i}{2}+Command name:C538(16)+"("+$tTxt_2D_result{$i}{3}+")"+$tTxt_2D_result{$i}{4}+"0)"
-					$code:=Replace string:C233($code; $tTxt_2D_result{$i}{1}; $replacement)
-					
-				End for 
-			End if 
-		End if 
-		
-		If (Bool:C1537($options.replaceIfElseEndIfByChoose))
-			
-			$intl:=(Command name:C538(1)="Sum")
-			
-			$pattern:="(?im)"\
-				+Choose:C955($intl; "If"; "Si")\
-				+"\\s\\(([^\r]*\\)*)\\)(?://.*)*\\r\\s*(.*):=(?!.*\\$\\d)([^\r]*?)(//.*)*\\r\\s*"\
-				+Choose:C955($intl; "Else"; "Sinon")\
-				+".*\\s*\\2:=([^\r]*?)(//.*)*\\r\\s*"\
-				+Choose:C955($intl; "End if"; "Fin de si")
-			
-			$replacement:="\\2:="+Command name:C538(955)+"(\\1;\\3;\\5) \\4 \\6"
-			
-			$code:=Replace string:C233($code; "\\"; "§§")
-			$errorCode:=Rgx_SubstituteText($pattern; $replacement; ->$code; 0)
-			$code:=Replace string:C233($code; "§§"; "\\")
-			
-		End if 
-		
-		$pattern:="("+This:C1470.controlFlow[0]+" \\([^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		$pattern:="("+This:C1470.controlFlow[3]+"[^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		$pattern:="("+This:C1470.controlFlow[5]+" \\([^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		$pattern:="("+This:C1470.controlFlow[7]+" \\([^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		$pattern:="("+This:C1470.controlFlow[9]+"[^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		$pattern:="\\r*(\\r"+This:C1470.controlFlow[1]+"[^\\r]*\\r)\\r*"
-		$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-		
-		If (Bool:C1537(This:C1470.settings.groupingClosureInstructions))
-			
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[2]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[4]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[6]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[8]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[10]+" \\([^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r: \\([^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[12]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			$pattern:="\\r*(\\r"+This:C1470.controlFlow[14]+"[^\\r]*\\r)\\r*"
-			$errorCode:=Rgx_SubstituteText($pattern; "\\1"; ->$code)
-			
-		End if 
-		
-		ARRAY LONGINT:C221($tLon_branchAndLoop; 0x0000)
-		
-		This:C1470.split()
-		
-		CLEAR VARIABLE:C89($code)
-		
-		For ($i; 0; This:C1470.lineTexts.length-1; 1)
-			
-			$line:=This:C1470.lineTexts[$i]
-			
-			$tLon_branchAndLoop:=Size of array:C274($tLon_branchAndLoop)
-			$tLon_branchAndLoop{0}:=$tLon_branchAndLoop{$tLon_branchAndLoop}
-			
-			$isEnd:=(Rgx_MatchText(This:C1470.closurePattern; $line)=0)
-			
-			$skipLineAfter:=Choose:C955(Not:C34($isEnd); False:C215; $skipLineAfter)
-			
-			If (Not:C34($skipLineAfter) & $doLineAfter)
-				
-				If ($line=(kCommentMark+"}"))\
-					 | ($line=(kCommentMark+"]"))\
-					 | ($line=(kCommentMark+")"))
-					
-					$doLineAfter:=True:C214
-					
-				Else 
-					
-					$doReturn:=(Length:C16($line)>0)
-					$doLineAfter:=False:C215
-					
-				End if 
-			End if 
-			
-			Case of 
-					
-					//……………………………………………………………
-				: (Length:C16($line)=0)  //Line
-					
-					$isEmptyLine:=True:C214
-					
-					//……………………………………………………………
-				: (Position:C15(kCommentMark; $line)=1)  //Comment
-					
-					If (Not:C34($isComment))  //multiline
-						
-						$doLineBefore:=Choose:C955($i>0; Bool:C1537($options.aLineOfCommentsMustBePrecededByALineBreak); False:C215)\
-							 & ($line#(kCommentMark+"}"))\
-							 & ($line#(kCommentMark+"]"))\
-							 & ($line#(kCommentMark+")"))
-						
-					End if 
-					
-					//Separator line is made with a comment mark and at least 5 times the same character
-					$Boo_lineComment:=(Rgx_MatchText(kCommentMark+"(.)\\1{4,}"; $line)=0)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[0]+"\\b"; $line)=0)  //If
-					
-					$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					If (Replace string:C233($line; " "; "")=(This:C1470.controlFlow[0]+"("+Command name:C538(215)+")@"))
-						
-						APPEND TO ARRAY:C911($tLon_branchAndLoop; -1)
-						$doLineAfter:=False:C215
-						$skipLineAfter:=True:C214
-						
-					Else 
-						
-						APPEND TO ARRAY:C911($tLon_branchAndLoop; 1)
-						$doLineAfter:=Bool:C1537($options.lineBreakBeforeAndAfterSequentialStructuresIncluded)
-						$skipLineAfter:=False:C215
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[1]+"\\b"; $line)=0)  //Else
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=4)
-						
-						$Boo_addLine:=True:C214
-						$doLineBefore:=Not:C34($isComment)
-						
-					Else 
-						
-						$Boo_addLine:=False:C215
-						$doLineBefore:=True:C214
-						
-					End if 
-					
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[2]+"\\b"; $line)=0)  //End if
-					
-					$doLineBefore:=(Not:C34($skipLineAfter) | Not:C34($isClosure))\
-						 & ($tLon_branchAndLoop{$tLon_branchAndLoop}#-1)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If (Abs:C99($tLon_branchAndLoop{$tLon_branchAndLoop})=1)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[11]+"\\b"; $line)=0)  // Use
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 13)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[12]+"\\b"; $line)=0)  // End use
-					
-					$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=13)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[13]+"\\b"; $line)=0)  // For each
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 14)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[14]+"\\b"; $line)=0)  // End for each
-					
-					$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=14)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[3]+"\\b"; $line)=0)  //Case of
-					
-					$level:=$level+1
-					
-					$doLineBefore:=Not:C34($isComment)
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 4)
-					
-				: (Position:C15(": ("; $line)=1)  //item in Case of
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					$Boo_addLine:=Bool:C1537($options.separationLineForCaseOf)
-					$doLineBefore:=Not:C34($isComment)
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[4]+"\\b"; $line)=0)  //End case
-					
-					$Boo_addLine:=Bool:C1537($options.separationLineForCaseOf)
-					$doLineBefore:=(Not:C34($isComment) | Not:C34($isClosure))\
-						 & Not:C34($Boo_lineComment)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=4)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					$tLon_branchAndLoop{0}:=-5
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[5]+"\\b"; $line)=0)  //While
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					$doLineBefore:=True:C214
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 6)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[6]+"\\b"; $line)=0)  //End while
-					
-					$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=6)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[7]+"\\b"; $line)=0)  //For
-					
-					$doLineBefore:=Not:C34($isComment)
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					If (Bool:C1537($options.addTheIncrementForTheLoops))
-						
-						$pattern:="\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)$"
-						ARRAY TEXT:C222($tTxt_result; 0x0000)
-						
-						If (Rgx_MatchText($pattern; $line; ->$tTxt_result)=0)
-							
-							If (Length:C16($tTxt_result{2})=0)
-								
-								$line:=Replace string:C233($line; $tTxt_result{1}; $tTxt_result{1}+";1")
-								
-							End if 
-						End if 
-					End if 
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 8)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[8]+"\\b"; $line)=0)  //End for
-					
-					$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=8)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[9]+"\\b"; $line)=0)  //Repeat
-					
-					$doLineBefore:=True:C214
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					APPEND TO ARRAY:C911($tLon_branchAndLoop; 10)
-					
-					//……………………………………………………………
-				: (Rgx_MatchText("(?<!//)"+This:C1470.controlFlow[10]+"\\b"; $line)=0)  //Until
-					
-					If (Bool:C1537($options.splitTestLines))
-						
-						$errorCode:=Rgx_SubstituteText("(\\) (&|\\|) \\()"; ")\\\r\\2("; ->$line)
-						
-					End if 
-					
-					$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-					$doLineAfter:=Not:C34($skipLineAfter)
-					$skipLineAfter:=True:C214
-					
-					If ($tLon_branchAndLoop{$tLon_branchAndLoop}=10)
-						
-						DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
-						
-					End if 
-					
-					//……………………………………………………………
-				: (Position:C15(Command name:C538(948); $line)=1)  //Begin SQL
-					
-					$doLineBefore:=True:C214
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					//……………………………………………………………
-				: (Position:C15(Command name:C538(949); $line)=1)  //End SQL
-					
-					$doLineBefore:=True:C214
-					$doLineAfter:=True:C214
-					$skipLineAfter:=False:C215
-					
-					//……………………………………………………………
-				Else 
-					
-					$isEmptyLine:=False:C215
-					$doLineBefore:=$isClosure
-					
-					//……………………………………………………………
-			End case 
-			
-			// #18-8-2017
-			If (Bool:C1537($options.formatComments))  // Add a space before the comment and capitalize the first letter
-				
-				If (Not:C34(Match regex:C1019("(?m-si)(.)\\1{4,}"; $line; 1)))  // Not for a comment with at least 5 occurrences of the same character
-					
-					If (0=Rgx_ExtractText("(?ms-i)^(.*)(?=//)//\\s*([^\"$]*)$"; $line; "1 2"; ->$tTxt_2D_result))
-						
-						If (Length:C16($tTxt_2D_result{1}{2})>0)
-							
-							If (Length:C16($tTxt_2D_result{1}{1})=0)  // Comment line
-								
-								If (Position:C15($tTxt_2D_result{1}{2}[[1]]; This:C1470.specialComments)=0)
-									
-									$tTxt_2D_result{1}{2}[[1]]:=Uppercase:C13($tTxt_2D_result{1}{2}[[1]]; *)
-									$line:="// "+$tTxt_2D_result{1}{2}
-									
-								End if 
-								
-							Else 
-								
-								$tTxt_2D_result{1}{2}[[1]]:=Uppercase:C13($tTxt_2D_result{1}{2}[[1]]; *)
-								$line:=$tTxt_2D_result{1}{1}+"// "+$tTxt_2D_result{1}{2}
-								
-							End if 
-						End if 
-					End if 
-				End if 
-			End if 
-			
-			$isClosure:=$isEnd
-			$isComment:=(Position:C15(kCommentMark; $line)=1)
-			
-			If (Not:C34($severalLines))
-				
-				If ($Boo_addLine)
-					
-					If (Not:C34($Boo_lineComment))
-						
-						If ($level>This:C1470.numberOfSeparators)
-							
-							$level:=This:C1470.numberOfSeparators
-							
-						Else 
-							
-							If ($level<1)
-								
-								$level:=1
-								
-							End if 
-						End if 
-						
-						$line:=kCommentMark\
-							+(This:C1470.separators[$level]*(20-($level\2)))\
-							+"\r"\
-							+$line
-						
-					End if 
-					
-					$level:=$level-Num:C11($tLon_branchAndLoop{0}=-5)
-					
-					$Boo_lineComment:=False:C215
-					$Boo_addLine:=False:C215
-					
-				End if 
-				
-				If ($doLineBefore | $doReturn)
-					
-					$line:=Choose:C955($isEmptyLine | ($i=0); ""; "\r")+$line
-					$isEmptyLine:=False:C215
-					$doLineBefore:=False:C215
-					$doReturn:=False:C215
-					
-				End if 
-			End if 
-			
-			$severalLines:=($line="@\\")
-			
-			Case of 
-					
-					//______________________________________________________
-				: ($severalLines)\
-					 | (Not:C34(Bool:C1537($options.splitKeyValueLines)))
-					
-					//#7-4-2017 ________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(1471)); $line)=0)  //New object
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 1471)
-					
-					//__________________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(1220)); $line)=0)  //OB SET
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 1220)
-					
-					//__________________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(1055)); $line)=0)  //SVG SET ATTRIBUTE
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 1055)
-					
-					//__________________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(865)); $line)=0)  //DOM Create XML element
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 865)
-					
-					//__________________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(866)); $line)=0)  //DOM SET XML ATTRIBUTE
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 866)
-					
-					//__________________________________________________________________________________________
-				: (Rgx_MatchText(Replace string:C233(This:C1470.splittableCommandsPattern; "{command}"; Command name:C538(1093)); $line)=0)  //ST SET ATTRIBUTES 
-					
-					$line:=This:C1470._splitIntoKeyAndValue($line; 1093)
-					
-					//______________________________________________________
-			End case 
-			
-			$code:=$code+$line+"\r"
-			
-		End for 
-		
-		If (Bool:C1537($options.removeConsecutiveBlankLines))
-			
-			$errorCode:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$code)
-			
-		End if 
-		
-		If (Bool:C1537($options.removeEmptyLinesAtTheEndOfMethod))
-			
-			$errorCode:=Rgx_SubstituteText("(\\r)$"; ""; ->$code)
-			
-		End if 
-		
-		This:C1470._paste($code)
-		
-	Else 
+	If (Length:C16($code)=0)
 		
 		BEEP:C151
 		
+		return 
+		
 	End if 
 	
-	//==============================================================
-Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitted : Text
+	If (Bool:C1537($options.removeEmptyLinesAtTheBeginOfMethod))
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern("^(\\r*)").substitute("")
+		
+	End if 
 	
-	var $buffer; $prefix : Text
+	If (Bool:C1537(This:C1470.settings.groupingClosureInstructions))
+		
+		For each ($t; This:C1470._patterns.closureInstructions)
+			
+			$code:=This:C1470.rgx.setTarget($code).setPattern($t).substitute("\\1")
+			
+		End for each 
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.CaseOfItem).substitute("\\1")
+		
+	End if 
+	
+	If (Bool:C1537($options.replaceIfElseEndIfByChoose))  // Use ternary operator
+		
+		$code:=Replace string:C233($code; "\\"; "§§")
+		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.ternaryOperator).substitute("\\2 := \\1 ? \\3 : \\5 \\4 \\6\r")
+		$code:=Replace string:C233($code; "§§"; "\\")
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.choose).substitute("\\1 ? \\2 : \\3\\4")
+		
+	End if 
+	
+	If (Bool:C1537($options.replaceComparisonsToAnEmptyStringByLengthTest))\
+		 && (This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.emptyString).match(True:C214))
+		
+		For ($i; 0; This:C1470.rgx.matches.length-1; 5)
+			
+			$replacement:=This:C1470.rgx.matches[$i+1].data\
+				+Command name:C538(16)\
+				+"("+This:C1470.rgx.matches[$i+2].data+")"\
+				+This:C1470.rgx.matches[$i+3].data+" 0)"\
+				+This:C1470.rgx.matches[$i+4].data
+			
+			$code:=Replace string:C233($code; This:C1470.rgx.matches[$i].data; $replacement)
+			
+		End for 
+	End if 
+	
+	$code:=This:C1470.rgx.setTarget($code).setPattern("("+This:C1470._controls.if+" \\([^\\r]*\\r)\\r*").substitute("\\1")
+	$code:=This:C1470.rgx.setTarget($code).setPattern("("+This:C1470._controls.caseOf+"[^\\r]*\\r)\\r*").substitute("\\1")
+	$code:=This:C1470.rgx.setTarget($code).setPattern("("+This:C1470._controls.while+" \\([^\\r]*\\r)\\r*").substitute("\\1")
+	$code:=This:C1470.rgx.setTarget($code).setPattern("("+This:C1470._controls.for+" \\([^\\r]*\\r)\\r*").substitute("\\1")
+	$code:=This:C1470.rgx.setTarget($code).setPattern("("+This:C1470._controls.repeat+"[^\\r]*\\r)\\r*").substitute("\\1")
+	$code:=This:C1470.rgx.setTarget($code).setPattern("\\r*(\\r"+This:C1470._controls.else+"[^\\r]*\\r)\\r*").substitute("\\1")
+	
+	This:C1470.method:=$code
+	
+	This:C1470.split()
+	
+	CLEAR VARIABLE:C89($code)
+	CLEAR VARIABLE:C89($i)
+	
+	For each ($line; This:C1470.lineTexts)
+		
+		$tLon_branchAndLoop:=Size of array:C274($tLon_branchAndLoop)
+		$tLon_branchAndLoop{0}:=$tLon_branchAndLoop{$tLon_branchAndLoop}
+		
+		$isEnd:=This:C1470.rgx.setTarget($line).setPattern(This:C1470._patterns.closure).match()
+		$skipLineAfter:=Not:C34($isEnd) ? False:C215 : $skipLineAfter
+		
+		If (Not:C34($skipLineAfter) & $doLineAfter)
+			
+			If ($line=(kCommentMark+"}"))\
+				 | ($line=(kCommentMark+"]"))\
+				 | ($line=(kCommentMark+")"))
+				
+				$doLineAfter:=True:C214
+				
+			Else 
+				
+				$doReturn:=(Length:C16($line)>0)
+				$doLineAfter:=False:C215
+				
+			End if 
+		End if 
+		
+		Case of 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (Length:C16($line)=0)  // Empty line
+				
+				$isEmptyLine:=True:C214
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (Position:C15(kCommentMark; $line)=1)  // Comment
+				
+				If (Not:C34($isComment))  // Multiline
+					
+					$doLineBefore:=($i>0 ? Bool:C1537($options.aLineOfCommentsMustBePrecededByALineBreak) : False:C215)\
+						 & ($line#(kCommentMark+"}"))\
+						 & ($line#(kCommentMark+"]"))\
+						 & ($line#(kCommentMark+")"))
+					
+				End if 
+				
+				$doLineComment:=This:C1470.rgx.setPattern(This:C1470._patterns.commentLine).match()
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.If).match())
+				
+				$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				If (Replace string:C233($line; " "; "")=(This:C1470._controls.if+"("+Command name:C538(215)+")@"))
+					
+					APPEND TO ARRAY:C911($tLon_branchAndLoop; -1)
+					$doLineAfter:=False:C215
+					$skipLineAfter:=True:C214
+					
+				Else 
+					
+					APPEND TO ARRAY:C911($tLon_branchAndLoop; 1)
+					$doLineAfter:=Bool:C1537($options.lineBreakBeforeAndAfterSequentialStructuresIncluded)
+					$skipLineAfter:=False:C215
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.Else).match())
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=4)
+					
+					$doAddLine:=True:C214
+					$doLineBefore:=Not:C34($isComment)
+					
+				Else 
+					
+					$doAddLine:=False:C215
+					$doLineBefore:=True:C214
+					
+				End if 
+				
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndIf).match())
+				
+				$doLineBefore:=(Not:C34($skipLineAfter) | Not:C34($isClosure))\
+					 & ($tLon_branchAndLoop{$tLon_branchAndLoop}#-1)
+				
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If (Abs:C99($tLon_branchAndLoop{$tLon_branchAndLoop})=1)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.Use).match())
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 13)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndUse).match())
+				
+				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=13)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.ForEach).match())
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 14)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndForEach).match())
+				
+				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=14)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.CaseOf).match())
+				
+				$level+=1
+				
+				$doLineBefore:=Not:C34($isComment)
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 4)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._controls.caseOfItem).match())
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				$doAddLine:=Bool:C1537($options.separationLineForCaseOf)
+				$doLineBefore:=Not:C34($isComment)
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndCase).match())
+				
+				$doAddLine:=Bool:C1537($options.separationLineForCaseOf)
+				$doLineBefore:=(Not:C34($isComment) | Not:C34($isClosure)) & Not:C34($doLineComment)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=4)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				$tLon_branchAndLoop{0}:=-5
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.While).match())
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				$doLineBefore:=True:C214
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 6)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndWhile).match())
+				
+				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=6)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.For).match())
+				
+				$doLineBefore:=Not:C34($isComment)
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				If (Bool:C1537($options.addTheIncrementForTheLoops))
+					
+					$pattern:="\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)$"
+					ARRAY TEXT:C222($tTxt_result; 0x0000)
+					
+					If (Rgx_MatchText($pattern; $line; ->$tTxt_result)=0)
+						
+						If (Length:C16($tTxt_result{2})=0)
+							
+							$line:=Replace string:C233($line; $tTxt_result{1}; $tTxt_result{1}+";1")
+							
+						End if 
+					End if 
+				End if 
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 8)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndFor).match())
+				
+				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=8)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.Repeat).match())
+				
+				$doLineBefore:=True:C214
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				APPEND TO ARRAY:C911($tLon_branchAndLoop; 10)
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.Until).match())
+				
+				If (Bool:C1537($options.splitTestLines))
+					
+					$line:=This:C1470._splitTestLine($line)
+					
+				End if 
+				
+				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
+				$doLineAfter:=Not:C34($skipLineAfter)
+				$skipLineAfter:=True:C214
+				
+				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=10)
+					
+					DELETE FROM ARRAY:C228($tLon_branchAndLoop; $tLon_branchAndLoop; 1)
+					
+				End if 
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.keywords).match())
+				
+				$doLineBefore:=True:C214
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.BeginSQL).match())
+				
+				$doLineBefore:=True:C214
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndSQL).match())
+				
+				$doLineBefore:=True:C214
+				$doLineAfter:=True:C214
+				$skipLineAfter:=False:C215
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				
+			Else 
+				
+				$isEmptyLine:=False:C215
+				$doLineBefore:=$isClosure
+				
+				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+		End case 
+		
+		If ($options.formatComments)\
+			 && (Position:C15(kCommentMark; $line)#0)  // Add a space before the comment and capitalize the first letter
+			
+			$line:=This:C1470._formatComment($line)
+			
+		End if 
+		
+		$isClosure:=$isEnd
+		$isComment:=(Position:C15(kCommentMark; $line)>0) && (Position:C15(kCommentMark; $line)<=2)
+		
+		If (Not:C34($severalLines))
+			
+			If ($doAddLine)
+				
+				If (Not:C34($doLineComment))
+					
+					$level:=$level>This:C1470.numberOfSeparators\
+						 ? This:C1470.numberOfSeparators\
+						 : $level<1 ? 1 : $level
+					
+					$line:=kCommentMark\
+						+(This:C1470.separators[$level]*(20-($level\2)))\
+						+"\r"\
+						+$line
+					
+				End if 
+				
+				$level-=Num:C11($tLon_branchAndLoop{0}=-5)
+				
+				$doLineComment:=False:C215
+				$doAddLine:=False:C215
+				
+			End if 
+			
+			If ($doLineBefore | $doReturn)
+				
+				$line:=($isEmptyLine | ($i=0) ? "" : "\r")+$line
+				$isEmptyLine:=False:C215
+				$doLineBefore:=False:C215
+				$doReturn:=False:C215
+				
+			End if 
+		End if 
+		
+		$severalLines:=($line="@\\")
+		
+		If (Not:C34($severalLines))\
+			 && Not:C34($isComment)\
+			 && Bool:C1537($options.splitKeyValueLines)
+			
+			For each ($o; This:C1470._splittableCommands)
+				
+				If (This:C1470.rgx.setTarget($line).setPattern(Replace string:C233(This:C1470._patterns.splittableCommands; "{command}"; $o.name)).match())
+					
+					$line:=This:C1470._splitIntoKeyAndValue($line; $o)
+					
+				End if 
+			End for each 
+			
+		End if 
+		
+		$code+=$line+"\r"
+		$i+=1
+		
+	End for each 
+	
+	If (Bool:C1537($options.removeConsecutiveBlankLines))
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern("[\\r\\n]{2,}").substitute("\r\r")
+		
+	End if 
+	
+	If (Bool:C1537($options.removeEmptyLinesAtTheEndOfMethod))
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern("(\\r*)$").substitute("")
+		
+	End if 
+	
+	This:C1470._paste($code)
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _formatComment($line : Text) : Text
+	
+	var $code; $t : Text
+	var $start : Integer
+	var $c : Collection
+	
+	$start:=Position:C15(kCommentMark; $line)
+	$code:=Substring:C12($line; 1; $start-1)
+	$line:=Delete string:C232($line; 1; $start-1+2)
+	
+	$c:=Split string:C1554($line; " "; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
+	
+	If ($c.length>0)
+		
+		$t:=$c[0]
+		$t[[1]]:=Uppercase:C13($t[[1]])
+		$c[0]:=$t
+		
+	End if 
+	
+	$c.insert(0; kCommentMark)
+	$c.insert(0; $code)
+	
+	return $c.join(" ")
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _splitTestLine($line : Text) : Text
+	
+	return This:C1470.rgx.setTarget($line).setPattern("(?mi-s)(\\)\\s*(&{1,2}|\\|{1,2})\\s*\\()").substitute(")\\\r\\2(")
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
+	
+	var $prefix; $splitted; $t : Text
 	var $closingParenthesisPosition; $firstSemicolonPosition; $nextSemicolonPosition; $openingParenthesisPosition; $pos : Integer
 	
 	While ($code[[1]]="\r")
 		
-		$prefix:=$prefix+"\r"
+		$prefix+="\r"
 		$code:=Delete string:C232($code; 1; 1)
 		
 	End while 
 	
 	Case of 
 			
-			//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-		: ($commandNumber=1471)  // New Object
+			// ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+		: ($cmd.id=1471)  // New Object
 			
-			$buffer:=Command name:C538($commandNumber)
-			
-			$pos:=Position:C15($buffer; $code)
-			$splitted:=$prefix+Substring:C12($code; 1; $pos+Length:C16($buffer))
+			$pos:=Position:C15($cmd.name; $code)
+			$splitted:=$prefix+Substring:C12($code; 1; $pos+Length:C16($cmd.name))
 			$code:=Delete string:C232($code; 1; Length:C16($splitted)-Length:C16($prefix))
-			$splitted:=$splitted+"\\\r"
+			$splitted+="\\\r"
 			
 			$pos:=Position:C15(";"; $code)
 			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
 			
 			If ($openingParenthesisPosition>0)\
-				 & ($openingParenthesisPosition<$pos)
+				 && ($openingParenthesisPosition<$pos)
 				
 				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
 				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
@@ -678,26 +700,26 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 			
 			If ($pos>0)
 				
-				$splitted:=$splitted+Substring:C12($code; 1; $pos)+"\\\r"
+				$splitted+=Substring:C12($code; 1; $pos)+"\\\r"
 				$code:=Substring:C12($code; $pos+1)
 				
 			End if 
 			
-			//______________________________________________________
-		: ($commandNumber=1055)  // SVG SET ATTRIBUTE
+			// ______________________________________________________
+		: ($cmd.id=1055)  // SVG SET ATTRIBUTE
 			
-			$splitted:=$prefix+Command name:C538($commandNumber)+"("
+			$splitted:=$prefix+$cmd.name+"("
 			$code:=Delete string:C232($code; 1; Length:C16($splitted)-Length:C16($prefix))
 			
 			If ($code[[1]]="*")
 				
-				$splitted:=$splitted+"*;"
+				$splitted+="*;"
 				$code:=Substring:C12($code; 3)
 				
 			End if 
 			
-			//______________________________________________________
-		: ($commandNumber=1220)  // OB SET
+			// ______________________________________________________
+		: ($cmd.id=1220)  // OB SET
 			
 			$pos:=Position:C15(";"; $code)
 			
@@ -708,20 +730,18 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 				
 			End if 
 			
-			//______________________________________________________
-		: ($commandNumber=865)  // DOM Create XML element
+			// ______________________________________________________
+		: ($cmd.id=865)  // DOM Create XML element
 			
-			$buffer:=Command name:C538($commandNumber)
-			
-			$pos:=Position:C15($buffer; $code)
-			$splitted:=$prefix+Substring:C12($code; 1; $pos+Length:C16($buffer))
+			$pos:=Position:C15($cmd.name; $code)
+			$splitted:=$prefix+Substring:C12($code; 1; $pos+Length:C16($cmd.name))
 			$code:=Delete string:C232($code; 1; Length:C16($splitted)-Length:C16($prefix))
 			
 			$pos:=Position:C15(";"; $code)
 			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
 			
 			If ($openingParenthesisPosition>0)\
-				 & ($openingParenthesisPosition<$pos)
+				 && ($openingParenthesisPosition<$pos)
 				
 				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
 				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
@@ -733,15 +753,15 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 			
 			If ($pos>0)
 				
-				$splitted:=$splitted+Substring:C12($code; 1; $pos)+"\\\r"
+				$splitted+=Substring:C12($code; 1; $pos)+"\\\r"
 				$code:=Substring:C12($code; $pos+1)
 				
 			End if 
 			
-			//______________________________________________________
-		: ($commandNumber=866)  // DOM SET XML ATTRIBUTE
+			// ______________________________________________________
+		: ($cmd.id=866)  // DOM SET XML ATTRIBUTE
 			
-			$splitted:=Command name:C538($commandNumber)+"("
+			$splitted:=$cmd.name+"("
 			
 			$code:=Delete string:C232($code; 1; Length:C16($splitted))
 			
@@ -749,7 +769,7 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
 			
 			If ($openingParenthesisPosition>0)\
-				 & ($openingParenthesisPosition<$pos)
+				 && ($openingParenthesisPosition<$pos)
 				
 				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
 				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
@@ -763,15 +783,15 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 				
 			End if 
 			
-			//______________________________________________________
-		: ($commandNumber=1093)  // ST SET ATTRIBUTES 
+			// ______________________________________________________
+		: ($cmd.id=1093)  // ST SET ATTRIBUTES 
 			
-			$splitted:=$prefix+Command name:C538($commandNumber)+"("
+			$splitted:=$prefix+$cmd.name+"("
 			$code:=Delete string:C232($code; 1; Length:C16($splitted)-Length:C16($prefix))
 			
 			If ($code[[1]]="*")
 				
-				$splitted:=$splitted+"*;"
+				$splitted+="*;"
 				$code:=Substring:C12($code; 3)
 				
 			End if 
@@ -779,53 +799,53 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 			// Object
 			$pos:=Position:C15(";"; $code)
 			
-			$buffer:=Substring:C12($code; 1; $pos)
-			$splitted:=$splitted+$buffer
-			$code:=Delete string:C232($code; 1; Length:C16($buffer))
+			$t:=Substring:C12($code; 1; $pos)
+			$splitted+=$t
+			$code:=Delete string:C232($code; 1; Length:C16($t))
 			
 			// StartSel
 			$pos:=Position:C15(";"; $code)
 			
-			$buffer:=Substring:C12($code; 1; $pos)
-			$splitted:=$splitted+$buffer
-			$code:=Delete string:C232($code; 1; Length:C16($buffer))
+			$t:=Substring:C12($code; 1; $pos)
+			$splitted+=$t
+			$code:=Delete string:C232($code; 1; Length:C16($t))
 			
 			// EndSel
 			$pos:=Position:C15(";"; $code)
 			
-			$buffer:=Substring:C12($code; 1; $pos)
-			$splitted:=$splitted+$buffer+"\\\r"
-			$code:=Delete string:C232($code; 1; Length:C16($buffer))
+			$t:=Substring:C12($code; 1; $pos)
+			$splitted+=$t+"\\\r"
+			$code:=Delete string:C232($code; 1; Length:C16($t))
 			
-			//______________________________________________________
+			// ______________________________________________________
 		Else 
 			
-			// NOTHING MORE TO DO
+			// Oops
 			
-			//______________________________________________________
+			// ______________________________________________________
 	End case 
 	
 	// Go to the first semicolon
-	$firstSemicolonPosition:=This:C1470.nextSemicolon($code)
+	$firstSemicolonPosition:=This:C1470._nextSemicolon($code)
 	
 	If ($firstSemicolonPosition>0)
 		
-		$splitted:=$splitted+Substring:C12($code; 1; $firstSemicolonPosition)+"\\\r"
+		$splitted+=Substring:C12($code; 1; $firstSemicolonPosition)+"\\\r"
 		$code:=Substring:C12($code; $firstSemicolonPosition+1)
 		
 		Repeat 
 			
 			// Go to the second semicolon
-			$nextSemicolonPosition:=This:C1470.nextSemicolon($code)
+			$nextSemicolonPosition:=This:C1470._nextSemicolon($code)
 			
 			If ($nextSemicolonPosition>0)
 				
-				$splitted:=$splitted+Substring:C12($code; 1; $nextSemicolonPosition)+"\\\r"
+				$splitted+=Substring:C12($code; 1; $nextSemicolonPosition)+"\\\r"
 				$code:=Substring:C12($code; $nextSemicolonPosition+1)
 				
 			Else 
 				
-				$splitted:=$splitted+$code
+				$splitted+=$code
 				
 			End if 
 		Until ($firstSemicolonPosition=0)\
@@ -833,12 +853,14 @@ Function _splitIntoKeyAndValue($code : Text; $commandNumber : Integer)->$splitte
 		
 	Else 
 		
-		$splitted:=$splitted+$code
+		$splitted+=$code
 		
 	End if 
 	
-	//==============================================================
-Function nextSemicolon($code : Text)->$position : Integer
+	return $splitted
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _nextSemicolon($code : Text)->$position : Integer
 	
 	var $closingParenthesisPosition; $firstOne; $openParenthesisPosition : Integer
 	

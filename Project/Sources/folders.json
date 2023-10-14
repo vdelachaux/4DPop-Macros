@@ -33,7 +33,11 @@
 		]
 	},
 	"#️⃣ API": {},
-	"♻️ LIBRAIRIES": {},
+	"♻️ LIBRAIRIES": {
+		"classes": [
+			"regex"
+		]
+	},
 	"⚙️ MACROS": {
 		"methods": [
 			"4DPop_MACROS"
