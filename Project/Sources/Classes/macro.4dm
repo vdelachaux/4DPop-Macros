@@ -499,6 +499,12 @@ Function _paste($text : Text; $useSelection : Boolean)
 	
 	SET MACRO PARAMETER:C998($target; $text)
 	
+	If (Structure file:C489=Structure file:C489(*))
+		
+		return 
+		
+	End if 
+	
 	// Force tokenisation
 	var $name : Text
 	var $i; $mode; $origin; $state; $time; $UID : Integer

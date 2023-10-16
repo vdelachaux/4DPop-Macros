@@ -51,28 +51,29 @@ Class constructor()
 		endForEach: $c[14]\
 		}
 	
+	$t:="(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?{control}\\b"
 	This:C1470._patterns:={\
-		If: "(?<!//)"+This:C1470._controls.if+"\\b"; \
-		Else: "(?<!//)"+This:C1470._controls.else+"\\b"; \
-		EndIf: "(?<!//)"+This:C1470._controls.endIf+"\\b"; \
-		CaseOf: "(?<!//)"+This:C1470._controls.caseOf+"\\b"; \
-		CaseOfItem: "\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
-		EndCase: "(?<!//)"+This:C1470._controls.endCase+"\\b"; \
-		While: "(?<!//)"+This:C1470._controls.while+"\\b"; \
-		EndWhile: "(?<!//)"+This:C1470._controls.endWhile+"\\b"; \
-		For: "(?<!//)"+This:C1470._controls.for+"\\b"; \
-		EndFor: "(?<!//)"+This:C1470._controls.endFor+"\\b"; \
-		Repeat: "(?<!//)"+This:C1470._controls.repeat+"\\b"; \
-		Until: "(?<!//)"+This:C1470._controls.until+"\\b"; \
-		Use: "(?<!//)"+This:C1470._controls.use+"\\b"; \
-		EndUse: "(?<!//)"+This:C1470._controls.endUse+"\\b"; \
-		ForEach: "(?<!//)"+This:C1470._controls.forEach+"\\b"; \
-		EndForEach: "(?<!//)"+This:C1470._controls.endForEach+"\\b"; \
-		BeginSQL: "^(?<!//)"+Command name:C538(948); \
-		EndSQL: "^(?<!//)"+Command name:C538(949)\
+		If: Replace string:C233($t; "{control}"; This:C1470._controls.if); \
+		Else: Replace string:C233($t; "{control}"; This:C1470._controls.else); \
+		EndIf: Replace string:C233($t; "{control}"; This:C1470._controls.endIf); \
+		CaseOf: Replace string:C233($t; "{control}"; This:C1470._controls.caseOf); \
+		EndCase: Replace string:C233($t; "{control}"; This:C1470._controls.endCase); \
+		While: Replace string:C233($t; "{control}"; This:C1470._controls.while); \
+		EndWhile: Replace string:C233($t; "{control}"; This:C1470._controls.endWhile); \
+		For: Replace string:C233($t; "{control}"; This:C1470._controls.for); \
+		EndFor: Replace string:C233($t; "{control}"; This:C1470._controls.endFor); \
+		Repeat: Replace string:C233($t; "{control}"; This:C1470._controls.repeat); \
+		Until: Replace string:C233($t; "{control}"; This:C1470._controls.until); \
+		Use: Replace string:C233($t; "{control}"; This:C1470._controls.use); \
+		EndUse: Replace string:C233($t; "{control}"; This:C1470._controls.endUse); \
+		ForEach: Replace string:C233($t; "{control}"; This:C1470._controls.forEach); \
+		EndForEach: Replace string:C233($t; "{control}"; This:C1470._controls.endForEach); \
+		CaseOfItem: "(?<!"+kCommentMark+")\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
+		BeginSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(948); \
+		EndSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(949)\
 		}
 	
-	This:C1470._patterns.closure:="(?<!//)(?:"+[\
+	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+[\
 		This:C1470._controls.endIf; \
 		This:C1470._controls.endCase; \
 		This:C1470._controls.endWhile; \
@@ -99,9 +100,9 @@ Class constructor()
 	// Optional code formatting
 	This:C1470._patterns.ternaryOperator:="(?-msi)"\
 		+This:C1470._controls.if\
-		+"\\s\\(([^)]*)\\)(?://.*)?\\W*(.*):=(?!.*\\$\\d)([^\\R]*?)(//.*)?\\W*"\
+		+"\\s\\(([^)]*)\\)(?:"+kCommentMark+".*)?\\W*(.*):=(?!.*\\$\\d)([^\\R]*?)("+kCommentMark+".*)?\\W*"\
 		+This:C1470._controls.else\
-		+"\\r*.*\\s*\\2:=([^\\R]*?)(?://(.*))?\\s*"\
+		+"\\r*.*\\s*\\2:=([^\\R]*?)(?:"+kCommentMark+"(.*))?\\s*"\
 		+This:C1470._controls.endIf
 	
 	This:C1470._patterns.choose:="(?mi-s)"+Command name:C538(955)+"\\s*\\(([^;]*);\\s*([^;]*);\\s*([^;]*)\\)([^$]*)"
@@ -118,10 +119,10 @@ Class constructor()
 		{name: Command name:C538(1093); id: 1093}\
 		]
 	
-	This:C1470._patterns.splittableCommands:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*//[^$]*)?$"
+	This:C1470._patterns.splittableCommands:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*"+kCommentMark+"[^$]*)?$"
 	
 	// Separator line is made with a comment mark and at least 5 times the same character
-	This:C1470._patterns.commentLine:="(?mi-s)"+kCommentMark+"\\s*(.)\\1{5,}"
+	This:C1470._patterns.commentLine:="(?m-si)^\\s*"+kCommentMark+"\\s*(.)\\1{4,}"
 	
 	This:C1470.specialComments:="%}])"  // Compilation modifier & …
 	
@@ -210,8 +211,8 @@ Function beautify()
 		$tLon_branchAndLoop:=Size of array:C274($tLon_branchAndLoop)
 		$tLon_branchAndLoop{0}:=$tLon_branchAndLoop{$tLon_branchAndLoop}
 		
-		$isEnd:=This:C1470.rgx.setTarget($line).setPattern(This:C1470._patterns.closure).match()
 		$skipLineAfter:=Not:C34($isEnd) ? False:C215 : $skipLineAfter
+		$isEnd:=This:C1470.rgx.setTarget($line).setPattern(This:C1470._patterns.closure).match()
 		
 		If (Not:C34($skipLineAfter) & $doLineAfter)
 			
@@ -231,14 +232,12 @@ Function beautify()
 		
 		Case of 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (Length:C16($line)=0)  // Empty line
 				
 				$isEmptyLine:=True:C214
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (Position:C15(kCommentMark; $line)=1)  // Comment
 				
 				If (Not:C34($isComment))  // Multiline
@@ -246,14 +245,14 @@ Function beautify()
 					$doLineBefore:=($i>0 ? Bool:C1537($options.aLineOfCommentsMustBePrecededByALineBreak) : False:C215)\
 						 & ($line#(kCommentMark+"}"))\
 						 & ($line#(kCommentMark+"]"))\
-						 & ($line#(kCommentMark+")"))
+						 & ($line#(kCommentMark+")"))\
+						 & ($line#(kCommentMark+"%"))
 					
 				End if 
 				
 				$doLineComment:=This:C1470.rgx.setPattern(This:C1470._patterns.commentLine).match()
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.If).match())
 				
 				$doLineBefore:=Bool:C1537($options.lineBreakBeforeBranchingStructures) & Not:C34($isComment)
@@ -278,8 +277,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Else).match())
 				
 				If ($tLon_branchAndLoop{$tLon_branchAndLoop}=4)
@@ -297,8 +295,7 @@ Function beautify()
 				$doLineAfter:=True:C214
 				$skipLineAfter:=False:C215
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndIf).match())
 				
 				$doLineBefore:=(Not:C34($skipLineAfter) | Not:C34($isClosure))\
@@ -313,8 +310,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Use).match())
 				
 				If (Bool:C1537($options.splitTestLines))
@@ -329,8 +325,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 13)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndUse).match())
 				
 				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
@@ -343,8 +338,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.ForEach).match())
 				
 				If (Bool:C1537($options.splitTestLines))
@@ -359,8 +353,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 14)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndForEach).match())
 				
 				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
@@ -373,8 +366,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.CaseOf).match())
 				
 				$level+=1
@@ -385,8 +377,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 4)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._controls.caseOfItem).match())
 				
 				If (Bool:C1537($options.splitTestLines))
@@ -400,8 +391,7 @@ Function beautify()
 				$doLineAfter:=True:C214
 				$skipLineAfter:=False:C215
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndCase).match())
 				
 				$doAddLine:=Bool:C1537($options.separationLineForCaseOf)
@@ -417,8 +407,7 @@ Function beautify()
 				
 				$tLon_branchAndLoop{0}:=-5
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.While).match())
 				
 				If (Bool:C1537($options.splitTestLines))
@@ -433,8 +422,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 6)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndWhile).match())
 				
 				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
@@ -447,8 +435,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.For).match())
 				
 				$doLineBefore:=Not:C34($isComment)
@@ -472,8 +459,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 8)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndFor).match())
 				
 				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
@@ -486,8 +472,7 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Repeat).match())
 				
 				$doLineBefore:=True:C214
@@ -496,8 +481,7 @@ Function beautify()
 				
 				APPEND TO ARRAY:C911($tLon_branchAndLoop; 10)
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Until).match())
 				
 				If (Bool:C1537($options.splitTestLines))
@@ -516,42 +500,41 @@ Function beautify()
 					
 				End if 
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.keywords).match())
 				
 				$doLineBefore:=True:C214
 				$doLineAfter:=True:C214
 				$skipLineAfter:=False:C215
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.BeginSQL).match())
 				
 				$doLineBefore:=True:C214
 				$doLineAfter:=True:C214
 				$skipLineAfter:=False:C215
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndSQL).match())
 				
 				$doLineBefore:=True:C214
 				$doLineAfter:=True:C214
 				$skipLineAfter:=False:C215
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
-				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			Else 
 				
 				$isEmptyLine:=False:C215
 				$doLineBefore:=$isClosure
 				
-				// ——————————————————————————————————————————————————————————————————————————————————————————————————
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		End case 
 		
+		// Add a space before the comment and capitalize the first letter
 		If ($options.formatComments)\
-			 && (Position:C15(kCommentMark; $line)#0)  // Add a space before the comment and capitalize the first letter
+			 && (Position:C15(kCommentMark; $line)#0)\
+			 && (Position:C15(kCommentMark+"%"; $line)=0)\
+			 && Not:C34(This:C1470.rgx.setPattern(This:C1470._patterns.commentLine).match())
 			
 			$line:=This:C1470._formatComment($line)
 			
@@ -676,7 +659,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 	
 	Case of 
 			
-			// ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=1471)  // New Object
 			
 			$pos:=Position:C15($cmd.name; $code)
@@ -705,7 +688,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 				
 			End if 
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=1055)  // SVG SET ATTRIBUTE
 			
 			$splitted:=$prefix+$cmd.name+"("
@@ -718,7 +701,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 				
 			End if 
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=1220)  // OB SET
 			
 			$pos:=Position:C15(";"; $code)
@@ -730,7 +713,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 				
 			End if 
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=865)  // DOM Create XML element
 			
 			$pos:=Position:C15($cmd.name; $code)
@@ -758,7 +741,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 				
 			End if 
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=866)  // DOM SET XML ATTRIBUTE
 			
 			$splitted:=$cmd.name+"("
@@ -783,7 +766,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 				
 			End if 
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: ($cmd.id=1093)  // ST SET ATTRIBUTES 
 			
 			$splitted:=$prefix+$cmd.name+"("
@@ -817,12 +800,12 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 			$splitted+=$t+"\\\r"
 			$code:=Delete string:C232($code; 1; Length:C16($t))
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		Else 
 			
 			// Oops
 			
-			// ______________________________________________________
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	End case 
 	
 	// Go to the first semicolon
