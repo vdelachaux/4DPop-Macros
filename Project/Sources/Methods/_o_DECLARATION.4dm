@@ -57,8 +57,8 @@ C_OBJECT:C1216($file; $o; $oo)
 C_COLLECTION:C1488($c; $cArrays; $cDirectives; $Col_settings; $Col_type)
 
 If (False:C215)
-	C_TEXT:C284(DECLARATION; $1)
-	C_POINTER:C301(DECLARATION; ${2})
+	C_TEXT:C284(_o_DECLARATION; $1)
+	C_POINTER:C301(_o_DECLARATION; ${2})
 End if 
 
 // ----------------------------------------------------
@@ -68,7 +68,7 @@ $Lon_parameters:=Count parameters:C259
 // ----------------------------------------------------
 If ($Lon_parameters=0)  // Display the dialog
 	
-	DECLARATION("_init")
+	_o_DECLARATION("_init")
 	OPTIONS_GET(27)
 	
 	$file:=File:C1566("/RESOURCES/declarations.settings")
@@ -129,8 +129,8 @@ If ($Lon_parameters=0)  // Display the dialog
 				"method"; win_title(Frontmost window:C447); \
 				"settings"; $o; \
 				"controlFlow"; $c; \
-				"refresh"; Formula:C1597(DECLARATION("DISPLAY")); \
-				"setType"; Formula:C1597(DECLARATION("TYPE"))\
+				"refresh"; Formula:C1597(_o_DECLARATION("DISPLAY")); \
+				"setType"; Formula:C1597(_o_DECLARATION("TYPE"))\
 				)
 			
 			$l:=Open form window:C675("DECLARATIONS"; Movable form dialog box:K39:8; *)
@@ -2017,7 +2017,7 @@ Else
 				
 			End if 
 			
-			DECLARATION("Get_Syntax_Preferences")
+			_o_DECLARATION("Get_Syntax_Preferences")
 			
 			//______________________________________________________
 		: ($Txt_entryPoint="Get_Syntax_Preferences")

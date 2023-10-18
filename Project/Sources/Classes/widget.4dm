@@ -14,13 +14,11 @@ I prefer to call them widgets to make the difference with language objects
 Class extends static
 /*═══════════════════*/
 
-Class constructor
-	var $1 : Text
-	var $2 : Text
+Class constructor($name : Text; $datasource : Text)
 	
 	var $p : Pointer
 	
-	Super:C1705($1)
+	Super:C1705($name)
 	
 	$p:=OBJECT Get pointer:C1124(Object named:K67:5; This:C1470.name)
 	This:C1470.assignable:=Not:C34(Is nil pointer:C315($p))
@@ -34,8 +32,8 @@ Class constructor
 		
 		If (Count parameters:C259>=2)
 			
-			This:C1470.dataSource:=$2
-			This:C1470.value:=Formula from string:C1601($2).call()
+			This:C1470.dataSource:=$datasource
+			This:C1470.value:=Formula from string:C1601($datasource).call()
 			
 		End if 
 	End if 
@@ -47,9 +45,9 @@ Class constructor
 	This:C1470.events:=New collection:C1472
 	ARRAY TO COLLECTION:C1563(This:C1470.events; $_)
 	
-Function addEvents
+Function addEvents( ...  : Integer)
 	
-	var ${1}; $i : Integer
+	var $i : Integer
 	
 	For ($i; 1; Count parameters:C259; 1)
 		
@@ -62,10 +60,9 @@ Function addEvents
 	//OBJECT SET EVENTS(*; This.name; $_; Enable events others unchanged)
 	
 /*══════════════════════════*/
-Function getEnterable
-	var $0 : Boolean
+Function getEnterable : Boolean
 	
-	$0:=OBJECT Get enterable:C1067(*; This:C1470.name)
+	return OBJECT Get enterable:C1067(*; This:C1470.name)
 	
 /*══════════════════════════
 .enterable()

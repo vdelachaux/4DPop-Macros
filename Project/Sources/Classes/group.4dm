@@ -12,51 +12,51 @@ or a comma separated list of object names
 in this case, all named objects are initialized with widget class
 
 ——————————————————————————*/
-Class constructor
+Class constructor($members;  ...  : Object)
 	
-	C_VARIANT:C1683($1)
-	C_OBJECT:C1216(${2})
+	//C_VARIANT($1)
+	//C_OBJECT(${2})
 	
 	C_LONGINT:C283($i)
 	C_TEXT:C284($t)
 	
-	If (Asserted:C1132(Count parameters:C259>0;"Missing parameter"))
+	If (Asserted:C1132(Count parameters:C259>0; "Missing parameter"))
 		
 		Case of 
 				
-				  //___________________________
+				//___________________________
 			: (Value type:C1509($1)=Is collection:K8:32)
 				
 				This:C1470.members:=$1
 				
-				  //___________________________
+				//___________________________
 			: (Value type:C1509($1)=Is object:K8:27)  // 1 to n objects
 				
 				This:C1470.members:=New collection:C1472
 				
-				For ($i;1;Count parameters:C259;1)
+				For ($i; 1; Count parameters:C259; 1)
 					
 					This:C1470.members.push(${$i})
 					
 				End for 
 				
-				  //___________________________
+				//___________________________
 			: (Value type:C1509($1)=Is text:K8:3)  // Comma separated list of object names
 				
 				This:C1470.members:=New collection:C1472
 				
-				For each ($t;Split string:C1554($1;","))
+				For each ($t; Split string:C1554($1; ","))
 					
 					This:C1470.members.push(cs:C1710.widget.new($t))  // Widget by default
 					
 				End for each 
 				
-				  //___________________________
+				//___________________________
 			Else 
 				
-				ASSERT:C1129(False:C215;"Bad parameter type")
+				ASSERT:C1129(False:C215; "Bad parameter type")
 				
-				  //___________________________
+				//___________________________
 		End case 
 	End if 
 	
@@ -77,22 +77,22 @@ Function include
 	
 	Case of 
 			
-			  //______________________________________________________
+			//______________________________________________________
 		: (Value type:C1509($1)=Is object:K8:27)
 			
 			$0:=(This:C1470.members.indexOf($1)#-1)
 			
-			  //______________________________________________________
+			//______________________________________________________
 		: (Value type:C1509($1)=Is text:K8:3)
 			
-			$0:=(This:C1470.members.query("name=:1";$1).pop()#Null:C1517)
+			$0:=(This:C1470.members.query("name=:1"; $1).pop()#Null:C1517)
 			
-			  //______________________________________________________
+			//______________________________________________________
 		Else 
 			
-			ASSERT:C1129(False:C215;"Unmanaged parameter type")
+			ASSERT:C1129(False:C215; "Unmanaged parameter type")
 			
-			  //______________________________________________________
+			//______________________________________________________
 	End case 
 	
 /*════════════════════════════════════════════
@@ -110,13 +110,13 @@ The optional object type parameter allow to specify:
 ════════════════════════════════════════════*/
 Function distributeHorizontally
 	
-	C_OBJECT:C1216($1;$o;$e)
+	C_OBJECT:C1216($1; $o; $e)
 	
 	$e:=New object:C1471(\
-		"start";0;\
-		"spacing";0;\
-		"minWidth";0;\
-		"maxWidth";0)
+		"start"; 0; \
+		"spacing"; 0; \
+		"minWidth"; 0; \
+		"maxWidth"; 0)
 	
 	If (Count parameters:C259>=1)
 		
@@ -133,7 +133,7 @@ Function distributeHorizontally
 		End if 
 	End if 
 	
-	For each ($o;This:C1470.members)
+	For each ($o; This:C1470.members)
 		
 		If (Count parameters:C259>=1)
 			
@@ -151,25 +151,25 @@ Function distributeHorizontally
 			
 		End if 
 		
-		  // Calculate the cumulative shift
+		// Calculate the cumulative shift
 		If ($e.spacing=0)
 			
 			Case of 
 					
-					  //_______________________________
+					//_______________________________
 				: ($o.type=Object type push button:K79:16)
 					
-					$e.start:=$o.coordinates.right+Choose:C955(Is macOS:C1572;20;20)
+					$e.start:=$o.coordinates.right+Choose:C955(Is macOS:C1572; 20; 20)
 					
-					  //_______________________________
+					//_______________________________
 				: (False:C215)
 					
-					  //_______________________________
+					//_______________________________
 				Else 
 					
 					$e.start:=$o.coordinates.right
 					
-					  //_______________________________
+					//_______________________________
 			End case 
 			
 		Else 
@@ -190,7 +190,7 @@ Function show
 	
 	If (Count parameters:C259>=1)
 		
-		For each ($o;This:C1470.members)
+		For each ($o; This:C1470.members)
 			
 			$o.show($1)
 			
@@ -198,7 +198,7 @@ Function show
 		
 	Else 
 		
-		For each ($o;This:C1470.members)
+		For each ($o; This:C1470.members)
 			
 			$o.show()
 			
@@ -210,7 +210,7 @@ Function hide
 	
 	C_OBJECT:C1216($o)
 	
-	For each ($o;This:C1470.members)
+	For each ($o; This:C1470.members)
 		
 		$o.hide()
 		
@@ -227,7 +227,7 @@ Function enable
 	
 	If (Count parameters:C259>=1)
 		
-		For each ($o;This:C1470.members)
+		For each ($o; This:C1470.members)
 			
 			$o.enable($1)
 			
@@ -235,7 +235,7 @@ Function enable
 		
 	Else 
 		
-		For each ($o;This:C1470.members)
+		For each ($o; This:C1470.members)
 			
 			$o.enable()
 			
@@ -247,7 +247,7 @@ Function disable
 	
 	C_OBJECT:C1216($o)
 	
-	For each ($o;This:C1470.members)
+	For each ($o; This:C1470.members)
 		
 		$o.disable()
 		

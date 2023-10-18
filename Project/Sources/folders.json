@@ -7,6 +7,7 @@
 			"_o_beautifier_Next_semicolon",
 			"_o_beautifier_Split_key_value",
 			"_o_CENTERED",
+			"_o_DECLARATION",
 			"_o_EXTRACT_LOCAL_VARIABLES",
 			"_o_Files_And_Folders",
 			"_o_isNumeric",
@@ -25,13 +26,7 @@
 			"4DPop_TEST_Macros",
 			"COMPILER_TESTS",
 			"createSymbolicLink",
-			"macro",
-			"Method2",
-			"Method3",
-			"Method4",
-			"Method5",
-			"Method6",
-			"Method7"
+			"macro"
 		]
 	},
 	"#️⃣ API": {},
@@ -110,7 +105,6 @@
 	},
 	"Binary database": {
 		"methods": [
-			"DECLARATION",
 			"OPTIONS_GET",
 			"OPTIONS_SET"
 		],

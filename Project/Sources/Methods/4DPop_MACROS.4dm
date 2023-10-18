@@ -5,21 +5,15 @@
 // 4DPop Macros v 3.0
 // ----------------------------------------------------
 // Description
-// Entry point of all 4DPop's macros
+// Entry point of all macros
 // ----------------------------------------------------
-// Modified by Vincent de Lachaux (12/05/10)
-// v12
-// ----------------------------------------------------
-// Declarations
-#DECLARE($action : Text; $text : Text; $title : Text)
-
-var ${4} : Pointer
+#DECLARE($action : Text; $text : Text; $title : Text;  ...  : Pointer)
 
 If (False:C215)
 	C_TEXT:C284(4DPop_MACROS; $1)
 	C_TEXT:C284(4DPop_MACROS; $2)
 	C_TEXT:C284(4DPop_MACROS; $3)
-	C_POINTER:C301(4DPop_MACROS; $4)
+	C_POINTER:C301(4DPop_MACROS; ${4})
 End if 
 
 var $t : Text

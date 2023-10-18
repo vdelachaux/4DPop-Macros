@@ -134,7 +134,7 @@ Function PasteColor()
 	/// Compiler Directives for local variables
 Function Declarations()
 	
-	DECLARATION
+	_o_DECLARATION
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function Beautifier()
