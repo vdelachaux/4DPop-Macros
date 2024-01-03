@@ -32,14 +32,14 @@ var $pi : Real
 var $toto : Integer
 var $x : Object
 var $y : Collection
-var $catalog; $datastore : cs:C1710.catalog
+//var $catalog; $datastore : cs.catalog
 
-$datastore:=cs:C1710.catalog.new()
-$catalog:=cs:C1710.catalog.new()
+//$datastore:=cs.catalog.new()
+//$catalog:=cs.catalog.new()
 
-$y:=cs:C1710.catalog.new().buildExposedCatalog()
+//$y:=cs.catalog.new().buildExposedCatalog()
 $toto:=1
 $pi:=3.14116
 
-$x:=cs:C1710.catalog.new().buildExposedDatastore()
+//$x:=cs.catalog.new().buildExposedDatastore()
 //%W+550.4

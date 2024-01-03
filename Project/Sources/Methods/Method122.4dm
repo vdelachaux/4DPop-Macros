@@ -3,16 +3,16 @@
 //%W-550.2
 var $xmlStructure : Text
 var $structure : Object
-var $svg : cs:C1710.svg
-var $xml : cs:C1710.xml
+//var $svg : cs.svg
+//var $xml : cs.xml
 
 EXPORT STRUCTURE:C1311($xmlStructure)
-$xml:=cs:C1710.xml.new($xmlStructure)
+//$xml:=cs.xml.new($xmlStructure)
 
-$structure:=$xml.toObject()
+//$structure:=$xml.toObject()
 
-$svg:=cs:C1710.svg.new()
+//$svg:=cs.svg.new()
 
-$xml.close()
+//$xml.close()
 //%W+550.2
 //%W+550.4

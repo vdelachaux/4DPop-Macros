@@ -43,7 +43,7 @@ Class constructor
 	
 	
 	var $t : Text
-	$t:="(?mi-s)(?<!"+kCommentMark+")\\$[^:]*:\\s*{type}[:\\s]*"
+	$t:="(?mi-s)(?<!"+kCommentMark+")(?:\\$[^:]*)?:\\s*{type}[:\\s]*"
 	
 	This:C1470._patterns:={\
 		varInteger: Replace string:C233($t; "{type}"; "Integer"); \

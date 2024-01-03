@@ -30,7 +30,7 @@ If (False:C215)
 	
 	$button:=cs:C1710.button.new()
 	$button2:=cs:C1710.button.new()
-	$toto:=4D:C1709.File.new()
+	//$toto:=4D.File.new()
 	$o:=New object:C1471
 	$z:=New object:C1471
 	
@@ -56,6 +56,6 @@ Else
 	//$indx:=Form.rule.indexOf(Form.ruleSelected[0])
 	
 	var $file : 4D:C1709.File
-	$file:=4D:C1709.File.new()
+	//$file:=4D.File.new()
 	
 End if 

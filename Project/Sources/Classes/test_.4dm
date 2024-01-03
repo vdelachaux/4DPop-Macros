@@ -111,7 +111,7 @@ Function remove($node : Text)->$this : cs:C1710.test_
 	$this:=This:C1470
 	
 	//=== === === === === === === === === === === === === === === === === === === === ===
-Function updateColorScheme($x : 4D:C1709.File)->$y : 4D:C1709.Blob
+Function updateColorScheme($x : 4D:C1709.File)->$y : 4D:C1709.File
 	
 	var $icon : Picture
 	var $file : 4D:C1709.File
