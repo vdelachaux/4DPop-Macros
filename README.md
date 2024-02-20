@@ -1,10 +1,23 @@
-[![language](https://img.shields.io/static/v1?label=language&message=4d&color=blue)](https://developer.4d.com/)
-[![language](https://img.shields.io/github/languages/top/vdelachaux/4DPop-Macros.svg)](https://developer.4d.com/)
-![code-size](https://img.shields.io/github/languages/code-size/vdelachaux/4DPop-Macros.svg)
-[![license](https://img.shields.io/github/license/vdelachaux/4DPop-Macros)](LICENSE)
-[![release](https://img.shields.io/github/v/release/vdelachaux/4DPop-Macros?include_prereleases)](https://github.com/vdelachaux/4DPop-Macros/releases/latest)
-[![Build](https://github.com/vdelachaux/4DPop-Macros/actions/workflows/build.yml/badge.svg)](https://github.com/vdelachaux/4DPop-Macros/actions/workflows/build.yml)
+[code-shield]: https://img.shields.io/static/v1?label=language&message=4d&color=blue
+[code-url]: https://developer.4d.com/
+[license-url]: LICENSE
+[notarized]: https://img.shields.io/badge/notarized-blue
 
+[code-top]: https://img.shields.io/github/languages/top/vdelachaux/4DPop-Macros.svg
+[code-size]: https://img.shields.io/github/languages/code-size/vdelachaux/4DPop-Macros.svg
+[release-shield]: https://img.shields.io/github/v/release/vdelachaux/4DPop-Macros?include_prereleases
+[release-url]: https://github.com/vdelachaux/4DPop-Macros/releases/latest
+[license-shield]: https://img.shields.io/github/license/vdelachaux/4DPop-Macros
+[build-shield]: https://github.com/vdelachaux/4DPop-Macros/actions/workflows/build.yml/badge.svg
+[build-url]: https://github.com/vdelachaux/4DPop-Macros/actions/workflows/build.yml
+
+[![language][code-shield]][code-url]
+[![language-top][code-top]][code-url]
+![code-size][code-size]
+[![license][license-shield]][license-url]
+[![release][release-shield]][release-url]
+[![build][build-shield]][license-url]
+![notarized][notarized]
 
 
 # <a name="overview">Overview</a>
@@ -44,7 +57,7 @@ This tool operate on the selected text of the frontmost method (or on the whole 
 
 \*Not yet for a class method, so it's best to work with the selection for now. 
 
-<p align="center"><img src="./Documentation/declaration.png" width="500"></p>
+<p align="center"><img src="./Documentation/declaration.png" width="800 "></p>
 
 * ① The list displays first the parameters, then the local variables.
 	* For each element, an icon represents the type deduced, and the number of uses in the analyzed code is displayed on the right.
@@ -110,7 +123,7 @@ This tool formats the selected text, or the whole method if there is no selectio
 
 The tool displays a dialog allowing to choose what will be pasted in the method editor. The "Result" area allows you to preview the text as it will be pasted.
 
-<p align="center"><img src="./Documentation/specialPaste.png" width="500">
+<p align="center"><img src="./Documentation/specialPaste.png" width="800">
 
 The available transformations are :
 
@@ -129,7 +142,7 @@ When the compiler [displays warnings](https://doc.4d.com/4Dv19/4D/19/Compiler-wi
 
 To do this, select the line(s) of code in the method editor that cause this warning and select the "Compiler directive…" action from the macro menu. The tool asks for the number displayed in brackets (e.g. 538.3) and when you validate, surrounds the selected code with the pattern `//%W-538.3` ... `//%W+538.3`.
 
-<p align="center"><img src="./Documentation/disablingWarning.png" width="300">
+<p align="center"><img src="./Documentation/disablingWarning.png" width="600">
 
 ## <a name="comment">Comments</a>
 
