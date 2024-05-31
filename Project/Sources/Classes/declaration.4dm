@@ -1,6 +1,6 @@
 Class extends macro
 
-property lines; locales; parameters; classes : Collection
+property lines; locales; parameters; classes; types : Collection
 
 //ACI0104313
 //property $notforArray : Collection
@@ -41,7 +41,6 @@ Class constructor
 	// Flags
 	This:C1470.$inCommentBlock:=False:C215
 	
-	
 	var $t : Text
 	$t:="(?mi-s)(?<!"+kCommentMark+")(?:\\$[^:]*)?:\\s*{type}[:\\s]*"
 	
@@ -59,7 +58,7 @@ Class constructor
 		varClass: Replace string:C233($t; "{type}"; "(?:4d|cs)\\.\\w*"); \
 		varCollection: Replace string:C233($t; "{type}"; "Collection"); \
 		varVariant: Replace string:C233($t; "{type}"; "Variant"); \
-		varWithAssignment: "\"(?mi-s)^var\\\\s*(?:[^:]*:){2}=\""\
+		varWithAssignment: "(?mi-s)^var\\s*([^:]*):([^:]*):="\
 		}
 	
 	var $icon : Picture
@@ -70,103 +69,103 @@ Class constructor
 	$suffix:=(Get Application color scheme:C1763(*)="dark") ? "_dark.png" : ".png"
 	
 	READ PICTURE FILE:C678($root.file("field_00"+$suffix).platformPath; $icon)
-	This:C1470.types[0]:=New object:C1471(\
-		"name"; "undefined"; \
-		"icon"; $icon)
+	This:C1470.types[0]:={\
+		name: "undefined"; \
+		icon: $icon}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is object:K8:27); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is object:K8:27]:=New object:C1471(\
-		"name"; "object"; \
-		"icon"; $icon; \
-		"value"; Is object:K8:27; \
-		"arrayCommand"; 1221; \
-		"directive"; 1216)
+	This:C1470.types[Is object:K8:27]:={\
+		name: "object"; \
+		icon: $icon; \
+		value: Is object:K8:27; \
+		arrayCommand: 1221; \
+		directive: 1216}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is collection:K8:32); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is collection:K8:32]:=New object:C1471(\
-		"name"; "collection"; \
-		"icon"; $icon; \
-		"value"; Is collection:K8:32; \
-		"directive"; 1488)
+	This:C1470.types[Is collection:K8:32]:={\
+		name: "collection"; \
+		icon: $icon; \
+		value: Is collection:K8:32; \
+		directive: 1488}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is longint:K8:6); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is longint:K8:6]:=New object:C1471(\
-		"name"; "integer"; \
-		"icon"; $icon; \
-		"value"; Is longint:K8:6; \
-		"arrayCommand"; 221; \
-		"directive"; 283)
+	This:C1470.types[Is longint:K8:6]:={\
+		name: "integer"; \
+		icon: $icon; \
+		value: Is longint:K8:6; \
+		arrayCommand: 221; \
+		directive: 283}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is boolean:K8:9); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is boolean:K8:9]:=New object:C1471(\
-		"name"; "boolean"; \
-		"icon"; $icon; \
-		"value"; Is boolean:K8:9; \
-		"arrayCommand"; 223; \
-		"directive"; 305)
+	This:C1470.types[Is boolean:K8:9]:={\
+		name: "boolean"; \
+		icon: $icon; \
+		value: Is boolean:K8:9; \
+		arrayCommand: 223; \
+		directive: 305}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is text:K8:3); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is text:K8:3]:=New object:C1471(\
-		"name"; "text"; \
-		"icon"; $icon; \
-		"value"; Is text:K8:3; \
-		"arrayCommand"; 222; \
-		"directive"; 284)
+	This:C1470.types[Is text:K8:3]:={\
+		name: "text"; \
+		icon: $icon; \
+		value: Is text:K8:3; \
+		arrayCommand: 222; \
+		directive: 284}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is date:K8:7); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is date:K8:7]:=New object:C1471(\
-		"name"; "date"; \
-		"icon"; $icon; \
-		"value"; Is date:K8:7; \
-		"arrayCommand"; 224; \
-		"directive"; 307)
+	This:C1470.types[Is date:K8:7]:={\
+		name: "date"; \
+		icon: $icon; \
+		value: Is date:K8:7; \
+		arrayCommand: 224; \
+		directive: 307}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is time:K8:8); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is time:K8:8]:=New object:C1471(\
-		"name"; "time"; \
-		"icon"; $icon; \
-		"value"; Is time:K8:8; \
-		"arrayCommand"; 1223; \
-		"directive"; 306)
+	This:C1470.types[Is time:K8:8]:={\
+		name: "time"; \
+		icon: $icon; \
+		value: Is time:K8:8; \
+		arrayCommand: 1223; \
+		directive: 306}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is picture:K8:10); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is picture:K8:10]:=New object:C1471(\
-		"name"; "picture"; \
-		"icon"; $icon; \
-		"value"; Is picture:K8:10; \
-		"arrayCommand"; 279; \
-		"directive"; 286)
+	This:C1470.types[Is picture:K8:10]:={\
+		name: "picture"; \
+		icon: $icon; \
+		value: Is picture:K8:10; \
+		arrayCommand: 279; \
+		directive: 286}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is variant:K8:33); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is variant:K8:33]:=New object:C1471(\
-		"name"; "variant"; \
-		"icon"; $icon; \
-		"value"; Is variant:K8:33; \
-		"directive"; 1683)
+	This:C1470.types[Is variant:K8:33]:={\
+		name: "variant"; \
+		icon: $icon; \
+		value: Is variant:K8:33; \
+		directive: 1683}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is pointer:K8:14); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is pointer:K8:14]:=New object:C1471(\
-		"name"; "pointer"; \
-		"icon"; $icon; \
-		"value"; Is pointer:K8:14; \
-		"arrayCommand"; 280; \
-		"directive"; 301)
+	This:C1470.types[Is pointer:K8:14]:={\
+		name: "pointer"; \
+		icon: $icon; \
+		value: Is pointer:K8:14; \
+		arrayCommand: 280; \
+		directive: 301}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is BLOB:K8:12); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is BLOB:K8:12]:=New object:C1471(\
-		"name"; "blob"; \
-		"icon"; $icon; \
-		"value"; Is BLOB:K8:12; \
-		"arrayCommand"; 1222; \
-		"directive"; 604)
+	This:C1470.types[Is BLOB:K8:12]:={\
+		name: "blob"; \
+		icon: $icon; \
+		value: Is BLOB:K8:12; \
+		arrayCommand: 1222; \
+		directive: 604}
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Num:C11(Is real:K8:4); "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is real:K8:4]:=New object:C1471(\
-		"name"; "real"; \
-		"icon"; $icon; \
-		"value"; Is real:K8:4; \
-		"arrayCommand"; 219; \
-		"directive"; 285)
+	This:C1470.types[Is real:K8:4]:={\
+		name: "real"; \
+		icon: $icon; \
+		value: Is real:K8:4; \
+		arrayCommand: 219; \
+		directive: 285}
 	
 	This:C1470.loadGramSyntax()
 	
@@ -180,28 +179,24 @@ Function split() : cs:C1710.declaration
 	//==============================================================
 	// Parses the code to extract parameters and local variables
 Function parse() : cs:C1710.declaration
-	
-	var $comment; $t; $text : Text
+	var $t; $text : Text
 	var $static : Boolean
-	var $index; $l : Integer
-	var $line; $o; $parameter; $rgx; $var : Object
+	var $l : Integer
+	var $parameter; $rgx; $var : Object
 	var $c : Collection
 	
-	ARRAY LONGINT:C221($len; 0x0000)
 	ARRAY LONGINT:C221($pos; 0x0000)
+	ARRAY LONGINT:C221($len; 0x0000)
 	
-	var $options : Object
-	$options:=This:C1470.settings.options
+	var $options : Object:=This:C1470.settings.options
 	
 	This:C1470.removeDirective()
 	This:C1470.split()
 	
 	For each ($text; This:C1470.lineTexts)
 		
-		$line:=New object:C1471(\
-			"code"; $text)
-		
-		$comment:=""
+		var $line : Object:={code: $text}
+		var $comment : Text:=""
 		
 		Case of 
 				
@@ -285,10 +280,10 @@ declaration macro must omit the parameters of a formula
 					
 				End if 
 				
-				$rgx:=Rgx_match(New object:C1471(\
-					"pattern"; "(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)"; \
-					"target"; $text; \
-					"all"; True:C214))
+				$rgx:=Rgx_match({\
+					pattern: "(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)"; \
+					target: $text; \
+					all: True:C214})
 				
 				$text:=$t
 /*--------------------------------------------------------*/
@@ -301,13 +296,13 @@ declaration macro must omit the parameters of a formula
 						
 						If ($parameter=Null:C1517)
 							
-							$parameter:=New object:C1471(\
-								"parameter"; True:C214; \
-								"value"; $t; \
-								"code"; $line.code; \
-								"count"; 0; \
-								"label"; Choose:C955($t="$0"; "← "; "→ ")+$t; \
-								"order"; Num:C11($t))
+							$parameter:={\
+								parameter: True:C214; \
+								value: $t; \
+								code: $line.code; \
+								count: 0; \
+								label: ($t="$0" ? "← " : "→ ")+$t; \
+								order: Num:C11($t)}
 							
 							This:C1470.parameters.push($parameter)
 							
@@ -367,10 +362,10 @@ declaration macro must omit the parameters of a formula
 						$line.type:="declaration"
 						$line.skip:=True:C214
 						
-						$rgx:=Rgx_match(New object:C1471(\
-							"pattern"; "(?m-si)(?<!\\.)(\\$\\w+)"; \
-							"target"; $text; \
-							"all"; True:C214))
+						$rgx:=Rgx_match({\
+							pattern: "(?m-si)(?<!\\.)(\\$\\w+)"; \
+							target: $text; \
+							all: True:C214})
 						
 						If ($rgx.success)
 							
@@ -382,12 +377,12 @@ declaration macro must omit the parameters of a formula
 									
 									If ($parameter=Null:C1517)
 										
-										$parameter:=New object:C1471(\
-											"parameter"; True:C214; \
-											"value"; $t; \
-											"code"; $line.code; \
-											"count"; 0; \
-											"label"; Choose:C955($t="0"; "← "; "→ ")+$t)
+										$parameter:={\
+											parameter: True:C214; \
+											value: $t; \
+											code: $line.code; \
+											count: 0; \
+											labe: ($t="0" ? "← " : "→ ")+$t}
 										
 										This:C1470.parameters.push($parameter)
 										
@@ -403,18 +398,33 @@ declaration macro must omit the parameters of a formula
 									
 									If ($var=Null:C1517)
 										
-										$var:=New object:C1471(\
-											"value"; $t; \
-											"code"; $line.code; \
-											"count"; 0; \
-											"label"; $t; \
-											"inDeclaration"; True:C214)
+										$var:={\
+											value: $t; \
+											code: $line.code; \
+											count: 0; \
+											label: $t; \
+											inDeclaration: True:C214\
+											}
+										
+										If (Match regex:C1019(This:C1470._patterns.varWithAssignment; $var.code; 1))
+											
+											$var.assigned:=True:C214
+											$var.count+=1
+											$line.skip:=False:C215
+											
+										End if 
 										
 										This:C1470.locales.push($var)
 										
 									Else 
 										
-										$var.count:=$var.count+1
+										$var.count+=1
+										
+									End if 
+									
+									If ($var.type#Null:C1517)
+										
+										continue
 										
 									End if 
 									
@@ -432,7 +442,7 @@ declaration macro must omit the parameters of a formula
 										
 									Else 
 										
-										$var.type:=This:C1470.getTypeFromDeclaration($text)
+										$var.type:=$var.assigned ? This:C1470.getTypeFromDeclaration($var.code) : This:C1470.getTypeFromDeclaration($text)
 										
 									End if 
 								End if 
@@ -456,11 +466,11 @@ declaration macro must omit the parameters of a formula
 						
 						If ($var=Null:C1517)
 							
-							$var:=New object:C1471(\
-								"value"; $t; \
-								"code"; $line.code; \
-								"count"; 0; \
-								"label"; $t)
+							$var:={\
+								value: $t; \
+								code: $line.code; \
+								count: 0; \
+								label: $t}
 							
 							This:C1470.locales.push($var)
 							
@@ -478,10 +488,10 @@ declaration macro must omit the parameters of a formula
 						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 					Else   // EXTRACT LOCAL VARIABLES
 						
-						$rgx:=Rgx_match(New object:C1471(\
-							"pattern"; "(?m-si)(?<!\\.)(\\$\\w+)"; \
-							"target"; $text; \
-							"all"; True:C214))
+						$rgx:=Rgx_match({\
+							pattern: "(?m-si)(?<!\\.)(\\$\\w+)"; \
+							target: $text; \
+							all: True:C214})
 						
 						If ($rgx.success)
 							
@@ -497,17 +507,18 @@ declaration macro must omit the parameters of a formula
 										
 										If ($var=Null:C1517)
 											
-											$var:=New object:C1471(\
-												"value"; $t; \
-												"code"; $line.code; \
-												"count"; 1; \
-												"label"; $t)
+											$var:={\
+												value: $t; \
+												code: $line.code; \
+												count: 1; \
+												label: $t\
+												}
 											
 											This:C1470.locales.push($var)
 											
 										Else 
 											
-											$var.count:=$var.count+1
+											$var.count+=1
 											
 										End if 
 										
@@ -654,20 +665,13 @@ declaration macro must omit the parameters of a formula
 	This:C1470.parameters:=This:C1470.parameters.orderBy("value asc")
 	
 	// Place the variadic last
-	$o:=This:C1470.parameters.query("value = :1"; "...").pop()
-	
+	var $o : Object:=This:C1470.parameters.query("value = :1"; "...").pop()
 	If ($o#Null:C1517)
 		
 		This:C1470.parameters.push($o)
 		This:C1470.parameters.remove(This:C1470.parameters.indexOf($o))
 		
 	End if 
-	
-	// $o:=This.parameters.query("value=${@").pop()
-	// If ($o#Null)
-	// This.parameters.push($o)
-	// This.parameters.remove(This.parameters.indexOf($o))
-	// End if
 	
 	// Finally do a flat list
 	This:C1470.variables:=This:C1470.parameters.combine(This:C1470.locales)
@@ -702,10 +706,10 @@ Function parseParameters($line : Object)
 			//______________________________________________________
 	End case 
 	
-	$rgx:=Rgx_match(New object:C1471(\
-		"pattern"; $pattern; \
-		"target"; $line.code; \
-		"all"; True:C214))
+	$rgx:=Rgx_match({\
+		pattern: $pattern; \
+		target: $line.code; \
+		all: True:C214})
 	
 	If ($rgx.success)
 		
@@ -731,13 +735,13 @@ Function parseParameters($line : Object)
 				$index:=$index+1
 				$c:=Split string:C1554($t; ":"; sk trim spaces:K86:2)
 				
-				$parameter:=New object:C1471(\
-					"parameter"; True:C214; \
-					"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-					"code"; $line.code; \
-					"type"; $c.length=1 ? Is variant:K8:33 : This:C1470.getTypeFromDeclaration($t); \
-					"count"; 0; \
-					"order"; $index)
+				$parameter:={\
+					parameter: True:C214; \
+					value: Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+					code: $line.code; \
+					type: $c.length=1 ? Is variant:K8:33 : This:C1470.getTypeFromDeclaration($t); \
+					count: 0; \
+					order: $index}
 				
 				$parameter.inDeclaration:=($parameter.type#0)
 				$parameter.label:="← "+$parameter.value
@@ -761,14 +765,14 @@ Function parseParameters($line : Object)
 			
 			$c:=Split string:C1554($rgx.match[4].data; ":"; sk trim spaces:K86:2)
 			
-			$parameter:=New object:C1471(\
-				"parameter"; True:C214; \
-				"return"; True:C214; \
-				"value"; Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-				"code"; $line.code; \
-				"type"; Choose:C955($c.length=1; Is variant:K8:33; This:C1470.getTypeFromDeclaration($rgx.match[4].data)); \
-				"count"; 0; \
-				"order"; 0)
+			$parameter:={\
+				parameter: True:C214; \
+				return: True:C214; \
+				value: Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
+				code: $line.code; \
+				type: $c.length=1 ? Is variant:K8:33 : This:C1470.getTypeFromDeclaration($rgx.match[4].data); \
+				count: 0; \
+				order: 0}
 			
 			$parameter.inDeclaration:=($parameter.type#0)
 			
@@ -1106,13 +1110,13 @@ Function apply()
 	$method:=This:C1470.addNewLine($method)
 	
 	// MARK:LOCAL VARIABLES WITH SIMPLE TYPE
-	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null")
+	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null & assigned=null")
 	
 	If ($c.length>0)
 		
 		For each ($type; This:C1470.types.query("value!=null"))
 			
-			$cc:=New collection:C1472
+			$cc:=[]
 			
 			For each ($o; $c.query("type=:1"; $type.value))
 				
@@ -1386,10 +1390,9 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 		: (Match regex:C1019("(?m-si)(\\$\\w*):=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line; 1; $pos; $len))  // Class
 			
 			// Keep class definition
-			This:C1470.classes.push(New object:C1471(\
-				"value"; Substring:C12($line; \
-				$pos{1}; $len{1}); \
-				"class"; Substring:C12($line; $pos{2}; $len{2})))
+			This:C1470.classes.push({\
+				value: Substring:C12($line; $pos{1}; $len{1}); \
+				class: Substring:C12($line; $pos{2}; $len{2})})
 			
 			return Is object:K8:27
 			
@@ -1497,25 +1500,25 @@ Function loadGramSyntax()
 	var $file : 4D:C1709.File
 	
 	This:C1470.gramSyntax:=New object:C1471(\
-		String:C10(Is object:K8:27); New collection:C1472; \
-		String:C10(Is object:K8:27)+"_1"; New collection:C1472; \
-		String:C10(Is boolean:K8:9); New collection:C1472; \
-		String:C10(Is boolean:K8:9)+"_1"; New collection:C1472; \
-		String:C10(Is longint:K8:6); New collection:C1472; \
-		String:C10(Is longint:K8:6)+"_1"; New collection:C1472; \
-		String:C10(Is text:K8:3); New collection:C1472; \
-		String:C10(Is text:K8:3)+"_1"; New collection:C1472; \
-		String:C10(Is real:K8:4); New collection:C1472; \
-		String:C10(Is real:K8:4)+"_1"; New collection:C1472; \
-		String:C10(Is collection:K8:32); New collection:C1472; \
-		String:C10(Is collection:K8:32)+"_1"; New collection:C1472; \
-		String:C10(Is pointer:K8:14); New collection:C1472; \
-		String:C10(Is pointer:K8:14)+"_1"; New collection:C1472; \
-		String:C10(Is date:K8:7); New collection:C1472; \
-		String:C10(Is date:K8:7)+"_1"; New collection:C1472; \
-		String:C10(Is time:K8:8); New collection:C1472; \
-		String:C10(Is time:K8:8)+"_1"; New collection:C1472; \
-		String:C10(Is BLOB:K8:12)+"_1"; New collection:C1472)
+		String:C10(Is object:K8:27); []; \
+		String:C10(Is object:K8:27)+"_1"; []; \
+		String:C10(Is boolean:K8:9); []; \
+		String:C10(Is boolean:K8:9)+"_1"; []; \
+		String:C10(Is longint:K8:6); []; \
+		String:C10(Is longint:K8:6)+"_1"; []; \
+		String:C10(Is text:K8:3); []; \
+		String:C10(Is text:K8:3)+"_1"; []; \
+		String:C10(Is real:K8:4); []; \
+		String:C10(Is real:K8:4)+"_1"; []; \
+		String:C10(Is collection:K8:32); []; \
+		String:C10(Is collection:K8:32)+"_1"; []; \
+		String:C10(Is pointer:K8:14); []; \
+		String:C10(Is pointer:K8:14)+"_1"; []; \
+		String:C10(Is date:K8:7); []; \
+		String:C10(Is date:K8:7)+"_1"; []; \
+		String:C10(Is time:K8:8); []; \
+		String:C10(Is time:K8:8)+"_1"; []; \
+		String:C10(Is BLOB:K8:12)+"_1"; [])
 	
 	$file:=Is macOS:C1572\
 		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/gram.4dsyntax")\
@@ -1523,10 +1526,11 @@ Function loadGramSyntax()
 	
 	If ($file.exists)
 		
-		$patterns:=New object:C1471
-		$patterns.affectation:="(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"
-		$patterns.affectationSuite:="|(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"
-		$patterns.first:="(?m-is)#\\s*\\(\\%"
+		$patterns:={\
+			affectation: "(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \
+			affectationSuite: "|(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \
+			first: "(?m-is)#\\s*\\(\\%"\
+			}
 		
 		For each ($t; Split string:C1554($file.getText(); "\r"; sk trim spaces:K86:2))
 			

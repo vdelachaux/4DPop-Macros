@@ -71,7 +71,7 @@ Class constructor()
 		CaseOfItem: "(?<!"+kCommentMark+")\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
 		BeginSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(948); \
 		EndSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(949); \
-		var: "(?mi-s)^var\\\\s*[^:]*)"\
+		varWithAssignment: "\"(?mi-s)^var\\\\s*(?:[^:]*:){2}=\""\
 		}
 	
 	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+[\
@@ -95,22 +95,20 @@ Class constructor()
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endForEach)\
 		]
 	
-	// New keywords
+	// Mark:New keywords
 	This:C1470._patterns.keywords:="(?mi-s)^(?:break|continue|return)"
 	
-	// Optional code formatting
-	This:C1470._patterns.ternaryOperator:="(?-msi)"\
-		+This:C1470._controls.if\
-		+"\\s\\(([^)]*)\\)(?:"+kCommentMark+".*)?\\W*(.*):=(?!.*\\$\\d)([^\\R]*?)("+kCommentMark+".*)?\\W*"\
-		+This:C1470._controls.else\
-		+"\\r*.*\\s*\\2:=([^\\R]*?)(?:"+kCommentMark+"(.*))?\\s*"\
+	// Mark:Optional code formatting
+	This:C1470._patterns.ternaryOperator:="(?mi-s)"\
+		+This:C1470._controls.if+"\\s\\(([^)]*)\\)\\W*(\\$.*?):=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
+		+This:C1470._controls.else+".*\\R\\s*\\2:=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
 		+This:C1470._controls.endIf
 	
 	This:C1470._patterns.choose:="(?mi-s)"+Command name:C538(955)+"\\s*\\(([^;]*);\\s*([^;]*);\\s*([^;]*)\\)([^$]*)"
 	
 	This:C1470._patterns.emptyString:="(?mi-s)(\\(|;)([^)#=;]*)(#|=)\"\"\\)([^$]*)"
 	
-	// Commands whose parameters must be divided into key/value lines
+	// Mark:Commands whose parameters must be divided into key/value lines
 	This:C1470._splittableCommands:=[\
 		{name: Command name:C538(1471); id: 1471}; \
 		{name: Command name:C538(1220); id: 1220}; \
@@ -149,12 +147,14 @@ Function beautify()
 		
 	End if 
 	
+	// Mark:Delete empty lines at the beginning of the method
 	If (Bool:C1537($options.removeEmptyLinesAtTheBeginOfMethod))
 		
 		$code:=This:C1470.rgx.setTarget($code).setPattern("^(\\r*)").substitute("")
 		
 	End if 
 	
+	// Mark:Grouping of closing instructions
 	If (Bool:C1537(This:C1470.settings.groupingClosureInstructions))
 		
 		For each ($t; This:C1470._patterns.closureInstructions)
@@ -167,16 +167,18 @@ Function beautify()
 		
 	End if 
 	
+	// Mark:Use ternary operator
 	If (Bool:C1537($options.replaceIfElseEndIfByChoose))  // Use ternary operator
 		
 		$code:=Replace string:C233($code; "\\"; "§§")
-		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.ternaryOperator).substitute("\\2 := \\1 ? \\3 : \\5 \\4 \\6\r")
+		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.ternaryOperator).substitute("\\2 := \\1 ? \\3 :\\4\r")
 		$code:=Replace string:C233($code; "§§"; "\\")
 		
 		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.choose).substitute("\\1 ? \\2 : \\3\\4")
 		
 	End if 
 	
+	// Mark:Optimize comparisons to an empty string
 	If (Bool:C1537($options.replaceComparisonsToAnEmptyStringByLengthTest))\
 		 && (This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.emptyString).match(True:C214))
 		
@@ -531,7 +533,7 @@ Function beautify()
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		End case 
 		
-		// Add a space before the comment and capitalize the first letter
+		// Mark:Add a space before the comment and capitalize the first letter
 		If ($options.formatComments)\
 			 && (Position:C15(kCommentMark; $line)#0)\
 			 && /* not compiler directive */(Position:C15(kCommentMark+"%"; $line)=0)\
@@ -601,12 +603,14 @@ Function beautify()
 		
 	End for each 
 	
+	// Mark:Remove consecutive blank lines
 	If (Bool:C1537($options.removeConsecutiveBlankLines))
 		
 		$code:=This:C1470.rgx.setTarget($code).setPattern("[\\r\\n]{2,}").substitute("\r\r")
 		
 	End if 
 	
+	// Mark:Remove empty lines at the end of the method
 	If (Bool:C1537($options.removeEmptyLinesAtTheEndOfMethod))
 		
 		$code:=This:C1470.rgx.setTarget($code).setPattern("(\\r*)$").substitute("")
