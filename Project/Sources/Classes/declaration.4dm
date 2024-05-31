@@ -58,7 +58,8 @@ Class constructor
 		varObject: Replace string:C233($t; "{type}"; "Object"); \
 		varClass: Replace string:C233($t; "{type}"; "(?:4d|cs)\\.\\w*"); \
 		varCollection: Replace string:C233($t; "{type}"; "Collection"); \
-		varVariant: Replace string:C233($t; "{type}"; "Variant")\
+		varVariant: Replace string:C233($t; "{type}"; "Variant"); \
+		varWithAssignment: "\"(?mi-s)^var\\\\s*(?:[^:]*:){2}=\""\
 		}
 	
 	var $icon : Picture

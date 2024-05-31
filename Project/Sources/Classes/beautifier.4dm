@@ -70,7 +70,8 @@ Class constructor()
 		EndForEach: Replace string:C233($t; "{control}"; This:C1470._controls.endForEach); \
 		CaseOfItem: "(?<!"+kCommentMark+")\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
 		BeginSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(948); \
-		EndSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(949)\
+		EndSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(949); \
+		var: "(?mi-s)^var\\\\s*[^:]*)"\
 		}
 	
 	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+[\
@@ -533,8 +534,9 @@ Function beautify()
 		// Add a space before the comment and capitalize the first letter
 		If ($options.formatComments)\
 			 && (Position:C15(kCommentMark; $line)#0)\
-			 && (Position:C15(kCommentMark+"%"; $line)=0)\
-			 && Not:C34(This:C1470.rgx.setPattern(This:C1470._patterns.commentLine).match())
+			 && /* not compiler directive */(Position:C15(kCommentMark+"%"; $line)=0)\
+			 && /* not URI */Not:C34(This:C1470.rgx.setPattern("(?mi-s)\"[^:]*://").match())\
+			 && /* not separator line */Not:C34(This:C1470.rgx.setPattern(This:C1470._patterns.commentLine).match())
 			
 			$line:=This:C1470._formatComment($line)
 			
