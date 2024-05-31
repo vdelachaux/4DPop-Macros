@@ -25,8 +25,7 @@
 			"00_TESTS",
 			"4DPop_TEST_Macros",
 			"COMPILER_TESTS",
-			"createSymbolicLink",
-			"macro"
+			"createSymbolicLink"
 		]
 	},
 	"#️⃣ API": {},
@@ -37,7 +36,7 @@
 	},
 	"⚙️ MACROS": {
 		"methods": [
-			"4DPop_MACROS"
+			"_4DPop_MACROS"
 		]
 	},
 	"👥 NAMESPACE": {

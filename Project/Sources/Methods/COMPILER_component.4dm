@@ -58,9 +58,9 @@ If (False:C215)
 	C_OBJECT:C1216(codeForObject; $1)
 	C_TEXT:C284(codeForObject; $2)
 	
-	C_OBJECT:C1216(macro; $0)
-	C_TEXT:C284(macro; $1)
-	C_OBJECT:C1216(macro; $2)
+	//C_OBJECT(macro; $0)
+	//C_TEXT(macro; $1)
+	//C_OBJECT(macro; $2)
 	
 	C_TEXT:C284(_o_localizedControlFlow; $0)
 	C_TEXT:C284(_o_localizedControlFlow; $1)
@@ -147,12 +147,6 @@ If (False:C215)
 	
 	// Private_GET_OPTIONS
 	C_LONGINT:C283(OPTIONS_GET; ${1})
-	
-	// 4DPop_MACROS
-	C_POINTER:C301(4DPop_MACROS; ${4})
-	C_TEXT:C284(4DPop_MACROS; $1)
-	C_TEXT:C284(4DPop_MACROS; $2)
-	C_TEXT:C284(4DPop_MACROS; $3)
 	
 	// M_4DPOP_OBOO_INIT
 	C_BOOLEAN:C305(Init; $0)

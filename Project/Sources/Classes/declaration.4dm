@@ -213,7 +213,7 @@ Function parse() : cs:C1710.declaration
 				This:C1470.parseParameters($line)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-			: (Position:C15("Class constructor"; $line.code)=1)  // Constructor
+			: (Match regex:C1019("(?mi-s)(singleton)*\\s*(shared)*\\s*Class\\sconstructor"; $line.code; 1; $pos; $len))  // Constructor
 				
 				$line.type:="Class constructor"
 				$line.skip:=True:C214
@@ -966,7 +966,7 @@ Function apply()
 					
 				End for each 
 				
-				$method:=$method+")"
+				$method+=")"
 				
 				// * RETURN OF THE METHOD
 				$o:=$c.query("order = 0").pop()
@@ -1153,7 +1153,7 @@ Function apply()
 						
 						For ($i; 1; $cc.length; $variablesNumberPerLine)
 							
-							$method:=$method+"var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+"\r"
+							$method+="var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+"\r"
 							$cc.remove(0; $variablesNumberPerLine)
 							
 						End for 
@@ -1161,7 +1161,7 @@ Function apply()
 					
 					If ($cc.length>0)
 						
-						$method:=$method+"var "+$cc.join("; ")+"\r"
+						$method+="var "+$cc.join("; ")+"\r"
 						
 					End if 
 					
@@ -1171,7 +1171,7 @@ Function apply()
 						
 						For ($i; 1; $cc.length; $variablesNumberPerLine)
 							
-							$method:=$method+"var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+" :"+$type.name+"\r"
+							$method+="var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+" :"+$type.name+"\r"
 							$cc.remove(0; $variablesNumberPerLine)
 							
 						End for 
@@ -1179,7 +1179,7 @@ Function apply()
 					
 					If ($cc.length>0)
 						
-						$method:=$method+"var "+$cc.join("; ")+" :"+$type.name+"\r"
+						$method+="var "+$cc.join("; ")+" :"+$type.name+"\r"
 						
 					End if 
 					
@@ -1189,13 +1189,13 @@ Function apply()
 	End if 
 	
 	// MARK:LOCAL VARIABLES LINKED TO A CLASSE
-	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class!=null")
+	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class!=null & assigned=null")
 	
 	If ($c.length>0)
 		
 		For each ($t; $c.distinct("class"))
 			
-			$method:=$method+"var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
+			$method+="var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
 			
 		End for each 
 		
@@ -1208,7 +1208,7 @@ Function apply()
 	
 	If ($c.length>0)
 		
-		$method:=$method+("\r"*Num:C11(Length:C16($method)>0))
+		$method+=("\r"*Num:C11(Length:C16($method)>0))
 		
 		For each ($type; This:C1470.types.query("arrayCommand!=null"))
 			
@@ -1216,7 +1216,7 @@ Function apply()
 				
 				If ($o.dimension#Null:C1517)
 					
-					$method:=$method+Parse formula:C1576("4d:C"+String:C10($type.arrayCommand))\
+					$method+=Parse formula:C1576("4d:C"+String:C10($type.arrayCommand))\
 						+"("+$o.value+(";0"*$o.dimension)+")\r"
 					
 				End if 
@@ -1237,11 +1237,11 @@ Function apply()
 		End while 
 	End if 
 	
-	$method:=$method+"\r"
+	$method+="\r"
 	
 	If (This:C1470.class)
 		
-		$method:=$method+kCaret
+		$method+=kCaret
 		
 	Else 
 		
@@ -1272,7 +1272,7 @@ Function apply()
 					If ($l<=0)
 						
 						// Insert before
-						$method:=$method+kCaret
+						$method+=kCaret
 						
 					Else 
 						
@@ -1312,14 +1312,14 @@ Function apply()
 					
 				Else 
 					
-					$method:=$method+"\r"
+					$method+="\r"
 					
 				End if 
 				
 				//________________________________________
 			Else 
 				
-				$method:=$method+$o.code+"\r"
+				$method+=$o.code+"\r"
 				
 				//________________________________________
 		End case 
@@ -1402,22 +1402,22 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 			return Is text:K8:3
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+[."+This:C1470.decimalSeparator+"]\\d+"; $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:1"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:2"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:3"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K30:4"); $line; 1))
-			
-			return Is real:K8:4
-			
-			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+"[:><]?[=><]?\\d+"; $line; 1))\
 			 || (Match regex:C1019("(?mi-s)\\"+$t+"\\s\\?[?+-]\\s\\d*"; $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:1"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:2"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576(":K35:3"); $line; 1))
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXINT:K35:1"); $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXLONG:K35:2"); $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXTEXTLENBEFOREV11:K35:3"); $line; 1))
 			
 			return Is longint:K8:6
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+[."+This:C1470.decimalSeparator+"]\\d+"; $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Pi:K30:1"); $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Degree:K30:2"); $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Radian:K30:3"); $line; 1))\
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("e number:K30:4"); $line; 1))
+			
+			return Is real:K8:4
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*"+kCommentMark+")"+\
@@ -1537,8 +1537,6 @@ Function loadGramSyntax()
 			$i+=1
 			$return:=-1
 			$first:=-1
-			
-			//ASSERT($t#"\to <== Path to object : 42 : a ; L'")
 			
 			Case of 
 					

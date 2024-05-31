@@ -9,20 +9,11 @@
 // ----------------------------------------------------
 #DECLARE($action : Text; $text : Text; $title : Text;  ...  : Pointer)
 
-If (False:C215)
-	C_TEXT:C284(4DPop_MACROS; $1)
-	C_TEXT:C284(4DPop_MACROS; $2)
-	C_TEXT:C284(4DPop_MACROS; $3)
-	C_POINTER:C301(4DPop_MACROS; ${4})
-End if 
-
 var $t : Text
-var $success : Boolean
 var $bottom; $height; $i; $left; $pos; $process : Integer
 var $right; $size; $tab; $top; $width; $winRef : Integer
 var $o : Object
 var $c : Collection
-var $macro : cs:C1710.macro
 
 If (Count parameters:C259>=1)
 	
@@ -45,9 +36,8 @@ If (Count parameters:C259>=1)
 	
 End if 
 
-$macro:=cs:C1710.macro.new()
-
-$success:=True:C214
+var $macro : cs:C1710.macro:=cs:C1710.macro.new()
+var $success : Boolean:=True:C214
 
 If ($macro.macroCall)  // Install menu bar to allow Copy - Paste
 	
@@ -213,7 +203,7 @@ Case of
 						// .....................................................
 					: ($text="*")  // Method with syntax
 						
-						4DPop_MACROS("_syntax_"+<>tTxt_Labels{<>tTxt_Labels})
+						_4DPop_MACROS("_syntax_"+<>tTxt_Labels{<>tTxt_Labels})
 						$t:=<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
@@ -298,7 +288,7 @@ Case of
 			Else 
 				
 				<>Txt_Title:=Get localized string:C991("LocalVariables")
-				4DPop_MACROS("_display_list_not_sorted")
+				_4DPop_MACROS("_display_list_not_sorted")
 				
 			End if 
 		End if 
