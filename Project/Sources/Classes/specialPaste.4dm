@@ -1,21 +1,24 @@
 Class extends macro
 
+property windowRef : Integer:=Open form window:C675("SPECIAL_PASTE"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+
+property preview : Text:=""
+property original : Text:=""
+
+property columns : Integer:=80  // Default text column number
+
+property target : Collection:=[]
+
 Class constructor()
-	
-	var $t : Text
-	var $o : Object
 	
 	Super:C1705()
 	
 	//This.windowRef:=Open form window("SPECIAL_PASTE"; Movable form dialog box; Horizontally centered; Vertically centered; *)
-	This:C1470.windowRef:=Open form window:C675("SPECIAL_PASTE"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
-	This:C1470.preview:=""
-	This:C1470.original:=""
-	This:C1470.columns:=80
+	//This.windowRef:=Open form window("SPECIAL_PASTE"; Plain form window; Horizontally centered; Vertically centered; *)
 	
-	This:C1470.target:=New collection:C1472
-	
-	For each ($t; New collection:C1472(\
+	var $t : Text
+	var $o : Object
+	For each ($t; [\
 		"string"; \
 		"comments"; \
 		"tokenized"; \
@@ -26,11 +29,11 @@ Class constructor()
 		"htmlCode"; \
 		"jsonCode"; \
 		"toUTF8"; \
-		"fromUTF8"))
+		"fromUTF8"])
 		
-		$o:=New object:C1471(\
-			"label"; " "+Get localized string:C991($t); \
-			"transform"; $t)
+		$o:={\
+			label: " "+Get localized string:C991($t); \
+			transform: $t}
 		
 		Case of 
 				
@@ -62,12 +65,10 @@ Class constructor()
 	
 	If (Bool:C1537(OK))
 		
-		var $options; $selected : Integer
-		
-		$selected:=This:C1470.currentTargetIndex
+		var $selected : Integer:=This:C1470.currentTargetIndex
 		_o_Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
 		
-		$options:=This:C1470.options
+		var $options : Integer:=This:C1470.options
 		_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
 		
 		This:C1470.setHighlightedText(This:C1470.preview+kCaret)
@@ -147,33 +148,24 @@ Function validate()
 	ACCEPT:C269
 	
 	//=========================================================================
-Function string($toConvert : Text)->$converted : Text
+Function string($text : Text) : Text
 	
-	If (Count parameters:C259>=1)
-		
-		$converted:=$toConvert
-		
-	Else 
-		
-		$converted:=This:C1470.original
-		
-	End if 
+	$text:=Count parameters:C259>0 ? $text : This:C1470.original
 	
-	$converted:=Replace string:C233($converted; "\\"; "\\"*2)
-	$converted:=Replace string:C233($converted; Char:C90(Double quote:K15:41); "\\\"")
-	$converted:=Replace string:C233($converted; Char:C90(Carriage return:K15:38); "\\r")
-	$converted:=Replace string:C233($converted; Char:C90(Line feed:K15:40); "\\n")
-	$converted:=Replace string:C233($converted; Char:C90(Tab:K15:37); "\\t")
+	$text:=Replace string:C233($text; "\\"; "\\"*2)
+	$text:=Replace string:C233($text; Char:C90(Double quote:K15:41); "\\\"")
+	$text:=Replace string:C233($text; Char:C90(Carriage return:K15:38); "\\r")
+	$text:=Replace string:C233($text; Char:C90(Line feed:K15:40); "\\n")
+	$text:=Replace string:C233($text; Char:C90(Tab:K15:37); "\\t")
 	
-	$converted:="\""+Replace string:C233(str_hyphenation($converted; This:C1470.columns; "\\\r+"); "\\\r+"; "\"\\\r+\"")+"\""
+	return "\""+Replace string:C233(str_hyphenation($text; This:C1470.columns; "\\\r+"); "\\\r+"; "\"\\\r+\"")+"\""
 	
 	//=========================================================================
-Function comments()->$converted : Text
+Function comments() : Text
 	
-	var $t : Text
+	var $text; $t : Text
+	var $i : Integer
 	var $c : Collection
-	
-	$converted:=""
 	
 	$t:=Replace string:C233(This:C1470.original; "\t"; "")
 	
@@ -189,11 +181,10 @@ Function comments()->$converted : Text
 	
 	If ($c.length>1)
 		
-		$converted:="/*\r"+$c.join("\r")+"\r*/"
+		$text:="/*\r"+$c.join("\r")+"\r*/"
 		
 	Else 
 		
-		var $i : Integer
 		For each ($t; $c)
 			
 			If (This:C1470.options ?? 11)  // Delete indentation
@@ -210,13 +201,13 @@ Function comments()->$converted : Text
 				
 				If (Length:C16($t)#0)
 					
-					$converted:=$converted+kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
+					$text+=kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
 					
 				End if 
 				
 			Else 
 				
-				$converted:=$converted+kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
+				$text+=kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
 				
 			End if 
 			
@@ -225,61 +216,59 @@ Function comments()->$converted : Text
 		End for each 
 	End if 
 	
+	return $text
 	
 	//=========================================================================
-Function htmlCode()->$converted : Text
+Function htmlCode() : Text
+	
+	var $i : Integer
 	
 	var $t : Text
-	var $i : Integer
-	var $c : Collection
 	
 	$t:=Replace string:C233(This:C1470.original; "\r\n"; "\r")
 	$t:=Replace string:C233($t; "\n"; "\r")
 	
-	$c:=Split string:C1554($t; "\r"; sk trim spaces:K86:2)
+	var $c : Collection:=Split string:C1554($t; "\r"; sk trim spaces:K86:2)
 	
-	$converted:="$HTML:="
+	var $text : Text:="$htmlCode:="
 	
 	For each ($t; $c)
+		
+		$i+=1
 		
 		$t:=Replace string:C233($t; "\\"; "\\"*2)
 		$t:=Replace string:C233($t; "\""; "\\\"")
 		
-		If (This:C1470.options ?? 11)
-			
-			// Delete indentation
-			$t:=Replace string:C233($t; "\t"; "")
-			
-		Else 
-			
-			$t:=Replace string:C233($t; "\t"; "    ")
-			
-		End if 
+		// Delete indentation (optional)
+		$t:=Replace string:C233($t; "\t"; This:C1470.options ?? 11 ? "" : "    ")
 		
 		If (This:C1470.options ?? 10)
 			
 			If (Length:C16($t)#0)
 				
-				$converted:=$converted+Choose:C955($i=1; ""; "\\\r+\"")+$t+"\""
+				$text+=($i=1 ? "" : "\\\r+\"")+$t+"\""
 				
 			End if 
 			
 		Else 
 			
-			$converted:=$converted+Choose:C955($i=1; ""; "\\\r+\"")+$t+"\""
+			$text+=($i=1 ? "" : "\\\r+\"")+$t+"\""
 			
 		End if 
 	End for each 
 	
+	return $text
+	
 	//=========================================================================
-Function htmlExpression()->$converted : Text
+Function htmlExpression() : Text
+	
+	var $text : Text:="$4DTEXT(This.original)"
 	
 	var $x : Blob
-	
-	$converted:="$4DTEXT(This.original)"
-	TEXT TO BLOB:C554($converted; $x; Mac text without length:K22:10)
+	TEXT TO BLOB:C554($text; $x; Mac text without length:K22:10)
 	PROCESS 4D TAGS:C816($x; $x)
-	$converted:=This:C1470.string(BLOB to text:C555($x; Mac text without length:K22:10))
+	
+	return This:C1470.string(BLOB to text:C555($x; Mac text without length:K22:10))
 	
 	//=========================================================================
 Function patternRegex()->$converted : Text

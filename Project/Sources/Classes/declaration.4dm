@@ -1,13 +1,19 @@
 Class extends macro
 
-property lines; locales; parameters; classes; types : Collection
+property lines : Collection:=[]
+property locales : Collection:=[]
+property parameters : Collection:=[]
+property classes : Collection:=[]
+property types : Collection:=[]
 
 //ACI0104313
 //property $notforArray : Collection
 //property $inCommentBlock: Boolean
 
 property settings : Object
-property localeNumber; parameterNumber : Integer
+
+property localeNumber : Integer:=0
+property parameterNumber : Integer:=0
 
 property _patterns : Object
 
@@ -29,12 +35,6 @@ Class constructor
 		_o_DECLARATION("Get_Syntax_Preferences")
 		
 	End if 
-	
-	This:C1470.lines:=[]
-	This:C1470.locales:=[]
-	This:C1470.parameters:=[]
-	This:C1470.classes:=[]
-	This:C1470.types:=[]
 	
 	This:C1470.$notforArray:=["collection"; "variant"]
 	
@@ -1496,8 +1496,6 @@ Function loadGramSyntax()
 	
 	var $t : Text
 	var $first; $i; $return : Integer
-	var $patterns : Object
-	var $file : 4D:C1709.File
 	
 	This:C1470.gramSyntax:=New object:C1471(\
 		String:C10(Is object:K8:27); []; \
@@ -1520,12 +1518,14 @@ Function loadGramSyntax()
 		String:C10(Is time:K8:8)+"_1"; []; \
 		String:C10(Is BLOB:K8:12)+"_1"; [])
 	
+	var $file : 4D:C1709.File
 	$file:=Is macOS:C1572\
 		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/gram.4dsyntax")\
 		 : File:C1566(Application file:C491; fk platform path:K87:2).parent.file("Resources/gram.4dsyntax")
 	
 	If ($file.exists)
 		
+		var $patterns : Object
 		$patterns:={\
 			affectation: "(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \
 			affectationSuite: "|(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \

@@ -1,8 +1,20 @@
-property title; name; objectName; method; highlighted; decimalSeparator : Text
-property class; form; trigger; projectMethod; objectMethod; withSelection : Boolean
-property lineTexts : Collection
+property title : Text:=Get window title:C450(Frontmost window:C447)
+property name : Text:=""
+property objectName : Text:=""
+property method : Text:=""
+property highlighted : Text:=""
+
+property class : Boolean:=False:C215
+property form : Boolean:=False:C215
+property trigger : Boolean:=False:C215
+property projectMethod : Boolean:=False:C215
+property objectMethod : Boolean:=False:C215
+property withSelection : Boolean:=False:C215
+
+property lineTexts : Collection:=[]
+property decimalSeparator : Text
 property _controlFlow : Object
-property rgx : cs:C1710.regex
+property rgx : cs:C1710.regex:=cs:C1710.regex.new()
 
 Class constructor()
 	
@@ -12,20 +24,10 @@ Class constructor()
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
 	
-	This:C1470.title:=Get window title:C450(Frontmost window:C447)
-	
 	// Identify the name & the type of the current method
-	This:C1470.name:=""
-	This:C1470.objectName:=""
-	This:C1470.projectMethod:=False:C215
-	This:C1470.objectMethod:=False:C215
-	This:C1470.class:=False:C215
-	This:C1470.form:=False:C215
-	This:C1470.trigger:=False:C215
-	
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
 		
-		$ƒ:=Formula from string:C1601(Parse formula:C1576("_localized string:C1578($1)"))
+		$ƒ:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
 		$t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
@@ -47,10 +49,6 @@ Class constructor()
 		
 	End if 
 	
-	This:C1470.method:=""
-	This:C1470.highlighted:=""
-	This:C1470.withSelection:=False:C215
-	
 	If (This:C1470.form)
 		
 		// #TO_DO 🚧
@@ -68,12 +66,8 @@ Class constructor()
 		
 	End if 
 	
-	This:C1470.lineTexts:=[]
-	
 	GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $t)
 	This:C1470.decimalSeparator:=$t
-	
-	This:C1470.rgx:=cs:C1710.regex.new()
 	
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get macroCall() : Boolean
@@ -258,7 +252,8 @@ Function ConvertToCallWithToken()
 		
 	End if 
 	
-	If (This:C1470.highlighted="\"@") & (This:C1470.highlighted="@\"")
+	If (This:C1470.highlighted="\"@")\
+		 && (This:C1470.highlighted="@\"")
 		
 		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "Formula:C1597("+Replace string:C233(This:C1470.highlighted; "\""; "")+").source")
 		POST KEY:C465(3)
@@ -453,7 +448,7 @@ Function _comment() : Text
 	If ($c.length=1)
 		
 		var v1; v2; v3; v4 : Variant
-		Formula from string:C1601(":C1810(v1; v2; v3; v4)").call()
+		Formula from string:C1601("4D:C1810(v1; v2; v3; v4)").call()
 		
 		If ($c[0]=Split string:C1554(This:C1470.method; "\r")[v3])
 			
@@ -489,11 +484,11 @@ Function _paste($text : Text; $useSelection : Boolean)
 	
 	If (Count parameters:C259>=2)
 		
-		$target:=Choose:C955($useSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		$target:=$useSelection ? Highlighted method text:K5:18 : Full method text:K5:17
 		
 	Else 
 		
-		$target:=Choose:C955(This:C1470.withSelection; Highlighted method text:K5:18; Full method text:K5:17)
+		$target:=This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17
 		
 	End if 
 	
