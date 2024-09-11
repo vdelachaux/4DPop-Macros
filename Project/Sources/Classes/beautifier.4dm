@@ -148,18 +148,19 @@ Function beautify()
 	End if 
 	
 	// Mark:Use var instead of (_o_)C_xxx
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(604)+"\\(([^\\)]*)\\)").substitute("var \\1 : Blob")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(305)+"\\(([^\\)]*)\\)").substitute("var \\1 : Boolean")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(1488)+"\\(([^\\)]*)\\)").substitute("var \\1 : Collection")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(307)+"\\(([^\\)]*)\\)").substitute("var \\1 : Date")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(283)+"\\(([^\\)]*)\\)").substitute("var \\1 : Integer")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(1216)+"\\(([^\\)]*)\\)").substitute("var \\1 : Object")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(286)+"\\(([^\\)]*)\\)").substitute("var \\1 : Picture")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(301)+"\\(([^\\)]*)\\)").substitute("var \\1 : Pointer")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(285)+"\\(([^\\)]*)\\)").substitute("var \\1 : Real")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(284)+"\\(([^\\)]*)\\)").substitute("var \\1 : Text")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(306)+"\\(([^\\)]*)\\)").substitute("var \\1 : Time")
-	$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(1683)+"\\(([^\\)]*)\\)").substitute("var \\1")
+	$pattern:="(?-msi){C_}\\((?!\\w+;\\s*\\$\\{?\\d+\\}?)([^\\)]*)\\)"
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(604))).substitute("var \\1 : Blob")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(305))).substitute("var \\1 : Boolean")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(1488))).substitute("var \\1 : Collection")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(307))).substitute("var \\1 : Date")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(283))).substitute("var \\1 : Integer")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(1216))).substitute("var \\1 : Object")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(286))).substitute("var \\1 : Picture")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(301))).substitute("var \\1 : Pointer")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(285))).substitute("var \\1 : Real")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(284))).substitute("var \\1 : Text")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(306))).substitute("var \\1 : Time")
+	$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(1683))).substitute("var \\1")
 	
 	// Mark:Delete empty lines at the beginning of the method
 	If (Bool:C1537($options.removeEmptyLinesAtTheBeginOfMethod))
