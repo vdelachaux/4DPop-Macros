@@ -1,17 +1,13 @@
 //%attributes = {"invisible":true}
 #DECLARE($data : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(options; $1)
-End if 
-
 var $title : Text
 var $run : Boolean
 var $bottom; $i; $left; $right; $top : Integer
 
 ARRAY LONGINT:C221($windows; 0)
 
-$title:=Get localized string:C991("preferences")
+$title:=Localized string:C991("preferences")
 
 WINDOW LIST:C442($windows)
 

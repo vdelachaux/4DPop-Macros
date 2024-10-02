@@ -1,10 +1,8 @@
 Class extends scrollable
 
-Class constructor
+Class constructor($name)
 	
-	C_VARIANT:C1683($1)
-	
-	Super:C1705($1)
+	Super:C1705($name)
 	
 	ASSERT:C1129(This:C1470.type=Object type listbox:K79:8)
 	

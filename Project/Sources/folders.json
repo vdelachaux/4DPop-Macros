@@ -16,7 +16,6 @@
 			"_o_Preferences_Set"
 		]
 	},
-	"(Component)": {},
 	"# 🚧 DEV": {
 		"methods": [
 			"0_DOCUMENTATION",
@@ -98,7 +97,6 @@
 	"4️⃣ 4DPop": {
 		"methods": [
 			"_4DPopMacros",
-			"COMPILER_4DPop",
 			"options"
 		]
 	},
@@ -222,9 +220,5 @@
 			"xml_refToObject"
 		]
 	},
-	"trash": {
-		"groups": [
-			"(Component)"
-		]
-	}
+	"trash": {}
 }
