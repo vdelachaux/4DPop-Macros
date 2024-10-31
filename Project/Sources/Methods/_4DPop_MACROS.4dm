@@ -37,11 +37,12 @@ If (Count parameters:C259>=1)
 End if 
 
 var $macro : cs:C1710.macro:=cs:C1710.macro.new()
+
 var $success : Boolean:=True:C214
 
 If ($macro.macroCall)  // Install menu bar to allow Copy - Paste
 	
-	cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
+	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 	
 End if 
 
@@ -104,7 +105,7 @@ Case of
 		METHODS("export"; $text)
 		
 		//______________________________________________________
-	: ($action="method-new")  //#v14 Create a method with the selection
+	: ($action="method-new")  // #v14 Create a method with the selection
 		
 		METHODS("new"; $macro.highlighted)
 		
@@ -122,12 +123,13 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="method-list")  // Display a hierarchical methods' menu
 		
 		METHODS("list")
 		
 		//______________________________________________________
-	: ($action="method-attributes")  //#v13 Set methodes attributes
+	: ($action="method-attributes")  // #v13 Set methodes attributes
 		
 		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
 			
@@ -140,11 +142,13 @@ Case of
 		End if 
 		
 		//______________________________________________________
-	: ($action="3D_button")  //#v12 Rapid 3D button génération
+		
+	: ($action="3D_button")  // #v12 Rapid 3D button génération
 		
 		$winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		DIALOG:C40("CREATE_BUTTON")
 		CLOSE WINDOW:C154
+		
 		//______________________________________________________
 	: ($action="edit_comment")  // • Edit comments
 		
@@ -164,6 +168,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="_display_list@")
 		
 		$size:=Size of array:C274(<>tTxt_Labels)
@@ -236,7 +241,7 @@ Case of
 						// .....................................................
 					Else 
 						
-						$t:=Choose:C955(Macintosh option down:C545 | Windows Alt down:C563; <>tTxt_Comments{<>tTxt_Labels}; <>tTxt_Labels{<>tTxt_Labels})
+						$t:=Macintosh option down:C545 | Windows Alt down:C563 ? <>tTxt_Comments{<>tTxt_Labels} : <>tTxt_Labels{<>tTxt_Labels}
 						$t:=Replace string:C233($text+"%"+$text; "%"; $t)
 						
 						// .....................................................
@@ -257,6 +262,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="_se_Placer_au_Debut")
 		
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
@@ -287,7 +293,7 @@ Case of
 				
 			Else 
 				
-				<>Txt_Title:=Get localized string:C991("LocalVariables")
+				<>Txt_Title:=Localized string:C991("LocalVariables")
 				_4DPop_MACROS("_display_list_not_sorted")
 				
 			End if 
@@ -317,7 +323,7 @@ Case of
 		
 		While ($t[[1]]="\t")
 			
-			$tab:=$tab+1
+			$tab+=1
 			$t:=Delete string:C232($t; 1; 1)
 			
 		End while 
@@ -354,6 +360,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="googleSearch")
 		
 		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
@@ -375,6 +382,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="convert_decimal")  // • Change the selection by Decimal
 		
 		$success:=($macro.highlighted="0x@")
@@ -386,6 +394,7 @@ Case of
 		End if 
 		
 		//______________________________________________________
+		
 	: ($action="invert_expression")  // Reverse expression
 		
 		INVERT_EXPRESSION
@@ -409,7 +418,7 @@ Case of
 End case 
 
 If (Not:C34($success))\
- & ($action#"_@")  //error
+ & ($action#"_@")  // Error
 	
 	BEEP:C151
 	

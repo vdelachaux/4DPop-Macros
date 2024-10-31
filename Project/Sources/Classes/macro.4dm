@@ -11,7 +11,10 @@ property projectMethod : Boolean:=False:C215
 property objectMethod : Boolean:=False:C215
 property withSelection : Boolean:=False:C215
 
-property lineTexts : Collection:=[]
+property lines : Collection:=[]
+property lineIndex : Integer:=0
+property lastLine : Text:=""
+
 property decimalSeparator : Text
 property _controlFlow : Object
 property rgx : cs:C1710.regex:=cs:C1710.regex.new()
@@ -75,8 +78,58 @@ Function get macroCall() : Boolean
 	var $name : Text
 	var $state; $time : Integer
 	
-	PROCESS PROPERTIES:C336(Current process:C322; $name; $state; $time)
+	_O_PROCESS PROPERTIES:C336(Current process:C322; $name; $state; $time)
 	return $name="Macro_Call"
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setMethodText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setHighlightedText($text : Text)
+	
+	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function paste($text : Text; $useSelection : Boolean)
+	
+	var $target : Integer
+	
+	If (Count parameters:C259>=2)
+		
+		$target:=$useSelection ? Highlighted method text:K5:18 : Full method text:K5:17
+		
+	Else 
+		
+		$target:=This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17
+		
+	End if 
+	
+	SET MACRO PARAMETER:C998($target; $text)
+	
+	If (Structure file:C489=Structure file:C489(*))
+		
+		return 
+		
+	End if 
+	
+	// Force tokenisation
+	var $name : Text
+	var $i; $mode; $origin; $state; $time; $UID : Integer
+	
+	For ($i; 1; Count tasks:C335; 1)
+		
+		_O_PROCESS PROPERTIES:C336($i; $name; $state; $time; $mode; $UID; $origin)
+		
+		If ($origin=Design process:K36:9)
+			
+			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
+			
+			break
+			
+		End if 
+	End for 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split($useSelection : Boolean)
@@ -93,24 +146,16 @@ Function split($useSelection : Boolean)
 		
 	End if 
 	
-	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
+	This:C1470.lines:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
 	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function setMethodText($text : Text)
-	
-	SET MACRO PARAMETER:C998(Full method text:K5:17; $text)
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function setHighlightedText($text : Text)
-	
-	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
-	
+	//MARK:-
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function localizedControlFlow($control : Text) : Text
 	
 	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
 	return Command name:C538(41)="ALERT" ? $control : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($control))
 	
+	//MARK:-[MACROS]
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function PasteColor()
 	
@@ -147,7 +192,7 @@ Function PasteAndKeepTarget()
 	
 	var $t : Text
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -226,7 +271,7 @@ Function CopyWithTokens()
 	var $line : Text
 	var $c : Collection
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -246,7 +291,7 @@ Function CopyWithTokens()
 	/// Replaces a method name in quotation marks with a tokenized call
 Function ConvertToCallWithToken()
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -371,7 +416,6 @@ Function RemoveBlankLines()
 		
 	End if 
 	
-	//MARK:-[COMMENTS]
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function commentBlock
 	
@@ -380,7 +424,7 @@ Function commentBlock
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function duplicateAndComment()
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -402,7 +446,7 @@ Function comment()
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -427,7 +471,7 @@ Function comment()
 	
 	This:C1470.setHighlightedText(This:C1470._comment())
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function _comment() : Text
 	
 	var $c : Collection
@@ -466,8 +510,9 @@ Function _comment() : Text
 		
 	End if 
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _noSelection() : Boolean
+	//MARK:-[TOOLS]
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function noSelection() : Boolean
 	
 	If (Not:C34(This:C1470.withSelection))
 		
@@ -477,43 +522,61 @@ Function _noSelection() : Boolean
 		
 	End if 
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _paste($text : Text; $useSelection : Boolean)
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isEmpty($line : Text) : Boolean
 	
-	var $target : Integer
+	return Length:C16($line)=0
 	
-	If (Count parameters:C259>=2)
-		
-		$target:=$useSelection ? Highlighted method text:K5:18 : Full method text:K5:17
-		
-	Else 
-		
-		$target:=This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17
-		
-	End if 
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotEmpty($line : Text) : Boolean
 	
-	SET MACRO PARAMETER:C998($target; $text)
+	return Not:C34(This:C1470.isEmpty($line))
 	
-	If (Structure file:C489=Structure file:C489(*))
-		
-		return 
-		
-	End if 
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isComment($line : Text) : Boolean
 	
-	// Force tokenisation
-	var $name : Text
-	var $i; $mode; $origin; $state; $time; $UID : Integer
+	return This:C1470.isNotEmpty($line) && (Position:C15(kCommentMark; $line)=1)
 	
-	For ($i; 1; Count tasks:C335; 1)
-		
-		PROCESS PROPERTIES:C336($i; $name; $state; $time; $mode; $UID; $origin)
-		
-		If ($origin=Design process:K36:9)
-			
-			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
-			
-			break
-			
-		End if 
-	End for 
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotComment($line : Text) : Boolean
 	
+	return Not:C34(This:C1470.isComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z][-+]$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isReservedComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isOpeningReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z]-$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function _isNotOpeningReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isOpeningReservedComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isClosingReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z]\\+$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotClosingReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isClosingReservedComment($line))

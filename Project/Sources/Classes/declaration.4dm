@@ -6,9 +6,14 @@ property parameters : Collection:=[]
 property classes : Collection:=[]
 property types : Collection:=[]
 
-//ACI0104313
-//property $notforArray : Collection
-//property $inCommentBlock: Boolean
+property variables : Collection
+property lineTexts : Collection
+
+//MARK:ACI0104313
+//property _notforArray : Collection
+//property _inCommentBlock: Boolean
+
+property gramSyntax : Object
 
 property settings : Object
 
@@ -16,6 +21,8 @@ property localeNumber : Integer:=0
 property parameterNumber : Integer:=0
 
 property _patterns : Object
+property _notforArray : Collection:=["collection"; "variant"]
+property _inCommentBlock : Boolean
 
 Class constructor
 	
@@ -36,10 +43,10 @@ Class constructor
 		
 	End if 
 	
-	This:C1470.$notforArray:=["collection"; "variant"]
+	This:C1470._notforArray:=["collection"; "variant"]
 	
 	// Flags
-	This:C1470.$inCommentBlock:=False:C215
+	This:C1470._inCommentBlock:=False:C215
 	
 	var $t : Text
 	$t:="(?mi-s)(?<!"+kCommentMark+")(?:\\$[^:]*)?:\\s*{type}[:\\s]*"
@@ -203,7 +210,7 @@ Function parse() : cs:C1710.declaration
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (Length:C16($text)=0)  // EMPTY LINE
 				
-				$line.type:=Choose:C955(This:C1470.$inCommentBlock; "comment"; "empty")
+				$line.type:=Choose:C955(This:C1470._inCommentBlock; "comment"; "empty")
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (Position:C15("#DECLARE"; $line.code)=1)  // #DECLARE
@@ -239,18 +246,18 @@ Function parse() : cs:C1710.declaration
 						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 					: ($pos{2}>0)  // Begin comment block
 						
-						This:C1470.$inCommentBlock:=Not:C34(Match regex:C1019("(?mi-s)^/\\*.*\\*/"; $line.code; 1))
+						This:C1470._inCommentBlock:=Not:C34(Match regex:C1019("(?mi-s)^/\\*.*\\*/"; $line.code; 1))
 						
 						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 					: ($pos{3}>0)  // End comment block
 						
-						This:C1470.$inCommentBlock:=False:C215
+						This:C1470._inCommentBlock:=False:C215
 						
 						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 				End case 
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-			: (This:C1470.$inCommentBlock)  // In comment block
+			: (This:C1470._inCommentBlock)  // In comment block
 				
 				$line.type:="comment"
 				

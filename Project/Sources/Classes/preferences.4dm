@@ -1,3 +1,5 @@
+property file:=4D:C1709.File
+
 Class constructor
 	
 	This:C1470.file:=This:C1470.loadPreferences()
@@ -138,7 +140,7 @@ Function loadPreferences()->$settingFile : 4D:C1709.File
 					
 				Else 
 					
-					ALERT:C41(Get localized string:C991("File not found.")+" : \""+$settingFile.path+"\"")
+					ALERT:C41(Localized string:C991("File not found.")+" : \""+$settingFile.path+"\"")
 					
 				End if 
 			End use 

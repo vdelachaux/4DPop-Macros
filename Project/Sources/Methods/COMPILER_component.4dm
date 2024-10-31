@@ -37,11 +37,6 @@ var v1; v2; v3; v4 : Variant
 
 If (False:C215)
 	
-	If (False:C215)
-		_O_C_OBJECT:C1216(declaration_UI; $0)
-		_O_C_TEXT:C284(declaration_UI; $1)
-		_O_C_OBJECT:C1216(declaration_UI; $2)
-	End if 
 	
 	_O_C_TEXT:C284(codeForCollection; $0)
 	
@@ -142,9 +137,6 @@ If (False:C215)
 	// Private_GET_OPTIONS
 	_O_C_LONGINT:C283(OPTIONS_GET; ${1})
 	
-	// M_4DPOP_OBOO_INIT
-	_O_C_BOOLEAN:C305(Init; $0)
-	
 	// COMMENTS
 	_O_C_TEXT:C284(COMMENTS; $1)
 	_O_C_TEXT:C284(COMMENTS; $2)
@@ -200,9 +192,5 @@ If (False:C215)
 	// Private_EXTRACT_LOCAL_VARIABLES
 	_O_C_TEXT:C284(_o_EXTRACT_LOCAL_VARIABLES; $1)
 	_O_C_POINTER:C301(_o_EXTRACT_LOCAL_VARIABLES; $2)
-	
-	// C_TEXT(SETTINGS; $1)
-	
-	_O_C_POINTER:C301(4DPop_MACROS_SETTINGS; $1)
 	
 End if 

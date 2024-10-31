@@ -1,80 +1,108 @@
-
-/*═══════════════════*/
 Class extends widget
-/*═══════════════════*/
 
-Class constructor
+property scroll
+property scrollbars : Object
+
+// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Class constructor($name : Text)
 	
-	C_TEXT:C284($1)
-	C_VARIANT:C1683($2)
+	Super:C1705($name)
 	
-	If (Count parameters:C259>=2)
-		
-		Super:C1705($1;$2)
-		
-	Else 
-		
-		Super:C1705($1)
-		
-	End if 
+	ASSERT:C1129([\
+		Object type subform:K79:40; \
+		Object type listbox:K79:8; \
+		Object type picture input:K79:5; \
+		Object type hierarchical list:K79:7; \
+		Object type text input:K79:4].includes(This:C1470.type))
 	
-	ASSERT:C1129(New collection:C1472(\
-		Object type subform:K79:40;\
-		Object type listbox:K79:8;\
-		Object type picture input:K79:5;\
-		Object type hierarchical list:K79:7).indexOf(This:C1470.type)#-1)
+	This:C1470.getScrollbars()
 	
-/*════════════════════════════════════════════*/
-Function getScrollPosition
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function getScrollPosition() : Variant
 	
-	C_OBJECT:C1216($0)
-	C_LONGINT:C283($lVertical;$lHorizontal)
+	var $h; $v : Integer
 	
-	OBJECT GET SCROLL POSITION:C1114(*;This:C1470.name;$lVertical;$lHorizontal)
+	OBJECT GET SCROLL POSITION:C1114(*; This:C1470.name; $v; $h)
 	
 	If (This:C1470.type=Object type picture input:K79:5)\
-		 | (This:C1470.type=Object type listbox:K79:8)
+		 | (This:C1470.type=Object type listbox:K79:8)\
+		 | (This:C1470.type=Object type subform:K79:40)
 		
-		This:C1470.scroll:=New object:C1471(\
-			"vertical";$lVertical;\
-			"horizontal";$lHorizontal)
+		This:C1470.scroll:={\
+			vertical: $v; \
+			horizontal: $h}
 		
 	Else 
 		
-		This:C1470.scroll:=$lVertical
+		This:C1470.scroll:=$v
 		
 	End if 
 	
-	$0:=This:C1470.scroll
+	return This:C1470.scroll
 	
-/*════════════════════════════════════════════*/
-Function setScrollPosition
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setScrollPosition($vertical; $horizontal) : cs:C1710.scrollable
 	
-	C_LONGINT:C283($1;$2;$lVertical;$lHorizontal)
+	var $h; $v : Integer
 	
-	OBJECT GET SCROLL POSITION:C1114(*;This:C1470.name;$lVertical;$lHorizontal)
+	OBJECT GET SCROLL POSITION:C1114(*; This:C1470.name; $v; $h)
 	
-	$lVertical:=$1
+	$v:=Num:C11($vertical)
 	
 	If (Count parameters:C259>=2)\
 		 & ((This:C1470.type=Object type picture input:K79:5) | (This:C1470.type=Object type listbox:K79:8))
 		
-		$lHorizontal:=$2
+		$h:=Num:C11($horizontal)
 		
-		OBJECT SET SCROLL POSITION:C906(*;This:C1470.name;$lVertical;$lHorizontal;*)
+		OBJECT SET SCROLL POSITION:C906(*; This:C1470.name; $v; $h; *)
 		
-		This:C1470.scroll:=New object:C1471(\
-			"vertical";$lVertical;\
-			"horizontal";$lHorizontal)
+		This:C1470.scroll:={\
+			vertical: $v; \
+			horizontal: $h}
 		
 	Else 
 		
-		OBJECT SET SCROLL POSITION:C906(*;This:C1470.name;$lVertical;*)
+		OBJECT SET SCROLL POSITION:C906(*; This:C1470.name; $v; *)
 		
-		This:C1470.scroll:=$lVertical
+		This:C1470.scroll:=$v
 		
 	End if 
 	
-	C_OBJECT:C1216($0)
-	$0:=This:C1470
+	return This:C1470
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function getScrollbars
+	
+	var $horizontal; $vertical : Integer
+	
+	OBJECT GET SCROLLBAR:C1076(*; This:C1470.name; $horizontal; $vertical)
+	
+	This:C1470.scrollbars:={\
+		vertical: $vertical; \
+		horizontal: $horizontal}
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setScrollbars($horizontal; $vertical) : cs:C1710.scrollable
+	
+	OBJECT SET SCROLLBAR:C843(*; This:C1470.name; Num:C11($horizontal); Num:C11($vertical))
+	
+	return This:C1470
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setHorizontalScrollbar($display) : cs:C1710.scrollable
+	
+	This:C1470.getScrollbars()
+	
+	OBJECT SET SCROLLBAR:C843(*; This:C1470.name; Num:C11($display); Num:C11(This:C1470.scrollbars.vertical))
+	
+	return This:C1470
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function setVerticalScrollbar($display) : cs:C1710.scrollable
+	
+	This:C1470.getScrollbars()
+	
+	OBJECT SET SCROLLBAR:C843(*; This:C1470.name; Num:C11(This:C1470.scrollbars.horizontal); Num:C11($display))
+	
+	return This:C1470
 	

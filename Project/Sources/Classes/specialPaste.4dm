@@ -4,6 +4,8 @@ property windowRef : Integer:=Open form window:C675("SPECIAL_PASTE"; Plain form 
 
 property preview : Text:=""
 property original : Text:=""
+property options; currentTargetIndex; selected : Integer
+property currentTarget : Object
 
 property columns : Integer:=80  // Default text column number
 
@@ -32,7 +34,7 @@ Class constructor()
 		"fromUTF8"])
 		
 		$o:={\
-			label: " "+Get localized string:C991($t); \
+			label: " "+Localized string:C991($t); \
 			transform: $t}
 		
 		Case of 
@@ -125,10 +127,10 @@ Function update()
 	
 	If (This:C1470.currentTarget.options#Null:C1517)
 		
-		OBJECT SET TITLE:C194(*; "option_1"; Get localized string:C991(This:C1470.currentTarget.options["1"]))
+		OBJECT SET TITLE:C194(*; "option_1"; Localized string:C991(This:C1470.currentTarget.options["1"]))
 		OBJECT SET ENABLED:C1123(*; "option_1"; True:C214)
 		
-		OBJECT SET TITLE:C194(*; "option_2"; Get localized string:C991(This:C1470.currentTarget.options["2"]))
+		OBJECT SET TITLE:C194(*; "option_2"; Localized string:C991(This:C1470.currentTarget.options["2"]))
 		OBJECT SET ENABLED:C1123(*; "option_2"; True:C214)
 		
 	Else 

@@ -41,24 +41,24 @@
 // Modified by Vincent de Lachaux (05/02/14)
 // Adding option "Generate comment for tooltip"
 // ----------------------------------------------------
-C_TEXT:C284($1)
-C_POINTER:C301(${2})
+_O_C_TEXT:C284($1)
+_O_C_POINTER:C301(${2})
 
-C_BOOLEAN:C305($Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments)
-C_LONGINT:C283($i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength)
-C_LONGINT:C283($Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon)
-C_LONGINT:C283($Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference)
-C_LONGINT:C283($Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version)
-C_LONGINT:C283($Lon_x; $number)
-C_POINTER:C301($Ptr_array)
-C_TEXT:C284($Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint)
-C_TEXT:C284($Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter)
-C_OBJECT:C1216($file; $o; $oo)
-C_COLLECTION:C1488($c; $cArrays; $cDirectives; $Col_settings; $Col_type)
+_O_C_BOOLEAN:C305($Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments)
+_O_C_LONGINT:C283($i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength)
+_O_C_LONGINT:C283($Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon)
+_O_C_LONGINT:C283($Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference)
+_O_C_LONGINT:C283($Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version)
+_O_C_LONGINT:C283($Lon_x; $number)
+_O_C_POINTER:C301($Ptr_array)
+_O_C_TEXT:C284($Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint)
+_O_C_TEXT:C284($Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter)
+_O_C_OBJECT:C1216($file; $o; $oo)
+_O_C_COLLECTION:C1488($c; $cArrays; $cDirectives; $Col_settings; $Col_type)
 
 If (False:C215)
-	C_TEXT:C284(_o_DECLARATION; $1)
-	C_POINTER:C301(_o_DECLARATION; ${2})
+	_O_C_TEXT:C284(_o_DECLARATION; $1)
+	_O_C_POINTER:C301(_o_DECLARATION; ${2})
 End if 
 
 // ----------------------------------------------------
@@ -556,7 +556,7 @@ Else
 							// Nothing to do
 							
 							//______________________________________________________
-						: (Position:C15(Get localized string:C991("Method"); Form:C1466.title)#1)
+						: (Position:C15(Localized string:C991("Method"); Form:C1466.title)#1)
 							
 							// Not a project method
 							
@@ -1952,7 +1952,7 @@ Else
 			//______________________________________________________
 		: ($Txt_entryPoint="_init")
 			
-			cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
+			cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 			
 			Compiler_
 			

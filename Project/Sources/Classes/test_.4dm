@@ -1,8 +1,18 @@
+property url; name; handler : Text
+property test : 4D:C1709.File
+property context
+property toBeInitialized; success : Boolean
+property colorScheme : Text
+property isDark : Boolean
+property fieldIcons : Collection
+property filterIcon : Picture
+
 Class constructor($x : 4D:C1709.File)  //comments
 	
 	This:C1470.test:=$x
 	
 Function empty
+	
 	This:C1470.context:=Form:C1466.$dialog[This:C1470.name]
 	
 Function group($a : Text)
@@ -178,13 +188,11 @@ Function setDatasource()
 		End if 
 	End if 
 	
-Function setURL
-	
-	var $1 : Text
+Function setURL($url : Text)
 	
 	If (Count parameters:C259>=1)
 		
-		This:C1470.url:=$1
+		This:C1470.url:=$url
 		
 		// Add missing / if necessary
 		If (Not:C34(Match regex:C1019("/$"; This:C1470.url; 1)))

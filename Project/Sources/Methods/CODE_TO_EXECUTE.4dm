@@ -4,125 +4,97 @@
 // ID[AE63DE138BAC461AA60933E0CF35F72A]
 // Created 08/10/12 by Vincent de Lachaux
 // ----------------------------------------------------
-// Description:
-//
-// ----------------------------------------------------
-// Declarations
-var $Txt_input; $Txt_line; $Txt_method; $Txt_ouput; $Txt_params; $Txt_pattern : Text
-var $Txt_result : Text
-var $Boo_params; $Boo_result : Boolean
-var $Lon_error; $Lon_i; $Lon_parameters : Integer
+var $code; $line; $method; $outpout; $params; $pattern : Text
+var $result : Text
+var $withParams; $withResult : Boolean
+var $error; $i : Integer
 
-// ----------------------------------------------------
-// Initialisations
-$Lon_parameters:=Count parameters:C259
+ARRAY TEXT:C222($_lines; 0x0000)
+ARRAY TEXT:C222($_controlFlow; 0x0000)
+ARRAY TEXT:C222($_extracted; 0x0000; 0x0000)
 
-If (Asserted:C1132($Lon_parameters>=0; "Missing parameter"))
-	
-	//NO PARAMETERS REQUIRED
-	
-	ARRAY TEXT:C222($tTxt_lines; 0x0000)
-	ARRAY TEXT:C222($tTxt_controlFlow; 0x0000)
-	ARRAY TEXT:C222($tTxt_extracted; 0x0000; 0x0000)
-	
-	//Commands array {
-	ARRAY TEXT:C222($tTxt_commands; 0x0000)
-	Repeat 
-		
-		$Lon_i:=$Lon_i+1
-		$Txt_line:=Command name:C538($Lon_i)
-		
-		If (OK=1)
-			
-			APPEND TO ARRAY:C911($tTxt_commands; $Txt_line)
-			
-		End if 
-		
-	Until (OK=0)
-	//}
-	
-	_o_localizedControlFlow(""; ->$tTxt_controlFlow)
-	
-	For ($Lon_i; 1; Size of array:C274($tTxt_controlFlow); 1)
-		
-		APPEND TO ARRAY:C911($tTxt_commands; $tTxt_controlFlow{$Lon_i})
-		
-	End for 
-	
-	GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_input)
-	
-	$Lon_error:=Rgx_SplitText("\\r"; $Txt_input; ->$tTxt_lines; 0 ?+ 11)
-	
-	$Txt_pattern:="^(?:(.*?):=)?(.*?)(?:\\s*\\(+(.*?)\\))?$"
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Mark:Get the Command names
+ARRAY TEXT:C222($_commands; 0x0000)
 
-// ----------------------------------------------------
-
-For ($Lon_i; 1; Size of array:C274($tTxt_lines); 1)
+Repeat 
 	
-	$Txt_line:=$tTxt_lines{$Lon_i}
+	$i+=1
+	$line:=Command name:C538($i)
+	
+	If (Bool:C1537(OK))
+		
+		APPEND TO ARRAY:C911($_commands; $line)
+		
+	End if 
+Until (OK=0)
+
+_o_localizedControlFlow(""; ->$_controlFlow)
+
+For ($i; 1; Size of array:C274($_controlFlow); 1)
+	
+	APPEND TO ARRAY:C911($_commands; $_controlFlow{$i})
+	
+End for 
+
+GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $code)
+
+$error:=Rgx_SplitText("\\r"; $code; ->$_lines; 0 ?+ 11)
+
+$pattern:="^(?:(.*?):=)?(.*?)(?:\\s*\\(+(.*?)\\))?$"
+
+For ($i; 1; Size of array:C274($_lines); 1)
+	
+	$line:=$_lines{$i}
 	
 	Case of 
 			
 			//______________________________________
-		: (Length:C16($Txt_line)=0) | ($Txt_line="//@")
+		: (Length:C16($line)=0)\
+			 | ($line="//@")
 			
-			$Txt_ouput:=$Txt_ouput\
-				+$Txt_line
+			$outpout+=$line
 			
 			//______________________________________
 		Else 
 			
-			$Lon_error:=Rgx_ExtractText($Txt_pattern; $Txt_line; ""; ->$tTxt_extracted)
+			$error:=Rgx_ExtractText($pattern; $line; ""; ->$_extracted)
 			
-			If ($Lon_error=0)
+			If ($error=0)
 				
-				$Txt_method:=$tTxt_extracted{1}{2}
+				$method:=$_extracted{1}{2}
 				
-				If (Find in array:C230($tTxt_commands; $Txt_method)=-1)
+				If (Find in array:C230($_commands; $method)=-1)
 					
-					$Txt_result:=$tTxt_extracted{1}{1}
-					$Boo_result:=(Length:C16($Txt_result)>0)
+					$result:=$_extracted{1}{1}
+					$withResult:=(Length:C16($result)>0)
 					
-					$Txt_params:=$tTxt_extracted{1}{3}
-					$Boo_params:=(Length:C16($Txt_params)>0)
+					$params:=$_extracted{1}{3}
+					$withParams:=(Length:C16($params)>0)
 					
-					$Txt_ouput:=$Txt_ouput\
-						+"//"+$Txt_line\
-						+"\r"+$tTxt_commands{1007}\
-						+"(\""+$Txt_method+"\""\
-						+Choose:C955($Boo_result; ";"+$Txt_result\
-						; Choose:C955($Boo_params; ";*"; ""))\
-						+Choose:C955($Boo_params; ";"+$Txt_params; "")\
+					$outpout:=$outpout\
+						+"//"+$line\
+						+"\r"+$_commands{1007}\
+						+"(\""+$method+"\""\
+						+Choose:C955($withResult; ";"+$result; Choose:C955($withParams; ";*"; ""))+Choose:C955($withParams; ";"+$params; "")\
 						+")"
 					
 				Else 
 					
-					$Txt_ouput:=$Txt_ouput\
-						+$Txt_line
+					$outpout+=$line
 					
 				End if 
 				
 			Else 
 				
-				$Txt_ouput:=$Txt_ouput\
-					+$Txt_line
+				$outpout+=$line
 				
 			End if 
 			
 			//______________________________________
 	End case 
 	
-	$Txt_ouput:=$Txt_ouput+"\r"
+	$outpout+="\r"
 	
 End for 
 
-SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $Txt_ouput)
-
-// ----------------------------------------------------
-// End
+SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $outpout)
