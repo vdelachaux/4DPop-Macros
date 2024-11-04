@@ -22,6 +22,20 @@ Else
 						//
 						For each ($t; $c)
 							
+							Case of 
+								: (True:C214)
+									//
+								: (False:C215)
+									//
+								Else 
+									
+									//comment
+									While (True:C214)
+										
+										//do
+									End while 
+									
+							End case 
 							//
 						End for each 
 						

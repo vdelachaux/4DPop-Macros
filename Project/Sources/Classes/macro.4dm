@@ -556,6 +556,34 @@ Function isNotReservedComment($line : Text) : Boolean
 	return Not:C34(This:C1470.isReservedComment($line))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isMarkerComment($line : Text) : Boolean
+	
+	If (This:C1470.isComment($line))
+		
+		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):"; $line; 1; *)
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotMarkerComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isMarkerComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isSeparatorLineComment($line : Text) : Boolean
+	
+	If (This:C1470.isComment($line))
+		
+		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):-"; $line; 1; *)
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotSeparatorLineComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isSeparatorLineComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isOpeningReservedComment($line : Text) : Boolean
 	
 	return ($line=(kCommentMark+"}"))\

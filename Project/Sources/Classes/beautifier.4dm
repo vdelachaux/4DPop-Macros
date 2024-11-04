@@ -28,6 +28,7 @@ Class constructor()
 		
 	End if 
 	
+	// Default values
 	For each ($t; [\
 		"replaceDeprecatedCommand"; \
 		"removeConsecutiveBlankLines"; \
@@ -117,7 +118,8 @@ Class constructor()
 	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+This:C1470.closures.join("|")+")\\b"
 	
 	// Mark:Localised closures
-	$t:="\\r*(\\r{closure}[^\\r]*\\r)\\r*"
+	// $t:="\\r*(\\r{closure}[^\\r]*\\r)\\r*"
+	$t:="(?mi-s)(?<!//)(?<!//\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
 	This:C1470._patterns.closureInstructions:=[\
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endIf); \
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endCase); \
@@ -246,15 +248,14 @@ Function beautify()
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Else).match())
 				
-				If ($_branchAndLoop{$_branchAndLoop}=4)  //else du case of
+				If ($_branchAndLoop{$_branchAndLoop}=4)  // Case of … Else
 					
-					$doAddLine:=True:C214
-					$doLineBefore:=Not:C34($inMultiLineComment)
+					This:C1470._lineBreakBeforeBranchingStructures(True:C214)
 					
 				Else 
 					
 					If ($options.lineBreakBeforeBranchingStructures)\
-						 && This:C1470.isNotComment(This:C1470.lineBefore)
+						 && This:C1470.isNotSeparatorLineComment(This:C1470.lineBefore)
 						
 						This:C1470._lines.push("")
 						
@@ -278,7 +279,7 @@ Function beautify()
 				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
 				This:C1470._lines.push($line)
 				
-				This:C1470._groupingClosureInstructions(This:C1470._lines; Try(This:C1470.lines[This:C1470.lineIndex+1]))
+				This:C1470._lines.push("")
 				
 				This:C1470._endOfLoopAndBranching(1; ->$_branchAndLoop)
 				
@@ -301,7 +302,7 @@ Function beautify()
 				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
 				This:C1470._lines.push($line)
 				
-				This:C1470._groupingClosureInstructions(This:C1470._lines; Try(This:C1470.lines[This:C1470.lineIndex+1]))
+				This:C1470._lines.push("")
 				
 				This:C1470._endOfLoopAndBranching(13; ->$_branchAndLoop)
 				
@@ -323,7 +324,7 @@ Function beautify()
 				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
 				This:C1470._lines.push($line)
 				
-				This:C1470._groupingClosureInstructions(This:C1470._lines; Try(This:C1470.lines[This:C1470.lineIndex+1]))
+				This:C1470._lines.push("")
 				
 				This:C1470._endOfLoopAndBranching(14; ->$_branchAndLoop)
 				
@@ -348,130 +349,107 @@ Function beautify()
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._controls.caseOfItem).match())
 				
-				If ($options.separationLineForCaseOf)
-					
-					If (This:C1470.isNotComment(This:C1470.lineBefore))
-						
-						If (This:C1470.caseOfLevel=1)  //& False
-							
-							This:C1470._lines.push(kCommentMark+" Mark:-\r")
-							
-						Else 
-							
-							This:C1470._lines.push(kCommentMark+(This:C1470.separators[This:C1470.caseOfLevel-1]*(20-(This:C1470.caseOfLevel\2))))
-							
-						End if 
-					End if 
-				End if 
+				This:C1470._lineBreakBeforeBranchingStructures(True:C214)
 				
 				$line:=$options.splitTestLines ? This:C1470._splitTestLine($line) : $line
 				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
 				This:C1470._lines.push($line)
 				
-/*§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/: (True:C214)
-/*§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/This:C1470._lines.push($options.formatComments ? This:C1470._formatComment($line) : $line)
-				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndCase).match())
 				
-				$doAddLine:=$options.separationLineForCaseOf
-				$doLineBefore:=(Not:C34($inMultiLineComment) | Not:C34($isClosure)) & Not:C34($doLineComment)
-				$doLineAfter:=Not:C34($skipLineAfter)
-				$skipLineAfter:=True:C214
-				$skipLineBefore:=True:C214
+				This:C1470._lineBreakBeforeBranchingStructures(True:C214)
 				
-				If ($_branchAndLoop{$_branchAndLoop}=4)
-					
-					DELETE FROM ARRAY:C228($_branchAndLoop; $_branchAndLoop; 1)
-					
-				End if 
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
 				
-				$_branchAndLoop{0}:=-5
+				This:C1470._lines.push("")
+				
+				This:C1470._endOfLoopAndBranching(4; ->$_branchAndLoop; -5)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.While).match())
 				
+				This:C1470._lineBreakBeforeBranchingStructures()
+				
 				$line:=$options.splitTestLines ? This:C1470._splitTestLine($line) : $line
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
 				
-				$doLineBefore:=True:C214
-				$doLineAfter:=True:C214
-				$skipLineAfter:=False:C215
+				This:C1470._lines.push($line)
 				
-				APPEND TO ARRAY:C911($_branchAndLoop; 6)
+				This:C1470._startOfLoopAndBranching(6; ->$_branchAndLoop)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndWhile).match())
 				
-				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-				$doLineAfter:=Not:C34($skipLineAfter)
-				$skipLineAfter:=True:C214
+				This:C1470._lineBreakBeforeBranchingStructures()
 				
-				If ($_branchAndLoop{$_branchAndLoop}=6)
-					
-					DELETE FROM ARRAY:C228($_branchAndLoop; $_branchAndLoop; 1)
-					
-				End if 
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
+				
+				This:C1470._lines.push("")
+				
+				This:C1470._endOfLoopAndBranching(6; ->$_branchAndLoop)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.For).match())
 				
-				$doLineBefore:=Not:C34($inMultiLineComment)
-				$doLineAfter:=True:C214
-				$skipLineAfter:=False:C215
+				This:C1470._lineBreakBeforeBranchingStructures()
 				
 				If ($options.addTheIncrementForTheLoops)
 					
-					$pattern:="\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)$"
-					ARRAY TEXT:C222($tTxt_result; 0x0000)
-					
-					If (Rgx_MatchText($pattern; $line; ->$tTxt_result)=0)
+					If (This:C1470.rgx.setPattern("(?mi-s)\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)").match())
 						
-						If (Length:C16($tTxt_result{2})=0)
+						If (This:C1470.rgx.matches[2].length=0)
 							
-							$line:=Replace string:C233($line; $tTxt_result{1}; $tTxt_result{1}+";1")
+							$line:=Replace string:C233($line; This:C1470.rgx.matches[1].data; This:C1470.rgx.matches[1].data+";1")
 							
 						End if 
 					End if 
 				End if 
 				
-				APPEND TO ARRAY:C911($_branchAndLoop; 8)
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
+				
+				This:C1470._startOfLoopAndBranching(8; ->$_branchAndLoop)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndFor).match())
 				
-				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-				$doLineAfter:=Not:C34($skipLineAfter)
-				$skipLineAfter:=True:C214
+				This:C1470._lineBreakBeforeBranchingStructures()
 				
-				If ($_branchAndLoop{$_branchAndLoop}=8)
-					
-					DELETE FROM ARRAY:C228($_branchAndLoop; $_branchAndLoop; 1)
-					
-				End if 
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
+				
+				This:C1470._lines.push("")
+				
+				This:C1470._endOfLoopAndBranching(8; ->$_branchAndLoop)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Repeat).match())
 				
-				$doLineBefore:=True:C214
-				$doLineAfter:=True:C214
-				$skipLineAfter:=False:C215
+				This:C1470._lineBreakBeforeBranchingStructures()
 				
-				APPEND TO ARRAY:C911($_branchAndLoop; 10)
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
+				
+				This:C1470._startOfLoopAndBranching(10; ->$_branchAndLoop)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Until).match())
 				
+				This:C1470._lineBreakBeforeBranchingStructures()
+				
 				$line:=$options.splitTestLines ? This:C1470._splitTestLine($line) : $line
+				$line:=$options.formatComments ? This:C1470._formatComment($line) : $line
+				This:C1470._lines.push($line)
 				
-				$doLineBefore:=Not:C34($skipLineAfter) | Not:C34($isClosure)
-				$doLineAfter:=Not:C34($skipLineAfter)
-				$skipLineAfter:=True:C214
+				This:C1470._lines.push("")
 				
-				If ($_branchAndLoop{$_branchAndLoop}=10)
-					
-					DELETE FROM ARRAY:C228($_branchAndLoop; $_branchAndLoop; 1)
-					
-				End if 
+				This:C1470._endOfLoopAndBranching(10; ->$_branchAndLoop)
+				
+/*§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/: (True:C214)
+/*§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/This:C1470._lines.push($options.formatComments ? This:C1470._formatComment($line) : $line)
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.keywords).match())
@@ -553,18 +531,18 @@ Function _optionalBefore($code : Text) : Text
 		
 	End if 
 	
-	// Mark:Grouping of closing instructions
-	If ($options.groupingClosureInstructions)
-		
-		For each ($t; This:C1470._patterns.closureInstructions)
-			
-			$code:=This:C1470.rgx.setTarget($code).setPattern($t).substitute("\\1")
-			
-		End for each 
-		
-		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.CaseOfItem).substitute("\\1")
-		
-	End if 
+	//// Mark:Grouping of closing instructions
+	//If ($options.groupingClosureInstructions)
+	
+	//For each ($t; This._patterns.closureInstructions)
+	
+	//$code:=This.rgx.setTarget($code).setPattern($t).substitute("\\1")
+	
+	//End for each 
+	
+	//$code:=This.rgx.setTarget($code).setPattern(This._patterns.CaseOfItem).substitute("\\1")
+	
+	//End if 
 	
 	// Mark:Use ternary operator
 	If ($options.replaceIfElseEndIfByChoose)  // Use ternary operator
@@ -637,6 +615,19 @@ Function _optionalAfter($code : Text) : Text
 		
 	End if 
 	
+	// Mark:Grouping of closing instructions
+	If ($options.groupingClosureInstructions)
+		
+		For each ($t; This:C1470._patterns.closureInstructions)
+			
+			$code:=This:C1470.rgx.setTarget($code).setPattern($t).substitute("\\1")
+			
+		End for each 
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.CaseOfItem).substitute("\\1")
+		
+	End if 
+	
 	// Mark:Remove empty lines at the end of the method
 	If ($options.removeEmptyLinesAtTheEndOfMethod)
 		
@@ -673,29 +664,52 @@ Function _isNotClosure($line : Text) : Boolean
 	return Not:C34(This:C1470._isClosure($line))
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _lineBreakBeforeBranchingStructures()
+Function _lineBreakBeforeBranchingStructures($caseOf : Boolean)
 	
-	If (This:C1470.settings.lineBreakBeforeBranchingStructures)\
-		 && (This:C1470.lineIndex>0)\
-		 && This:C1470.isNotComment(This:C1470.lineCurrent)\
-		 && This:C1470._isNotClosure(This:C1470.lineCurrent)\
-		 && This:C1470.isNotEmpty(This:C1470.lineNext)
+	If ($caseOf)
 		
-		This:C1470._lines.push("")
+		If (This:C1470.settings.separationLineForCaseOf)
+			
+			If (This:C1470.isNotSeparatorLineComment(This:C1470.lineBefore))
+				
+				If (This:C1470.isComment(This:C1470.lineBefore))
+					
+					This:C1470._lines.push("")
+					
+				End if 
+				
+				If (This:C1470.caseOfLevel<=1) & False:C215
+					
+					This:C1470._lines.push(kCommentMark+" Mark:-")
+					
+				Else 
+					
+					var $level : Integer:=This:C1470.caseOfLevel<=1 ? 1 : This:C1470.caseOfLevel-1
+					This:C1470._lines.push(kCommentMark+(This:C1470.separators[$level]*(20-($level\2))))
+					
+				End if 
+			End if 
+		End if 
 		
+	Else 
+		
+		If (This:C1470.settings.lineBreakBeforeBranchingStructures)\
+			 && (This:C1470.lineIndex>0)\
+			 && This:C1470.isNotSeparatorLineComment(This:C1470.lineCurrent)\
+			 && This:C1470._isNotClosure(This:C1470.lineCurrent)\
+			 && This:C1470.isNotEmpty(This:C1470.lineBefore)
+			
+			This:C1470._lines.push("")
+			
+		End if 
 	End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _groupingClosureInstructions($lines : Collection; $line : Text)
-	
-	$line:=$line || This:C1470.lineBefore
-	
-	If (This:C1470.settings.groupingClosureInstructions)\
-		 && This:C1470._isNotClosure($line)
-		
-		$lines.push("")
-		
-	End if 
+	//Function _groupingClosureInstructions
+	//If (This.settings.groupingClosureInstructions)\
+		&& This._isNotClosure(This.lineNext)
+	//This._lines.push("")
+	//End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _startOfLoopAndBranching($id : Integer; $ptr : Pointer)
@@ -707,12 +721,15 @@ Function _startOfLoopAndBranching($id : Integer; $ptr : Pointer)
 	$ptr->{0}:=$ptr->{$ptr->}
 	//%W+533.3
 	
-	This:C1470.caseOfLevel+=1
-	This:C1470.caseOfLevel:=This:C1470.caseOfLevel>This:C1470.numberOfSeparators ? This:C1470.numberOfSeparators\
-		 : This:C1470.caseOfLevel<1 ? 1 : This:C1470.caseOfLevel
+	If ($id=4)  //| True
+		
+		This:C1470.caseOfLevel+=1
+		This:C1470.caseOfLevel:=This:C1470.caseOfLevel>This:C1470.numberOfSeparators ? This:C1470.numberOfSeparators : 1
+		
+	End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _endOfLoopAndBranching($id : Integer; $ptr : Pointer)
+Function _endOfLoopAndBranching($id : Integer; $ptr : Pointer; $new : Integer)
 	
 	//%W-533.3
 	If (Abs:C99($ptr->{$ptr->})=$id)
@@ -720,11 +737,14 @@ Function _endOfLoopAndBranching($id : Integer; $ptr : Pointer)
 		DELETE FROM ARRAY:C228($ptr->; $ptr->; $id)
 		
 		$ptr->:=Size of array:C274($ptr->)
-		$ptr->{0}:=$ptr->{$ptr->}
+		$ptr->{0}:=$current=0 ? $ptr->{$ptr->} : $new
 		
-		This:C1470.caseOfLevel-=1
-		This:C1470.caseOfLevel:=This:C1470.caseOfLevel<1 ? 1 : This:C1470.caseOfLevel
-		
+		If ($id=4)  //| True
+			
+			This:C1470.caseOfLevel-=1
+			This:C1470.caseOfLevel:=This:C1470.caseOfLevel<1 ? 0 : This:C1470.caseOfLevel
+			
+		End if 
 	End if 
 	//%W+533.3
 	
@@ -771,7 +791,7 @@ Function _formatComment($line : Text) : Text
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _splitTestLine($line : Text) : Text
 	
-	return This:C1470.rgx.setTarget($line).setPattern("(?mi-s)(\\)\\s*(&{1,2}|\\|{1,2})\\s*\\()").substitute(")\\\r\\2(")
+	return This:C1470.rgx.setTarget($line).setPattern("(?mi-s)(\\)\\s*(&{1,2}|\\|{1,2})\\s*\\()").substitute(")\\\r\\\r\\2(")
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text

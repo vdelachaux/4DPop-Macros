@@ -1,8 +1,24 @@
 //%attributes = {}
-If (True:C214) && (True:C214)  // if
-	// Affectation
-	//%R-
-	var $x : Integer:=1
-	//%R+
+//If (True)\
+&& (True)  // If
+
+//// Affectation
+
+////%R-
+//var $x : Integer:=1
+////%R+
+//End if 
+
+For ($i; 1; 100; 1)  //hello
 	
-End if 
+	For ($i; 1; 100)  //world
+		
+		Repeat 
+			//
+			continue
+		Until (True:C214) & (False:C215)  //comment
+	End for 
+	
+	
+End for 
+

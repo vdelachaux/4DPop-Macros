@@ -15,3 +15,26 @@ Case of
 		
 		// A "Case of" statement should never omit "Else"
 End case 
+
+Case of 
+		
+	: (True:C214)
+		
+		If (True:C214)
+			
+			//comment
+			While (True:C214)
+				
+				//do
+			End while 
+			
+		End if 
+		
+	: (False:C215)
+		
+		//
+		
+	Else 
+		
+		// A "Case of" statement should never omit "Else"
+End case 
