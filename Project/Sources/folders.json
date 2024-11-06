@@ -3,9 +3,6 @@
 		"methods": [
 			"_o_array_Attributes",
 			"_o_array_declaration",
-			"_o_Beautifier",
-			"_o_beautifier_Next_semicolon",
-			"_o_beautifier_Split_key_value",
 			"_o_CENTERED",
 			"_o_DECLARATION",
 			"_o_EXTRACT_LOCAL_VARIABLES",
@@ -181,14 +178,7 @@
 	"rgx": {
 		"methods": [
 			"Compiler_Rgx",
-			"Rgx_ExtractText",
-			"Rgx_Get_Pattern",
-			"Rgx_match",
-			"Rgx_MatchText",
-			"rgx_NO_ERROR",
-			"rgx_Options",
-			"Rgx_SplitText",
-			"Rgx_SubstituteText"
+			"rgx_NO_ERROR"
 		]
 	},
 	"shared": {

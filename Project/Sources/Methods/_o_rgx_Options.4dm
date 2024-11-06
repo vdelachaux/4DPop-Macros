@@ -1,20 +1,20 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-  // ----------------------------------------------------
-  // Method : rgx_Options
-  // Created 28/09/07 by Vincent
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
+// ----------------------------------------------------
+// Method : rgx_Options
+// Created 28/09/07 by Vincent
+// ----------------------------------------------------
+// Description
+//
+// ----------------------------------------------------
+_O_C_TEXT:C284($0)
+_O_C_LONGINT:C283($1)
 
-C_LONGINT:C283($Lon_Options)
-C_TEXT:C284($Txt_Pattern)
+_O_C_LONGINT:C283($Lon_Options)
+_O_C_TEXT:C284($Txt_Pattern)
 
 If (False:C215)
-	C_TEXT:C284(rgx_Options ;$0)
-	C_LONGINT:C283(rgx_Options ;$1)
+	_O_C_TEXT:C284(_o_rgx_Options; $0)
+	_O_C_LONGINT:C283(_o_rgx_Options; $1)
 End if 
 
 $Lon_Options:=$1

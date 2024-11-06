@@ -1,9 +1,13 @@
 //%attributes = {}
 // hello world
 var $t : Text
-var $c : Collection
-var $x : Integer:=1
+var $i; $j : Integer
+var $x : Integer
 var $o : Object
+var $c : Collection
+
+var $Txt_line : Text:="http://something"
+
 If (True:C214) && (True:C214)  // if
 	// Affectation
 Else 
@@ -27,6 +31,8 @@ Else
 									//
 								: (False:C215)
 									//
+									
+									//mark:-
 								Else 
 									
 									//comment
@@ -51,8 +57,36 @@ End if   // 3 End if
 
 //mark:-test
 If (True:C214)
-	//%R-
-	$x:=1
-	//%R+
+	If (True:C214)
+		If (True:C214)
+			If (True:C214)
+				//%R-
+				$x:=1
+				//%R+
+			End if 
+			For ($i; 1; 100; 1)
+				
+				For ($j; 1; 100)
+					
+					Case of 
+						: (True:C214)
+							continue
+						: (False:C215)
+							Begin SQL
+								
+							End SQL
+							
+							//
+						Else 
+							Use ($o)
+								//
+							End use 
+							break
+					End case 
+				End for 
+			End for 
+		End if 
+		
+	End if 
 	
 End if 

@@ -39,7 +39,7 @@ If ($file.exists)
 			
 			If ($i>0)
 				
-				If (Rgx_ExtractText("\\[([^\\]]*)\\]"; $nodes{$i}; "1"; ->$results)=0)
+				If (_o_Rgx_ExtractText("\\[([^\\]]*)\\]"; $nodes{$i}; "1"; ->$results)=0)
 					
 					$language:=$results{1}
 					break
@@ -55,7 +55,7 @@ End if
 
 If ($language#Get database localization:C1009(User system localization:K5:23))
 	
-	$src:=File:C1566(Get localized document path:C1105("4DPop_Macros.xml"); fk platform path:K87:2)
+	$src:=File:C1566(Localized document path:C1105("4DPop_Macros.xml"); fk platform path:K87:2)
 	
 	If (Bool:C1537($src.exists))
 		

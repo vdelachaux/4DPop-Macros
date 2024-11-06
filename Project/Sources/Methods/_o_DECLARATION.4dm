@@ -629,12 +629,12 @@ Else
 						End if 
 					End for 
 					
-					$Lon_error:=Rgx_SubstituteText("\\r(\\r"+kCaret+")"; "\\1"; ->$Txt_method)
+					$Lon_error:=_o_Rgx_SubstituteText("\\r(\\r"+kCaret+")"; "\\1"; ->$Txt_method)
 					
 					If (Storage:C1525.macros.preferences.options ?? 29)  // Trim multiple empty lines
 						
-						$Lon_error:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_method)
-						$Lon_error:=Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_method)
+						$Lon_error:=_o_Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_method)
+						$Lon_error:=_o_Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_method)
 						
 					End if 
 					
@@ -762,7 +762,7 @@ Else
 					
 					$Boo_parameter:=Match regex:C1019("(?m-si)\\$(?:(?:\\d+)|(?:\\{\\d*\\})+)"; $t; 1)
 					
-					Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
+					_o_Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
 					
 					$l:=Find in array:C230($tTxt_nonLocals; Form:C1466.method+" ")
 					
@@ -847,9 +847,9 @@ Else
 				
 				$t:=<>tTxt_lines{$i}
 				
-				$Boo_parameter:=(Rgx_MatchText($Txt_patternParameter; $t)=0)
+				$Boo_parameter:=(_o_Rgx_MatchText($Txt_patternParameter; $t)=0)
 				
-				Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
+				_o_Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
 				
 				$l:=Find in array:C230($tTxt_nonLocals; Form:C1466.method+" ")
 				

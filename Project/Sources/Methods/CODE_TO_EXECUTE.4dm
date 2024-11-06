@@ -38,7 +38,7 @@ End for
 
 GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $code)
 
-$error:=Rgx_SplitText("\\r"; $code; ->$_lines; 0 ?+ 11)
+$error:=_o_Rgx_SplitText("\\r"; $code; ->$_lines; 0 ?+ 11)
 
 $pattern:="^(?:(.*?):=)?(.*?)(?:\\s*\\(+(.*?)\\))?$"
 
@@ -57,7 +57,7 @@ For ($i; 1; Size of array:C274($_lines); 1)
 			//______________________________________
 		Else 
 			
-			$error:=Rgx_ExtractText($pattern; $line; ""; ->$_extracted)
+			$error:=_o_Rgx_ExtractText($pattern; $line; ""; ->$_extracted)
 			
 			If ($error=0)
 				

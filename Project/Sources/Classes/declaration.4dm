@@ -1,6 +1,6 @@
 Class extends macro
 
-property lines : Collection:=[]
+property _lines : Collection:=[]
 property locales : Collection:=[]
 property parameters : Collection:=[]
 property classes : Collection:=[]
@@ -200,7 +200,7 @@ Function parse() : cs:C1710.declaration
 	This:C1470.removeDirective()
 	This:C1470.split()
 	
-	For each ($text; This:C1470.lineTexts)
+	For each ($text; This:C1470.lines)
 		
 		var $line : Object:={code: $text}
 		var $comment : Text:=""
@@ -265,10 +265,10 @@ Function parse() : cs:C1710.declaration
 			Else 
 				
 				// Remove textual values
-				Rgx_SubstituteText("(?m-si)(\"[^\"]*\")"; ""; ->$text)
+				_o_Rgx_SubstituteText("(?m-si)(\"[^\"]*\")"; ""; ->$text)
 				
 				// Remove Comments
-				Rgx_SubstituteText("(?m-si)("+kCommentMark+".*$)"; ""; ->$text)
+				_o_Rgx_SubstituteText("(?m-si)("+kCommentMark+".*$)"; ""; ->$text)
 				
 				// Searches parameters $0-N & ${N} into the line
 				
@@ -287,7 +287,7 @@ declaration macro must omit the parameters of a formula
 					
 				End if 
 				
-				$rgx:=Rgx_match({\
+				$rgx:=_o_Rgx_match({\
 					pattern: "(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)"; \
 					target: $text; \
 					all: True:C214})
@@ -369,7 +369,7 @@ declaration macro must omit the parameters of a formula
 						$line.type:="declaration"
 						$line.skip:=True:C214
 						
-						$rgx:=Rgx_match({\
+						$rgx:=_o_Rgx_match({\
 							pattern: "(?m-si)(?<!\\.)(\\$\\w+)"; \
 							target: $text; \
 							all: True:C214})
@@ -495,7 +495,7 @@ declaration macro must omit the parameters of a formula
 						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 					Else   // EXTRACT LOCAL VARIABLES
 						
-						$rgx:=Rgx_match({\
+						$rgx:=_o_Rgx_match({\
 							pattern: "(?m-si)(?<!\\.)(\\$\\w+)"; \
 							target: $text; \
 							all: True:C214})
@@ -661,7 +661,7 @@ declaration macro must omit the parameters of a formula
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		End case 
 		
-		This:C1470.lines.push($line)
+		This:C1470._lines.push($line)
 		
 	End for each 
 	
@@ -713,7 +713,7 @@ Function parseParameters($line : Object)
 			//______________________________________________________
 	End case 
 	
-	$rgx:=Rgx_match({\
+	$rgx:=_o_Rgx_match({\
 		pattern: $pattern; \
 		target: $line.code; \
 		all: True:C214})
@@ -932,7 +932,7 @@ Function setType($type : Integer; $target : Object)
 		
 	Else 
 		
-		// A "If" statement should never omit "Else" 
+		// A "If" statement should never omit "Else"
 		$o:=Form:C1466.current
 		
 	End if 
@@ -953,7 +953,7 @@ Function apply()
 	
 	// MARK:PARAMETERS
 	$c:=This:C1470.variables.query("parameter=true")
-	$o:=This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop()
+	$o:=This:C1470._lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop()
 	
 	If ($c.length>0)\
 		 | ($o#Null:C1517)
@@ -1009,14 +1009,14 @@ Function apply()
 					End if 
 				End if 
 				
-				$method+=String:C10(This:C1470.lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop().comment)
+				$method+=String:C10(This:C1470._lines.query("type = :1 OR type = :2"; "Function"; "Class constructor").pop().comment)
 				$method+="\r"
 				
 			End if 
 			
 		Else 
 			
-			If (This:C1470.lines.query("type = :1"; "#DECLARE").pop()=Null:C1517)
+			If (This:C1470._lines.query("type = :1"; "#DECLARE").pop()=Null:C1517)
 				
 				// #DECLARE does not accept $1 ... $N as a parameter name, so we use the var keyword for parameters.
 				For each ($o; $c)
@@ -1098,7 +1098,7 @@ Function apply()
 					End if 
 				End if 
 				
-				$method+=String:C10(This:C1470.lines.query("type = :1"; "#DECLARE").pop().comment)
+				$method+=String:C10(This:C1470._lines.query("type = :1"; "#DECLARE").pop().comment)
 				
 			End if 
 			
@@ -1253,27 +1253,28 @@ Function apply()
 	Else 
 		
 		// Look for the first empty or declaration line
-		For each ($o; This:C1470.lines) While ($l#MAXLONG:K35:2)
+		For each ($o; This:C1470._lines)  // While ($l#MAXLONG)
 			
 			$t:=String:C10($o.type)
 			$length:=Length:C16($method)
 			
 			Case of 
 					
-					//___________________
+					// ___________________
 				: ($t="comment")
 					
 					$buffer:=$buffer+$o.code+"\r"
 					$l:=Length:C16($buffer)
 					$o.skip:=True:C214
 					
-					//___________________
+					// ___________________
 				: ($t="empty")
 					
 					$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
-					$l:=MAXLONG:K35:2
 					
-					//___________________
+					break  // $l:=MAXLONG
+					
+					// ___________________
 				Else 
 					
 					If ($l<=0)
@@ -1287,9 +1288,9 @@ Function apply()
 						
 					End if 
 					
-					$l:=MAXLONG:K35:2
+					break  // $l:=MAXLONG
 					
-					//___________________
+					// ___________________
 			End case 
 		End for each 
 		
@@ -1298,7 +1299,7 @@ Function apply()
 	End if 
 	
 	// Restore the code
-	For each ($o; This:C1470.lines)
+	For each ($o; This:C1470._lines)
 		
 		$t:=String:C10($o.type)
 		
@@ -1337,8 +1338,8 @@ Function apply()
 	
 	If (Bool:C1537($options.trimEmptyLines))
 		
-		$codeError:=Rgx_SubstituteText("\\r{2,}"; "\r\r"; ->$method)
-		$codeError:=Rgx_SubstituteText("(\\r*)$"; ""; ->$method)
+		$codeError:=_o_Rgx_SubstituteText("\\r{2,}"; "\r\r"; ->$method)
+		$codeError:=_o_Rgx_SubstituteText("(\\r*)$"; ""; ->$method)
 		
 	End if 
 	

@@ -10,23 +10,23 @@
 // v12 bug fix with character " in first position of a line
 // ----------------------------------------------------
 // Declarations
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_POINTER:C301($2)
-C_POINTER:C301($3)
-C_LONGINT:C283($4)
+_O_C_LONGINT:C283($0)
+_O_C_TEXT:C284($1)
+_O_C_POINTER:C301($2)
+_O_C_POINTER:C301($3)
+_O_C_LONGINT:C283($4)
 
-C_BOOLEAN:C305($Boo_add; $Boo_escape; $Boo_start; $Boo_stop)
-C_LONGINT:C283($Lon_error; $Lon_i; $Lon_ignoreDeclarations; $Lon_parameters; $Lon_size; $Lon_x)
-C_POINTER:C301($Ptr_targetArray)
-C_TEXT:C284($kTxt_delimitors; $Txt_buffer; $Txt_character; $Txt_pattern; $Txt_variableName)
+_O_C_BOOLEAN:C305($Boo_add; $Boo_escape; $Boo_start; $Boo_stop)
+_O_C_LONGINT:C283($Lon_error; $Lon_i; $Lon_ignoreDeclarations; $Lon_parameters; $Lon_size; $Lon_x)
+_O_C_POINTER:C301($Ptr_targetArray)
+_O_C_TEXT:C284($kTxt_delimitors; $Txt_buffer; $Txt_character; $Txt_pattern; $Txt_variableName)
 
 If (False:C215)
-	C_LONGINT:C283(util_Lon_Local_in_line; $0)
-	C_TEXT:C284(util_Lon_Local_in_line; $1)
-	C_POINTER:C301(util_Lon_Local_in_line; $2)
-	C_POINTER:C301(util_Lon_Local_in_line; $3)
-	C_LONGINT:C283(util_Lon_Local_in_line; $4)
+	_O_C_LONGINT:C283(util_Lon_Local_in_line; $0)
+	_O_C_TEXT:C284(util_Lon_Local_in_line; $1)
+	_O_C_POINTER:C301(util_Lon_Local_in_line; $2)
+	_O_C_POINTER:C301(util_Lon_Local_in_line; $3)
+	_O_C_LONGINT:C283(util_Lon_Local_in_line; $4)
 End if 
 
 // ----------------------------------------------------
@@ -66,11 +66,11 @@ End if
 
 // Remove Comments
 $Txt_pattern:="(?m-si)(//.*$)"
-$Lon_error:=Rgx_SubstituteText($Txt_pattern; ""; ->$Txt_buffer)
+$Lon_error:=_o_Rgx_SubstituteText($Txt_pattern; ""; ->$Txt_buffer)
 
 // Remove textual values
 $Txt_pattern:="(?m-si)(\"[^\"]*\")"
-$Lon_error:=Rgx_SubstituteText($Txt_pattern; ""; ->$Txt_buffer)
+$Lon_error:=_o_Rgx_SubstituteText($Txt_pattern; ""; ->$Txt_buffer)
 
 $Lon_size:=Length:C16($Txt_buffer)
 
@@ -83,7 +83,7 @@ For ($Lon_i; 1; $Lon_size; 1)
 			
 			//  //______________________________________________________
 			//: ($Txt_buffer[[$Lon_i]]="/")\
-												& (Not($Boo_escape))
+				& (Not($Boo_escape))
 			//If ($Txt_buffer[[$Lon_i+1]]="/")  // Comment
 			//$Boo_escape:=True
 			//$Lon_i:=$Lon_size+1

@@ -12,19 +12,19 @@
 // Complete refactoring
 // ----------------------------------------------------
 // Declarations
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_POINTER:C301(${2})
+_O_C_LONGINT:C283($0)
+_O_C_TEXT:C284($1)
+_O_C_POINTER:C301(${2})
 
-C_BOOLEAN:C305($Boo_ignore; $Boo_localArray)
-C_LONGINT:C283($Lon_column; $Lon_error; $Lon_parameters; $Lon_row; $Lon_stringLength; $Lon_x)
-C_POINTER:C301($Ptr_Array)
-C_TEXT:C284($Txt_arrayName; $Txt_column; $Txt_pattern; $Txt_row; $Txt_target)
+_O_C_BOOLEAN:C305($Boo_ignore; $Boo_localArray)
+_O_C_LONGINT:C283($Lon_column; $Lon_error; $Lon_parameters; $Lon_row; $Lon_stringLength; $Lon_x)
+_O_C_POINTER:C301($Ptr_Array)
+_O_C_TEXT:C284($Txt_arrayName; $Txt_column; $Txt_pattern; $Txt_row; $Txt_target)
 
 If (False:C215)
-	C_LONGINT:C283(_o_array_declaration; $0)
-	C_TEXT:C284(_o_array_declaration; $1)
-	C_POINTER:C301(_o_array_declaration; ${2})
+	_O_C_LONGINT:C283(_o_array_declaration; $0)
+	_O_C_TEXT:C284(_o_array_declaration; $1)
+	_O_C_POINTER:C301(_o_array_declaration; ${2})
 End if 
 
 // ----------------------------------------------------
@@ -52,7 +52,7 @@ End if
 // ----------------------------------------------------
 ARRAY TEXT:C222($tTxt_results; 0x0000; 0x0000)
 $Txt_pattern:="^(?:(\\d*);)?([^;]*);([^;)]*)(?:;([^)]*))?\\).*$"
-$Lon_error:=Rgx_ExtractText($Txt_pattern; $Txt_target; "1 2 3 4"; ->$tTxt_results)
+$Lon_error:=_o_Rgx_ExtractText($Txt_pattern; $Txt_target; "1 2 3 4"; ->$tTxt_results)
 
 If ($Lon_error=0)
 	

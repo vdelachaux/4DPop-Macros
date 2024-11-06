@@ -1,25 +1,18 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-  // ----------------------------------------------------
-  // Method : Install_Resources
-  // Created 06/05/06 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
-C_BOOLEAN:C305($0)
+// ----------------------------------------------------
+// Method : Install_Resources
+// Created 06/05/06 by Vincent de Lachaux
+// ----------------------------------------------------
+#DECLARE() : Boolean
 
-C_BOOLEAN:C305($Boo_OK)
-C_TEXT:C284($t)
-C_OBJECT:C1216($file)
-
-If (False:C215)
-	C_BOOLEAN:C305(Install_resources ;$0)
-End if 
+var $OK : Boolean
+var $t : Text
+var $file : Object
 
 $file:=Folder:C1567(fk user preferences folder:K87:10).folder("4DPop").file("resources.xml")
-$Boo_OK:=$file.exists
+$OK:=$file.exists
 
-If (Not:C34($Boo_OK))
+If (Not:C34($OK))
 	
 	$t:="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>\r"+\
 		"<M_4DPop>\r"+"<scomber>/9j/4AAQSkZJRgABAQEASABIAAD//gAMQXBwbGVNYXJrCv/bAIQABwUFBgUF\r"+\
@@ -166,8 +159,8 @@ If (Not:C34($Boo_OK))
 		"</M_4DPop>\r"
 	
 	$file.setText($t)
-	$Boo_OK:=($file.getText()=$t)
+	$OK:=($file.getText()=$t)
 	
 End if 
 
-$0:=$Boo_OK  // True if installation succesfull
+return $OK  // True if installation succesfull

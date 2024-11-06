@@ -10,22 +10,22 @@
 // Give the english name of the the control flow to this function, the return will be the localized.
 // Give an array pointer, the array will be filled with the control flow structures.
 // ----------------------------------------------------
-C_TEXT:C284($0)
-C_TEXT:C284($1)
-C_POINTER:C301($2)
-C_POINTER:C301($3)
-C_LONGINT:C283($Lon_parameters)
-C_TEXT:C284($File_resources)
-C_OBJECT:C1216($Obj_controlFlow)
+var $0 : Text
+var $1 : Text
+var $2 : Pointer
+var $3 : Pointer
+var $Lon_parameters : Integer
+var $File_resources : Text
+var $Obj_controlFlow : Object
 ARRAY TEXT:C222($tTxt_FR; 0)
 ARRAY TEXT:C222($tTxt_tag; 0)
 ARRAY TEXT:C222($tTxt_US; 0)
 
 If (False:C215)
-	C_TEXT:C284(_o_localizedControlFlow; $0)
-	C_TEXT:C284(_o_localizedControlFlow; $1)
-	C_POINTER:C301(_o_localizedControlFlow; $2)
-	C_POINTER:C301(_o_localizedControlFlow; $3)
+	_O_C_TEXT:C284(_o_localizedControlFlow; $0)
+	_O_C_TEXT:C284(_o_localizedControlFlow; $1)
+	_O_C_POINTER:C301(_o_localizedControlFlow; $2)
+	_O_C_POINTER:C301(_o_localizedControlFlow; $3)
 End if 
 
 $Lon_parameters:=Count parameters:C259

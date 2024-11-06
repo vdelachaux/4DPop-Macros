@@ -9,8 +9,8 @@
 // Modified by vdl (09/10/07)
 // -> v11
 // ----------------------------------------------------
-_O_C_LONGINT:C283($Lon_CommandParameters; $Lon_Error; $Lon_i; $Lon_Lignes; $Lon_Position; $Lon_x)
-_O_C_TEXT:C284($output; $Txt_Code; $Txt_Command)
+var $Lon_CommandParameters; $Lon_Error; $Lon_i; $Lon_Lignes; $Lon_Position; $Lon_x : Integer
+var $output; $Txt_Code; $Txt_Command : Text
 
 ARRAY TEXT:C222($tTxt_Commands; 0)
 ARRAY TEXT:C222($tTxt_controlFlow; 0)
@@ -20,14 +20,14 @@ ARRAY TEXT:C222(<>tTxt_lines; 0)
 // Si (Private_Boo_INIT ("4D Pack"))
 
 GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $output)
-$Lon_Error:=Rgx_SplitText("\\r"; $output; -><>tTxt_lines; 0 ?+ 11)
+$Lon_Error:=_o_Rgx_SplitText("\\r"; $output; -><>tTxt_lines; 0 ?+ 11)
 $output:=""
 
 // Récupérer les noms de commande localisés
 
 Repeat 
 	
-	$Lon_i:=$Lon_i+1
+	$Lon_i+=1
 	$output:=Command name:C538($Lon_i)
 	
 	If (OK=1)
@@ -122,106 +122,106 @@ For ($Lon_Lignes; 1; Size of array:C274(<>tTxt_lines); 1)
 	
 	Case of 
 			
-			//______________________________________________________
+			// ______________________________________________________
 		: (Length:C16($Txt_Command+$Txt_Code)=0)  // Ligne vide
 			
-			$output:=$output+"\r"
+			$output+="\r"
 			
-			//______________________________________________________
+			// ______________________________________________________
 		: ($Txt_Command="`@")  // Ligne de commentaire
 			
 			If ($Lon_Lignes>1)
 				
-				$output:=$output+"\r"
+				$output+="\r"
 				
 			End if 
 			
-			$output:=$output+$Txt_Command
+			$output+=$Txt_Command
 			
-			//______________________________________________________
+			// ______________________________________________________
 		: (Find in array:C230($tTxt_controlFlow; $Txt_Command)>0)  // Structure conditionelle
 			
 			If ($Lon_Lignes>1)
 				
-				$output:=$output+"\r"
+				$output+="\r"
 				
 			End if 
 			
 			If (Length:C16(M_4DPop_tTxt_Buffer{0})>0)
 				
-				$output:=$output+M_4DPop_tTxt_Buffer{0}+":="
+				$output+=M_4DPop_tTxt_Buffer{0}+":="
 				
 			End if 
 			
-			$output:=$output+$Txt_Command
+			$output+=$Txt_Command
 			
 			If ($Lon_CommandParameters>0)
 				
-				$output:=$output+"("
+				$output+="("
 				
 				For ($Lon_i; 1; $Lon_CommandParameters; 1)
 					
-					$output:=$output+M_4DPop_tTxt_Buffer{$Lon_i}
+					$output+=M_4DPop_tTxt_Buffer{$Lon_i}
 					
 					If ($Lon_i<$Lon_CommandParameters)
 						
-						$output:=$output+";"
+						$output+=";"
 						
 					End if 
 				End for 
 				
-				$output:=$output+")"
+				$output+=")"
 				
 			End if 
 			
-			//______________________________________________________
+			// ______________________________________________________
 		Else 
 			
 			If ($Lon_Lignes>1)
 				
-				$output:=$output+"\r"
+				$output+="\r"
 				
 			End if 
 			
 			// D'abord la ligne d'origine en commentaires…
-			$output:=$output+"`"
+			$output+="`"
 			
 			If (Length:C16(M_4DPop_tTxt_Buffer{0})>0)
 				
-				$output:=$output+M_4DPop_tTxt_Buffer{0}+":="
+				$output+=M_4DPop_tTxt_Buffer{0}+":="
 				
 			End if 
 			
-			$output:=$output+$Txt_Command
+			$output+=$Txt_Command
 			
 			If ($Lon_CommandParameters>0)
 				
-				$output:=$output+"("
+				$output+="("
 				
 				For ($Lon_i; 1; $Lon_CommandParameters; 1)
 					
-					$output:=$output+M_4DPop_tTxt_Buffer{$Lon_i}
+					$output+=M_4DPop_tTxt_Buffer{$Lon_i}
 					
 					If ($Lon_i<$Lon_CommandParameters)
 						
-						$output:=$output+";"
+						$output+=";"
 						
 					End if 
 				End for 
 				
-				$output:=$output+")"
+				$output+=")"
 				
 			End if 
 			
-			$output:=$output+"\r"
+			$output+="\r"
 			
-			//…Puis appel de la commande EXECUTER
-			$output:=$output+Command name:C538(63)+"("
+			// …Puis appel de la commande EXECUTER
+			$output+=Command name:C538(63)+"("
 			
 			// Eventuel retour
 			If (Length:C16(M_4DPop_tTxt_Buffer{0})>0)
 				
-				$output:=$output+"\""+M_4DPop_tTxt_Buffer{0}+":=\"+"
+				$output+="\""+M_4DPop_tTxt_Buffer{0}+":=\"+"
 				
 			End if 
 			
@@ -230,38 +230,38 @@ For ($Lon_Lignes; 1; Size of array:C274(<>tTxt_lines); 1)
 			
 			If ($Lon_x>0)
 				
-				$output:=$output+Command name:C538(538)
-				$output:=$output+"("
-				$output:=$output+String:C10($Lon_x)
-				$output:=$output+")"
+				$output+=Command name:C538(538)
+				$output+="("
+				$output+=String:C10($Lon_x)
+				$output+=")"
 				
 			Else 
 				
-				$output:=$output+"\""+$Txt_Command+"\""
+				$output+="\""+$Txt_Command+"\""
 				
 			End if 
 			
 			If ($Lon_CommandParameters>0)
 				
-				$output:=$output+"+\"("
+				$output+="+\"("
 				
 				For ($Lon_i; 1; $Lon_CommandParameters; 1)
 					
-					$output:=$output+Replace string:C233(M_4DPop_tTxt_Buffer{$Lon_i}; "\""; "\\\"")
+					$output+=Replace string:C233(M_4DPop_tTxt_Buffer{$Lon_i}; "\""; "\\\"")
 					
 					If ($Lon_i<$Lon_CommandParameters)
 						
-						$output:=$output+";"
+						$output+=";"
 						
 					End if 
 				End for 
 				
-				$output:=$output+")\""
+				$output+=")\""
 				
 			End if 
 			
-			$output:=$output+")"
-			
+			$output+=")"
+			//________________________________________________________________________________
 	End case 
 End for 
 
