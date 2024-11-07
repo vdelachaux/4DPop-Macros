@@ -41,20 +41,20 @@
 // Modified by Vincent de Lachaux (05/02/14)
 // Adding option "Generate comment for tooltip"
 // ----------------------------------------------------
-_O_C_TEXT:C284($1)
+var $1 : Text
 _O_C_POINTER:C301(${2})
 
-_O_C_BOOLEAN:C305($Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments)
-_O_C_LONGINT:C283($i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength)
-_O_C_LONGINT:C283($Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon)
-_O_C_LONGINT:C283($Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference)
-_O_C_LONGINT:C283($Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version)
-_O_C_LONGINT:C283($Lon_x; $number)
-_O_C_POINTER:C301($Ptr_array)
-_O_C_TEXT:C284($Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint)
-_O_C_TEXT:C284($Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter)
-_O_C_OBJECT:C1216($file; $o; $oo)
-_O_C_COLLECTION:C1488($c; $cArrays; $cDirectives; $Col_settings; $Col_type)
+var $Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments : Boolean
+var $i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength : Integer
+var $Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon : Integer
+var $Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference : Integer
+var $Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version : Integer
+var $Lon_x; $number : Integer
+var $Ptr_array : Pointer
+var $Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint : Text
+var $Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter : Text
+var $file; $o; $oo : Object
+var $c; $cArrays; $cDirectives; $Col_settings; $Col_type : Collection
 
 If (False:C215)
 	_O_C_TEXT:C284(_o_DECLARATION; $1)

@@ -15,14 +15,17 @@ property line : Text:=""
 property lines : Collection:=[]
 property lineIndex : Integer:=0
 
-property decimalSeparator : Text
+property isCommentBlock : Boolean:=False:C215
+
 property _controlFlow : Object
+property _ouput : Collection:=[]
+
+property decimalSeparator : Text
+
+// MARK: Delegate
 property rgx : cs:C1710.regex:=cs:C1710.regex.new()
 
 Class constructor()
-	
-	var $t : Text
-	var $ƒ : 4D:C1709.Function
 	
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
@@ -30,8 +33,8 @@ Class constructor()
 	// Identify the name & the type of the current method
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
 		
-		$ƒ:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
-		$t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
+		var $ƒ : 4D:C1709.Function:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
+		var $t : Text:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
 		This:C1470.class:=(Position:C15("Class:"; $t)=1)
@@ -54,7 +57,7 @@ Class constructor()
 	
 	If (This:C1470.form)
 		
-		// #TO_DO 🚧
+		// TODO: 🚧
 		
 	Else 
 		
@@ -75,11 +78,7 @@ Class constructor()
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get macroCall() : Boolean
 	
-	var $name : Text
-	var $state; $time : Integer
-	
-	_O_PROCESS PROPERTIES:C336(Current process:C322; $name; $state; $time)
-	return $name="Macro_Call"
+	return Process info:C1843(Current process:C322).name="Macro_Call"
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function setMethodText($text : Text)
@@ -94,19 +93,17 @@ Function setHighlightedText($text : Text)
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function paste($text : Text; $useSelection : Boolean)
 	
-	var $target : Integer
+	var $i : Integer
 	
 	If (Count parameters:C259>=2)
 		
-		$target:=$useSelection ? Highlighted method text:K5:18 : Full method text:K5:17
+		SET MACRO PARAMETER:C998($useSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
 		
 	Else 
 		
-		$target:=This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17
+		SET MACRO PARAMETER:C998(This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
 		
 	End if 
-	
-	SET MACRO PARAMETER:C998($target; $text)
 	
 	If (Structure file:C489=Structure file:C489(*))
 		
@@ -115,14 +112,9 @@ Function paste($text : Text; $useSelection : Boolean)
 	End if 
 	
 	// Force tokenisation
-	var $name : Text
-	var $i; $mode; $origin; $state; $time; $UID : Integer
-	
 	For ($i; 1; Count tasks:C335; 1)
 		
-		_O_PROCESS PROPERTIES:C336($i; $name; $state; $time; $mode; $UID; $origin)
-		
-		If ($origin=Design process:K36:9)
+		If (Process info:C1843($i).type=Design process:K36:9)
 			
 			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
 			
@@ -132,7 +124,7 @@ Function paste($text : Text; $useSelection : Boolean)
 	End for 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function split($useSelection : Boolean)
+Function split($useSelection : Boolean; $options : Integer)
 	
 	var $target : Text
 	
@@ -146,7 +138,9 @@ Function split($useSelection : Boolean)
 		
 	End if 
 	
-	This:C1470.lines:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
+	$options:=Count parameters:C259>=2 ? $options : sk trim spaces:K86:2
+	
+	This:C1470.lines:=Split string:C1554($target; "\r"; $options)
 	
 	//MARK:-
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
@@ -189,7 +183,8 @@ Function isNotMultiline($line) : Boolean
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isComment($line : Text) : Boolean
 	
-	return (Length:C16($line)>0) && (Position:C15(kCommentMark; $line)=1)
+	return (Length:C16($line)>0)\
+		 && ((Position:C15(kCommentMark; $line)=1) || (Position:C15("/*"; $line)=1) || (Position:C15("*/"; $line)=1))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotComment($line : Text) : Boolean
@@ -288,6 +283,22 @@ Function unusedCharacter($code : Text) : Text
 Function isNumeric($in : Text) : Boolean
 	
 	return Match regex:C1019("(?mi-s)^(?:\\+|-)?\\d*?(?:(?:\\.|,)\\d*?)??"; $in; 1; *)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isDECLARE($in : Text) : Boolean
+	
+	return Position:C15("#DECLARE"; $in)=1
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isConstructor($in : Text) : Boolean
+	
+	return Match regex:C1019("(?m-si)^(singleton\\s|shared\\s)??(singleton\\s|shared\\s)??Class constructor"; $in; 1; *)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isFunction($in : Text) : Boolean
+	
+	return Match regex:C1019("(?m-si)^(local\\s|shared\\s)??(local\\s|shared\\s)??Function(.*?)\\((.*?)\\)"; $in; 1; *)
+	
 	
 	//MARK:-[MACROS]
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===

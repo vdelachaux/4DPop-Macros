@@ -1,8 +1,29 @@
 //%attributes = {}
-If (True:C214)
-	//comment
-	While (True:C214)
-		//do
-	End while 
-	ARRAY TEXT:C222($t; 0x0000)
-End if 
+
+//$line:="$o:=New object(\\\r\"property1\"; 1;\\\r\"property2\"; 2)"
+
+/* 
+
+$o:=New object(\
+"property1"; 1; \
+"property2"; 2)
+
+A tranfomer en 
+
+$o : Object:={\
+property1: "value1"; \
+property2: "value2"; \
+property3: "value3"; \
+property4: "value4"; \
+property5: "value5"}
+
+*/
+
+/* 
+remplacer New object( par {
+pour chque clef/valeur : 
+ - supprimer le premier guillemet
+ - remplacer "; par :
+remplacer le ) final par }
+
+*/

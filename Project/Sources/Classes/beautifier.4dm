@@ -1,18 +1,18 @@
-Class extends macro
-
-property _controls; _patterns; options : Object
+property options : Object
 property separators; controlFlow; closures : Collection
 property numberOfSeparators : Integer
 property specialComments : Text
-property caseOfLevel : Integer:=-1
-property _splittableCommands : Collection
 
 property previousLine : Text:=""
 property nextLine : Text:=""
-
-property isMultiLines : Boolean:=False:C215
-property _lines : Collection:=[]
+property multiLines : Boolean:=False:C215
 property loopAndBranching : Collection:=[]
+property caseOfLevel : Integer:=-1
+
+property _controls; _patterns : Object
+property _splittableCommands : Collection
+
+Class extends macro
 
 Class constructor()
 	
@@ -22,15 +22,23 @@ Class constructor()
 	
 	Super:C1705()
 	
-	// Mark:Options
-	$file:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
-	$file:=$file.original ? $file.original : $file
-	
-	If ($file.exists)
+	// MARK: Options
+	Try
 		
-		This:C1470.options:=JSON Parse:C1218($file.getText()).beautifier
+		$file:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
+		$file:=$file.original ? $file.original : $file
 		
-	End if 
+		If ($file.exists)
+			
+			This:C1470.options:=JSON Parse:C1218($file.getText()).beautifier
+			
+		End if 
+		
+	Catch
+		
+		This:C1470.options:={}
+		
+	End try
 	
 	// Default values
 	For each ($t; [\
@@ -45,7 +53,7 @@ Class constructor()
 		"aLineOfCommentsMustBePrecededByALineBreak"; \
 		"groupingClosureInstructions"; \
 		"addTheIncrementForTheLoops"; \
-		"splitTestLines"; \
+		"splitTestss"; \
 		"replaceComparisonsToAnEmptyStringByLengthTest"; \
 		"replaceIfElseEndIfByChoose"; \
 		"splitKeyValueLines"; \
@@ -59,11 +67,11 @@ Class constructor()
 		
 	End for each 
 	
-	// Mark:Separators
+	// MARK: Separators
 	This:C1470.separators:=This:C1470.options.separators || Split string:C1554("____,┅┅,╌╌╌,╍╍╍,..,–––,⩫⩫,……,--,··,~~,..;::"; ",")
 	This:C1470.numberOfSeparators:=This:C1470.separators.length-1
 	
-	// Mark:Control flow
+	// MARK: Control flow
 	$c:=JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())[Command name:C538(41)="ALERT" ? "intl" : "fr"]
 	
 	This:C1470._controls:={\
@@ -85,7 +93,7 @@ Class constructor()
 		endForEach: $c[14]\
 		}
 	
-	// Mark:Closures
+	// MARK: Closures
 	This:C1470.closures:=[\
 		This:C1470._controls.endIf; \
 		This:C1470._controls.endCase; \
@@ -97,7 +105,7 @@ Class constructor()
 	
 	// Mark:-[Patterns]
 	// Mark:Localised flow controls
-	$t:="(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?{control}\\b"
+	$t:="(?m-si)(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?{control}\\b"
 	This:C1470._patterns:={\
 		If: Replace string:C233($t; "{control}"; This:C1470._controls.if); \
 		Else: Replace string:C233($t; "{control}"; This:C1470._controls.else); \
@@ -120,12 +128,11 @@ Class constructor()
 		varWithAssignment: "\"(?mi-s)^var\\\\s*(?:[^:]*:){2}=\""\
 		}
 	
-	// Mark:Closures
+	// MARK: Closures
 	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+This:C1470.closures.join("|")+")\\b"
 	
-	// Mark:Localised closures
-	// $t:="\\r*(\\r{closure}[^\\r]*\\r)\\r*"
-	$t:="(?mi-s)(?<!//)(?<!//\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
+	// MARK: Localised closures
+	$t:="(?mi-s)(?<! // )(?<!//\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
 	This:C1470._patterns.closureInstructions:=[\
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endIf); \
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endCase); \
@@ -136,20 +143,21 @@ Class constructor()
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endForEach)\
 		]
 	
-	This:C1470._patterns.keywords:="(?mi-s)^(?:break|continue|return)"
+	This:C1470._patterns.keywords:="(?mi-s)^(?:break|continue|return|Try|Catch|End try)"
 	
-	// Mark:ternary operators
+	// MARK: Ternary operators
 	This:C1470._patterns.ternaryOperator:="(?mi-s)"\
 		+This:C1470._controls.if+"\\s\\(([^)]*)\\)\\W*(\\$.*?):=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
 		+This:C1470._controls.else+".*\\R\\s*\\2:=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
 		+This:C1470._controls.endIf
 	
-	// Mark:Choose
-	This:C1470._patterns.choose:="(?i-ms)"+Command name:C538(955)+"\\(([^;]*?);\\s*([^;]*?);\\s*([^;]*?)\\)(\\s*//.*?)?\\R"
+	// MARK: Choose
+	This:C1470._patterns.choose:="(?i-ms)"+Command name:C538(955)+"\\(([^;]*?);\\s*([^;]*?);\\s*([^;]*?)\\)(\\s* // .*?)?\\R"
 	
-	This:C1470._patterns.emptyString:="(?mi-s)(?:\\(|;)([^)#=;]*?)(#|=)\"\""  //"(?mi-s)(\\(|;)([^)#=;]*)(#|=)\"\"\\)([^$]*)"
+	// MARK: Comparisson with empty string
+	This:C1470._patterns.emptyString:="(?mi-s)(?:\\(|;)([^)#=;]+)(?<!:)(#|=)\"\""
 	
-	// Mark:Commands whose parameters must be divided into key/value lines
+	// MARK: Commands whose parameters must be divided into key/value lines
 	This:C1470._splittableCommands:=[\
 		{name: Command name:C538(1471); id: 1471}; \
 		{name: Command name:C538(1220); id: 1220}; \
@@ -159,7 +167,7 @@ Class constructor()
 		{name: Command name:C538(1093); id: 1093}\
 		]
 	
-	// Mark:Splittable commands
+	// MARK: Splittable commands
 	This:C1470._patterns.splittableCommands:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*"+kCommentMark+"[^$]*)?$"
 	
 	// Separator line is made with a comment mark and at least 5 times the same character
@@ -170,13 +178,7 @@ Class constructor()
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function beautify()
 	
-	var $line; $pattern; $replacement; $t; $beforeLine; $nextLine : Text
-	var $doAddLine; $doLineAfter; $doLineBefore; $doLineComment; $doReturn; $isClosure : Boolean
-	var $isEmptyLine; $isEnd; $severalLines; $skipLineBefore; $skipLineAfter : Boolean
-	var $i : Integer
-	var $o : Object
-	
-	ARRAY LONGINT:C221($_branchAndLoop; 0)
+	var $line; $raw : Text
 	
 	var $code : Text:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
 	
@@ -190,56 +192,77 @@ Function beautify()
 	
 	This:C1470.method:=This:C1470.before($code)
 	
-	This:C1470.split()
+	This:C1470.split(This:C1470.withSelection; 0)  // Get the raw content of lines
 	
-	For each ($line; This:C1470.lines)
+	For each ($raw; This:C1470.lines)
+		
+		$line:=This:C1470.rgx.setTarget($raw).setPattern("(?mi-s)^(\\s*)").substitute("")  // Trim leading spaces
 		
 		This:C1470.line:=$line
-		//This.multiLines:=This.isMultiline($line)
-		
-		This:C1470.previousLine:=Try(This:C1470._lines[This:C1470._lines.length-1])
+		This:C1470.previousLine:=Try(This:C1470._ouput[This:C1470._ouput.length-1])
 		This:C1470.nextLine:=Try(This:C1470.lines[This:C1470.lineIndex+1])
 		
 		This:C1470.rgx.target:=$line
 		
-		// TODO:Manage multiline comments
-		
-		//ASSERT($line#"End if   //10")
-		//ASSERT(This.lineIndex#7)
-		
 		Case of 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: (This:C1470.isCommentBlock)
+				
+				This:C1470._ouput.push($raw)
+				
+				If (Position:C15("*/"; $line)>0)  // End of multiline comment
+					
+					This:C1470.isCommentBlock:=False:C215
+					
+				End if 
+				
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.isEmpty($line))
 				
 /*
 An empty line is ignored if:
-  - The option to prevent several empty lines in a row is activated, and the previous line is empty.
-  - The close instruction grouping option is enabled, and the following line is one of them.
+- The option to prevent several empty lines in a row is activated, and the previous line is empty.
+- The close instruction grouping option is enabled, and the following line is one of them.
 */
-				
 				If (This:C1470.options.removeConsecutiveBlankLines && This:C1470.isEmpty(This:C1470.previousLine))\
 					 || (This:C1470.options.groupingClosureInstructions && ((This:C1470.isClosure(This:C1470.nextLine) || This:C1470.isEmpty(This:C1470.nextLine))))
 					
 					This:C1470.lineIndex+=1
-					continue
 					
+					continue
 					
 				Else 
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: (Position:C15("/*"; $raw)=1)
+				
+				This:C1470.isCommentBlock:=(Position:C15("*/"; $raw)=0)  // Start of multiline comment
+				
+				If (This:C1470.options.aLineOfCommentsMustBePrecededByALineBreak\
+					 && (This:C1470.lineIndex>0)\
+					 && This:C1470.isNotEmpty(This:C1470.previousLine)\
+					 && This:C1470.isNotComment(This:C1470.previousLine))
+					
+					This:C1470._ouput.push("")
+					
+				End if 
+				
+				This:C1470._ouput.push($raw)
+				
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.isComment($line))
 				
 /*
 A comment line is preceded by an empty line if:
-  - the option is enabled.
-  - this is not the first line.
-  - the preceding line is not already an empty line or a comment.
-  - it is not a closing comment for the compiler type //%X+.
+- the option is enabled.
+- this is not the first line.
+- the preceding line is not already an empty line or a comment.
+- it is not a closing comment for the compiler type //%X+.
 */
 				If (This:C1470.options.aLineOfCommentsMustBePrecededByALineBreak\
 					 && (This:C1470.lineIndex>0)\
@@ -249,7 +272,7 @@ A comment line is preceded by an empty line if:
 					 && This:C1470.isNotSeparatorLineComment($line)\
 					 && This:C1470.isNotReservedComment($line))
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
@@ -259,21 +282,21 @@ A comment line is preceded by an empty line if:
 					
 				End if 
 				
-				This:C1470._lines.push($line)
+				This:C1470._ouput.push($line)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.If).match())
 				
 				This:C1470.openLoopAndBranching(1)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Else).match())
 				
 				If (This:C1470.loopAndBranching.length>=1)\
 					 && (Abs:C99(This:C1470.loopAndBranching[This:C1470.loopAndBranching.length-1])=4)  // Case of … Else
 					
-					This:C1470.lineBeforeBranchingStructure(True:C214)
-					This:C1470._lines.push(This:C1470.options.formatComments ? This:C1470.formatComment($line) : $line)
+					This:C1470.beforeBranching(True:C214)
+					This:C1470._ouput.push(This:C1470.options.formatComments ? This:C1470.formatComment($line) : $line)
 					
 				Else 
 					
@@ -281,76 +304,74 @@ A comment line is preceded by an empty line if:
 					
 				End if 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndIf).match())
 				
 				This:C1470.closeLoopAndBranching(1)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Use).match())
 				
 				This:C1470.openLoopAndBranching(13)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndUse).match())
 				
 				This:C1470.closeLoopAndBranching(13)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.ForEach).match())
 				
 				This:C1470.openLoopAndBranching(14)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndForEach).match())
 				
 				This:C1470.closeLoopAndBranching(14)
 				
-				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.CaseOf).match())
 				
 				This:C1470.openLoopAndBranching(4)
 				
 				If (This:C1470.isNotEmpty(This:C1470.nextLine))
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._controls.caseOfItem).match())
 				
-				This:C1470.lineBeforeBranchingStructure(True:C214)
+				This:C1470.beforeBranching(True:C214)
 				
-				$line:=This:C1470.options.splitTestLines ? This:C1470.splitTestLine($line) : $line
+				$line:=This:C1470.options.splitTestss ? This:C1470.splitTests($line) : $line
 				$line:=This:C1470.options.formatComments ? This:C1470.formatComment($line) : $line
-				This:C1470._lines.push($line)
-				
+				This:C1470._ouput.push($line)
 				
 				If (This:C1470.isNotMultiline($line)\
 					 && This:C1470.isNotEmpty(This:C1470.nextLine))
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndCase).match())
 				
 				This:C1470.closeLoopAndBranching(4; True:C214)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.While).match())
 				
 				This:C1470.openLoopAndBranching(6)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndWhile).match())
 				
 				This:C1470.closeLoopAndBranching(6)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.For).match())
 				
 				If (This:C1470.options.addTheIncrementForTheLoops)\
@@ -363,62 +384,63 @@ A comment line is preceded by an empty line if:
 				
 				This:C1470.openLoopAndBranching(8)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndFor).match())
 				
 				This:C1470.closeLoopAndBranching(8)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Repeat).match())
 				
 				This:C1470.openLoopAndBranching(10)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.Until).match())
 				
 				This:C1470.closeLoopAndBranching(10)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.keywords).match())
 				
 				If ((This:C1470.lineIndex>0)\
-					 && This:C1470.isNotEmpty(This:C1470.previousLine))
+					 && This:C1470.isNotEmpty(This:C1470.previousLine)\
+					 && This:C1470.isNotComment(This:C1470.previousLine))
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
 				This:C1470.line:=This:C1470.options.formatComments ? This:C1470.formatComment(This:C1470.line) : This:C1470.line
-				This:C1470._lines.push(This:C1470.line)
+				This:C1470._ouput.push(This:C1470.line)
 				
 				If ((This:C1470.lineIndex>0)\
 					 && This:C1470.isNotEmpty(This:C1470.nextLine))
 					
-					This:C1470._lines.push("")
+					This:C1470._ouput.push("")
 					
 				End if 
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.BeginSQL).match())
 				
 				This:C1470.openLoopAndBranching()
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.EndSQL).match())
 				
 				This:C1470.closeLoopAndBranching()
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			Else 
 				
 				$line:=This:C1470.options.formatComments ? This:C1470.formatComment($line) : $line
 				$line:=This:C1470.options.splitKeyValueLines ? This:C1470.splitKeyValueLine($line) : $line
-				$line:=This:C1470.options.splitLiterals ? This:C1470.splitLiteralObject($line) : $line
-				$line:=This:C1470.options.splitLiterals ? This:C1470.splitLiteralCollection($line) : $line
+				$line:=This:C1470.options.splitLiterals ? This:C1470.splitObject($line) : $line
+				$line:=This:C1470.options.splitLiterals ? This:C1470.splitCollection($line) : $line
 				
-				This:C1470._lines.push($line)
+				This:C1470._ouput.push($line)
 				
-				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+				// ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		End case 
 		
 		This:C1470.lineIndex+=1
@@ -431,7 +453,6 @@ A comment line is preceded by an empty line if:
 Function before($code : Text) : Text
 	
 	var $pattern; $t : Text
-	var $i : Integer
 	
 	// Mark:Use var instead of (_o_)C_xxx
 	If (This:C1470.options.useVar)
@@ -477,11 +498,7 @@ Function before($code : Text) : Text
 		
 	End if 
 	
-	// Mark:Optimize comparisons to an empty string
-/*
-If (This.options.replaceComparisonsToAnEmptyStringByLengthTest)\
-&& (This.rgx.setTarget($code).setPattern(This._patterns.emptyString).match(True))
-*/
+	// MARK: Optimize comparisons to an empty string
 	If (This:C1470.options.replaceComparisonsToAnEmptyStringByLengthTest\
 		 && This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.emptyString).match())
 		
@@ -489,13 +506,8 @@ If (This.options.replaceComparisonsToAnEmptyStringByLengthTest)\
 		
 	End if 
 	
-	// Mark:Miscellaneous
-	//$code:=This.rgx.setTarget($code).setPattern("("+This._controls.if+"\\s*\\([^\\r]*\\r)\\r*").substitute("\\1")
-	//$code:=This.rgx.setTarget($code).setPattern("("+This._controls.caseOf+"[^\\r]*\\r)\\r*").substitute("\\1")
-	//$code:=This.rgx.setTarget($code).setPattern("("+This._controls.while+"\\s*\\([^\\r]*\\r)\\r*").substitute("\\1")
-	//$code:=This.rgx.setTarget($code).setPattern("("+This._controls.for+"\\s*\\([^\\r]*\\r)\\r*").substitute("\\1")
-	//$code:=This.rgx.setTarget($code).setPattern("("+This._controls.repeat+"[^\\r]*\\r)\\r*").substitute("\\1")
-	//$code:=This.rgx.setTarget($code).setPattern("\\r*(\\r"+This._controls.else+"[^\\r]*\\r)\\r*").substitute("\\1")
+	// MARK: Miscellaneous
+	// <THERE'S NOTHING LEFT TO DO AT THE MOMENT>
 	
 	return $code
 	
@@ -510,7 +522,7 @@ Function after() : Text
 		
 		var $c : Collection:=[]
 		
-		For each ($t; This:C1470._lines)
+		For each ($t; This:C1470._ouput)
 			
 			If (Length:C16($t)=0)
 				
@@ -534,16 +546,16 @@ Function after() : Text
 			End if 
 		End for each 
 		
-		This:C1470._lines:=$c
+		This:C1470._ouput:=$c
 		
 	End if 
 	
 	// MARK: Delete empty lines at the beginning of the method
 	If (This:C1470.options.removeEmptyLinesAtTheBeginOfMethod)
 		
-		While (This:C1470._lines[0]="")
+		While (This:C1470._ouput[0]="")
 			
-			This:C1470._lines:=This:C1470._lines.remove(0; 1)
+			This:C1470._ouput:=This:C1470._ouput.remove(0; 1)
 			
 		End while 
 	End if 
@@ -551,16 +563,16 @@ Function after() : Text
 	// MARK: Remove empty lines at the end of the method
 	If (This:C1470.options.removeEmptyLinesAtTheEndOfMethod)
 		
-		$indx:=This:C1470._lines.length-1
+		$indx:=This:C1470._ouput.length-1
 		
-		If (This:C1470._lines[$indx]="")
+		If (This:C1470._ouput[$indx]="")
 			
-			This:C1470._lines:=This:C1470._lines.remove($indx; 1)
+			This:C1470._ouput:=This:C1470._ouput.remove($indx; 1)
 			
 		End if 
 	End if 
 	
-	return This:C1470._lines.join("\r")
+	return This:C1470._ouput.join("\r")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function formatComment($line : Text) : Text
@@ -579,7 +591,7 @@ Function formatComment($line : Text) : Text
 	$line:=Replace string:C233($line; "fixme:"; "FIXME:")
 	
 	var $code : Text:=Substring:C12($line; 1; $start-1)
-	var $comment:=Delete string:C232($line; 1; $start-1+Length:C16(kCommentMark))
+	var $comment : Text:=Delete string:C232($line; 1; $start-1+Length:C16(kCommentMark))
 	var $c : Collection:=Split string:C1554($comment; " "; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
 	
 	If ($c.length=0)
@@ -609,8 +621,7 @@ Function formatComment($line : Text) : Text
 			// ______________________________________________________
 		: (Match regex:C1019("(?mi-s)^\\s*((?:mark|todo|fixme):-*)(.*)$"; $comment; 1; $pos; $len; *))
 			
-			var $marker : Text
-			$marker:=Substring:C12($comment; $pos{1}; $len{1})
+			var $marker : Text:=Substring:C12($comment; $pos{1}; $len{1})
 			
 			If ($marker[[1]]#" ")
 				
@@ -659,14 +670,13 @@ Function formatComment($line : Text) : Text
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isClosure($line : Text) : Boolean
 	
+	var $t : Text
+	
 	If (This:C1470.isEmpty($line))
 		
 		return 
 		
 	End if 
-	
-	
-	var $t : Text
 	
 	For each ($t; This:C1470.closures)
 		
@@ -683,73 +693,36 @@ Function isNotClosure($line : Text) : Boolean
 	return Not:C34(This:C1470.isClosure($line))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function appendLoopAndBranching($id : Integer)
+Function openLoopAndBranching($id : Integer)
 	
-	This:C1470.loopAndBranching.push($id)
+	This:C1470.beforeBranching()
 	
-	If ($id=4)  // Case of
-		
-		This:C1470.caseOfLevel+=1
-		This:C1470.caseOfLevel:=This:C1470.caseOfLevel>This:C1470.numberOfSeparators ? -1 : This:C1470.caseOfLevel
-		
-	End if 
+	This:C1470.line:=This:C1470.options.splitTestss ? This:C1470.splitTests(This:C1470.line) : This:C1470.line
+	This:C1470.line:=This:C1470.options.formatComments ? This:C1470.formatComment(This:C1470.line) : This:C1470.line
 	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function removeLoopAndBranching($id : Integer; $new : Integer)
+	This:C1470._ouput.push(This:C1470.line)
 	
-	If (This:C1470.loopAndBranching.length<1)
-		
-		return 
-		
-	End if 
+	This:C1470.afterBranching()
 	
-	If (Abs:C99(This:C1470.loopAndBranching[This:C1470.loopAndBranching.length-1])=$id)
+	If ($id>0)
 		
-		This:C1470.loopAndBranching.pop()
+		This:C1470.loopAndBranching.push($id)
 		
 		If ($id=4)  // Case of
 			
-			This:C1470.caseOfLevel-=1
-			This:C1470.caseOfLevel:=This:C1470.caseOfLevel<0 ? 0 : This:C1470.caseOfLevel
+			This:C1470.caseOfLevel+=1
+			This:C1470.caseOfLevel:=This:C1470.caseOfLevel>This:C1470.numberOfSeparators ? -1 : This:C1470.caseOfLevel
 			
 		End if 
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function openLoopAndBranching($id : Integer)
-	
-	This:C1470.lineBeforeBranchingStructure()
-	
-	This:C1470.line:=This:C1470.options.splitTestLines ? This:C1470.splitTestLine(This:C1470.line) : This:C1470.line
-	This:C1470.line:=This:C1470.options.formatComments ? This:C1470.formatComment(This:C1470.line) : This:C1470.line
-	
-	This:C1470._lines.push(This:C1470.line)
-	
-	This:C1470.lineAfterBranchingStructure()
-	
-	If ($id>0)
-		
-		This:C1470.appendLoopAndBranching($id)
-		
-	End if 
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function lineAfterBranchingStructure()
-	
-	If (This:C1470.isNotEmpty(This:C1470.nextLine)\
-		 && This:C1470.isNotMultiline(This:C1470.line))
-		
-		This:C1470._lines.push("")
-		
-	End if 
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function closeLoopAndBranching($id : Integer; $caseOf : Boolean)
 	
-	This:C1470.lineBeforeClosingStructure($caseOf)
+	This:C1470.beforeClosing($caseOf)
 	
 	This:C1470.line:=This:C1470.options.formatComments ? This:C1470.formatComment(This:C1470.line) : This:C1470.line
-	This:C1470._lines.push(This:C1470.line)
+	This:C1470._ouput.push(This:C1470.line)
 	
 /*A line break after is mandatory:
 - The grouping closing instruction is disabled
@@ -763,22 +736,37 @@ or
 		 && This:C1470.isNotEmpty(This:C1470.nextLine)\
 		 && This:C1470.isNotReservedComment(This:C1470.nextLine))
 		
-		This:C1470._lines.push("")
+		This:C1470._ouput.push("")
 		
 	End if 
 	
 	If ($id>0)
 		
-		This:C1470.removeLoopAndBranching($id)
+		If (This:C1470.loopAndBranching.length<1)
+			
+			return 
+			
+		End if 
 		
+		If (Abs:C99(This:C1470.loopAndBranching[This:C1470.loopAndBranching.length-1])=$id)
+			
+			This:C1470.loopAndBranching.pop()
+			
+			If ($id=4)  // Case of
+				
+				This:C1470.caseOfLevel-=1
+				This:C1470.caseOfLevel:=This:C1470.caseOfLevel<0 ? 0 : This:C1470.caseOfLevel
+				
+			End if 
+		End if 
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function lineBeforeBranchingStructure($caseOf : Boolean)
+Function beforeBranching($caseOf : Boolean)
 	
 	If (This:C1470.lineIndex=0)
 		
-		return   // Not for the first line
+		//
 		
 	End if 
 	
@@ -790,16 +778,15 @@ Function lineBeforeBranchingStructure($caseOf : Boolean)
 			If (This:C1470.isNotEmpty(This:C1470.previousLine))\
 				 || (This:C1470.isComment(This:C1470.previousLine))
 				
-				This:C1470._lines.push("")
+				This:C1470._ouput.push("")
 				
 			End if 
 			
 			If (This:C1470.caseOfLevel>=0)
 				
-				This:C1470._lines.push(kCommentMark+(This:C1470.separators[This:C1470.caseOfLevel]*(20)))
+				This:C1470._ouput.push(kCommentMark+(This:C1470.separators[This:C1470.caseOfLevel]*(20)))
 				
 			End if 
-			
 		End if 
 		
 		return 
@@ -814,20 +801,29 @@ A line break is mandatory before an opening instruction:
 */
 	If (Not:C34(This:C1470.options.lineBreakBeforeBranchingStructures))
 		
-		return   // The option is disabled
+		return 
 		
 	End if 
-	
 	
 	If (This:C1470.isNotEmpty(This:C1470.previousLine)\
 		 && This:C1470.isNotComment(This:C1470.previousLine))
 		
-		This:C1470._lines.push("")
+		This:C1470._ouput.push("")
 		
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function lineBeforeClosingStructure($caseOf : Boolean)
+Function afterBranching()
+	
+	If (This:C1470.isNotEmpty(This:C1470.nextLine)\
+		 && This:C1470.isNotMultiline(This:C1470.line))
+		
+		This:C1470._ouput.push("")
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function beforeClosing($caseOf : Boolean)
 	
 	If (This:C1470.lineIndex=0)
 		
@@ -843,13 +839,13 @@ Function lineBeforeClosingStructure($caseOf : Boolean)
 			If (This:C1470.isNotEmpty(This:C1470.previousLine))\
 				 || (This:C1470.isComment(This:C1470.previousLine))
 				
-				This:C1470._lines.push("")
+				This:C1470._ouput.push("")
 				
 			End if 
 			
 			If (This:C1470.caseOfLevel>=0)
 				
-				This:C1470._lines.push(kCommentMark+(This:C1470.separators[This:C1470.caseOfLevel]*(20)))
+				This:C1470._ouput.push(kCommentMark+(This:C1470.separators[This:C1470.caseOfLevel]*(20)))
 				
 			End if 
 		End if 
@@ -877,7 +873,7 @@ or
 		 && This:C1470.isNotSeparatorLineComment(This:C1470.previousLine)\
 		 && This:C1470.isNotClosure(This:C1470.previousLine))
 		
-		This:C1470._lines.push("")
+		This:C1470._ouput.push("")
 		
 		return 
 		
@@ -887,25 +883,24 @@ or
 		 && This:C1470.isNotEmpty(This:C1470.previousLine)\
 		 && This:C1470.isNotSeparatorLineComment(This:C1470.previousLine))
 		
-		This:C1470._lines.push("")
+		This:C1470._ouput.push("")
 		
 		return 
 		
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function splitTestLine($line : Text) : Text
+Function splitTests($line : Text) : Text
 	
 	return This:C1470.rgx.setTarget($line).setPattern("(?mi-s)(\\)\\s*(&{1,2}|\\|{1,2})\\s*\\()").substitute(")\\\r\\\r\\2(")
 	
-	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function splitLiteralObject($line : Text) : Text
+Function splitObject($line : Text) : Text
 	
 	return This:C1470._splitLiterals($line; "{}")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function splitLiteralCollection($line : Text) : Text
+Function splitCollection($line : Text) : Text
 	
 	return This:C1470._splitLiterals($line; "[]")
 	
@@ -947,11 +942,17 @@ Function _splitLiterals($line : Text; $dlmt : Text) : Text
 	$c[0]:=Delete string:C232($c[0]; Length:C16($c[0]); 1)
 	$c:=Split string:C1554($c[0]; ";"; sk trim spaces:K86:2)
 	
+	If ($c.length<=2)
+		
+		return $line
+		
+	End if 
+	
 	var $t : Text:=$c.pop()
 	var $out : Collection:=$c.map(Formula:C1597($1.value+";\\"))
 	$out.push($t)
 	
-	return $var+":="+$dlmt[[1]]+"\\\r"+$out.join("\r")+"\\\r"+$dlmt[[2]]+(Length:C16($comment)>0 ? kCommentMark+$comment : "")
+	return $var+":="+$dlmt[[1]]+"\\\r"+$out.join("\r")+$dlmt[[2]]+(Length:C16($comment)>0 ? kCommentMark+$comment : "")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function splitKeyValueLine($line : Text) : Text
@@ -976,7 +977,9 @@ Function splitKeyValueLine($line : Text) : Text
 Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 	
 	var $prefix; $splitted; $t : Text
-	var $closingParenthesisPosition; $firstSemicolonPosition; $nextSemicolonPosition; $openingParenthesisPosition; $pos : Integer
+	var $closingParenthesisPos; $firstSemicolonPos; $nextSemicolonPos; $openingParenthesisPos; $pos : Integer
+	
+	// TODO: Should now be done using collections
 	
 	While ($code[[1]]="\r")
 		
@@ -996,13 +999,13 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 			$splitted+="\\\r"
 			
 			$pos:=Position:C15(";"; $code)
-			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
+			$openingParenthesisPos:=Position:C15("("; $code)  // Open parenthesis
 			
-			If ($openingParenthesisPosition>0)\
-				 && ($openingParenthesisPosition<$pos)
+			If ($openingParenthesisPos>0)\
+				 && ($openingParenthesisPos<$pos)
 				
-				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
-				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
+				$closingParenthesisPos:=Position:C15(")"; $code; $openingParenthesisPos+1)
+				$pos:=Position:C15(";"; $code; $closingParenthesisPos+1)
 				
 			End if 
 			
@@ -1050,13 +1053,13 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 			$code:=Delete string:C232($code; 1; Length:C16($splitted)-Length:C16($prefix))
 			
 			$pos:=Position:C15(";"; $code)
-			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
+			$openingParenthesisPos:=Position:C15("("; $code)  // Open parenthesis
 			
-			If ($openingParenthesisPosition>0)\
-				 && ($openingParenthesisPosition<$pos)
+			If ($openingParenthesisPos>0)\
+				 && ($openingParenthesisPos<$pos)
 				
-				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
-				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
+				$closingParenthesisPos:=Position:C15(")"; $code; $openingParenthesisPos+1)
+				$pos:=Position:C15(";"; $code; $closingParenthesisPos+1)
 				
 			End if 
 			
@@ -1078,13 +1081,13 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 			$code:=Delete string:C232($code; 1; Length:C16($splitted))
 			
 			$pos:=Position:C15(";"; $code)
-			$openingParenthesisPosition:=Position:C15("("; $code)  // Open parenthesis
+			$openingParenthesisPos:=Position:C15("("; $code)  // Open parenthesis
 			
-			If ($openingParenthesisPosition>0)\
-				 && ($openingParenthesisPosition<$pos)
+			If ($openingParenthesisPos>0)\
+				 && ($openingParenthesisPos<$pos)
 				
-				$closingParenthesisPosition:=Position:C15(")"; $code; $openingParenthesisPosition+1)
-				$pos:=Position:C15(";"; $code; $closingParenthesisPosition+1)
+				$closingParenthesisPos:=Position:C15(")"; $code; $openingParenthesisPos+1)
+				$pos:=Position:C15(";"; $code; $closingParenthesisPos+1)
 				
 			End if 
 			
@@ -1103,7 +1106,6 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 			
 			If (Length:C16($code)>0)\
 				 && ($code[[1]]="*")
-				
 				
 				$splitted+="*;"
 				$code:=Substring:C12($code; 3)
@@ -1135,34 +1137,35 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 		Else 
 			
 			// Oops
+			return $code
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	End case 
 	
 	// Go to the first semicolon
-	$firstSemicolonPosition:=This:C1470._nextSemicolon($code)
+	$firstSemicolonPos:=This:C1470._nextSemicolon($code)
 	
-	If ($firstSemicolonPosition>0)
+	If ($firstSemicolonPos>0)
 		
-		$splitted+=Substring:C12($code; 1; $firstSemicolonPosition)+"\\\r"
-		$code:=Substring:C12($code; $firstSemicolonPosition+1)
+		$splitted+=Substring:C12($code; 1; $firstSemicolonPos)+"\\\r"
+		$code:=Substring:C12($code; $firstSemicolonPos+1)
 		
 		Repeat 
 			
 			// Go to the second semicolon
-			$nextSemicolonPosition:=This:C1470._nextSemicolon($code)
+			$nextSemicolonPos:=This:C1470._nextSemicolon($code)
 			
-			If ($nextSemicolonPosition>0)
+			If ($nextSemicolonPos>0)
 				
-				$splitted+=Substring:C12($code; 1; $nextSemicolonPosition)+"\\\r"
-				$code:=Substring:C12($code; $nextSemicolonPosition+1)
+				$splitted+=Substring:C12($code; 1; $nextSemicolonPos)+"\\\r"
+				$code:=Substring:C12($code; $nextSemicolonPos+1)
 				
 			Else 
 				
 				$splitted+=$code
 				
 			End if 
-		Until ($nextSemicolonPosition=0)
+		Until ($nextSemicolonPos=0)
 		
 	Else 
 		
@@ -1175,7 +1178,7 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _nextSemicolon($code : Text)->$position : Integer
 	
-	var $closingParenthesisPosition; $firstOne; $openParenthesisPosition : Integer
+	var $closingParenthesisPos; $firstOne; $openParenthesisPosition : Integer
 	
 	// First semicolon
 	$firstOne:=Position:C15(";"; $code)
@@ -1193,13 +1196,13 @@ Function _nextSemicolon($code : Text)->$position : Integer
 		Repeat 
 			
 			// Closing parenthesis
-			$closingParenthesisPosition:=Position:C15(")"; $code; $openParenthesisPosition+1)
+			$closingParenthesisPos:=Position:C15(")"; $code; $openParenthesisPosition+1)
 			
 			// Next semicolon
-			$position:=Position:C15(";"; $code; $closingParenthesisPosition+1)
+			$position:=Position:C15(";"; $code; $closingParenthesisPos+1)
 			
 			// Next opening parenthesis
-			$openParenthesisPosition:=Position:C15("("; $code; $closingParenthesisPosition+1)
+			$openParenthesisPosition:=Position:C15("("; $code; $closingParenthesisPos+1)
 			
 		Until ($openParenthesisPosition>$position)\
 			 | ($openParenthesisPosition=0)

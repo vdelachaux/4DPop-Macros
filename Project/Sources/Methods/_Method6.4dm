@@ -1,33 +1,19 @@
 //%attributes = {}
-If (True:C214)  // True
-	
-	// MARK:-
-	If (True:C214)  // True
-		
-		// Comment 1
-		
-		If (True:C214)  // True
-			
-			// Comment 2
-		End if 
-		
-		
-	Else 
-		
-		
-		// Comment 3
-	End if 
-End if 
+var $count; $i : Integer
+var $o : Object
+
+$o:=New object:C1471(\
+"property1"; 1; \
+"property2"; 2)
 
 
-// Comment 4
+/*
+         THIS IS A COMMENT BLOC
+                                                           */
+$count:=$count*$i
 
-If (True:C214)
-	
-	If (False:C215)
-		
-		If (True:C214 & False:C215)
-			// Do somemething
-		End if 
-	End if 
-End if 
+/*          THIS IS NOT A COMMENT BLOC                     */
+
+/*THIS IS NOT A COMMENT BLOC*/$count:=$count*$i
+
+$count:=$count*$i/*THIS IS NOT A COMMENT BLOC*/

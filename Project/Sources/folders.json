@@ -14,6 +14,9 @@
 		]
 	},
 	"# 🚧 DEV": {
+		"groups": [
+			"TESTS"
+		],
 		"methods": [
 			"0_DOCUMENTATION",
 			"00_convertComments",
@@ -52,45 +55,6 @@
 		]
 	},
 	"🛠️ Tools": {},
-	"00_dev": {
-		"methods": [
-			"__test",
-			"_TEST",
-			"_test_choose",
-			"00_test_Dot_Notation",
-			"beautifier_test_1",
-			"beautifier_test_10",
-			"beautifier_test_11",
-			"beautifier_test_12",
-			"beautifier_test_13",
-			"beautifier_test_14",
-			"beautifier_test_15",
-			"beautifier_test_16",
-			"beautifier_test_17",
-			"beautifier_test_2",
-			"beautifier_test_3",
-			"beautifier_test_4",
-			"beautifier_test_5",
-			"beautifier_test_6",
-			"beautifier_test_7",
-			"beautifier_test_8",
-			"beautifier_test_9",
-			"beutifier_OB",
-			"createFR2USMacro",
-			"DECLARATION_Formula",
-			"DECLARATION_Test",
-			"DECLARE",
-			"literals",
-			"test_replace_o",
-			"TrueMethod"
-		],
-		"forms": [
-			"TEST"
-		],
-		"classes": [
-			"test_"
-		]
-	},
 	"4️⃣ 4DPop": {
 		"methods": [
 			"_4DPopMacros",
@@ -185,6 +149,44 @@
 		"methods": [
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS"
+		]
+	},
+	"TESTS": {
+		"methods": [
+			"__test",
+			"_TEST",
+			"_test_choose",
+			"00_test_Dot_Notation",
+			"BEAUTIFIER_TEST",
+			"beautifier_test_11",
+			"beautifier_test_12",
+			"beautifier_test_13",
+			"beautifier_test_14",
+			"beautifier_test_15",
+			"beautifier_test_16",
+			"beautifier_test_17",
+			"beautifier_test_2",
+			"beautifier_test_3",
+			"beautifier_test_4",
+			"beautifier_test_5",
+			"beautifier_test_6",
+			"beautifier_test_7",
+			"beautifier_test_8",
+			"beautifier_test_9",
+			"beutifier_OB",
+			"createFR2USMacro",
+			"DECLARATION_Formula",
+			"DECLARATION_TEST",
+			"DECLARE",
+			"literals",
+			"test_replace_o",
+			"TrueMethod"
+		],
+		"forms": [
+			"TEST"
+		],
+		"classes": [
+			"test_"
 		]
 	},
 	"Tools": {
