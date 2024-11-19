@@ -1,137 +1,122 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-  // ----------------------------------------------------
-  // Method : Private_Txt_Get_Version
-  // Created 06/05/06 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
-C_TEXT:C284($0)
-C_TEXT:C284($1)
+// ----------------------------------------------------
+// Method : Private_Txt_Get_Version
+// Created 06/05/06 by Vincent de Lachaux
+// ----------------------------------------------------
+#DECLARE($EntryPoint : Text) : Text
 
-C_BOOLEAN:C305($Boo_OK)
-C_TEXT:C284($Txt_Buffer;$Txt_EntryPoint;$Txt_Result;$a16_Node;$a16_Root)
+var $Node; $Root; $Buffer; $Result : Text
+var $OK : Boolean
 
-If (False:C215)
-	C_TEXT:C284(Get_Version ;$0)
-	C_TEXT:C284(Get_Version ;$1)
-End if 
+$EntryPoint:=Count parameters:C259=0 ? "full" : $EntryPoint  // Action
 
-$Txt_EntryPoint:="full"
+$Root:=DOM Parse XML source:C719(Storage:C1525.macros.preferences.platformPath)
+$OK:=(OK=1)
 
-If (Count parameters:C259>0)
+If ($OK)
 	
-	$Txt_EntryPoint:=$1  //Action
+	$Node:=DOM Find XML element:C864($Root; "/M_4DPop/version/")
+	$OK:=(OK=1)
 	
-End if 
-
-$a16_Root:=DOM Parse XML source:C719(Storage:C1525.macros.preferences.platformPath)
-$Boo_OK:=(OK=1)
-
-If ($Boo_OK)
-	
-	$a16_Node:=DOM Find XML element:C864($a16_Root;"/M_4DPop/version/")
-	$Boo_OK:=(OK=1)
-	
-	If ($Boo_OK & (($Txt_EntryPoint="major")\
-		 | ($Txt_EntryPoint="full")))
+	If ($OK & (($EntryPoint="major")\
+		 | ($EntryPoint="full")))
 		
-		$a16_Node:=DOM Find XML element:C864($a16_Root;"/M_4DPop/version/major/")
-		$Boo_OK:=(OK=1)
+		$Node:=DOM Find XML element:C864($Root; "/M_4DPop/version/major/")
+		$OK:=(OK=1)
 		
-		If ($Boo_OK)
+		If ($OK)
 			
-			DOM GET XML ELEMENT VALUE:C731($a16_Node;$Txt_Buffer)
-			$Boo_OK:=(OK=1)
+			DOM GET XML ELEMENT VALUE:C731($Node; $Buffer)
+			$OK:=(OK=1)
 			
-			If ($Boo_OK)
+			If ($OK)
 				
-				$Txt_Result:=$Txt_Buffer
+				$Result:=$Buffer
 				
 			End if 
 		End if 
 	End if 
 	
-	If ($Boo_OK & (($Txt_EntryPoint="minor")\
-		 | ($Txt_EntryPoint="full")))
+	If ($OK & (($EntryPoint="minor")\
+		 | ($EntryPoint="full")))
 		
-		$a16_Node:=DOM Find XML element:C864($a16_Root;"/M_4DPop/version/minor/")
-		$Boo_OK:=(OK=1)
+		$Node:=DOM Find XML element:C864($Root; "/M_4DPop/version/minor/")
+		$OK:=(OK=1)
 		
-		If ($Boo_OK)
+		If ($OK)
 			
-			DOM GET XML ELEMENT VALUE:C731($a16_Node;$Txt_Buffer)
-			$Boo_OK:=(OK=1)
+			DOM GET XML ELEMENT VALUE:C731($Node; $Buffer)
+			$OK:=(OK=1)
 			
-			If ($Boo_OK)
+			If ($OK)
 				
-				If ($Txt_EntryPoint="Full")
+				If ($EntryPoint="Full")
 					
-					If (Num:C11($Txt_Buffer)#0)
+					If (Num:C11($Buffer)#0)
 						
-						$Txt_Result:=$Txt_Result+"."+$Txt_Buffer
+						$Result+="."+$Buffer
 						
 					End if 
 					
 				Else 
 					
-					$Txt_Result:=$Txt_Buffer
+					$Result:=$Buffer
 					
 				End if 
 			End if 
 		End if 
 	End if 
 	
-	If ($Boo_OK & (($Txt_EntryPoint="release")\
-		 | ($Txt_EntryPoint="full")))
+	If ($OK & (($EntryPoint="release")\
+		 | ($EntryPoint="full")))
 		
-		$a16_Node:=DOM Find XML element:C864($a16_Root;"/M_4DPop/version/release/")
-		$Boo_OK:=(OK=1)
+		$Node:=DOM Find XML element:C864($Root; "/M_4DPop/version/release/")
+		$OK:=(OK=1)
 		
-		If ($Boo_OK)
+		If ($OK)
 			
-			DOM GET XML ELEMENT VALUE:C731($a16_Node;$Txt_Buffer)
-			$Boo_OK:=(OK=1)
+			DOM GET XML ELEMENT VALUE:C731($Node; $Buffer)
+			$OK:=(OK=1)
 			
-			If ($Boo_OK)
+			If ($OK)
 				
-				If ($Txt_EntryPoint="Full")
+				If ($EntryPoint="Full")
 					
-					If (Num:C11($Txt_Buffer)#0)
+					If (Num:C11($Buffer)#0)
 						
-						$Txt_Result:=$Txt_Result+"."+$Txt_Buffer
+						$Result+="."+$Buffer
 						
 					End if 
 					
 				Else 
 					
-					$Txt_Result:=$Txt_Buffer
+					$Result:=$Buffer
 					
 				End if 
 			End if 
 		End if 
 	End if 
 	
-	If ($Boo_OK & ($Txt_EntryPoint="date"))
+	If ($OK & ($EntryPoint="date"))
 		
-		$a16_Node:=DOM Find XML element:C864($a16_Root;"/M_4DPop/version/date/")
-		$Boo_OK:=(OK=1)
+		$Node:=DOM Find XML element:C864($Root; "/M_4DPop/version/date/")
+		$OK:=(OK=1)
 		
-		If ($Boo_OK)
+		If ($OK)
 			
-			DOM GET XML ELEMENT VALUE:C731($a16_Node;$Txt_Buffer)
-			$Boo_OK:=(OK=1)
+			DOM GET XML ELEMENT VALUE:C731($Node; $Buffer)
+			$OK:=(OK=1)
 			
-			If ($Boo_OK)
+			If ($OK)
 				
-				$Txt_Result:=$Txt_Buffer
+				$Result:=$Buffer
 				
 			End if 
 		End if 
 	End if 
 	
-	DOM CLOSE XML:C722($a16_Root)
+	DOM CLOSE XML:C722($Root)
 	
 End if 
 
-$0:=$Txt_Result
+return $Result

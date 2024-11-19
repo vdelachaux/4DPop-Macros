@@ -10,10 +10,8 @@
 #DECLARE($action : Text; $text : Text; $title : Text;  ...  : Pointer)
 
 var $t : Text
-var $bottom; $height; $i; $left; $pos; $process : Integer
-var $right; $size; $tab; $top; $width; $winRef : Integer
-var $o : Object
-var $c : Collection
+var $bottom; $height; $i; $left; $pos; $right : Integer
+var $size; $tab; $top; $width; $winRef : Integer
 
 If (Count parameters:C259>=1)
 	
@@ -36,23 +34,24 @@ If (Count parameters:C259>=1)
 	
 End if 
 
-var $macro : cs:C1710.macro:=cs:C1710.macro.new()
+var $mcro : cs:C1710.macro:=cs:C1710.macro.new()
 var $success : Boolean:=True:C214
 
-If ($macro.macroCall)  // Install menu bar to allow Copy - Paste
+If ($mcro.macroCall)
 	
-	cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
+	// MARK: Install menu bar to allow Copy - Paste
+	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 	
 End if 
 
 Case of 
 		
-		//______________________________________________________
-	: (OB Instance of:C1731($macro[$action]; 4D:C1709.Function))
+		// ______________________________________________________
+	: (OB Instance of:C1731($mcro[$action]; 4D:C1709.Function))
 		
-		$macro[$action]()
+		$mcro[$action]()
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="upperCase")\
 		 | ($action="lowerCase")\
 		 | ($action="string_list")\
@@ -78,7 +77,7 @@ Case of
 		
 		ALERT:C41("OBSOLETE ACTION\rNo longer available or included in 4D")
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="_paste_as_string")\
 		 | ($action="_paste_in_string")\
 		 | ($action="paste_html")\
@@ -89,26 +88,26 @@ Case of
 		 | ($action="convert_to_utf8")\
 		 | ($action="convert_to_html")  // [=>] moved to SpecialPaste
 		
-		$macro.SpecialPaste()
+		$mcro.SpecialPaste()
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="4d_folder")  // • Open "Macro v2" folder in the current 4D folder
 		
-		$o:=Folder:C1567(fk user preferences folder:K87:10).folder("Macros v2")
-		$o.create()
-		SHOW ON DISK:C922($o.platformPath; *)
+		var $folder : Object:=Folder:C1567(fk user preferences folder:K87:10).folder("Macros v2")
+		$folder.create()
+		SHOW ON DISK:C922($folder.platformPath; *)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="method-export")  // #10-2-2016 - export the method
 		
 		METHODS("export"; $text)
 		
-		//______________________________________________________
-	: ($action="method-new")  //#v14 Create a method with the selection
+		// ______________________________________________________
+	: ($action="method-new")  // #v14 Create a method with the selection
 		
-		METHODS("new"; $macro.highlighted)
+		METHODS("new"; $mcro.highlighted)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="method-comments")  // Edit method's comments
 		
 		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
@@ -121,13 +120,13 @@ Case of
 			
 		End if 
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="method-list")  // Display a hierarchical methods' menu
 		
 		METHODS("list")
 		
-		//______________________________________________________
-	: ($action="method-attributes")  //#v13 Set methodes attributes
+		// ______________________________________________________
+	: ($action="method-attributes")  // #v13 Set methodes attributes
 		
 		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
 			
@@ -139,23 +138,24 @@ Case of
 			
 		End if 
 		
-		//______________________________________________________
-	: ($action="3D_button")  //#v12 Rapid 3D button génération
+		// ______________________________________________________
+	: ($action="3D_button")  // #v12 Rapid 3D button génération
 		
 		$winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		DIALOG:C40("CREATE_BUTTON")
 		CLOSE WINDOW:C154
-		//______________________________________________________
+		
+		// ______________________________________________________
 	: ($action="edit_comment")  // • Edit comments
 		
 		COMMENTS("edit")
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="about")
 		
-		If ($macro.macroCall)
+		If ($mcro.macroCall)
 			
-			$process:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $text)
+			var $process : Integer:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $text)
 			
 		Else 
 			
@@ -163,7 +163,7 @@ Case of
 			
 		End if 
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="_display_list@")
 		
 		$size:=Size of array:C274(<>tTxt_Labels)
@@ -219,7 +219,7 @@ Case of
 						// .....................................................
 					: ($text="str")
 						
-						$t:=$macro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
+						$t:=$mcro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
 					: ($text="STR#")
@@ -236,7 +236,7 @@ Case of
 						// .....................................................
 					Else 
 						
-						$t:=Choose:C955(Macintosh option down:C545 | Windows Alt down:C563; <>tTxt_Comments{<>tTxt_Labels}; <>tTxt_Labels{<>tTxt_Labels})
+						$t:=Macintosh option down:C545 | Windows Alt down:C563 ? <>tTxt_Comments{<>tTxt_Labels} : <>tTxt_Labels{<>tTxt_Labels}
 						$t:=Replace string:C233($text+"%"+$text; "%"; $t)
 						
 						// .....................................................
@@ -256,23 +256,23 @@ Case of
 			
 		End if 
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="_se_Placer_au_Debut")
 		
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
 		SET MACRO PARAMETER:C998(Full method text:K5:17; kCaret+$t)
 		
-		//______________________________________________________
-	: (Length:C16($macro.method)=0)  // ******************************** All the macros below need a method *********************************
+		// MARK:- All the macros below need a method
+	: (Length:C16($mcro.method)=0)
 		
 		$success:=False:C215
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
 		
-		DOT_NOTATION($macro.highlighted)
+		DOT_NOTATION($mcro.highlighted)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="locals_list")  // • List of local variables
 		
 		ARRAY TEXT:C222(<>tTxt_Labels; 0x0000)
@@ -287,37 +287,38 @@ Case of
 				
 			Else 
 				
-				<>Txt_Title:=Get localized string:C991("LocalVariables")
+				<>Txt_Title:=Localized string:C991("LocalVariables")
 				_4DPop_MACROS("_display_list_not_sorted")
 				
 			End if 
 		End if 
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="Keywords")  // [IN WORKS] Keywords list
 		
 		// (method, commands, variables and more)
-		//______________________________________________________
+		
+		// ______________________________________________________
 	: ($action="Comment_method")  // [IN WORKS]
 		
-		// Create a standard comment for the method according to the declaration.
+		// TODO: Create a standard comment for the method according to the declaration.
 		// This comment could be past in the comment part of the explorer
 		
-		//______________________________________________________
-	: (Length:C16($macro.highlighted)=0)  // ******************************* All the macros below need a selection *******************************
+		// MARK:- All the macros below need a selection
+	: (Length:C16($mcro.highlighted)=0)
 		
 		$success:=False:C215
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="copyWithoutIndentation")
 		
-		$c:=Split string:C1554($macro.highlighted; "\r")
+		var $c : Collection:=Split string:C1554($mcro.highlighted; "\r")
 		
 		$t:=$c[0]
 		
 		While ($t[[1]]="\t")
 			
-			$tab:=$tab+1
+			$tab+=1
 			$t:=Delete string:C232($t; 1; 1)
 			
 		End while 
@@ -334,13 +335,13 @@ Case of
 		$t:=$c.join("\r")
 		SET TEXT TO PASTEBOARD:C523($t)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="Asserted")  // #24-8-2017 - Conditional assertion
 		
-		$t:=Command name:C538(1132)+"("+$macro.highlighted+";\""+kCaret+"\")"
+		$t:=Command name:C538(1132)+"("+$mcro.highlighted+";\""+kCaret+"\")"
 		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $t)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="compiler_directive")  // Add compiler directive around the highlighted text
 		
 		$t:=Request:C163("Warning reference:"; "xxx.x")
@@ -349,74 +350,52 @@ Case of
 			 && (Length:C16($t)>0)\
 			 && ($t="@.@")
 			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "    // %W-"+$t+"\r"+$mcro.highlighted+"\r//%W+"+$t)
 			
 		End if 
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="googleSearch")
 		
-		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
+		OPEN URL:C673("www.google.fr/search?q="+$mcro.highlighted)
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="comment_current_level")  // Comments the first and the last line of a logic block
 		
 		COMMENTS("bloc")
 		
-		//______________________________________________________
-	: ($action="convert_hexa")  // • Change the selection by Hexadecimal
-		
-		$success:=_o_isNumeric($macro.highlighted)
-		
-		If ($success)
-			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(Num:C11($macro.highlighted); "&x")+kCaret)
-			
-		End if 
-		
-		//______________________________________________________
-	: ($action="convert_decimal")  // • Change the selection by Decimal
-		
-		$success:=($macro.highlighted="0x@")
-		
-		If ($success)
-			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; String:C10(str_gLon_Hex_To_Long($macro.highlighted))+kCaret)
-			
-		End if 
-		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="invert_expression")  // Reverse expression
 		
 		INVERT_EXPRESSION
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="convert_to_execute")  // EXECUTER METHODE [New v13]
 		
 		CODE_TO_EXECUTE
 		
-		//______________________________________________________
+		// ______________________________________________________
 	: ($action="convert_to_formula")  // EXECUTER FORMULE
 		
 		CODE_TO_EXECUTE_FORMULA
 		
-		//______________________________________________________
+		// ______________________________________________________
 	Else 
 		
 		$success:=False:C215
 		
-		//______________________________________________________
+		// ______________________________________________________
 End case 
 
 If (Not:C34($success))\
- & ($action#"_@")  //error
+ & ($action#"_@")  // Error
 	
 	BEEP:C151
 	
 End if 
 
-If ($macro.macroCall)
+If ($mcro.macroCall)
 	
-	//
+	// Something to do?
 	
 End if 

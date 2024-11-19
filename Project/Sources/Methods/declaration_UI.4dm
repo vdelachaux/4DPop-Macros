@@ -1,12 +1,6 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
 #DECLARE($entryPoint : Text; $data : Object)->$meta : Object
 
-If (False:C215)
-	C_TEXT:C284(declaration_UI; $1)
-	C_OBJECT:C1216(declaration_UI; $2)
-	C_OBJECT:C1216(declaration_UI; $0)
-End if 
-
 var $t : Text
 var $bottom; $height; $left; $right; $top; $width : Integer
 var $o : Object
@@ -121,10 +115,12 @@ Case of
 				
 			End if 
 			
-			Form:C1466.array.enable(Not:C34(Bool:C1537($o.parameter)) & (Form:C1466.$notforArray.indexOf(Form:C1466.types[$o.type].name)=-1))
+			If ($o.type#Null:C1517)
+				Form:C1466.array.enable(Not:C34(Bool:C1537($o.parameter)) & (Form:C1466._notforArray.indexOf(Form:C1466.types[$o.type].name)=-1))
+			End if 
 			Form:C1466.array.setValue(Bool:C1537($o.array))
 			
-			For each ($t; Form:C1466.$notforArray)
+			For each ($t; Form:C1466._notforArray)
 				
 				OBJECT SET ENABLED:C1123(*; $t; Not:C34(Bool:C1537($o.array)))
 				

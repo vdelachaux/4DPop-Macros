@@ -1,6 +1,6 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($pathname)
-C_OBJECT:C1216($src)
+var $pathname : Text
+var $src : Object
 
 If (Shift down:C543)
 	

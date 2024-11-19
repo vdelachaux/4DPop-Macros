@@ -1,5 +1,12 @@
 Class extends preferences
 
+property windowRef : Integer
+property pages : Collection:=["beautifier"; "declarations"]
+property page : Integer:=1
+property file : 4D:C1709.File
+property settings : Object
+property beautifier : Collection
+
 Class constructor($page : Text)
 	
 	var $indx : Integer
@@ -7,15 +14,12 @@ Class constructor($page : Text)
 	Super:C1705()
 	
 	// Install menu bar to allow Copy - Paste
-	cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
+	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 	
 	// Display the settings dialog box
 	This:C1470.windowRef:=Open form window:C675("SETTINGS"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 	
 	This:C1470.loadSettings()
-	
-	This:C1470.pages:=New collection:C1472("beautifier"; "declarations")
-	This:C1470.page:=1
 	
 	If (Count parameters:C259>=1)
 		
@@ -69,13 +73,30 @@ Function loadSettings()
 	
 	This:C1470.settings:=JSON Parse:C1218(This:C1470.file.getText())
 	
+	This:C1470.settings:=This:C1470.settings || {}
+	This:C1470.settings.beautifier:=This:C1470.settings.beautifier || {}
 	
-	// Format comments
-	If (This:C1470.settings.beautifier.formatComments=Null:C1517)
+	For each ($key; [\
+		"replaceDeprecatedCommand"; \
+		"removeConsecutiveBlankLines"; \
+		"removeEmptyLinesAtTheBeginOfMethod"; \
+		"removeEmptyLinesAtTheEndOfMethod"; \
+		"lineBreakBeforeBranchingStructures"; \
+		"lineBreakBeforeLoopingStructures"; \
+		"lineBreakBeforeAndAfterSequentialStructuresIncluded"; \
+		"separationLineForCaseOf"; \
+		"aLineOfCommentsMustBePrecededByALineBreak"; \
+		"groupingClosureInstructions"; \
+		"addTheIncrementForTheLoops"; \
+		"splitTestLines"; \
+		"replaceComparisonsToAnEmptyStringByLengthTest"; \
+		"replaceIfElseEndIfByChoose"; \
+		"splitKeyValueLines"; \
+		"formatComments"])
 		
-		This:C1470.settings.beautifier.formatComments:=True:C214
+		This:C1470.settings.beautifier[$key]:=This:C1470.settings.beautifier[$key]#Null:C1517 ? This:C1470.settings.beautifier[$key] : True:C214
 		
-	End if 
+	End for each 
 	
 	// Obsolete
 	OB REMOVE:C1226(This:C1470.settings.beautifier; "replaceDeprecatedCommand")
@@ -86,7 +107,7 @@ Function loadSettings()
 		
 		This:C1470.beautifier.push(New object:C1471(\
 			"key"; $key; \
-			"label"; Get localized string:C991($key); \
+			"label"; Localized string:C991($key); \
 			"on"; Bool:C1537(This:C1470.settings.beautifier[$key])))
 		
 	End for each 
@@ -102,7 +123,7 @@ Function convertXmlPrefToJson()->$settings : Object
 	
 	If (This:C1470.file.exists)
 		
-		$xml:=xml_fileToObject(This:C1470.file.platformPath)
+		$xml:=_o_xml_fileToObject(This:C1470.file.platformPath)
 		
 		If ($xml.success)
 			

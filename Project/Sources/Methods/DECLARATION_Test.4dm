@@ -1,10 +1,10 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
 //var $1 : Text
-//C_BOOLEAN($2; $3)
+//var $2; $3 : Boolean
 
 ////APPEND TO ARRAY($tObj_test; ${10}->)
 
-//var $4, $5 : Collection
+//var $4; $5 : Collection
 //var $6
 
 ///* -----
@@ -20,11 +20,11 @@
 
 //$_pathToObject:=Path to object($_x)
 
-//var $7, $_7 : Pointer
+//var $7; $_pointer : Pointer
 
 //$_pointer:=->$7
 
-//C_OBJECT($0)
+//var $0 : Object
 
 //For ($i; 1; Count parameters; 1)
 

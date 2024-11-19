@@ -1,3 +1,5 @@
+property file:=4D:C1709.File
+
 Class constructor
 	
 	This:C1470.file:=This:C1470.loadPreferences()
@@ -31,7 +33,7 @@ Function loadPreferences()->$settingFile : 4D:C1709.File
 		If ($src.exists)
 			
 			// Check that it is a setting file (a bug copied the macro file here)
-			If (xml_fileToObject($src.platformPath).value.M_4DPop#Null:C1517)
+			If (_o_xml_fileToObject($src.platformPath).value.M_4DPop#Null:C1517)
 				
 				// Get it
 				$src.copyTo($4DPopFolder; "4DPop Preferences.xml")
@@ -82,7 +84,7 @@ Function loadPreferences()->$settingFile : 4D:C1709.File
 						
 						Storage:C1525.macros.preferences.platformPath:=$settingFile.platformPath
 						
-						$o:=xml_fileToObject($settingFile.platformPath)
+						$o:=_o_xml_fileToObject($settingFile.platformPath)
 						
 						If ($o.success)
 							
@@ -138,7 +140,7 @@ Function loadPreferences()->$settingFile : 4D:C1709.File
 					
 				Else 
 					
-					ALERT:C41(Get localized string:C991("File not found.")+" : \""+$settingFile.path+"\"")
+					ALERT:C41(Localized string:C991("File not found.")+" : \""+$settingFile.path+"\"")
 					
 				End if 
 			End use 

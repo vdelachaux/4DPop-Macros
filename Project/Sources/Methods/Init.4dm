@@ -13,10 +13,6 @@
 // ----------------------------------------------------
 #DECLARE() : Boolean
 
-If (False:C215)
-	C_BOOLEAN:C305(Init; $0)
-End if 
-
 If (Storage:C1525.component=Null:C1517)
 	
 	Use (Storage:C1525)
@@ -37,12 +33,6 @@ If (Count parameters:C259=0)\
 	
 	COMPILER_component
 	
-	Use (Storage:C1525.component)
-		
-		Storage:C1525.component.inited:=True:C214
-		
-	End use 
-	
 	INSTALL_LOCALIZED_MACROS
 	
 	If (_o_Preferences)
@@ -53,4 +43,10 @@ If (Count parameters:C259=0)\
 			
 		End if 
 	End if 
+	
+	Use (Storage:C1525.component)
+		
+		Storage:C1525.component.inited:=True:C214
+		
+	End use 
 End if 

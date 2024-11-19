@@ -11,15 +11,23 @@ property projectMethod : Boolean:=False:C215
 property objectMethod : Boolean:=False:C215
 property withSelection : Boolean:=False:C215
 
-property lineTexts : Collection:=[]
-property decimalSeparator : Text
+property line : Text:=""
+property lines : Collection:=[]
+property lineIndex : Integer:=0
+
+property isCommentBlock : Boolean:=False:C215
+
 property _controlFlow : Object
+property _ouput : Collection:=[]
+
+property decimalSeparator : Text
+
+property windowRef : Integer
+
+// MARK: Delegate
 property rgx : cs:C1710.regex:=cs:C1710.regex.new()
 
 Class constructor()
-	
-	var $t : Text
-	var $ƒ : 4D:C1709.Function
 	
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
@@ -27,8 +35,8 @@ Class constructor()
 	// Identify the name & the type of the current method
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
 		
-		$ƒ:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
-		$t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
+		var $ƒ : 4D:C1709.Function:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
+		var $t : Text:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
 		This:C1470.class:=(Position:C15("Class:"; $t)=1)
@@ -51,7 +59,7 @@ Class constructor()
 	
 	If (This:C1470.form)
 		
-		// #TO_DO 🚧
+		// TODO: 🚧
 		
 	Else 
 		
@@ -72,28 +80,7 @@ Class constructor()
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get macroCall() : Boolean
 	
-	var $name : Text
-	var $state; $time : Integer
-	
-	PROCESS PROPERTIES:C336(Current process:C322; $name; $state; $time)
-	return $name="Macro_Call"
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function split($useSelection : Boolean)
-	
-	var $target : Text
-	
-	If (Count parameters:C259>=1)
-		
-		$target:=$useSelection ? This:C1470.highlighted : This:C1470.method
-		
-	Else 
-		
-		$target:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
-		
-	End if 
-	
-	This:C1470.lineTexts:=Split string:C1554($target; "\r"; sk trim spaces:K86:2)
+	return Process info:C1843(Current process:C322).name="Macro_Call"
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function setMethodText($text : Text)
@@ -106,11 +93,217 @@ Function setHighlightedText($text : Text)
 	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function paste($text : Text; $useSelection : Boolean)
+	
+	var $i : Integer
+	
+	If (Count parameters:C259>=2)
+		
+		SET MACRO PARAMETER:C998($useSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
+		
+	Else 
+		
+		SET MACRO PARAMETER:C998(This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
+		
+	End if 
+	
+	If (Structure file:C489=Structure file:C489(*))
+		
+		return 
+		
+	End if 
+	
+	// Force tokenisation
+	For ($i; 1; Count tasks:C335; 1)
+		
+		If (Process info:C1843($i).type=Design process:K36:9)
+			
+			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
+			
+			break
+			
+		End if 
+	End for 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function split($useSelection : Boolean; $options : Integer)
+	
+	var $target : Text
+	
+	If (Count parameters:C259>=1)
+		
+		$target:=$useSelection ? This:C1470.highlighted : This:C1470.method
+		
+	Else 
+		
+		$target:=This:C1470.highlighted || This:C1470.method
+		
+	End if 
+	
+	$options:=Count parameters:C259>=2 ? $options : sk trim spaces:K86:2
+	
+	This:C1470.lines:=Split string:C1554($target; "\r"; $options)
+	
+	//MARK:-
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function localizedControlFlow($control : Text) : Text
 	
 	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
 	return Command name:C538(41)="ALERT" ? $control : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($control))
 	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function noSelection() : Boolean
+	
+	If (Not:C34(This:C1470.withSelection))
+		
+		BEEP:C151
+		ALERT:C41("This macro requires text to be selected before it is called!")
+		return True:C214
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isEmpty( ...  : Text) : Boolean
+	
+	return Length:C16(Copy parameters:C1790.join(""))=0
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotEmpty( ...  : Text) : Boolean
+	
+	return Length:C16(Copy parameters:C1790.join(""))>0
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isMultiline($line) : Boolean
+	
+	return Match regex:C1019("(?mi-s).*?\\\\$"; $line; 1; *)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotMultiline($line) : Boolean
+	
+	return Not:C34(This:C1470.isMultiline($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isComment($line : Text) : Boolean
+	
+	return (Length:C16($line)>0)\
+		 && ((Position:C15(kCommentMark; $line)=1) || (Position:C15("/*"; $line)=1) || (Position:C15("*/"; $line)=1))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z][-+]$"; $line; 1; *))\
+		 || (Match regex:C1019("(?mi-s)^/\\*.*\\*/$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isReservedComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isMarkerComment($line : Text) : Boolean
+	
+	If (This:C1470.isComment($line))
+		
+		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):"; $line; 1; *)
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotMarkerComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isMarkerComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isSeparatorLineComment($line : Text) : Boolean
+	
+	If (This:C1470.isComment($line))
+		
+		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):-"; $line; 1; *)\
+			 || Match regex:C1019("(?mi-s)^//\\s*(.)(?:\\1|\\s){10,}"; $line; 1; *)
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotSeparatorLineComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isSeparatorLineComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isOpeningReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z]-$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotOpeningReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isOpeningReservedComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isClosingReservedComment($line : Text) : Boolean
+	
+	return ($line=(kCommentMark+"}"))\
+		 || ($line=(kCommentMark+"]"))\
+		 || ($line=(kCommentMark+")"))\
+		 || (Match regex:C1019("(?m-si)^//%[A-Z]\\+$"; $line; 1; *))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isNotClosingReservedComment($line : Text) : Boolean
+	
+	return Not:C34(This:C1470.isClosingReservedComment($line))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Search for an unused character for a temporary replacement, for example 😉
+Function unusedCharacter($code : Text) : Text
+	
+	var $i : Integer
+	var $c : Collection:=[126; 167; 182; 248; 8225; 8226; 8734; 8776; 63743]
+	
+	Repeat 
+		
+		var $t : Text:=Char:C90($c[$i])
+		
+		If (Position:C15($t; $code)=0)
+			
+			return $t
+			
+		End if 
+		
+		$i+=1
+		
+	Until (False:C215)
+	
+Function isNumeric($in : Text) : Boolean
+	
+	return Match regex:C1019("(?mi-s)^(?:\\+|-)?\\d*?(?:(?:\\.|,)\\d*?)??"; $in; 1; *)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isDECLARE($in : Text) : Boolean
+	
+	return Position:C15("#DECLARE"; $in)=1
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isConstructor($in : Text) : Boolean
+	
+	return Match regex:C1019("(?m-si)^(singleton\\s|shared\\s)??(singleton\\s|shared\\s)??Class constructor"; $in; 1; *)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function isFunction($in : Text) : Boolean
+	
+	return Match regex:C1019("(?m-si)^(local\\s|shared\\s)??(local\\s|shared\\s)??Function(.*?)\\((.*?)\\)"; $in; 1; *)
+	
+	
+	//MARK:-[MACROS]
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function PasteColor()
 	
@@ -133,10 +326,10 @@ Function Declarations()
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function Beautifier()
 	
-	cs:C1710.beautifier.new().beautify()
+	cs:C1710.beautifier.new()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	//#v11 Paste after transformations
+	//Paste after transformations
 Function SpecialPaste()
 	
 	cs:C1710.specialPaste.new()
@@ -145,15 +338,13 @@ Function SpecialPaste()
 	// Paste the contents of the clipboard and copy the selection
 Function PasteAndKeepTarget()
 	
-	var $t : Text
-	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
 	End if 
 	
-	$t:=Get text from pasteboard:C524  // Get the text content of the clipboard
+	var $t : Text:=Get text from pasteboard:C524  // Get the text content of the clipboard
 	
 	If (Length:C16($t)=0)
 		
@@ -176,63 +367,59 @@ Function Choose()
 	var $affect; $index : Integer
 	var $c : Collection
 	
-	If (This:C1470.withSelection)
+	If (This:C1470.noSelection())
 		
-		$c:=Split string:C1554(This:C1470.highlighted; "\r"; sk trim spaces:K86:2+sk ignore empty strings:K86:1)
+		return 
 		
-		If ($c.length=5)
+	End if 
+	
+	$c:=Split string:C1554(This:C1470.highlighted; "\r"; sk trim spaces:K86:2+sk ignore empty strings:K86:1)
+	
+	If ($c.length=5)
+		
+		ARRAY LONGINT:C221($pos; 0x0000)
+		ARRAY LONGINT:C221($len; 0x0000)
+		
+		If (Match regex:C1019(Choose:C955(Command name:C538(1)="Sum"; "If"; "Si")+"\\s*\\(([^\\)]*)\\).*"; $c[0]; 1; $pos; $len))
 			
-			ARRAY LONGINT:C221($pos; 0x0000)
-			ARRAY LONGINT:C221($len; 0x0000)
+			$index:=Position:C15(":="; $c[1])
 			
-			If (Match regex:C1019(Choose:C955(Command name:C538(1)="Sum"; "If"; "Si")+"\\s*\\(([^\\)]*)\\).*"; $c[0]; 1; $pos; $len))
+			If ($index>0)
 				
-				$index:=Position:C15(":="; $c[1])
+				$affect:=Position:C15(":="; $c[3])
 				
-				If ($index>0)
+				If ($affect>0)
 					
-					$affect:=Position:C15(":="; $c[3])
+					$t:=Substring:C12($c[1]; 1; $index-1)\
+						+":="\
+						+Command name:C538(955)\
+						+"("\
+						+Substring:C12($c[0]; $pos{1}; $len{1})\
+						+";"\
+						+Substring:C12($c[1]; $index+2)\
+						+";"\
+						+Substring:C12($c[3]; $affect+2)\
+						+")"
 					
-					If ($affect>0)
-						
-						$t:=Substring:C12($c[1]; 1; $index-1)\
-							+":="\
-							+Command name:C538(955)\
-							+"("\
-							+Substring:C12($c[0]; $pos{1}; $len{1})\
-							+";"\
-							+Substring:C12($c[1]; $index+2)\
-							+";"\
-							+Substring:C12($c[3]; $affect+2)\
-							+")"
-						
-						This:C1470.setHighlightedText($t)
-						
-					End if 
+					This:C1470.setHighlightedText($t)
+					
 				End if 
 			End if 
 		End if 
-		
-	Else 
-		
-		BEEP:C151
-		
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	/// Copy the selected text
 Function CopyWithTokens()
 	
-	var $line : Text
-	var $c : Collection
-	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
 	End if 
 	
-	$c:=New collection:C1472
+	var $line : Text
+	var $c : Collection:=[]
 	
 	For each ($line; Split string:C1554(This:C1470.highlighted; "\r"))
 		
@@ -246,21 +433,58 @@ Function CopyWithTokens()
 	/// Replaces a method name in quotation marks with a tokenized call
 Function ConvertToCallWithToken()
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
 	End if 
 	
-	If (This:C1470.highlighted="\"@")\
-		 && (This:C1470.highlighted="@\"")
+	If (Match regex:C1019("(?mi-s)^\"[^\"]*\""; This:C1470.highlighted; 1; *))
 		
-		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "Formula:C1597("+Replace string:C233(This:C1470.highlighted; "\""; "")+").source")
+		This:C1470.paste("Formula:C1597("+Replace string:C233(This:C1470.highlighted; "\""; "")+").source")
 		POST KEY:C465(3)
 		
 	Else 
 		
 		ALERT:C41("Selected text must be enclosed in quotation marks")
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function convert_hexa()
+	
+	If (This:C1470.noSelection())
+		
+		return 
+		
+	End if 
+	
+	If (This:C1470.isNumeric(This:C1470.highlighted))
+		
+		This:C1470.paste(String:C10(Num:C11(This:C1470.highlighted); "&x")+kCaret)
+		
+	Else 
+		
+		BEEP:C151
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function convert_decimal()
+	
+	If (This:C1470.noSelection())
+		
+		return 
+		
+	End if 
+	
+	If (This:C1470.highlighted="0x@")
+		
+		This:C1470.paste(String:C10(str_gLon_Hex_To_Long(This:C1470.highlighted))+kCaret)
+		
+	Else 
+		
+		BEEP:C151
 		
 	End if 
 	
@@ -352,49 +576,16 @@ Function RemoveBlankLines()
 	
 	var $line; $out : Text
 	
-	For each ($line; Split string:C1554(Length:C16(This:C1470.highlighted)=0 ? This:C1470.method : This:C1470.highlighted; "\r"; sk ignore empty strings:K86:1))
+	For each ($line; Split string:C1554(This:C1470.highlighted || This:C1470.method; "\r"; sk ignore empty strings:K86:1))
 		
 		If ($line#"// ")
 			
-			$out:=$out+$line+"\r"
+			$out+=$line+"\r"
 			
 		End if 
 	End for each 
 	
-	If (Length:C16(This:C1470.highlighted)=0)
-		
-		This:C1470.setMethodText($out)
-		
-	Else 
-		
-		This:C1470.setHighlightedText($out)
-		
-	End if 
-	
-	//MARK:-[COMMENTS]
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function commentBlock
-	
-	This:C1470.setHighlightedText("/*\r"+This:C1470.highlighted+"\r*/")
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function duplicateAndComment()
-	
-	If (This:C1470._noSelection())
-		
-		return 
-		
-	End if 
-	
-	If (Split string:C1554(This:C1470.highlighted; "\r").length=1)
-		
-		This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)*/
-		
-	Else 
-		
-		This:C1470.setHighlightedText(This:C1470._comment()+This:C1470.highlighted+kCaret)*/
-		
-	End if 
+	This:C1470.paste($out)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function comment()
@@ -402,7 +593,7 @@ Function comment()
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
 	
-	If (This:C1470._noSelection())
+	If (This:C1470.noSelection())
 		
 		return 
 		
@@ -427,7 +618,37 @@ Function comment()
 	
 	This:C1470.setHighlightedText(This:C1470._comment())
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function commentBlock
+	
+	This:C1470.paste("/*\r"+This:C1470.highlighted+"\r*/")
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Comments the first and the last line of a logic block
+Function comment_current_level()
+	
+	COMMENTS("bloc")
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function duplicateAndComment()
+	
+	If (This:C1470.noSelection())
+		
+		return 
+		
+	End if 
+	
+	If (Split string:C1554(This:C1470.highlighted; "\r").length=1)
+		
+		This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)*/
+		
+	Else 
+		
+		This:C1470.setHighlightedText(This:C1470._comment()+This:C1470.highlighted+kCaret)*/
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function _comment() : Text
 	
 	var $c : Collection
@@ -466,54 +687,27 @@ Function _comment() : Text
 		
 	End if 
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _noSelection() : Boolean
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function dialog($form : Text; $title : Text; $type : Integer) : Boolean
 	
-	If (Not:C34(This:C1470.withSelection))
-		
-		BEEP:C151
-		ALERT:C41("This macro requires text to be selected before it is called!")
-		return True:C214
-		
-	End if 
+	var $i : Integer
 	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _paste($text : Text; $useSelection : Boolean)
+	ARRAY LONGINT:C221($_winRefs; 0)
 	
-	var $target : Integer
+	$type:=Count parameters:C259>=3 ? $type : Movable form dialog box:K39:8
 	
-	If (Count parameters:C259>=2)
-		
-		$target:=$useSelection ? Highlighted method text:K5:18 : Full method text:K5:17
-		
-	Else 
-		
-		$target:=This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17
-		
-	End if 
+	WINDOW LIST:C442($_winRefs)
 	
-	SET MACRO PARAMETER:C998($target; $text)
-	
-	If (Structure file:C489=Structure file:C489(*))
+	For ($i; 1; Size of array:C274($_winRefs); 1)
 		
-		return 
-		
-	End if 
-	
-	// Force tokenisation
-	var $name : Text
-	var $i; $mode; $origin; $state; $time; $UID : Integer
-	
-	For ($i; 1; Count tasks:C335; 1)
-		
-		PROCESS PROPERTIES:C336($i; $name; $state; $time; $mode; $UID; $origin)
-		
-		If ($origin=Design process:K36:9)
+		If (Get window title:C450($_winRefs{$i})=$title)
 			
-			POST EVENT:C467(Key down event:K17:4; Enter:K15:35; Tickcount:C458; 0; 0; 0; $i)
-			
-			break
+			return 
 			
 		End if 
 	End for 
+	
+	This:C1470.windowRef:=Open form window:C675($form; $type; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+	
+	return True:C214
 	

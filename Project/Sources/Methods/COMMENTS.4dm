@@ -17,12 +17,6 @@
 // ----------------------------------------------------
 #DECLARE($selector : Text; $selected : Text; $code : Text)
 
-If (False:C215)
-	C_TEXT:C284(COMMENTS; $1)
-	C_TEXT:C284(COMMENTS; $2)
-	C_TEXT:C284(COMMENTS; $3)
-End if 
-
 var $t; $name; $comments; $tResult; $separator : Text
 var $tSyntax; $title : Text
 var $bReplace; $success : Boolean
@@ -164,7 +158,7 @@ Case of
 					
 				Else 
 					
-					$comments:=rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
+					$comments:=_o_rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
 					
 				End if 
 				
@@ -221,7 +215,7 @@ Case of
 			METHOD GET COMMENTS:C1189($name; $comments; *)
 			
 			$Win_hdl:=Open form window:C675("COMMENTS"; Movable form dialog box:K39:8)
-			SET WINDOW TITLE:C213($name+" - "+Get localized string:C991("comments"); $Win_hdl)
+			SET WINDOW TITLE:C213($name+" - "+Localized string:C991("comments"); $Win_hdl)
 			$o:=New object:C1471(\
 				"text"; $comments)
 			DIALOG:C40("COMMENTS"; $o)
@@ -310,7 +304,7 @@ Case of
 				$comments:=Replace string:C233($comments; "<version_4D/>"; Application version:C493(*))
 				$comments:=Replace string:C233($comments; "<database_name/>"; Structure file:C489)
 				
-				$title:=win_title(Frontmost window:C447)
+				$title:=_o_win_title(Frontmost window:C447)
 				
 				$comments:=Replace string:C233($comments; "<method_name/>"; $title)
 				$title:=Get window title:C450(Next window:C448(Frontmost window:C447))
@@ -325,7 +319,7 @@ Case of
 				
 				$title:=Replace string:C233($title; " *"; "")
 				
-				If (Position:C15(Get localized string:C991("Form: "); $title)>0)
+				If (Position:C15(Localized string:C991("Form: "); $title)>0)
 					
 					$comments:=Replace string:C233($comments; "<form_name/>"; $title)
 					

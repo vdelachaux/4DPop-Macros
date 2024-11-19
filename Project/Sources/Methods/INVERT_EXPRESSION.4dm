@@ -10,19 +10,19 @@
 // Modified by vdl (05/02/08)
 // v11 compatibility
 // ----------------------------------------------------
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
-C_LONGINT:C283($2)
-C_LONGINT:C283(${3})
+var $0 : Text
+var $1 : Integer
+var $2 : Integer
+_O_C_LONGINT:C283(${3})
 
-C_LONGINT:C283($Lon_Error; $Lon_i; $Lon_Line; $Lon_Line_Number; $Lon_Parameters; $Lon_Position; $Lon_size; $Lon_start)
-C_TEXT:C284($Txt_Code; $Txt_Command; $Txt_Comment; $Txt_result)
+var $Lon_Error; $Lon_i; $Lon_Line; $Lon_Line_Number; $Lon_Parameters; $Lon_Position; $Lon_size; $Lon_start : Integer
+var $Txt_Code; $Txt_Command; $Txt_Comment; $Txt_result : Text
 
 If (False:C215)
-	C_TEXT:C284(INVERT_EXPRESSION; $0)
-	C_LONGINT:C283(INVERT_EXPRESSION; $1)
-	C_LONGINT:C283(INVERT_EXPRESSION; $2)
-	C_LONGINT:C283(INVERT_EXPRESSION; ${3})
+	_O_C_TEXT:C284(INVERT_EXPRESSION; $0)
+	_O_C_LONGINT:C283(INVERT_EXPRESSION; $1)
+	_O_C_LONGINT:C283(INVERT_EXPRESSION; $2)
+	_O_C_LONGINT:C283(INVERT_EXPRESSION; ${3})
 End if 
 
 $Lon_Parameters:=Count parameters:C259
@@ -35,7 +35,7 @@ Case of
 		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_result)
 		
 		ARRAY TEXT:C222(<>tTxt_lines; 0x0000)
-		$Lon_Error:=Rgx_SplitText("\\r"; $Txt_result; -><>tTxt_lines; 0 ?+ 11)
+		$Lon_Error:=_o_Rgx_SplitText("\\r"; $Txt_result; -><>tTxt_lines; 0 ?+ 11)
 		
 		$Txt_result:=""
 		$Lon_Line_Number:=Size of array:C274(<>tTxt_lines)

@@ -35,7 +35,7 @@ For ($Lon_i; 1; Size of array:C274(<>tTxt_2D_Declaration_Patterns); 1)
 					
 					If (Position:C15("("; $Txt_pattern)>0)
 						
-						$Lon_error:=Rgx_ExtractText($Txt_pattern; $Txt_target; "1"; ->$tTxt_values)
+						$Lon_error:=_o_Rgx_ExtractText($Txt_pattern; $Txt_target; "1"; ->$tTxt_values)
 						
 						If ($Lon_error=0)
 							

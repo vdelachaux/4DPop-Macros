@@ -41,24 +41,24 @@
 // Modified by Vincent de Lachaux (05/02/14)
 // Adding option "Generate comment for tooltip"
 // ----------------------------------------------------
-C_TEXT:C284($1)
-C_POINTER:C301(${2})
+var $1 : Text
+_O_C_POINTER:C301(${2})
 
-C_BOOLEAN:C305($Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments)
-C_LONGINT:C283($i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength)
-C_LONGINT:C283($Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon)
-C_LONGINT:C283($Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference)
-C_LONGINT:C283($Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version)
-C_LONGINT:C283($Lon_x; $number)
-C_POINTER:C301($Ptr_array)
-C_TEXT:C284($Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint)
-C_TEXT:C284($Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter)
-C_OBJECT:C1216($file; $o; $oo)
-C_COLLECTION:C1488($c; $cArrays; $cDirectives; $Col_settings; $Col_type)
+var $Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments : Boolean
+var $i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength : Integer
+var $Lon_currentType; $Lon_dimensions; $Lon_end_ii; $Lon_error; $Lon_firstIndice; $Lon_icon : Integer
+var $Lon_ignoreDeclarations; $Lon_ii; $Lon_j; $Lon_length; $Lon_parameters; $Lon_reference : Integer
+var $Lon_size; $Lon_stringLength; $Lon_styles; $Lon_type; $Lon_variablePerLine; $Lon_version : Integer
+var $Lon_x; $number : Integer
+var $Ptr_array : Pointer
+var $Dom_node; $Dom_root; $t; $tt; $Txt_declarations; $Txt_entryPoint : Text
+var $Txt_method; $Txt_name; $Txt_patternNonLocalVariable; $Txt_patternParameter : Text
+var $file; $o; $oo : Object
+var $c; $cArrays; $cDirectives; $Col_settings; $Col_type : Collection
 
 If (False:C215)
-	C_TEXT:C284(_o_DECLARATION; $1)
-	C_POINTER:C301(_o_DECLARATION; ${2})
+	_O_C_TEXT:C284(_o_DECLARATION; $1)
+	_O_C_POINTER:C301(_o_DECLARATION; ${2})
 End if 
 
 // ----------------------------------------------------
@@ -105,8 +105,8 @@ If ($Lon_parameters=0)  // Display the dialog
 			
 			If ($o.variables.length>0)
 				
-				$o.formWindow:=Open form window:C675("NEW_DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
-				DIALOG:C40("NEW_DECLARATION"; $o)
+				$o.formWindow:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
+				DIALOG:C40("DECLARATION"; $o)
 				
 				If (Bool:C1537(OK))
 					
@@ -126,15 +126,15 @@ If ($Lon_parameters=0)  // Display the dialog
 			
 			$o:=New object:C1471(\
 				"title"; Get window title:C450(Frontmost window:C447); \
-				"method"; win_title(Frontmost window:C447); \
+				"method"; _o_win_title(Frontmost window:C447); \
 				"settings"; $o; \
 				"controlFlow"; $c; \
 				"refresh"; Formula:C1597(_o_DECLARATION("DISPLAY")); \
 				"setType"; Formula:C1597(_o_DECLARATION("TYPE"))\
 				)
 			
-			$l:=Open form window:C675("DECLARATIONS"; Movable form dialog box:K39:8; *)
-			DIALOG:C40("DECLARATIONS"; $o)
+			$l:=Open form window:C675("BINARY_DECLARATIONS"; Movable form dialog box:K39:8; *)
+			DIALOG:C40("BINARY_DECLARATIONS"; $o)
 			CLOSE WINDOW:C154
 			
 		End if 
@@ -556,7 +556,7 @@ Else
 							// Nothing to do
 							
 							//______________________________________________________
-						: (Position:C15(Get localized string:C991("Method"); Form:C1466.title)#1)
+						: (Position:C15(Localized string:C991("Method"); Form:C1466.title)#1)
 							
 							// Not a project method
 							
@@ -629,12 +629,12 @@ Else
 						End if 
 					End for 
 					
-					$Lon_error:=Rgx_SubstituteText("\\r(\\r"+kCaret+")"; "\\1"; ->$Txt_method)
+					$Lon_error:=_o_Rgx_SubstituteText("\\r(\\r"+kCaret+")"; "\\1"; ->$Txt_method)
 					
 					If (Storage:C1525.macros.preferences.options ?? 29)  // Trim multiple empty lines
 						
-						$Lon_error:=Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_method)
-						$Lon_error:=Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_method)
+						$Lon_error:=_o_Rgx_SubstituteText("[\\r\\n]{2,}"; "\r\r"; ->$Txt_method)
+						$Lon_error:=_o_Rgx_SubstituteText("(\\r*)$"; ""; ->$Txt_method)
 						
 					End if 
 					
@@ -762,7 +762,7 @@ Else
 					
 					$Boo_parameter:=Match regex:C1019("(?m-si)\\$(?:(?:\\d+)|(?:\\{\\d*\\})+)"; $t; 1)
 					
-					Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
+					_o_Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
 					
 					$l:=Find in array:C230($tTxt_nonLocals; Form:C1466.method+" ")
 					
@@ -847,9 +847,9 @@ Else
 				
 				$t:=<>tTxt_lines{$i}
 				
-				$Boo_parameter:=(Rgx_MatchText($Txt_patternParameter; $t)=0)
+				$Boo_parameter:=(_o_Rgx_MatchText($Txt_patternParameter; $t)=0)
 				
-				Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
+				_o_Rgx_ExtractText($Txt_patternNonLocalVariable; $t; "1"; ->$tTxt_nonLocals)
 				
 				$l:=Find in array:C230($tTxt_nonLocals; Form:C1466.method+" ")
 				
@@ -933,7 +933,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[5]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_LONGINT; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_LONGINT; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_LONGINT>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -983,7 +983,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[11]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_TEXT; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_TEXT; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_TEXT>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1033,7 +1033,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[2]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_BOOLEAN; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_BOOLEAN; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_BOOLEAN>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1083,7 +1083,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[1]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_BLOB; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_BLOB; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_BLOB>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1133,7 +1133,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[3]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_DATE; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_DATE; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_DATE>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1183,7 +1183,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[7]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_TIME; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_TIME; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_TIME>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1233,7 +1233,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[9]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_POINTER; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_POINTER; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_POINTER>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1283,7 +1283,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[8]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_PICTURE; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_PICTURE; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_PICTURE>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1333,7 +1333,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[12]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_OBJECT; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_OBJECT; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_OBJECT>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1383,7 +1383,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[10]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_REAL; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_REAL; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_REAL>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1433,7 +1433,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[0]+"("; ""; 1)
-							$Lon_stringLength:=util_Lon_Local_in_line($t; ->$tTxt_ALPHA; ->$tTxt_local; $Lon_ignoreDeclarations)
+							$Lon_stringLength:=_o_util_Lon_Local_in_line($t; ->$tTxt_ALPHA; ->$tTxt_local; $Lon_ignoreDeclarations)
 							
 							$Lon_stringLength:=$Lon_stringLength+(255*Num:C11($Lon_stringLength=0))
 							
@@ -1494,7 +1494,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[4]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_INTEGER; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_INTEGER; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_INTEGER>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1544,7 +1544,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[6]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_GRAPH; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_GRAPH; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_GRAPH>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1573,7 +1573,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[13]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_COLLECTION; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_COLLECTION; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_COLLECTION>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1602,7 +1602,7 @@ Else
 						If ($Lon_ignoreDeclarations=0) | $Boo_parameter
 							
 							$t:=Replace string:C233($t; $cDirectives[14]+"("; ""; 1)
-							util_Lon_Local_in_line($t; ->$tTxt_VARIANT; ->$tTxt_local; $Lon_ignoreDeclarations)
+							_o_util_Lon_Local_in_line($t; ->$tTxt_VARIANT; ->$tTxt_local; $Lon_ignoreDeclarations)
 							<>tLon_Line_Statut{$i}:=3*Num:C11((Size of array:C274($tTxt_local)>0) & ($tTxt_VARIANT>0) & ($Lon_end_ii=0))
 							
 						Else 
@@ -1628,7 +1628,7 @@ Else
 						//______________________________________________________
 					Else 
 						
-						util_Lon_Local_in_line($t; ->$tTxt_local)
+						_o_util_Lon_Local_in_line($t; ->$tTxt_local)
 						
 						//______________________________________________________
 				End case 
@@ -1952,7 +1952,7 @@ Else
 			//______________________________________________________
 		: ($Txt_entryPoint="_init")
 			
-			cs:C1710.menu.new().defaultMinimalMenuBar().setBar()
+			cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 			
 			Compiler_
 			
@@ -2193,7 +2193,7 @@ Else
 								
 							End for 
 							
-							$Dom_root:=xml_cleanup($Dom_root)
+							$Dom_root:=_o_xml_cleanup($Dom_root)
 							
 							DOM EXPORT TO FILE:C862($Dom_root; Storage:C1525.macros.preferences.platformPath)
 							

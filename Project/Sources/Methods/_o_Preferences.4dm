@@ -12,10 +12,10 @@ var $2 : Text
 var $3 : Pointer
 
 If (False:C215)
-	C_BOOLEAN:C305(_o_Preferences; $0)
-	C_TEXT:C284(_o_Preferences; $1)
-	C_TEXT:C284(_o_Preferences; $2)
-	C_POINTER:C301(_o_Preferences; $3)
+	_O_C_BOOLEAN:C305(_o_Preferences; $0)
+	_O_C_TEXT:C284(_o_Preferences; $1)
+	_O_C_TEXT:C284(_o_Preferences; $2)
+	_O_C_POINTER:C301(_o_Preferences; $3)
 End if 
 
 var $Dom_node; $Dom_root; $t; $Txt_EntryPoint; $Txt_key; $Txt_property : Text
@@ -65,7 +65,7 @@ If (OK=0)
 		
 		If ($src.exists)
 			
-			$Obj_xml:=xml_fileToObject($src.platformPath)
+			$Obj_xml:=_o_xml_fileToObject($src.platformPath)
 			
 			If ($Obj_xml.value.M_4DPop#Null:C1517)
 				
@@ -114,7 +114,7 @@ If (OK=0)
 				
 			Else 
 				
-				ALERT:C41(Get localized string:C991("File not found.")+" : \""+$tgt.path+"\"")
+				ALERT:C41(Localized string:C991("File not found.")+" : \""+$tgt.path+"\"")
 				
 			End if 
 		End use 
@@ -136,7 +136,7 @@ Case of
 		//______________________________________________________
 	: ($Txt_EntryPoint="load")
 		
-		$Obj_xml:=xml_fileToObject($Obj_preferences.platformPath)
+		$Obj_xml:=_o_xml_fileToObject($Obj_preferences.platformPath)
 		OK:=Num:C11($Obj_xml.success)
 		
 		If (OK=1)

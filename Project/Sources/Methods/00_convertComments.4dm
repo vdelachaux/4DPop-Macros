@@ -1,47 +1,47 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
-C_LONGINT:C283($l)
-C_TEXT:C284($kTxt_separator;$t;$tComment;$tContent;$tMarkDown;$tPlainText)
-C_TEXT:C284($tSyntax)
-C_OBJECT:C1216($folderTarget;$o)
+_O_C_LONGINT:C283($l)
+_O_C_TEXT:C284($kTxt_separator; $t; $tComment; $tContent; $tMarkDown; $tPlainText)
+_O_C_TEXT:C284($tSyntax)
+_O_C_OBJECT:C1216($folderTarget; $o)
 
-$t:=Select folder:C670("Select the comment folder";8858)
+$t:=Select folder:C670("Select the comment folder"; 8858)
 
 $kTxt_separator:="\r________________________________________________________\r"
 
 If (OK=1)
 	
-	$folderTarget:=Folder:C1567($t;fk platform path:K87:2).parent.folder("Methods")
+	$folderTarget:=Folder:C1567($t; fk platform path:K87:2).parent.folder("Methods")
 	$folderTarget.create()
 	
-	For each ($o;Folder:C1567($t;fk platform path:K87:2).files())
+	For each ($o; Folder:C1567($t; fk platform path:K87:2).files())
 		
 		CLEAR VARIABLE:C89($tSyntax)
 		
 		$tContent:=$o.getText()
 		$tPlainText:=ST Get plain text:C1092($tContent)
 		
-		$l:=Position:C15($kTxt_separator;$tPlainText)
+		$l:=Position:C15($kTxt_separator; $tPlainText)
 		
 		If ($l>0)
 			
-			  // Extract syntax
-			$tSyntax:=Substring:C12($tPlainText;1;$l-1)
+			// Extract syntax
+			$tSyntax:=Substring:C12($tPlainText; 1; $l-1)
 			
-			  // Extract description
-			$tComment:=Delete string:C232($tPlainText;1;$l+Length:C16($kTxt_separator)-1)
+			// Extract description
+			$tComment:=Delete string:C232($tPlainText; 1; $l+Length:C16($kTxt_separator)-1)
 			
 		Else 
 			
-			  // Compatibility with older versions of separator
-			$l:=Position:C15("\r-\r";$tPlainText)
+			// Compatibility with older versions of separator
+			$l:=Position:C15("\r-\r"; $tPlainText)
 			
 			If ($l>0)
 				
-				  // Extract syntax
-				$tSyntax:=Substring:C12($tPlainText;1;$l-1)
+				// Extract syntax
+				$tSyntax:=Substring:C12($tPlainText; 1; $l-1)
 				
-				  // Extract description
-				$tComment:=Delete string:C232($tPlainText;1;$l+2)
+				// Extract description
+				$tComment:=Delete string:C232($tPlainText; 1; $l+2)
 				
 			Else 
 				
@@ -50,16 +50,16 @@ If (OK=1)
 			End if 
 		End if 
 		
-		  // Method names in bold
-		Rgx_SubstituteText ("(?m-si)\\s*((?:\\d*\\w*_)+\\w*)\\s*";" **\\1** ";->$tComment;0)
+		// Method names in bold
+		_o_Rgx_SubstituteText("(?m-si)\\s*((?:\\d*\\w*_)+\\w*)\\s*"; " **\\1** "; ->$tComment; 0)
 		
-		  // Special characters
-		$tComment:=Replace string:C233($tComment;"<";"&lt;")
-		$tComment:=Replace string:C233($tComment;">";"&gt;")
-		$tComment:=Replace string:C233($tComment;"_";"\\_")
+		// Special characters
+		$tComment:=Replace string:C233($tComment; "<"; "&lt;")
+		$tComment:=Replace string:C233($tComment; ">"; "&gt;")
+		$tComment:=Replace string:C233($tComment; "_"; "\\_")
 		
-		  // Carriage erturn
-		$tComment:=Replace string:C233($tComment;"\r";"\r<br/>")
+		// Carriage erturn
+		$tComment:=Replace string:C233($tComment; "\r"; "\r<br/>")
 		
 		$tMarkDown:="<!-- "+$tSyntax+"-->\n## Description\n"+$tComment
 		

@@ -5,13 +5,13 @@ var $t : Text
 // In compiled mode we propose to create the test method
 If (Is compiled mode:C492)
 	
-	ALERT:C41(Get localized string:C991("MessagestoTryANewMacro"))
+	ALERT:C41(Localized string:C991("MessagestoTryANewMacro"))
 	
-	CONFIRM:C162(Get localized string:C991("wouldYouWantToCreateThisMethodNow?"))
+	CONFIRM:C162(Localized string:C991("wouldYouWantToCreateThisMethodNow?"))
 	
 	If (OK=1)
 		
-		$t:=Get localized string:C991("testMethodForMacros")+Command name:C538(284)+"($Txt_method;$Txt_highlighted)\r\r"+Get localized string:C991("in_txt_methodTheFullMethodContent")+Command name:C538(997)+"(1;$Txt_method)\r\r"+Get localized string:C991("in_txt_highlightedTheHighlightedText")+Command name:C538(997)+"(2;$Txt_highlighted)\r\r"
+		$t:=Localized string:C991("testMethodForMacros")+Command name:C538(284)+"($Txt_method;$Txt_highlighted)\r\r"+Localized string:C991("in_txt_methodTheFullMethodContent")+Command name:C538(997)+"(1;$Txt_method)\r\r"+Localized string:C991("in_txt_highlightedTheHighlightedText")+Command name:C538(997)+"(2;$Txt_highlighted)\r\r"
 		
 		METHOD SET CODE:C1194("4DPop_TEST_Macros"; $t; *)
 		METHOD SET ATTRIBUTE:C1192("4DPop_TEST_Macros"; Attribute invisible:K72:6; True:C214; *)
@@ -50,8 +50,8 @@ Else
 			
 			If ($o.variables.length>0)
 				
-				$o.formWindow:=Open form window:C675("NEW_DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
-				DIALOG:C40("NEW_DECLARATION"; $o)
+				$o.formWindow:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
+				DIALOG:C40("DECLARATION"; $o)
 				
 				If (Bool:C1537(OK))
 					
