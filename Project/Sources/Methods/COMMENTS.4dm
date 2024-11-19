@@ -158,7 +158,7 @@ Case of
 					
 				Else 
 					
-					$comments:=rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
+					$comments:=_o_rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
 					
 				End if 
 				
@@ -304,7 +304,7 @@ Case of
 				$comments:=Replace string:C233($comments; "<version_4D/>"; Application version:C493(*))
 				$comments:=Replace string:C233($comments; "<database_name/>"; Structure file:C489)
 				
-				$title:=win_title(Frontmost window:C447)
+				$title:=_o_win_title(Frontmost window:C447)
 				
 				$comments:=Replace string:C233($comments; "<method_name/>"; $title)
 				$title:=Get window title:C450(Next window:C448(Frontmost window:C447))

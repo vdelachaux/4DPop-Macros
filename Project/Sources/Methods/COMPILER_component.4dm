@@ -65,15 +65,15 @@ If (False:C215)
 	_O_C_TEXT:C284(METHODS; $1)
 	_O_C_TEXT:C284(METHODS; $2)
 	
-	_O_C_TEXT:C284(Util_SPLIT_METHOD; $1)
-	_O_C_POINTER:C301(Util_SPLIT_METHOD; $2)
-	_O_C_LONGINT:C283(Util_SPLIT_METHOD; $3)
+	_O_C_TEXT:C284(_o_Util_SPLIT_METHOD; $1)
+	_O_C_POINTER:C301(_o_Util_SPLIT_METHOD; $2)
+	_O_C_LONGINT:C283(_o_Util_SPLIT_METHOD; $3)
 	
-	_O_C_LONGINT:C283(util_Lon_Local_in_line; $0)
-	_O_C_TEXT:C284(util_Lon_Local_in_line; $1)
-	_O_C_POINTER:C301(util_Lon_Local_in_line; $2)
-	_O_C_POINTER:C301(util_Lon_Local_in_line; $3)
-	_O_C_LONGINT:C283(util_Lon_Local_in_line; $4)
+	_O_C_LONGINT:C283(_o_util_Lon_Local_in_line; $0)
+	_O_C_TEXT:C284(_o_util_Lon_Local_in_line; $1)
+	_O_C_POINTER:C301(_o_util_Lon_Local_in_line; $2)
+	_O_C_POINTER:C301(_o_util_Lon_Local_in_line; $3)
+	_O_C_LONGINT:C283(_o_util_Lon_Local_in_line; $4)
 	
 	// Private_Txt_Get_Preferences
 	_O_C_TEXT:C284(Preferences_Get; $0)
@@ -127,8 +127,8 @@ If (False:C215)
 	_O_C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
 	
 	// Win_title
-	_O_C_TEXT:C284(win_title; $0)
-	_O_C_LONGINT:C283(win_title; $1)
+	_O_C_TEXT:C284(_o_win_title; $0)
+	_O_C_LONGINT:C283(_o_win_title; $1)
 	
 	// Private_Lon_Declaration_Type
 	_O_C_LONGINT:C283(Private_Lon_Declaration_Type; $0)

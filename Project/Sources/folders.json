@@ -10,9 +10,46 @@
 			"_o_isNumeric",
 			"_o_localizedControlFlow",
 			"_o_Preferences",
-			"_o_Preferences_Set"
+			"_o_Preferences_Set",
+			"_o_rgx",
+			"_o_Rgx_ExtractText",
+			"_o_Rgx_MatchText",
+			"_o_rgx_Options",
+			"_o_Rgx_SplitText",
+			"_o_Rgx_SubstituteText",
+			"_o_util_Lon_Local_in_line",
+			"_o_Util_SPLIT_METHOD",
+			"_o_win_title",
+			"_o_xml_attributes",
+			"_o_xml_cleanup",
+			"_o_xml_elementToObject",
+			"_o_xml_encode",
+			"_o_xml_fileToObject",
+			"_o_xml_findByName",
+			"_o_xml_findElement",
+			"_o_xml_refToObject",
+			"4DPop_MACROS_INIT",
+			"4DPop_MACROS_SETTINGS",
+			"COMPILER_class",
+			"Compiler_Rgx",
+			"COMPILER_xml",
+			"rgx_NO_ERROR",
+			"test_rgx",
+			"xml_NO_ERROR"
 		]
 	},
+	"(BINARY)": {},
+	"(classes)": {},
+	"(lib)": {
+		"groups": [
+			"(xml (thread-safe))"
+		]
+	},
+	"(pseudo-classes)": {},
+	"(rgx)": {},
+	"(shared)": {},
+	"(Tools)": {},
+	"(xml (thread-safe))": {},
 	"# 🚧 DEV": {
 		"groups": [
 			"TESTS"
@@ -30,7 +67,19 @@
 	"#️⃣ API": {},
 	"♻️ LIBRAIRIES": {
 		"classes": [
-			"regex"
+			"button",
+			"coord",
+			"dim",
+			"evt",
+			"group",
+			"input",
+			"listbox",
+			"menu",
+			"menuBar",
+			"regex",
+			"scrollable",
+			"static",
+			"widget"
 		]
 	},
 	"⚙️ MACROS": {
@@ -50,11 +99,18 @@
 	},
 	"📦 COMPONENT": {
 		"groups": [
-			"private",
-			"shared"
+			"Binary database",
+			"FORMS",
+			"private"
 		]
 	},
-	"🛠️ Tools": {},
+	"🛠️ Tools": {
+		"methods": [
+			"str_gLon_Hex_To_Long",
+			"str_hyphenation",
+			"win_NOT_UNDER_TOOLBAR"
+		]
+	},
 	"4️⃣ 4DPop": {
 		"methods": [
 			"_4DPopMacros",
@@ -67,31 +123,24 @@
 			"OPTIONS_SET"
 		],
 		"forms": [
-			"DECLARATIONS"
+			"BINARY_DECLARATIONS"
 		]
 	},
-	"classes": {
-		"classes": [
-			"button",
-			"group",
-			"input",
-			"listbox",
-			"menu",
-			"scrollable",
-			"static",
-			"widget"
-		]
-	},
-	"lib": {
-		"groups": [
-			"classes",
-			"pseudo-classes",
-			"rgx",
-			"xml (thread-safe)"
+	"FORMS": {
+		"forms": [
+			"ABOUT",
+			"COMMENTS",
+			"CREATE_BUTTON",
+			"DECLARATION",
+			"DECLARATIONS_SETTINGS",
+			"LIST",
+			"SETTINGS",
+			"SPECIAL_PASTE"
 		]
 	},
 	"private": {
 		"methods": [
+			"_SETTINGS",
 			"ABOUT",
 			"Beautifier_init",
 			"CODE_TO_EXECUTE",
@@ -115,40 +164,7 @@
 			"METHODS",
 			"Preferences_Get",
 			"Private_Boo_Paste_Regex_Pattern",
-			"Private_Lon_Declaration_Type",
-			"SETTINGS",
-			"util_Lon_Local_in_line",
-			"Util_SPLIT_METHOD"
-		],
-		"forms": [
-			"ABOUT",
-			"COMMENTS",
-			"CREATE_BUTTON",
-			"DECLARATIONS_SETTINGS",
-			"LIST",
-			"NEW_DECLARATION",
-			"SETTINGS",
-			"SPECIAL_PASTE"
-		]
-	},
-	"pseudo-classes": {
-		"methods": [
-			"_o_menu",
-			"COMPILER_class",
-			"rgx",
-			"test_rgx"
-		]
-	},
-	"rgx": {
-		"methods": [
-			"Compiler_Rgx",
-			"rgx_NO_ERROR"
-		]
-	},
-	"shared": {
-		"methods": [
-			"4DPop_MACROS_INIT",
-			"4DPop_MACROS_SETTINGS"
+			"Private_Lon_Declaration_Type"
 		]
 	},
 	"TESTS": {
@@ -189,28 +205,15 @@
 			"test_"
 		]
 	},
-	"Tools": {
-		"methods": [
-			"NoError",
-			"str_gLon_Hex_To_Long",
-			"str_hyphenation",
-			"win_NOT_UNDER_TOOLBAR",
-			"win_title",
-			"xml_cleanup"
+	"trash": {
+		"groups": [
+			"(BINARY)",
+			"(classes)",
+			"(lib)",
+			"(pseudo-classes)",
+			"(rgx)",
+			"(shared)",
+			"(Tools)"
 		]
-	},
-	"xml (thread-safe)": {
-		"methods": [
-			"COMPILER_xml",
-			"xml_attributes",
-			"xml_elementToObject",
-			"xml_encode",
-			"xml_fileToObject",
-			"xml_findByName",
-			"xml_findElement",
-			"xml_NO_ERROR",
-			"xml_refToObject"
-		]
-	},
-	"trash": {}
+	}
 }

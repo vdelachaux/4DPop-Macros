@@ -6,18 +6,7 @@
 // Description
 //
 // ----------------------------------------------------
-C_LONGINT:C283(${1})
-
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($Lon_i)
-
-If (False:C215)
-	C_LONGINT:C283(OPTIONS_GET; ${1})
-End if 
-
-If (False:C215)
-	
-End if 
+_O_C_LONGINT:C283(${1})
 
 //C_LONGINT(<>options)
 //If (<>options=0)

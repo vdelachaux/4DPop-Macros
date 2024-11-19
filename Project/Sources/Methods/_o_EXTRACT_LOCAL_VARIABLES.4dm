@@ -6,16 +6,16 @@
 // Description
 //
 // ----------------------------------------------------
-C_TEXT:C284($1)
-C_POINTER:C301($2)
+_O_C_TEXT:C284($1)
+_O_C_POINTER:C301($2)
 
-C_LONGINT:C283($Lon_count; $Lon_i; $Lon_options)
-C_POINTER:C301($Ptr_array)
-C_TEXT:C284($Txt_method; $Txt_target)
+_O_C_LONGINT:C283($Lon_count; $Lon_i; $Lon_options)
+_O_C_POINTER:C301($Ptr_array)
+_O_C_TEXT:C284($Txt_method; $Txt_target)
 
 If (False:C215)
-	C_TEXT:C284(_o_EXTRACT_LOCAL_VARIABLES; $1)
-	C_POINTER:C301(_o_EXTRACT_LOCAL_VARIABLES; $2)
+	_O_C_TEXT:C284(_o_EXTRACT_LOCAL_VARIABLES; $1)
+	_O_C_POINTER:C301(_o_EXTRACT_LOCAL_VARIABLES; $2)
 End if 
 
 ARRAY TEXT:C222(<>tTxt_lines; 0)
@@ -36,13 +36,13 @@ End if
 //Split_Method
 $Lon_options:=$Lon_options ?+ 0  // Pas les lignes vides
 $Lon_options:=$Lon_options ?+ 1  // Pas les lignes de commentaires
-Util_SPLIT_METHOD($Txt_method; -><>tTxt_lines; $Lon_options)
+_o_Util_SPLIT_METHOD($Txt_method; -><>tTxt_lines; $Lon_options)
 
 //$Lon_Error:=Rgx_SplitText ("\\r";$Txt_Method;->◊tTxt_Lines;(0 ?+ 10) ?+ 11)
 
 For ($Lon_i; 1; Size of array:C274(<>tTxt_lines); 1)
 	
-	util_Lon_Local_in_line(<>tTxt_lines{$Lon_i}; $Ptr_array)
+	_o_util_Lon_Local_in_line(<>tTxt_lines{$Lon_i}; $Ptr_array)
 	
 End for 
 

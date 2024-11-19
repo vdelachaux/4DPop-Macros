@@ -88,7 +88,7 @@ If ($Lon_error=0)
 			If ($Lon_parameters>=3)
 				
 				//Append to local variables
-				util_Lon_Local_in_line($Txt_row; $3)
+				_o_util_Lon_Local_in_line($Txt_row; $3)
 				
 			End if 
 			
@@ -125,7 +125,7 @@ If ($Lon_error=0)
 			If ($Lon_parameters>=3)
 				
 				//Append to local variables
-				util_Lon_Local_in_line($Txt_column; $3)
+				_o_util_Lon_Local_in_line($Txt_column; $3)
 				
 			End if 
 			
@@ -154,7 +154,7 @@ If ($Lon_error=0)
 			
 			If ($Lon_parameters>=3)
 				
-				util_Lon_Local_in_line($Txt_arrayName; $3)
+				_o_util_Lon_Local_in_line($Txt_arrayName; $3)
 				
 			End if 
 		End if 

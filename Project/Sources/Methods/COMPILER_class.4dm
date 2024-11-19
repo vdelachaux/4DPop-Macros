@@ -2,14 +2,14 @@
 If (False:C215)
 	
 	//________________________________________
-	C_OBJECT:C1216(_o_menu; $0)
-	C_TEXT:C284(_o_menu; $1)
-	C_OBJECT:C1216(_o_menu; $2)
+	//_O_C_OBJECT(_o_menu; $0)
+	//_O_C_TEXT(_o_menu; $1)
+	//_O_C_OBJECT(_o_menu; $2)
 	
 	//________________________________________
-	C_OBJECT:C1216(rgx; $0)
-	C_TEXT:C284(rgx; $1)
-	C_OBJECT:C1216(rgx; $2)
+	_O_C_OBJECT:C1216(_o_rgx; $0)
+	_O_C_TEXT:C284(_o_rgx; $1)
+	_O_C_OBJECT:C1216(_o_rgx; $2)
 	
 	//________________________________________
 End if 

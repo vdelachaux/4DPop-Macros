@@ -6,8 +6,7 @@ Case of
 		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	: ($e.code=On Load:K2:1)
 		
-		var $c : Collection
-		$c:=New collection:C1472
+		var $c : Collection:=[]
 		Form:C1466.boolean:=cs:C1710.button.new("boolean").highlightShortcut().bestSize()
 		$c.push(Form:C1466.boolean)
 		Form:C1466.blob:=cs:C1710.button.new("blob").highlightShortcut().bestSize()

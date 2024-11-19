@@ -175,6 +175,8 @@ Class constructor()
 	
 	This:C1470.specialComments:="%}])"  // Compilation modifier & …
 	
+	This:C1470.beautify()
+	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function beautify()
 	
@@ -246,7 +248,8 @@ An empty line is ignored if:
 				If (This:C1470.options.aLineOfCommentsMustBePrecededByALineBreak\
 					 && (This:C1470.lineIndex>0)\
 					 && This:C1470.isNotEmpty(This:C1470.previousLine)\
-					 && This:C1470.isNotComment(This:C1470.previousLine))
+					 && This:C1470.isNotComment(This:C1470.previousLine)\
+					 && This:C1470.isNotReservedComment($line))
 					
 					This:C1470._ouput.push("")
 					
@@ -551,7 +554,8 @@ Function after() : Text
 	End if 
 	
 	// MARK: Delete empty lines at the beginning of the method
-	If (This:C1470.options.removeEmptyLinesAtTheBeginOfMethod)
+	If (This:C1470.options.removeEmptyLinesAtTheBeginOfMethod)\
+		 && (This:C1470._ouput.length>0)
 		
 		While (This:C1470._ouput[0]="")
 			
@@ -561,7 +565,8 @@ Function after() : Text
 	End if 
 	
 	// MARK: Remove empty lines at the end of the method
-	If (This:C1470.options.removeEmptyLinesAtTheEndOfMethod)
+	If (This:C1470.options.removeEmptyLinesAtTheEndOfMethod)\
+		 && (This:C1470._ouput.length>0)
 		
 		$indx:=This:C1470._ouput.length-1
 		

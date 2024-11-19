@@ -117,6 +117,66 @@ Function setPattern($pattern : Text) : cs:C1710.regex
 	
 	return This:C1470
 	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function loadPattern($id : Text; $file : 4D:C1709.File)
+	
+	If ($file=Null:C1517)
+		
+		$file:=Folder:C1567(fk resources folder:K87:11).file("regex.xml")
+		
+	End if 
+	
+	If (Not:C34($file.exists))
+		
+		ALERT:C41("File not found: \""+$file.platformPath+"\"")
+		
+		return 
+		
+	End if 
+	
+	var $name; $pattern : Text
+	
+	Try
+		
+		var $root : Text:=DOM Parse XML source:C719($file.platformPath; False:C215)
+		var $node : Text:=DOM Get first child XML element:C723(DOM Find XML element:C864($root; "/REGEX/patterns/"))
+		
+		Repeat 
+			
+			DOM GET XML ATTRIBUTE BY NAME:C728($node; "name"; $name)
+			
+			If ($id=$name)
+				
+				DOM GET XML ELEMENT VALUE:C731($node; $pattern; $pattern)
+				
+				// If (Count parameters>=3)
+				// DOM GET XML ATTRIBUTE BY NAME($node; "groupsToExtract"; $3->)
+				// End if
+				
+				// Deleting Spaces & Comments
+				This:C1470._pattern:=cs:C1710.regex.new($pattern; "\\s*\\(\\?#[^)]*\\)|\\s").substitute("")
+				
+				break
+				
+			Else 
+				
+				$node:=DOM Get next sibling XML element:C724($node)
+				
+			End if 
+		Until (OK=0)
+		
+		DOM CLOSE XML:C722($root)
+		
+	Catch
+		
+		ALERT:C41(Last errors:C1799[0].message)
+		
+		Try(DOM CLOSE XML:C722($root))
+		
+		return 
+		
+	End try
+	
 	// MARK:-
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function match($start; $all : Boolean) : Boolean

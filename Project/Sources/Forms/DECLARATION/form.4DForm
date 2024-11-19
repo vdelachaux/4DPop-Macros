@@ -358,10 +358,10 @@
 					"left": 19,
 					"width": 431,
 					"height": 1,
-					"stroke": "#c0c0c0",
 					"startPoint": "bottomLeft",
 					"sizingX": "grow",
-					"sizingY": "move"
+					"sizingY": "move",
+					"stroke": "#c0c0c0"
 				},
 				"array": {
 					"type": "checkbox",
@@ -388,10 +388,10 @@
 					"left": 335,
 					"width": 115,
 					"height": 0,
-					"stroke": "#c0c0c0",
 					"startPoint": "topLeft",
 					"sizingX": "move",
-					"sizingY": "fixed"
+					"sizingY": "fixed",
+					"stroke": "#c0c0c0"
 				},
 				"Line2": {
 					"type": "line",
@@ -399,10 +399,10 @@
 					"left": 335,
 					"width": 115,
 					"height": 0,
-					"stroke": "#c0c0c0",
 					"startPoint": "topLeft",
 					"sizingX": "move",
-					"sizingY": "fixed"
+					"sizingY": "fixed",
+					"stroke": "#c0c0c0"
 				},
 				"filter": {
 					"type": "button",
@@ -431,7 +431,6 @@
 					"borderStyle": "none",
 					"fill": "transparent",
 					"fontStyle": "italic",
-					"stroke": "#c0c0c0",
 					"fontSize": 12,
 					"sizingY": "move",
 					"sizingX": "grow",

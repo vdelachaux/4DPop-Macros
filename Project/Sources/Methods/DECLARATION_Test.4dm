@@ -1,118 +1,118 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-//var $1 : Text
-//var $2; $3 : Boolean
+var $1 : Text
+var $2; $3 : Boolean
 
-////APPEND TO ARRAY($tObj_test; ${10}->)
+//APPEND TO ARRAY($tObj_test; ${10}->)
 
-//var $4; $5 : Collection
-//var $6
+var $4; $5 : Collection
+var $6
 
-///* -----
+/* -----
 
-//C_BOOLEAN($9)
+C_BOOLEAN($9)
 
-///* -----
+/* -----
 
-//C_BOOLEAN($8)
+C_BOOLEAN($8)
 
-//-----*/
-//-----*/
+-----*/
+-----*/
 
-//$_pathToObject:=Path to object($_x)
+$_pathToObject:=Path to object:C1547($_x)
 
-//var $7; $_pointer : Pointer
+var $7; $_pointer : Pointer
 
-//$_pointer:=->$7
+$_pointer:=->$7
 
-//var $0 : Object
+var $0 : Object
 
-//For ($i; 1; Count parameters; 1)
+For ($i; 1; Count parameters:C259; 1)
+	
+	$v:=${$i}
+	
+End for 
 
-//$v:=${$i}
+$_form:=Form:C1466
 
-//End for 
+$_text:="Hello world"
 
-//$_form:=Form
+$_integer:=10
+$_maxlong:=MAXLONG:K35:2
 
-//$_text:="Hello world"
+$_real:=12.5
+$_radian:=Radian:K30:3
 
-//$_integer:=10
-//$_maxlong:=MAXLONG
+$_false:=False:C215
+$_true:=True:C214
+$_Unknown:=TrueMethod
 
-//$_real:=12.5
-//$_radian:=Radian
+$_parse:=JSON Parse:C1218("{}")
 
-//$_false:=False
-//$_true:=True
-//$_Unknown:=TrueMethod
+$_time:=?00:00:00?
+$_date:=!00-00-00!
 
-//$_parse:=JSON Parse("{}")
+$_collection:=New collection:C1472
 
-//$_time:=?00:00:00?
-//$_date:=!00-00-00!
+For ($_compteur; $_debut; $_fin; $_pas)
+	
+	$_commandName:=Command name:C538($_compteur)
+	
+	If (OK=1)
+		
+		CONFIRM:C162($_commandName)
+		
+		If (OK=0)
+			
+			SET TEXT TO PASTEBOARD:C523(String:C10($_compteur))
+			$_stop:=MAXLONG:K35:2-1
+			
+		End if 
+		
+	Else 
+		
+		$_compteur:=MAXLONG:K35:2-1
+		
+	End if 
+End for 
 
-//$_collection:=New collection
+var $_variant : Variant
+var $_variantWithoutType
 
-//For ($_compteur; $_debut; $_fin; $_pas)
+$_o:=New object:C1471()
+$_o1.key:=$_o
+$_o2.$test:=$Txt_buffer
 
-//$_commandName:=Command name($_compteur)
-
-//If (OK=1)
-
-//CONFIRM($_commandName)
-
-//If (OK=0)
-
-//SET TEXT TO PASTEBOARD(String($_compteur))
-//$_stop:=MAXLONG-1
-
-//End if 
-
-//Else 
-
-//$_compteur:=MAXLONG-1
-
-//End if 
-//End for 
-
-//var $_variant : Variant
-//var $_variantWithoutType
-
-//$_o:=New object()
-//$_o1.key:=$_o
-//$_o2.$test:=$Txt_buffer
-
-//OB SET($_o3; \
+OB SET:C1220($_o3; \
 "$test"; "hello")
 
-//OB SET($_o4; \
-"is-compilable"; False)
+OB SET:C1220($_o4; \
+"is-compilable"; False:C215)
 
-//OB SET($_o5; \
+OB SET:C1220($_o5; \
 "$TEST"; "hello")
 
-//SET BLOB SIZE($_blob; 0)
-//APPEND TO ARRAY($_object; $Obj_test)
+SET BLOB SIZE:C606($_blob; 0)
+APPEND TO ARRAY:C911($_object; $Obj_test)
 
-//ARRAY LONGINT($_arrayInteger; 0x0000)
+ARRAY LONGINT:C221($_arrayInteger; 0x0000)
 
-//ARRAY BLOB($_arrayBlob; 0; 0)
-//$_arrayBlob{0}{0}:=$_blob
+ARRAY BLOB:C1222($_arrayBlob; 0; 0)
+$_arrayBlob{0}{0}:=$_blob
 
-//ARRAY TIME($_arrayTime; 0)
-//APPEND TO ARRAY($_arrayTime; ?00:00:00?)
+ARRAY TIME:C1223($_arrayTime; 0)
+APPEND TO ARRAY:C911($_arrayTime; ?00:00:00?)
 
 
-//$Txt_referenceLanguage:=OB Get($_o6; "reference"; Is text)
+$Txt_referenceLanguage:=OB Get:C1224($_o6; "reference"; Is text:K8:3)
 
-////COMMENT
-////OB SET($Obj_COMMENT;"test";"hello";"test2";"world")
+//COMMENT
+//OB SET($Obj_COMMENT;"test";"hello";"test2";"world")
 
-//$Txt_buffer:=OB Get($object; "test"; Is text)  //$x
+$Txt_buffer:=OB Get:C1224($object; "test"; Is text:K8:3)  //$x
 
-//$Boo_:=($_dot.compilable#$Obj_empty)
-//$_b:=OB Is defined($Obj_; "compilable")
+$Boo_:=($_dot.compilable#$Obj_empty)
+$_b:=OB Is defined:C1231($Obj_; "compilable")
 
-//OB SET($_settings; \
+OB SET:C1220($_settings; \
 "$test"; "hello"; \
 "test2"; "world")

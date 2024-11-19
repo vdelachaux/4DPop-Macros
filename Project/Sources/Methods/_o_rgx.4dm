@@ -8,26 +8,26 @@
 //
 // ----------------------------------------------------
 // Declarations
-_O_C_OBJECT:C1216($0)
-_O_C_TEXT:C284($1)
-_O_C_OBJECT:C1216($2)
+var $0 : Object
+var $1 : Text
+var $2 : Object
 
-_O_C_BOOLEAN:C305($success)
-_O_C_LONGINT:C283($end; $i; $indx; $start)
-_O_C_TEXT:C284($t; $tMethodCalledOnError; $tPattern; $tReplacement; $tTarget; $Txt_Target)
-_O_C_OBJECT:C1216($rgx)
+var $success : Boolean
+var $end; $i; $indx; $start : Integer
+var $t; $tMethodCalledOnError; $tPattern; $tReplacement; $tTarget; $Txt_Target : Text
+var $rgx : Object
 
 ARRAY LONGINT:C221($tLon_Lengths; 0)
 ARRAY LONGINT:C221($tLon_Positions; 0)
 ARRAY TEXT:C222($tTxt_Tempo; 0)
 
 If (False:C215)
-	_O_C_OBJECT:C1216(rgx; $0)
-	_O_C_TEXT:C284(rgx; $1)
-	_O_C_OBJECT:C1216(rgx; $2)
+	_O_C_OBJECT:C1216(_o_rgx; $0)
+	_O_C_TEXT:C284(_o_rgx; $1)
+	_O_C_OBJECT:C1216(_o_rgx; $2)
 End if 
 
-_O_C_LONGINT:C283(_o_rgxError)
+var _o_rgxError : Integer
 
 // ----------------------------------------------------
 If (This:C1470[""]=Null:C1517)  // Constructor
@@ -45,9 +45,9 @@ If (This:C1470[""]=Null:C1517)  // Constructor
 		"result"; ""; \
 		"errors"; New collection:C1472; \
 		"warnings"; New collection:C1472; \
-		"reset"; Formula:C1597(rgx("reset")); \
-		"setText"; Formula:C1597(rgx("setText"; New object:C1471("text"; String:C10($1)))); \
-		"substitute"; Formula:C1597(rgx("substitute"; New object:C1471("pattern"; String:C10($1); "replacement"; String:C10($2); "start"; $3)))\
+		"reset"; Formula:C1597(_o_rgx("reset")); \
+		"setText"; Formula:C1597(_o_rgx("setText"; New object:C1471("text"; String:C10($1)))); \
+		"substitute"; Formula:C1597(_o_rgx("substitute"; New object:C1471("pattern"; String:C10($1); "replacement"; String:C10($2); "start"; $3)))\
 		)
 	
 Else 

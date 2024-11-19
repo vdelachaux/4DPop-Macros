@@ -22,11 +22,11 @@ _O_C_POINTER:C301($Ptr_targetArray)
 _O_C_TEXT:C284($kTxt_delimitors; $Txt_buffer; $Txt_character; $Txt_pattern; $Txt_variableName)
 
 If (False:C215)
-	_O_C_LONGINT:C283(util_Lon_Local_in_line; $0)
-	_O_C_TEXT:C284(util_Lon_Local_in_line; $1)
-	_O_C_POINTER:C301(util_Lon_Local_in_line; $2)
-	_O_C_POINTER:C301(util_Lon_Local_in_line; $3)
-	_O_C_LONGINT:C283(util_Lon_Local_in_line; $4)
+	_O_C_LONGINT:C283(_o_util_Lon_Local_in_line; $0)
+	_O_C_TEXT:C284(_o_util_Lon_Local_in_line; $1)
+	_O_C_POINTER:C301(_o_util_Lon_Local_in_line; $2)
+	_O_C_POINTER:C301(_o_util_Lon_Local_in_line; $3)
+	_O_C_LONGINT:C283(_o_util_Lon_Local_in_line; $4)
 End if 
 
 // ----------------------------------------------------

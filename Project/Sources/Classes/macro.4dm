@@ -197,7 +197,8 @@ Function isReservedComment($line : Text) : Boolean
 	return ($line=(kCommentMark+"}"))\
 		 || ($line=(kCommentMark+"]"))\
 		 || ($line=(kCommentMark+")"))\
-		 || (Match regex:C1019("(?m-si)^//%[A-Z][-+]$"; $line; 1; *))
+		 || (Match regex:C1019("(?m-si)^//%[A-Z][-+]$"; $line; 1; *))\
+		 || (Match regex:C1019("(?mi-s)^/\\*.*\\*/$"; $line; 1; *))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotReservedComment($line : Text) : Boolean
@@ -323,10 +324,10 @@ Function Declarations()
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function Beautifier()
 	
-	cs:C1710.beautifier.new().beautify()
+	cs:C1710.beautifier.new()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	//#v11 Paste after transformations
+	//Paste after transformations
 Function SpecialPaste()
 	
 	cs:C1710.specialPaste.new()
@@ -335,15 +336,13 @@ Function SpecialPaste()
 	// Paste the contents of the clipboard and copy the selection
 Function PasteAndKeepTarget()
 	
-	var $t : Text
-	
 	If (This:C1470.noSelection())
 		
 		return 
 		
 	End if 
 	
-	$t:=Get text from pasteboard:C524  // Get the text content of the clipboard
+	var $t : Text:=Get text from pasteboard:C524  // Get the text content of the clipboard
 	
 	If (Length:C16($t)=0)
 		
@@ -411,16 +410,14 @@ Function Choose()
 	/// Copy the selected text
 Function CopyWithTokens()
 	
-	var $line : Text
-	var $c : Collection
-	
 	If (This:C1470.noSelection())
 		
 		return 
 		
 	End if 
 	
-	$c:=New collection:C1472
+	var $line : Text
+	var $c : Collection:=[]
 	
 	For each ($line; Split string:C1554(This:C1470.highlighted; "\r"))
 		
