@@ -141,8 +141,8 @@ If (True:C214)
 										
 										$count:=$count*$i
 										
-										
-										
+										var $isWindows; $isMac; $isLinux : Boolean
+										$txt:=Choose:C955($isWindows; "windows"; Choose:C955($isMac; "mac"; Choose:C955($isLinux; "linux"; "?")))  //comment
 										
 										
 										//mark:REMOVE THE MULTIPLE EMPTY LINES ABOVE

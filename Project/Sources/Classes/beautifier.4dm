@@ -132,7 +132,7 @@ Class constructor()
 	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+This:C1470.closures.join("|")+")\\b"
 	
 	// MARK: Localised closures
-	$t:="(?mi-s)(?<! // )(?<!//\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
+	$t:="(?mi-s)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
 	This:C1470._patterns.closureInstructions:=[\
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endIf); \
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endCase); \
@@ -152,18 +152,20 @@ Class constructor()
 		+This:C1470._controls.endIf
 	
 	// MARK: Choose
-	This:C1470._patterns.choose:="(?i-ms)"+Command name:C538(955)+"\\(([^;]*?);\\s*([^;]*?);\\s*([^;]*?)\\)(\\s* // .*?)?\\R"
+	This:C1470._patterns.choose:="(?i-ms)"+Command name:C538(955)+"\\(([^;]*?);\\s*([^;]*?);\\s*([^;]*?)\\)(\\s*"+kCommentMark+".*?)?\\R"
 	
 	// MARK: Comparisson with empty string
 	This:C1470._patterns.emptyString:="(?mi-s)(?:\\(|;)([^)#=;]+)(?<!:)(#|=)\"\""
 	
 	// MARK: Commands whose parameters must be divided into key/value lines
 	This:C1470._splittableCommands:=[\
-		{name: Command name:C538(1220); id: 1220; pattern: "(?mi-s)"+Command name:C538(1220)+"\\(([^;]*?);(.*?)\\)(\\s* // .*?)?$"; commentIndex: 4}; \
-		{name: Command name:C538(1055); id: 1055; pattern: "(?mi-s)"+Command name:C538(1055)+"\\((.*?)\\)(\\s*  // .*?)?$"; commentIndex: 3}; \
-		{name: Command name:C538(865); id: 865; pattern: "(?mi-s)(.*?:=)"+Command name:C538(865)+"\\((.*?)\\)(\\s* // .*?)?$"; commentIndex: 4}; \
-		{name: Command name:C538(866); id: 866; pattern: "(?mi-s)"+Command name:C538(866)+"\\((.*?)\\)(\\s* // .*?)?$"; commentIndex: 3}; \
-		{name: Command name:C538(1093); id: 1093; pattern: "(?mi-s)"+Command name:C538(1093)+"\\((.*?)\\)(\\s*  // .*?)?$"; commentIndex: 3}\
+		{name: Command name:C538(1471); id: 1471; pattern: "(?mi-s)(.*?:=)"+Command name:C538(1471)+"\\((.*?)\\)(.*?)$"; commentIndex: 4}; \
+		{name: Command name:C538(1220); id: 1220; pattern: "(?mi-s)"+Command name:C538(1220)+"\\(([^;]*?);(.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 4}; \
+		{name: Command name:C538(1220); id: 1220; pattern: "(?mi-s)"+Command name:C538(1220)+"\\(([^;]*?);(.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 4}; \
+		{name: Command name:C538(1055); id: 1055; pattern: "(?mi-s)"+Command name:C538(1055)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}; \
+		{name: Command name:C538(865); id: 865; pattern: "(?mi-s)(.*?:=)"+Command name:C538(865)+"\\((.*?)\\)(\\s*/"+kCommentMark+".*?)?$"; commentIndex: 4}; \
+		{name: Command name:C538(866); id: 866; pattern: "(?mi-s)"+Command name:C538(866)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}; \
+		{name: Command name:C538(1093); id: 1093; pattern: "(?mi-s)"+Command name:C538(1093)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}\
 		]
 	
 	// MARK: Splittable commands
@@ -459,7 +461,7 @@ Function before($code : Text) : Text
 	// Mark:Use var instead of (_o_)C_xxx
 	If (This:C1470.options.useVar)
 		
-		$pattern:="(?-msi)(?<!//)(?<!//\\s){C_}\\((?![\\w\\s]+;\\s*\\$\\{?\\d+\\}?)([^{\\)]*)\\)"
+		$pattern:="(?-msi)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s){C_}\\((?![\\w\\s]+;\\s*\\$\\{?\\d+\\}?)([^{\\)]*)\\)"
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(604))).substitute("var \\1 : Blob")
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(305))).substitute("var \\1 : Boolean")
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(1488))).substitute("var \\1 : Collection")
@@ -486,6 +488,9 @@ Function before($code : Text) : Text
 	
 	// Mark:Use ternary operator
 	If (This:C1470.options.replaceIfElseEndIfByChoose)  // Use ternary operator
+		
+		$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(955)+"\\(([^();]*?);([^();]*?);([^();]*?)\\)").substitute("\\1 ? \\2 : \\3")
+		$code:=This:C1470.rgx.setTarget($code).setPattern("(?mi-s)"+Command name:C538(955)+"\\(([^();]*?);([^();]*?);([^();]*?)\\)").substitute("\\1 ? \\2 : \\3")  // Yes, twice ;-)
 		
 		Try
 			
@@ -934,7 +939,7 @@ Function _splitLiterals($line : Text; $dlmt : Text) : Text
 	
 	var $var : Text:=$c[0]
 	
-	$c:=Split string:C1554($c[1]; kCommentMark)
+	$c:=Split string:C1554($c[1]; kCommentMark; sk trim spaces:K86:2)
 	
 	If ($c.length=2)
 		
@@ -956,7 +961,7 @@ Function _splitLiterals($line : Text; $dlmt : Text) : Text
 	var $out : Collection:=$c.map(Formula:C1597($1.value+";\\"))
 	$out.push($t)
 	
-	return $var+":="+$dlmt[[1]]+"\\\r"+$out.join("\r")+$dlmt[[2]]+(Length:C16($comment)>0 ? kCommentMark+$comment : "")
+	return $var+":="+$dlmt[[1]]+"\\\r"+$out.join("\r")+$dlmt[[2]]+(Length:C16($comment)>0 ? " "+kCommentMark+$comment : "")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function splitKeyValueLine($line : Text) : Text
@@ -984,6 +989,41 @@ Function _splitIntoKeyAndValue($code : Text; $cmd : Object) : Text
 	var $c : Collection
 	
 	Case of 
+			
+			// MARK:-New object -> Use literal notation
+		: ($cmd.id=1471)
+			
+			If (Not:C34(This:C1470.rgx.setPattern($cmd.pattern).match(True:C214)))
+				
+				return $code
+				
+			End if 
+			
+			$c:=Split string:C1554(This:C1470.rgx.matches[2].data; ";"; sk trim spaces:K86:2)
+			
+			$code:=This:C1470.rgx.matches[1].data+"{"
+			
+			For ($i; 0; $c.length-1; 2)
+				
+				$code+=Replace string:C233($c[$i]; "\""; "")+":"+$c[$i+1]
+				
+				If (($i+1)<($c.length-1))
+					
+					$code+=";"
+					
+				End if 
+			End for 
+			
+			$code+="}"
+			
+			If (This:C1470.rgx.matches.length>=$cmd.commentIndex)
+				
+				$code+=This:C1470.rgx.matches[$cmd.commentIndex-1].data
+				
+			End if 
+			
+			return $code
+			
 			
 			// MARK:-SVG SET ATTRIBUTE
 		: ($cmd.id=1055)
