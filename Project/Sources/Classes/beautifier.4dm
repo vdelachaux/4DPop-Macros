@@ -587,6 +587,9 @@ Function after() : Text
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function formatComment($line : Text) : Text
 	
+	ARRAY LONGINT:C221($pos; 0x0000)
+	ARRAY LONGINT:C221($len; 0x0000)
+	
 	var $start : Integer:=Position:C15(kCommentMark; $line)
 	
 	If ($start=0)
@@ -600,18 +603,28 @@ Function formatComment($line : Text) : Text
 	$line:=Replace string:C233($line; "todo:"; "TODO:")
 	$line:=Replace string:C233($line; "fixme:"; "FIXME:")
 	
-	var $code : Text:=Substring:C12($line; 1; $start-1)
-	var $comment : Text:=Delete string:C232($line; 1; $start-1+Length:C16(kCommentMark))
+	var $code; $comment : Text
+	
+	// Caution with urls or addresses such as “https://...", "file:///...”
+	If (Match regex:C1019("(?mi-s)(.*?\".*?:/+.*?\")(?:\\s*//(.*?))?$"; $line; 1; $pos; $len))
+		
+		$code:=Substring:C12($line; $pos{1}; $len{1})
+		$comment:=Substring:C12($line; $pos{2}; $len{2})
+		
+	Else 
+		
+		$code:=Substring:C12($line; 1; $start-1)
+		$comment:=Delete string:C232($line; 1; $start-1+Length:C16(kCommentMark))
+		
+	End if 
+	
 	var $c : Collection:=Split string:C1554($comment; " "; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
 	
 	If ($c.length=0)
 		
-		return kCommentMark
+		return $line
 		
 	End if 
-	
-	ARRAY LONGINT:C221($pos; 0x0000)
-	ARRAY LONGINT:C221($len; 0x0000)
 	
 	Case of 
 			

@@ -165,6 +165,15 @@ If (True:C214)
 									
 									
 									
+									
+									
+									
+									
+									
+									//mark:TEXTS CONTAINING “//” AS A URL SHOULD NOT BE AFFECTED
+									var $path : Text:="file:///test/test"  // Comment
+									var $url : Text:="https://4d.com"
+									
 									var $v
 									
 									$v:=""
