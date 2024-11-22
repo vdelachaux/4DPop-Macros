@@ -418,7 +418,8 @@ A comment line is preceded by an empty line if:
 				This:C1470._ouput.push(This:C1470.line)
 				
 				If ((This:C1470.lineIndex>0)\
-					 && This:C1470.isNotEmpty(This:C1470.nextLine))
+					 && This:C1470.isNotEmpty(This:C1470.nextLine)\
+					 && This:C1470.isNotMultiline($line))
 					
 					This:C1470._ouput.push("")
 					

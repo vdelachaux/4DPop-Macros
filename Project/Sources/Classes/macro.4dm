@@ -22,8 +22,6 @@ property _ouput : Collection:=[]
 
 property decimalSeparator : Text
 
-property windowRef : Integer
-
 // MARK: Delegate
 property rgx : cs:C1710.regex:=cs:C1710.regex.new()
 
@@ -686,28 +684,4 @@ Function _comment() : Text
 		return "/*\r"+$c.join("\r")+"\r*/"+("\r"*Num:C11(v1=v2))
 		
 	End if 
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function dialog($form : Text; $title : Text; $type : Integer) : Boolean
-	
-	var $i : Integer
-	
-	ARRAY LONGINT:C221($_winRefs; 0)
-	
-	$type:=Count parameters:C259>=3 ? $type : Movable form dialog box:K39:8
-	
-	WINDOW LIST:C442($_winRefs)
-	
-	For ($i; 1; Size of array:C274($_winRefs); 1)
-		
-		If (Get window title:C450($_winRefs{$i})=$title)
-			
-			return 
-			
-		End if 
-	End for 
-	
-	This:C1470.windowRef:=Open form window:C675($form; $type; Horizontally centered:K39:1; Vertically centered:K39:4; *)
-	
-	return True:C214
 	

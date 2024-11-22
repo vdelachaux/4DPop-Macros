@@ -9,75 +9,72 @@ property columns : Integer:=80  // Default text column number
 
 property target : Collection:=[]
 
+property windowRef : Integer:=Open form window:C675("SPECIAL_PASTE"; Movable form dialog box:K39:8; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+
 Class constructor()
 	
 	Super:C1705()
 	
-	//This.windowRef:=Open form window("SPECIAL_PASTE"; Plain form window; Horizontally centered; Vertically centered; *)
-	If (This:C1470.dialog("SPECIAL_PASTE"; Localized string:C991("specialPaste")))
+	var $t : Text
+	var $o : Object
+	For each ($t; [\
+		"string"; \
+		"comments"; \
+		"tokenized"; \
+		"patternRegex"; \
+		"pathname"; \
+		"insertInText"; \
+		"htmlExpression"; \
+		"htmlCode"; \
+		"jsonCode"; \
+		"toUTF8"; \
+		"fromUTF8"])
 		
-		var $t : Text
-		var $o : Object
-		For each ($t; [\
-			"string"; \
-			"comments"; \
-			"tokenized"; \
-			"patternRegex"; \
-			"pathname"; \
-			"insertInText"; \
-			"htmlExpression"; \
-			"htmlCode"; \
-			"jsonCode"; \
-			"toUTF8"; \
-			"fromUTF8"])
-			
-			$o:={\
-				label: " "+Localized string:C991($t); \
-				transform: $t}
-			
-			Case of 
-					
-					//______________________________________________________
-				: (New collection:C1472(\
-					"string"; \
-					"comments"; \
-					"htmlCode").indexOf($t)#-1)
-					
-					$o.options:=New object:C1471
-					$o.options["1"]:="deleteIndentation"
-					$o.options["2"]:="ignoreBlankLines"
-					
-					//______________________________________________________
-				: ($t="pathname")
-					
-					$o.options:=New object:C1471
-					$o.options["1"]:="relative"
-					$o.options["2"]:="posix"
-					
-					//______________________________________________________
-			End case 
-			
-			This:C1470.target.push($o)
-			
-		End for each 
+		$o:={\
+			label: " "+Localized string:C991($t); \
+			transform: $t}
 		
-		DIALOG:C40("SPECIAL_PASTE"; This:C1470)
+		Case of 
+				
+				//______________________________________________________
+			: (New collection:C1472(\
+				"string"; \
+				"comments"; \
+				"htmlCode").indexOf($t)#-1)
+				
+				$o.options:=New object:C1471
+				$o.options["1"]:="deleteIndentation"
+				$o.options["2"]:="ignoreBlankLines"
+				
+				//______________________________________________________
+			: ($t="pathname")
+				
+				$o.options:=New object:C1471
+				$o.options["1"]:="relative"
+				$o.options["2"]:="posix"
+				
+				//______________________________________________________
+		End case 
 		
-		If (Bool:C1537(OK))
-			
-			var $selected : Integer:=This:C1470.currentTargetIndex
-			_o_Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
-			
-			var $options : Integer:=This:C1470.options
-			_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
-			
-			This:C1470.setHighlightedText(This:C1470.preview+kCaret)
-			
-		End if 
+		This:C1470.target.push($o)
 		
-		CLOSE WINDOW:C154(This:C1470.windowRef)
+	End for each 
+	
+	DIALOG:C40("SPECIAL_PASTE"; This:C1470)
+	
+	If (Bool:C1537(OK))
+		
+		var $selected : Integer:=This:C1470.currentTargetIndex
+		_o_Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
+		
+		var $options : Integer:=This:C1470.options
+		_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
+		
+		This:C1470.setHighlightedText(This:C1470.preview+kCaret)
 		
 	End if 
+	
+	CLOSE WINDOW:C154(This:C1470.windowRef)
 	
 	//=========================================================================
 Function refresh()
