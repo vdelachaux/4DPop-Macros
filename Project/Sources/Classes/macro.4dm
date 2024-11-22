@@ -22,6 +22,8 @@ property _ouput : Collection:=[]
 
 property decimalSeparator : Text
 
+property isProject : Boolean:=Bool:C1537(Get database parameter:C643(Is host database a project:K37:99))
+
 // MARK: Delegate
 property rgx : cs:C1710.regex:=cs:C1710.regex.new()
 
@@ -76,7 +78,7 @@ Class constructor()
 	This:C1470.decimalSeparator:=$t
 	
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
-Function get macroCall() : Boolean
+Function get isMacroProcess() : Boolean
 	
 	return Process info:C1843(Current process:C322).name="Macro_Call"
 	
@@ -319,7 +321,15 @@ Function PasteColor()
 	/// Compiler Directives for local variables
 Function Declarations()
 	
-	_o_DECLARATION
+	If (This:C1470.isProject)
+		
+		cs:C1710.declaration.new()
+		
+	Else 
+		
+		_o_DECLARATION
+		
+	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function Beautifier()
@@ -478,7 +488,7 @@ Function convert_decimal()
 	
 	If (This:C1470.highlighted="0x@")
 		
-		This:C1470.paste(String:C10(str_gLon_Hex_To_Long(This:C1470.highlighted))+kCaret)
+		This:C1470.paste(String:C10(This:C1470._hex2long(This:C1470.highlighted))+kCaret)
 		
 	Else 
 		
@@ -646,7 +656,8 @@ Function duplicateAndComment()
 		
 	End if 
 	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// MARK:-
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _comment() : Text
 	
 	var $c : Collection
@@ -685,3 +696,40 @@ Function _comment() : Text
 		
 	End if 
 	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+Function _hex2long($hex : Text) : Integer
+	
+	var $num : Real
+	var $charCode; $i; $length : Integer
+	
+	$hex:=Uppercase:C13($hex)
+	$length:=Length:C16($hex)
+	
+	For ($i; $length; 1; -1)
+		
+		$charCode:=Character code:C91($hex[[$i]])
+		
+		Case of 
+				
+				// ……………………………………………………………
+			: (($charCode>47)\
+				 && ($charCode<58))  // 0..9
+				
+				$num+=(($charCode-48)*(16^($length-$i)))
+				
+				// ……………………………………………………………
+			: (($charCode>64)\
+				 && ($charCode<71))  // A..F
+				
+				$num+=(($charCode-55)*(16^($length-$i)))
+				
+				// ……………………………………………………………
+			Else   // "x" of Ox or other gizmo...
+				
+				break
+				
+				// ……………………………………………………………
+		End case 
+	End for 
+	
+	return Int:C8($num)

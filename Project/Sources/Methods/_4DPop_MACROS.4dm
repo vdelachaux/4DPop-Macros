@@ -37,7 +37,7 @@ End if
 var $mcro : cs:C1710.macro:=cs:C1710.macro.new()
 var $success : Boolean:=True:C214
 
-If ($mcro.macroCall)
+If ($mcro.isMacroProcess)
 	
 	// MARK: Install menu bar to allow Copy - Paste
 	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
@@ -153,7 +153,7 @@ Case of
 		// ______________________________________________________
 	: ($action="about")
 		
-		If ($mcro.macroCall)
+		If ($mcro.isMacroProcess)
 			
 			var $process : Integer:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $text)
 			
@@ -394,7 +394,7 @@ If (Not:C34($success))\
 	
 End if 
 
-If ($mcro.macroCall)
+If ($mcro.isMacroProcess)
 	
 	// Something to do?
 	

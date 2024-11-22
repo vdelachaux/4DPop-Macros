@@ -106,7 +106,6 @@
 	},
 	"🛠️ Tools": {
 		"methods": [
-			"str_gLon_Hex_To_Long",
 			"str_hyphenation",
 			"win_NOT_UNDER_TOOLBAR"
 		]

@@ -14,6 +14,8 @@ property parameterNumber : Integer:=0
 property _patterns : Object
 property _notforArray : Collection:=["collection"; "variant"]
 
+property windowRef : Integer
+
 Class extends macro
 
 Class constructor
@@ -167,6 +169,28 @@ Class constructor
 		directive: 285}
 	
 	This:C1470.loadGramSyntax()
+	
+	This:C1470.parse()
+	
+	If (This:C1470.variables.length>0)
+		
+		This:C1470.windowRef:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
+		DIALOG:C40("DECLARATION"; This:C1470)
+		
+		If (Bool:C1537(OK))
+			
+			This:C1470.paste(This:C1470.method)
+			//SET MACRO PARAMETER(Choose(This.withSelection; Highlighted method text; Full method text); This.method)
+			
+		End if 
+		
+		CLOSE WINDOW:C154(This:C1470.windowRef)
+		
+	Else 
+		
+		ALERT:C41("No local variable or parameter to declare!")
+		
+	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split() : cs:C1710.declaration
@@ -570,12 +594,14 @@ declaration macro must omit the parameters of a formula
 									
 									If ($var.type=Is object:K8:27)
 										
+										var $class : Object:=This:C1470.classes.query("value = :1"; $var.value).first()
+										
 										Case of 
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line.code; 1; $pos; $len))
+											: ($class#Null:C1517)
 												
-												$var.class:=Substring:C12($line.code; $pos{1}; $len{1})
+												$var.class:=$class.class
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("File:C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1))
@@ -605,7 +631,7 @@ declaration macro must omit the parameters of a formula
 														//____________________________________
 													: (False:C215)
 														
-														// MARK:#TODO - get from member fonction or attribute
+														// TODO: Get from member fonction or attribute
 														
 														//____________________________________
 													Else 
@@ -614,11 +640,6 @@ declaration macro must omit the parameters of a formula
 														
 														//____________________________________
 												End case 
-												
-												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											Else 
-												
-												// A "Case of" statement should never omit "Else"
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 										End case 
@@ -1350,6 +1371,10 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
 	
+	$t:=Replace string:C233(Replace string:C233($text; "{"; "\\{"); "}"; "\\}")
+	
+	
+	
 	// MARK:- Literal syntax
 	Case of 
 			
@@ -1378,12 +1403,10 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 	End case 
 	
 	// mark:-
-	$t:=Replace string:C233(Replace string:C233($text; "{"; "\\{"); "}"; "\\}")
-	
 	Case of 
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)(\\$\\w*):=((?:cs|4d)\\.\\w*)\\.new\\([^)]*\\)(?!\\.)"; $line; 1; $pos; $len))  // Class
+		: (Match regex:C1019("(?mi-s)(\\$\\w+):=((?:cs|4d)\\.\\w+(?:\\.\\w+)?)+\\.new\\("; $line; 1; $pos; $len))  // Class
 			
 			// Keep class definition
 			This:C1470.classes.push({\
@@ -1393,27 +1416,29 @@ Function clairvoyant($text : Text; $line : Text) : Integer
 			return Is object:K8:27
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)\\"+$t+":=\"[^\"]*\""+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $line; 1))  // Length
+		: (Match regex:C1019("(?m-si)\\"+$t+"[-+:]=\"[^\"]*\""+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $line; 1))
 			
 			return Is text:K8:3
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: (Match regex:C1019("(?mi-s)\\"+$t+"[-+/\\*:]=-*\\d+\\.\\d*"; $line; 1))\
+			 || (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+\\.\\d*"; $line; 1))\
+			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("Pi:K30:1"); $line; 1))\
+			 || (Match regex:C1019("[-+/\\*:]==\\s*"+Parse formula:C1576("Degree:K30:2"); $line; 1))\
+			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("Radian:K30:3"); $line; 1))\
+			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("e number:K30:4"); $line; 1))
+			
+			return Is real:K8:4
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+"[:><]?[=><]?\\d+"; $line; 1))\
 			 || (Match regex:C1019("(?mi-s)\\"+$t+"\\s\\?[?+-]\\s\\d*"; $line; 1))\
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXINT:K35:1"); $line; 1))\
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXLONG:K35:2"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXTEXTLENBEFOREV11:K35:3"); $line; 1))
+			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXTEXTLENBEFOREV11:K35:3"); $line; 1))\
+			 || (Match regex:C1019("[-+/\\*:]=-*\\d"; $line; 1))
 			
 			return Is longint:K8:6
-			
-			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+[."+This:C1470.decimalSeparator+"]\\d+"; $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Pi:K30:1"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Degree:K30:2"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("Radian:K30:3"); $line; 1))\
-			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("e number:K30:4"); $line; 1))
-			
-			return Is real:K8:4
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*"+kCommentMark+")"+\

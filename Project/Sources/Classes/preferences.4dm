@@ -80,8 +80,6 @@ Function loadPreferences()->$settingFile : 4D:C1709.File
 					
 					Use (Storage:C1525.macros.preferences)
 						
-						//Storage.macros.preferences.file:=$settingFile
-						
 						Storage:C1525.macros.preferences.platformPath:=$settingFile.platformPath
 						
 						$o:=_o_xml_fileToObject($settingFile.platformPath)

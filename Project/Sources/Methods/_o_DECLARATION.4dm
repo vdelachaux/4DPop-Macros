@@ -42,7 +42,7 @@
 // Adding option "Generate comment for tooltip"
 // ----------------------------------------------------
 var $1 : Text
-_O_C_POINTER:C301(${2})
+C_POINTER:C301(${2})
 
 var $Boo_2Darray; $Boo_comments; $Boo_parameter; $Boo_updateComments : Boolean
 var $i; $l; $Lon_appearance; $Lon_command; $Lon_count; $Lon_currentLength : Integer
@@ -57,8 +57,8 @@ var $file; $o; $oo : Object
 var $c; $cArrays; $cDirectives; $Col_settings; $Col_type : Collection
 
 If (False:C215)
-	_O_C_TEXT:C284(_o_DECLARATION; $1)
-	_O_C_POINTER:C301(_o_DECLARATION; ${2})
+	C_TEXT:C284(_o_DECLARATION; $1)
+	C_POINTER:C301(_o_DECLARATION; ${2})
 End if 
 
 // ----------------------------------------------------
@@ -99,45 +99,18 @@ If ($Lon_parameters=0)  // Display the dialog
 			
 		End if 
 		
-		If (Bool:C1537(Get database parameter:C643(Is host database a project:K37:99)))  // & Not(Shift down)
-			
-			$o:=cs:C1710.declaration.new().parse()
-			
-			If ($o.variables.length>0)
-				
-				$o.formWindow:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
-				DIALOG:C40("DECLARATION"; $o)
-				
-				If (Bool:C1537(OK))
-					
-					SET MACRO PARAMETER:C998(Choose:C955($o.withSelection; Highlighted method text:K5:18; Full method text:K5:17); $o.method)
-					
-				End if 
-				
-				CLOSE WINDOW:C154
-				
-			Else 
-				
-				ALERT:C41("No local variable or parameter into the method!")
-				
-			End if 
-			
-		Else 
-			
-			$o:=New object:C1471(\
-				"title"; Get window title:C450(Frontmost window:C447); \
-				"method"; _o_win_title(Frontmost window:C447); \
-				"settings"; $o; \
-				"controlFlow"; $c; \
-				"refresh"; Formula:C1597(_o_DECLARATION("DISPLAY")); \
-				"setType"; Formula:C1597(_o_DECLARATION("TYPE"))\
-				)
-			
-			$l:=Open form window:C675("BINARY_DECLARATIONS"; Movable form dialog box:K39:8; *)
-			DIALOG:C40("BINARY_DECLARATIONS"; $o)
-			CLOSE WINDOW:C154
-			
-		End if 
+		$o:=New object:C1471(\
+			"title"; Get window title:C450(Frontmost window:C447); \
+			"method"; _o_win_title(Frontmost window:C447); \
+			"settings"; $o; \
+			"controlFlow"; $c; \
+			"refresh"; Formula:C1597(_o_DECLARATION("DISPLAY")); \
+			"setType"; Formula:C1597(_o_DECLARATION("TYPE"))\
+			)
+		
+		$l:=Open form window:C675("BINARY_DECLARATIONS"; Movable form dialog box:K39:8; *)
+		DIALOG:C40("BINARY_DECLARATIONS"; $o)
+		CLOSE WINDOW:C154
 		
 		CLEAR VARIABLE:C89(<>tTxt_lines)
 		CLEAR VARIABLE:C89(<>tLon_Line_Statut)
