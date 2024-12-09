@@ -95,6 +95,8 @@ Function setHighlightedText($text : Text)
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function paste($text : Text; $useSelection : Boolean)
 	
+	LOG EVENT:C667(Into system standard outputs:K38:9; "MACROS paste()"; Error message:K38:3)
+	
 	var $i : Integer
 	
 	If (Count parameters:C259>=2)

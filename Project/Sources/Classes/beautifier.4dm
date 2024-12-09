@@ -16,6 +16,8 @@ Class extends macro
 
 Class constructor()
 	
+	LOG EVENT:C667(Into system standard outputs:K38:9; "MACROS constructor"; Error message:K38:3)
+	
 	var $t : Text
 	var $c : Collection
 	var $file : 4D:C1709.File
@@ -63,7 +65,7 @@ Class constructor()
 		"splitLiterals"\
 		])
 		
-		This:C1470.options[$t]:=This:C1470.options[$t]#Null:C1517 ? This:C1470.options[$t] : True:C214
+		This:C1470.options[$t]:=This:C1470.options[$t] ? This:C1470.options[$t] : True:C214
 		
 	End for each 
 	
@@ -180,6 +182,8 @@ Class constructor()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function beautify()
+	
+	LOG EVENT:C667(Into system standard outputs:K38:9; "MACROS beautify()"; Error message:K38:3)
 	
 	var $line; $raw : Text
 	
@@ -457,6 +461,8 @@ A comment line is preceded by an empty line if:
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function before($code : Text) : Text
 	
+	LOG EVENT:C667(Into system standard outputs:K38:9; "MACROS before()"; Error message:K38:3)
+	
 	var $pattern; $t : Text
 	
 	// Mark:Use var instead of (_o_)C_xxx
@@ -521,6 +527,8 @@ Function before($code : Text) : Text
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function after() : Text
+	
+	LOG EVENT:C667(Into system standard outputs:K38:9; "MACROS after()"; Error message:K38:3)
 	
 	var $t : Text
 	var $indx : Integer
