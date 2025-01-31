@@ -149,6 +149,13 @@
         <text><method>_4DPop_MACROS("ConvertToCallWithToken")</method></text>
     </macro>
     
+    <macro name="Object literal" 
+        in_menu="true" 
+        type_ahead="false" 
+        version="2">
+        <text><method>_4DPop_MACROS("objectLiteral")</method></text>
+    </macro>
+    
     <macro name="Dot notation" 
         in_menu="true" 
         type_ahead="false" 

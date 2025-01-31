@@ -27,3 +27,12 @@ pour chque clef/valeur :
 remplacer le ) final par }
 
 */
+
+var $o:=New object:C1471(\
+"x"; 0; \
+"y"; 0; \
+"width"; "auto"; \
+"height"; "auto")
+
+
+$o:=New object:C1471("x"; 0; "y"; 0; "width"; "auto"; "height"; "auto")

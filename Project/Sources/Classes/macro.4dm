@@ -368,6 +368,17 @@ Function PasteAndKeepTarget()
 	This:C1470.setHighlightedText($t)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function objectLiteral()
+	
+	var $t : Text:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
+	var $rgx:=cs:C1710.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
+	$t:=$rgx.substitute("{\\1}")
+	$rgx.setTarget($t)
+	$rgx.setPattern("(?msi)\"(?=[^0-9])([^-\\s\"]+)\"\\s*;\\s*([^;}]+)")
+	$t:=$rgx.substitute("\\1:\\2")
+	This:C1470.paste($t)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// v13+ replace If(test) var:=x Else var:=y End if by var:=Choose(test;x;y)
 Function Choose()
 	

@@ -34,10 +34,10 @@ If (Count parameters:C259>=1)
 	
 End if 
 
-var $mcro : cs:C1710.macro:=cs:C1710.macro.new()
+var $macro : cs:C1710.macro:=cs:C1710.macro.new()
 var $success : Boolean:=True:C214
 
-If ($mcro.isMacroProcess)
+If ($macro.isMacroProcess)
 	
 	// MARK: Install menu bar to allow Copy - Paste
 	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
@@ -47,9 +47,9 @@ End if
 Case of 
 		
 		// ______________________________________________________
-	: (OB Instance of:C1731($mcro[$action]; 4D:C1709.Function))
+	: (OB Instance of:C1731($macro[$action]; 4D:C1709.Function))
 		
-		$mcro[$action]()
+		$macro[$action]()
 		
 		// ______________________________________________________
 	: ($action="upperCase")\
@@ -88,7 +88,7 @@ Case of
 		 | ($action="convert_to_utf8")\
 		 | ($action="convert_to_html")  // [=>] moved to SpecialPaste
 		
-		$mcro.SpecialPaste()
+		$macro.SpecialPaste()
 		
 		// ______________________________________________________
 	: ($action="4d_folder")  // • Open "Macro v2" folder in the current 4D folder
@@ -105,7 +105,7 @@ Case of
 		// ______________________________________________________
 	: ($action="method-new")  // #v14 Create a method with the selection
 		
-		METHODS("new"; $mcro.highlighted)
+		METHODS("new"; $macro.highlighted)
 		
 		// ______________________________________________________
 	: ($action="method-comments")  // Edit method's comments
@@ -153,7 +153,7 @@ Case of
 		// ______________________________________________________
 	: ($action="about")
 		
-		If ($mcro.isMacroProcess)
+		If ($macro.isMacroProcess)
 			
 			var $process : Integer:=New process:C317(Current method name:C684; 0; Current method name:C684; "about"; $text)
 			
@@ -219,7 +219,7 @@ Case of
 						// .....................................................
 					: ($text="str")
 						
-						$t:=$mcro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
+						$t:=$macro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
 					: ($text="STR#")
@@ -263,14 +263,14 @@ Case of
 		SET MACRO PARAMETER:C998(Full method text:K5:17; kCaret+$t)
 		
 		// MARK:- All the macros below need a method
-	: (Length:C16($mcro.method)=0)
+	: (Length:C16($macro.method)=0)
 		
 		$success:=False:C215
 		
 		// ______________________________________________________
 	: ($action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
 		
-		DOT_NOTATION($mcro.highlighted)
+		DOT_NOTATION($macro.highlighted)
 		
 		// ______________________________________________________
 	: ($action="locals_list")  // • List of local variables
@@ -305,14 +305,14 @@ Case of
 		// This comment could be past in the comment part of the explorer
 		
 		// MARK:- All the macros below need a selection
-	: (Length:C16($mcro.highlighted)=0)
+	: (Length:C16($macro.highlighted)=0)
 		
 		$success:=False:C215
 		
 		// ______________________________________________________
 	: ($action="copyWithoutIndentation")
 		
-		var $c : Collection:=Split string:C1554($mcro.highlighted; "\r")
+		var $c : Collection:=Split string:C1554($macro.highlighted; "\r")
 		
 		$t:=$c[0]
 		
@@ -338,7 +338,7 @@ Case of
 		// ______________________________________________________
 	: ($action="Asserted")  // #24-8-2017 - Conditional assertion
 		
-		$t:=Command name:C538(1132)+"("+$mcro.highlighted+";\""+kCaret+"\")"
+		$t:=Command name:C538(1132)+"("+$macro.highlighted+";\""+kCaret+"\")"
 		SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $t)
 		
 		// ______________________________________________________
@@ -350,14 +350,14 @@ Case of
 			 && (Length:C16($t)>0)\
 			 && ($t="@.@")
 			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "    // %W-"+$t+"\r"+$mcro.highlighted+"\r//%W+"+$t)
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "    // %W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
 			
 		End if 
 		
 		// ______________________________________________________
 	: ($action="googleSearch")
 		
-		OPEN URL:C673("www.google.fr/search?q="+$mcro.highlighted)
+		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
 		
 		// ______________________________________________________
 	: ($action="comment_current_level")  // Comments the first and the last line of a logic block
@@ -394,7 +394,7 @@ If (Not:C34($success))\
 	
 End if 
 
-If ($mcro.isMacroProcess)
+If ($macro.isMacroProcess)
 	
 	// Something to do?
 	

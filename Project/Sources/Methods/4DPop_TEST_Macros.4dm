@@ -3,7 +3,10 @@ var $o : Object
 var $t : Text
 
 // In compiled mode we propose to create the test method
-If (Is compiled mode:C492)
+ARRAY TEXT:C222($methods; 0x0000)
+METHOD GET NAMES:C1166($methods; "4DPop_TEST_Macros"; *)
+
+If (Size of array:C274($methods)=0)
 	
 	ALERT:C41(Localized string:C991("MessagestoTryANewMacro"))
 	
@@ -26,6 +29,18 @@ Else
 	// It's our sandbox…
 	
 	Case of 
+			
+			//________________________________________
+		: (True:C214)  //evaluate
+			
+			GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
+			var $rgx:=cs:C1710.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
+			$t:=$rgx.substitute("{\\1}")
+			$rgx.setTarget($t)
+			// $rgx.setPattern("(?msi)\"([^\"]+)\"\\s*;\\s*([^;}]+)")
+			$rgx.setPattern("(?msi)\"(?=[^0-9])([^-\\s\"]+)\"\\s*;\\s*([^;}]+)")
+			$t:=$rgx.substitute("\\1:\\2")
+			SET MACRO PARAMETER:C998(Full method text:K5:17; $t)
 			
 			//________________________________________
 		: (True:C214)  //evaluate
