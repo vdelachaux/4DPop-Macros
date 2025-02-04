@@ -9,10 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($action : Text; $text : Text; $title : Text;  ...  : Pointer)
 
-var $t : Text
-var $bottom; $height; $i; $left; $pos; $right : Integer
-var $size; $tab; $top; $width; $winRef : Integer
-
 If (Count parameters:C259>=1)
 	
 	If ($action#"_@")
@@ -34,8 +30,8 @@ If (Count parameters:C259>=1)
 	
 End if 
 
-var $macro : cs:C1710.macro:=cs:C1710.macro.new()
-var $success : Boolean:=True:C214
+var $macro:=cs:C1710.macro.new()
+var $success:=True:C214
 
 If ($macro.isMacroProcess)
 	
@@ -43,6 +39,45 @@ If ($macro.isMacroProcess)
 	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
 	
 End if 
+
+//cs.log.new(File("/LOGS/4DPop Macros.log"; *)).echo("Macro call: "+$action+" for "+$macro.title)
+
+var $OBSOLETES:=[\
+"upperCase"; \
+"lowerCase"; \
+"string_list"; \
+"resource_to_text"; \
+"text_from_resource"; \
+"backup_method"; \
+"Constant_Values"; \
+"syntax"; \
+"4D_variable_list"; \
+"lists_list"; \
+"filters_list"; \
+"methods_list"; \
+"groups_list"; \
+"groups_list"; \
+"users_list"; \
+"pictures_list"; \
+"ascii_list"; \
+"_syntax_@"; \
+"_paste_as_string"; \
+"copyWithIndentation"; \
+"camelCase"; \
+"AlphaToTextDeclaration"\
+]
+
+var $PASTE_ACTIONS:=[\
+"_paste_as_string"; \
+"_paste_in_string"; \
+"paste_html"; \
+"paste_regex_pattern"; \
+"paste_with_escape_characters"; \
+"paste_in_comment"; \
+"convert_from_utf8"; \
+"convert_to_utf8"; \
+"convert_to_html"\
+]
 
 Case of 
 		
@@ -52,48 +87,19 @@ Case of
 		$macro[$action]()
 		
 		// ______________________________________________________
-	: ($action="upperCase")\
-		 | ($action="lowerCase")\
-		 | ($action="string_list")\
-		 | ($action="resource_to_text")\
-		 | ($action="text_from_resource")\
-		 | ($action="backup_method")\
-		 | ($action="Constant_Values")\
-		 | ($action="syntax")\
-		 | ($action="4D_variable_list")\
-		 | ($action="lists_list")\
-		 | ($action="filters_list")\
-		 | ($action="methods_list")\
-		 | ($action="groups_list")\
-		 | ($action="groups_list")\
-		 | ($action="users_list")\
-		 | ($action="pictures_list")\
-		 | ($action="ascii_list")\
-		 | ($action="_syntax_@")\
-		 | ($action="_paste_as_string")\
-		 | ($action="copyWithIndentation")\
-		 | ($action="camelCase")\
-		 | ($action="AlphaToTextDeclaration")  // [OBSOLETE]
+	: ($OBSOLETES.includes($action))
 		
 		ALERT:C41("OBSOLETE ACTION\rNo longer available or included in 4D")
 		
 		// ______________________________________________________
-	: ($action="_paste_as_string")\
-		 | ($action="_paste_in_string")\
-		 | ($action="paste_html")\
-		 | ($action="paste_regex_pattern")\
-		 | ($action="paste_with_escape_characters")\
-		 | ($action="paste_in_comment")\
-		 | ($action="convert_from_utf8")\
-		 | ($action="convert_to_utf8")\
-		 | ($action="convert_to_html")  // [=>] moved to SpecialPaste
+	: ($PASTE_ACTIONS.includes($action))
 		
 		$macro.SpecialPaste()
 		
 		// ______________________________________________________
 	: ($action="4d_folder")  // • Open "Macro v2" folder in the current 4D folder
 		
-		var $folder : Object:=Folder:C1567(fk user preferences folder:K87:10).folder("Macros v2")
+		var $folder:=Folder:C1567(fk user preferences folder:K87:10).folder("Macros v2")
 		$folder.create()
 		SHOW ON DISK:C922($folder.platformPath; *)
 		
@@ -141,7 +147,7 @@ Case of
 		// ______________________________________________________
 	: ($action="3D_button")  // #v12 Rapid 3D button génération
 		
-		$winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+		var $winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		DIALOG:C40("CREATE_BUTTON")
 		CLOSE WINDOW:C154
 		
@@ -166,11 +172,13 @@ Case of
 		// ______________________________________________________
 	: ($action="_display_list@")
 		
-		$size:=Size of array:C274(<>tTxt_Labels)
+		var $size : Integer:=Size of array:C274(<>tTxt_Labels)
 		
 		If ($size>0)
 			
 			ARRAY TEXT:C222(<>tTxt_Comments; $size)
+			
+			var $bottom; $height; $left; $right; $top; $width : Integer
 			GET WINDOW RECT:C443($left; $top; $right; $bottom; Frontmost window:C447)
 			$left+=60
 			$top+=60
@@ -193,7 +201,7 @@ Case of
 						// .....................................................
 					: (Count parameters:C259=3)
 						
-						$t:=Replace string:C233($text+"%"+$title; "%"; <>tTxt_Labels{<>tTxt_Labels})
+						var $t:=Replace string:C233($text+"%"+$title; "%"; <>tTxt_Labels{<>tTxt_Labels})
 						
 						// .....................................................
 					: (Count parameters:C259=1)
@@ -225,7 +233,7 @@ Case of
 					: ($text="STR#")
 						
 						$t:=<>tTxt_Comments{<>tTxt_Labels}
-						$pos:=Position:C15(" - "; $t)
+						var $pos:=Position:C15(" - "; $t)
 						$t:=Command name:C538(510)+"("+Substring:C12($t; 1; $pos-1)+";"+Substring:C12($t; $pos+3)+")`"+<>tTxt_Labels{<>tTxt_Labels}
 						
 						// .....................................................
@@ -316,6 +324,8 @@ Case of
 		
 		$t:=$c[0]
 		
+		var $tab : Integer
+		
 		While ($t[[1]]="\t")
 			
 			$tab+=1
@@ -325,6 +335,7 @@ Case of
 		
 		If ($tab>0)
 			
+			var $i : Integer
 			For ($i; 0; $c.length-1; 1)
 				
 				$c[$i]:=Delete string:C232($c[$i]; 1; $tab)
@@ -388,7 +399,7 @@ Case of
 End case 
 
 If (Not:C34($success))\
- & ($action#"_@")  // Error
+ && ($action#"_@")  // Error
 	
 	BEEP:C151
 	

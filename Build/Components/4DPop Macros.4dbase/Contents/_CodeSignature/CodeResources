@@ -294,7 +294,7 @@
 		</data>
 		<key>Resources/InfoPlist.strings</key>
 		<data>
-		fU3O3ch4nL2OX3lPXH6xRZtEZp8=
+		i80WiwP6myFC+CLwsNW7QAaZ31I=
 		</data>
 		<key>Resources/constants.xlf</key>
 		<data>
@@ -316,7 +316,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gLUOzG05yn2kM022hZU+xVGlcx8=
+			WJotgRqupa4YYyvcdONqqHg5vO4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -325,7 +325,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			XrQykjN5MSLxVr+pWh+gUSHQDRA=
+			r5lvTRDjltp2APHFBN1AfgoQpAU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -334,7 +334,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Y/icZFGeQJMLd/UVIAwbGw3NJDY=
+			Cvs95n77k3Bf5KOBhw0Cc41TxIo=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -352,7 +352,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			avQO72lo91Uuapp5xC5XIt+dmlE=
+			thMrmv3sfmuPzxcd6Ny9jxVFs/M=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -376,7 +376,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			VOHUTWmneUBEFCQlu5T8Ned978Y=
+			NHRsVUfdzj+M3eK3j2WlSTZ+GNI=
 			</data>
 			<key>requirement</key>
 			<string>identifier "4DPop Macros.4DZ" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DYRKW64QA9</string>
@@ -473,11 +473,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qgJIxnxy+zFpXne5IFMxQtLZdbk=
+			PHRctAHuUWNML+ehi38iiLNiJpY=
 			</data>
 			<key>hash2</key>
 			<data>
-			yjLHiCPK1qoXIB9xdQ5iQMnPAo0tzvskkkeGzoRaHnU=
+			n/wCOOSwAUWFIHArkcV4rLfXO8BIrA42QfbXdai1E6Q=
 			</data>
 		</dict>
 		<key>Resources/4DPop.json</key>
@@ -1276,11 +1276,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			fU3O3ch4nL2OX3lPXH6xRZtEZp8=
+			i80WiwP6myFC+CLwsNW7QAaZ31I=
 			</data>
 			<key>hash2</key>
 			<data>
-			xG4IjaWTiE5FHIF3YZLSs0qRtUhYS9J4/6doUMon4h0=
+			+HbskLYfWyVo3TWjjHZ5kZWD6yjwXMawDOn9Isr8kG0=
 			</data>
 		</dict>
 		<key>Resources/constants.xlf</key>
@@ -1331,11 +1331,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gLUOzG05yn2kM022hZU+xVGlcx8=
+			WJotgRqupa4YYyvcdONqqHg5vO4=
 			</data>
 			<key>hash2</key>
 			<data>
-			NbwfbIBjEcPMEDGdOFivtVdJREYRjMPmrUDXZsTVWTQ=
+			f7s5+ij6pFec8IlgQj+NunOej8XFdqj5unQM0Kg4/7M=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1344,11 +1344,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			XrQykjN5MSLxVr+pWh+gUSHQDRA=
+			r5lvTRDjltp2APHFBN1AfgoQpAU=
 			</data>
 			<key>hash2</key>
 			<data>
-			E36gvcSNQYXuk0pOPNAEfez63mZXko3Ygs7NgipwBFY=
+			cWuUJ0Qf9VaI3KL5M5t/KmVZmvOWgQ5JqrTuqyBlNpg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1357,11 +1357,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Y/icZFGeQJMLd/UVIAwbGw3NJDY=
+			Cvs95n77k3Bf5KOBhw0Cc41TxIo=
 			</data>
 			<key>hash2</key>
 			<data>
-			WGL/9hIIYEuKaGIt7clYRbIGAuwOed0nH7iV+yLqunc=
+			SuA0QdYEzOg4kDfr6Dpap3VGfigqnBfti75PnbeJQLM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1383,11 +1383,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			avQO72lo91Uuapp5xC5XIt+dmlE=
+			thMrmv3sfmuPzxcd6Ny9jxVFs/M=
 			</data>
 			<key>hash2</key>
 			<data>
-			GLYlGKJ1R7dPNVcgxQRSbktpch0Yer9its3yNY6/d+4=
+			rdC5wKx89odnVnNWAvcngRGF9t3jUQQUo+oFnMB/oPA=
 			</data>
 			<key>optional</key>
 			<true/>

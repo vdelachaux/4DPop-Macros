@@ -59,7 +59,6 @@
 			"00_convertComments",
 			"00_RUN",
 			"00_TESTS",
-			"4DPop_TEST_Macros",
 			"COMPILER_TESTS",
 			"createSymbolicLink"
 		]
@@ -84,13 +83,15 @@
 	},
 	"⚙️ MACROS": {
 		"methods": [
-			"_4DPop_MACROS"
+			"_4DPop_MACROS",
+			"4DPop_TEST_Macros"
 		]
 	},
 	"👥 NAMESPACE": {
 		"classes": [
 			"beautifier",
 			"declaration",
+			"log",
 			"macro",
 			"preferences",
 			"settings",

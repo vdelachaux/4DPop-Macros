@@ -35,8 +35,8 @@ Class constructor()
 	// Identify the name & the type of the current method
 	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
 		
-		var $ƒ : 4D:C1709.Function:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
-		var $t : Text:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
+		var $ƒ:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
+		var $t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
 		This:C1470.projectMethod:=($t=$ƒ.call(Null:C1517; "common_method"))
 		This:C1470.objectMethod:=($t=$ƒ.call(Null:C1517; "common_objectMethod"))
 		This:C1470.class:=(Position:C15("Class:"; $t)=1)
@@ -95,17 +95,14 @@ Function setHighlightedText($text : Text)
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function paste($text : Text; $useSelection : Boolean)
 	
-	var $i : Integer
+	$useSelection:=Count parameters:C259>=2 ? $useSelection : This:C1470.withSelection
 	
-	If (Count parameters:C259>=2)
-		
-		SET MACRO PARAMETER:C998($useSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
-		
-	Else 
-		
-		SET MACRO PARAMETER:C998(This:C1470.withSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
-		
-	End if 
+	SET MACRO PARAMETER:C998($useSelection ? Highlighted method text:K5:18 : Full method text:K5:17; $text)
+	
+	This:C1470.tokenize()
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function tokenize()
 	
 	If (Structure file:C489=Structure file:C489(*))
 		
@@ -114,6 +111,7 @@ Function paste($text : Text; $useSelection : Boolean)
 	End if 
 	
 	// Force tokenisation
+	var $i : Integer
 	For ($i; 1; Count tasks:C335; 1)
 		
 		If (Process info:C1843($i).type=Design process:K36:9)
@@ -128,11 +126,9 @@ Function paste($text : Text; $useSelection : Boolean)
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split($useSelection : Boolean; $options : Integer)
 	
-	var $target : Text
-	
 	If (Count parameters:C259>=1)
 		
-		$target:=$useSelection ? This:C1470.highlighted : This:C1470.method
+		var $target : Text:=$useSelection ? This:C1470.highlighted : This:C1470.method
 		
 	Else 
 		
@@ -143,6 +139,7 @@ Function split($useSelection : Boolean; $options : Integer)
 	$options:=Count parameters:C259>=2 ? $options : sk trim spaces:K86:2
 	
 	This:C1470.lines:=Split string:C1554($target; "\r"; $options)
+	
 	
 	//MARK:-
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===

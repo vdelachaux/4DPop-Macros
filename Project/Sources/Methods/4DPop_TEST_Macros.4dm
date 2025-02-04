@@ -1,26 +1,32 @@
-//%attributes = {"invisible":true,"preemptive":"incapable"}
-var $o : Object
-var $t : Text
-
+//%attributes = {"invisible":true,"shared":true,"preemptive":"incapable"}
 // In compiled mode we propose to create the test method
 ARRAY TEXT:C222($methods; 0x0000)
-METHOD GET NAMES:C1166($methods; "4DPop_TEST_Macros"; *)
+$methods{0}:="4DPop_TEST_Macros"
+METHOD GET NAMES:C1166($methods; $methods{0}; *)
 
 If (Size of array:C274($methods)=0)
 	
-	ALERT:C41(Localized string:C991("MessagestoTryANewMacro"))
-	
 	CONFIRM:C162(Localized string:C991("wouldYouWantToCreateThisMethodNow?"))
 	
-	If (OK=1)
+	If (Bool:C1537(OK))
 		
-		$t:=Localized string:C991("testMethodForMacros")+Command name:C538(284)+"($Txt_method;$Txt_highlighted)\r\r"+Localized string:C991("in_txt_methodTheFullMethodContent")+Command name:C538(997)+"(1;$Txt_method)\r\r"+Localized string:C991("in_txt_highlightedTheHighlightedText")+Command name:C538(997)+"(2;$Txt_highlighted)\r\r"
+		var $c:=[]
+		$c.push(Localized string:C991("testMethodForMacros"))
+		$c.push("var $Txt_method; $Txt_highlighted : Text")
+		$c.push("")
+		$c.push(Localized string:C991("in_txt_methodTheFullMethodContent"))
+		$c.push("GET MACRO PARAMETER:C997(Full method text:K5:17; $Txt_method)")
+		$c.push("")
+		$c.push(Localized string:C991("in_txt_highlightedTheHighlightedText"))
+		$c.push("GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_highlighted)")
+		$c.push("")
+		$c.push("// It's our sandbox…")
 		
-		METHOD SET CODE:C1194("4DPop_TEST_Macros"; $t; *)
-		METHOD SET ATTRIBUTE:C1192("4DPop_TEST_Macros"; Attribute invisible:K72:6; True:C214; *)
-		METHOD SET ATTRIBUTE:C1192("4DPop_TEST_Macros"; Attribute shared:K72:10; True:C214; *)
+		METHOD SET CODE:C1194($methods{0}; $c.join("\r"); *)
+		METHOD SET ATTRIBUTE:C1192($methods{0}; Attribute invisible:K72:6; True:C214; *)
+		METHOD SET ATTRIBUTE:C1192($methods{0}; Attribute shared:K72:10; True:C214; *)
 		
-		METHOD OPEN PATH:C1213("4DPop_TEST_Macros"; *)
+		METHOD OPEN PATH:C1213($methods{0}; *)
 		
 	End if 
 	
@@ -34,12 +40,14 @@ Else
 		: (True:C214)  //evaluate
 			
 			GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
+			
 			var $rgx:=cs:C1710.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
-			$t:=$rgx.substitute("{\\1}")
+			var $t:=$rgx.substitute("{\\1}")
+			
 			$rgx.setTarget($t)
-			// $rgx.setPattern("(?msi)\"([^\"]+)\"\\s*;\\s*([^;}]+)")
 			$rgx.setPattern("(?msi)\"(?=[^0-9])([^-\\s\"]+)\"\\s*;\\s*([^;}]+)")
 			$t:=$rgx.substitute("\\1:\\2")
+			
 			SET MACRO PARAMETER:C998(Full method text:K5:17; $t)
 			
 			//________________________________________
@@ -49,19 +57,15 @@ Else
 			
 			If (Length:C16($t)>0)
 				
-				$o:=Formula from string:C1601($t)
-				ALERT:C41(String:C10($o.call()))
-				
-			Else 
-				
-				// A "If" statement should never omit "Else" 
+				var $ƒ:=Formula from string:C1601($t)
+				ALERT:C41(String:C10($ƒ.call()))
 				
 			End if 
 			
 			//________________________________________
 		: (True:C214)
 			
-			$o:=cs:C1710.declaration.new().parse()
+			var $o : Object:=cs:C1710.declaration.new().parse()
 			
 			If ($o.variables.length>0)
 				

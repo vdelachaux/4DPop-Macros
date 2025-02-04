@@ -16,535 +16,535 @@
     </header>
     <body>
       <group resname="Menu Titles">
-        <trans-unit id="1" resname="CommonMenuFile">
+        <trans-unit id="yabPn9JggzSpq7JJ5hEEbA" resname="CommonMenuFile">
           <source>File</source>
           <target>Fichier</target>
         </trans-unit>
-        <trans-unit id="5" resname="CommonMenuEdit">
+        <trans-unit id="z6yzi7kS0fpRiVDrE9PvsA" resname="CommonMenuEdit">
           <source>Edit</source>
           <target>Edition</target>
         </trans-unit>
-        <trans-unit id="6" resname="CommonMenuMode">
+        <trans-unit id="jFy71tC5JemB+_NI9aUgMw" resname="CommonMenuMode">
           <source>Mode</source>
           <target>Mode</target>
         </trans-unit>
       </group>
       <group resname="Character">
-        <trans-unit id="1" resname="CommonSize">
+        <trans-unit id="kQnEYIzr+s5L7rDY3C5mJA" resname="CommonSize">
           <source>Size</source>
           <target>Taille</target>
         </trans-unit>
-        <trans-unit id="2" resname="CommonStyle">
+        <trans-unit id="z9_NBbsHYP5cYmpgTeFB_A" resname="CommonStyle">
           <source>Style</source>
           <target>Style</target>
         </trans-unit>
-        <trans-unit id="3" resname="CommonUnderline">
+        <trans-unit id="8L_RRMZPGy4ayKGYSSkNBQ" resname="CommonUnderline">
           <source>Underline</source>
           <target>Soulign√©</target>
         </trans-unit>
-        <trans-unit id="4" resname="CommonItalic">
+        <trans-unit id="xtQxEPGBzox5ptpieM26Yg" resname="CommonItalic">
           <source>Italic</source>
           <target>Italique</target>
         </trans-unit>
-        <trans-unit id="5" resname="CommonBold">
+        <trans-unit id="rFgQN+pMM_D_U7ysb3o3zA" resname="CommonBold">
           <source>Bold</source>
           <target>Gras</target>
         </trans-unit>
       </group>
       <group resname="Menus Items">
-        <trans-unit id="18" resname="CommonMenuItemUndo">
+        <trans-unit id="uOR+FaLXBRr0Y5SB4apnFQ" resname="CommonMenuItemUndo">
           <source>Undo</source>
           <target>Annuler Edition</target>
         </trans-unit>
-        <trans-unit id="20" resname="CommonMenuItemCut">
+        <trans-unit id="NUGQBXGgf7QWhubBEBwXAQ" resname="CommonMenuItemCut">
           <source>Cut</source>
           <target>Couper</target>
         </trans-unit>
-        <trans-unit id="21" resname="CommonMenuItemCopy">
+        <trans-unit id="pyYiwj1o19BRmu0X0FC5UQ" resname="CommonMenuItemCopy">
           <source>Copy</source>
           <target>Copier</target>
         </trans-unit>
-        <trans-unit id="22" resname="CommonMenuItemPaste">
+        <trans-unit id="Bxc7jLOdjMzfEUijydfvsA" resname="CommonMenuItemPaste">
           <source>Paste</source>
           <target>Coller</target>
         </trans-unit>
-        <trans-unit id="23" resname="CommonMenuItemClear">
+        <trans-unit id="vUZwiRSbTMIMU4CLZZ2pVw" resname="CommonMenuItemClear">
           <source>Clear</source>
           <target>Effacer</target>
         </trans-unit>
-        <trans-unit id="24" resname="CommonMenuItemSelectAll">
+        <trans-unit id="c9g2kYPqlXeioOBW9yQGDg" resname="CommonMenuItemSelectAll">
           <source>Select All</source>
           <target>Tout Selectionner</target>
         </trans-unit>
-        <trans-unit id="25" resname="CommonMenuItemShowClipboard">
+        <trans-unit id="H_5A7e1wt+EUrZLbI8q9_g" resname="CommonMenuItemShowClipboard">
           <source>Show Clipboard</source>
           <target>Afficher le Presse-papiers</target>
         </trans-unit>
-        <trans-unit id="27" resname="CommonMenuItemDesign">
+        <trans-unit id="0aHwI5vv_yfCb9vSSdyMAw" resname="CommonMenuItemDesign">
           <source>Design</source>
           <target>Développement</target>
         </trans-unit>
-        <trans-unit id="30" resname="CommonMenuItemQuit">
+        <trans-unit id="wVD1aOcWrHPpfJYX28iCFA" resname="CommonMenuItemQuit">
           <source>Quit</source>
           <target>Quitter</target>
         </trans-unit>
       </group>
       <group resname="Button Labels">
-        <trans-unit id="1" resname="CommonOK">
+        <trans-unit id="fU94uyXk1AnlW17fiDFveg" resname="CommonOK">
           <source>OK</source>
           <target>OK</target>
         </trans-unit>
-        <trans-unit id="2" resname="CommonCancel">
+        <trans-unit id="lJQlVobb1DQbmL2+pXd27g" resname="CommonCancel">
           <source>Cancel</source>
           <target>Annuler</target>
         </trans-unit>
-        <trans-unit id="3" resname="CommonRetry">
+        <trans-unit id="unt7xjGngYVh2G91N3mQ8w" resname="CommonRetry">
           <source>Retry</source>
           <target>Recommencer</target>
         </trans-unit>
-        <trans-unit id="4" resname="CommonQuit">
+        <trans-unit id="ikpdKRT99s1xWjBeDkqUAg" resname="CommonQuit">
           <source>Quit</source>
           <target>Quitter</target>
         </trans-unit>
-        <trans-unit id="5" resname="CommonAdd">
+        <trans-unit id="hLxJ25JYU9BqbNMrD7MN2g" resname="CommonAdd">
           <source>Add</source>
           <target>Ajouter</target>
         </trans-unit>
-        <trans-unit id="6" resname="CommonDelete">
+        <trans-unit id="0Xi926mK2m559Hni+vd9PA" resname="CommonDelete">
           <source>Delete</source>
           <target>Supprimer</target>
         </trans-unit>
-        <trans-unit id="7" resname="CommonEdit">
+        <trans-unit id="jk3HcfGrrSx3OB+nR3tM4w" resname="CommonEdit">
           <source>Edit</source>
           <target>Modifier</target>
         </trans-unit>
-        <trans-unit id="9" resname="CommonDone">
+        <trans-unit id="6Ff7udYq3eqXQeBDGle8XA" resname="CommonDone">
           <source>Done</source>
           <target>Fermer</target>
         </trans-unit>
-        <trans-unit id="10" resname="CommonApply">
+        <trans-unit id="NNPWORTr7rCwFSq99DpTPQ" resname="CommonApply">
           <source>Apply</source>
           <target>Appliquer</target>
         </trans-unit>
-        <trans-unit id="11" resname="CommonLoadDial">
+        <trans-unit id="sdiIGVKFr+LsBVWAZ5nn+w" resname="CommonLoadDial">
           <source>Load...</source>
           <target>Charger...</target>
         </trans-unit>
-        <trans-unit id="12.2" resname="CommonSaveDial">
+        <trans-unit id="4BKMB4CN2OoKKBZiXPsPbQ" resname="CommonSaveDial">
           <source>Save...</source>
           <target>Enregistrer...</target>
         </trans-unit>
-        <trans-unit id="13" resname="CommonOrderBy">
+        <trans-unit id="Bl8vK42nz1DJqnHgVtm2iQ" resname="CommonOrderBy">
           <source>Order by</source>
           <target>Trier</target>
         </trans-unit>
-        <trans-unit id="14" resname="CommonUse">
+        <trans-unit id="gfyXI05uDrY4tfW7HJSaaw" resname="CommonUse">
           <source>Use</source>
           <target>Utiliser</target>
         </trans-unit>
-        <trans-unit id="15" resname="CommonBack">
+        <trans-unit id="48RgTlCLix5_sPwyA9T2ug" resname="CommonBack">
           <source>&lt; Back</source>
           <target>&lt; Précédent</target>
         </trans-unit>
-        <trans-unit id="16" resname="CommonNext">
+        <trans-unit id="RbaCssikG7trxuwGyFHYwg" resname="CommonNext">
           <source>Next &gt;</source>
           <target>Suivant &gt;</target>
         </trans-unit>
-        <trans-unit id="17" resname="CommonCreate">
+        <trans-unit id="FooDUbk0iPFYf7uPpvsA8g" resname="CommonCreate">
           <source>Create</source>
           <target>Créer</target>
         </trans-unit>
-        <trans-unit id="18" resname="CommonExportDial">
+        <trans-unit id="Yck_v9c9aItJsax6_7tJag" resname="CommonExportDial">
           <source>Export...</source>
           <target>Exporter...</target>
         </trans-unit>
-        <trans-unit id="19" resname="CommonPreview">
+        <trans-unit id="FKlPXjh2d0l6dP31LdI0fQ" resname="CommonPreview">
           <source>Preview</source>
           <target>Prévisualisation</target>
         </trans-unit>
-        <trans-unit id="20" resname="CommonRemove">
+        <trans-unit id="bxTPnmUKE_WYG97gzlZqRQ" resname="CommonRemove">
           <source>Remove</source>
           <target>Retirer</target>
         </trans-unit>
-        <trans-unit id="22" resname="CommonOpen">
+        <trans-unit id="pae+3QvU0NuV7VphKhnspw" resname="CommonOpen">
           <source>Open</source>
           <target>Ouvrir</target>
         </trans-unit>
-        <trans-unit id="23" resname="CommonClose">
+        <trans-unit id="SjnuXhP6zd9ZVk7ZNbtneA" resname="CommonClose">
           <source>Close</source>
           <target>Fermer</target>
         </trans-unit>
-        <trans-unit id="24" resname="CommonExpandAll">
+        <trans-unit id="sqerb4qRu6HC4MWoz8ur+A" resname="CommonExpandAll">
           <source>Expand all</source>
           <target>Déployer tout</target>
         </trans-unit>
-        <trans-unit id="25" resname="CommonCollapseAll">
+        <trans-unit id="yKiGL2AZ4hA6GuWH_jtpvw" resname="CommonCollapseAll">
           <source>Collapse all</source>
           <target>Contracter tout</target>
         </trans-unit>
-        <trans-unit id="45" resname="CommonDuplicate">
+        <trans-unit id="0Tzsk16YcYaQ_RfzQA6u9g" resname="CommonDuplicate">
           <source>Duplicate</source>
           <target>Dupliquer</target>
         </trans-unit>
-        <trans-unit id="46" resname="CommonRename">
+        <trans-unit id="JQZSQ9CRku2y3TgV4wo0Cg" resname="CommonRename">
           <source>Rename</source>
           <target>Renommer</target>
         </trans-unit>
-        <trans-unit id="51" resname="CommonRefresh">
+        <trans-unit id="RI5L4Cb8F8kw7ZQ11RNM_A" resname="CommonRefresh">
           <source>Refresh</source>
           <target>Actualiser</target>
         </trans-unit>
       </group>
       <group resname="Labels">
-        <trans-unit id="43" resname="FileInVolume">
+        <trans-unit id="KX4c41XbOoD6YnJT5IZFYg" resname="FileInVolume">
           <source>"{file}" in volume "{volume}"</source>
           <target>"{file}" dans le volume "{volume}"</target>
         </trans-unit>
-        <trans-unit id="44" resname="ShowOnDisk">
+        <trans-unit id="drbrXQu_fJwQzVI1g_sB1A" resname="ShowOnDisk">
           <source>Show on disk</source>
           <target>Montrer sur le disque</target>
         </trans-unit>
-        <trans-unit id="58" resname="Groups">
+        <trans-unit id="mCUA3Ys9EcDu0N_1_Kz6dA" resname="Groups">
           <source>Groups</source>
           <target>Groupes</target>
         </trans-unit>
-        <trans-unit id="59" resname="Users">
+        <trans-unit id="60jFz+p86mxvN+sH2eAsLw" resname="Users">
           <source>Users</source>
           <target>Utilisateurs</target>
         </trans-unit>
-        <trans-unit id="60" resname="LocalVariables">
+        <trans-unit id="R+0hAu7cUt752ws_ZGzWqA" resname="LocalVariables">
           <source>Local variables</source>
           <target>Variables locales</target>
         </trans-unit>
       </group>
       <group id="36" resname="4D STR# 36">
-        <trans-unit id="36_1" resname="4D_FormMethod">
+        <trans-unit id="MwZXlyu3_TIiSgDSQKBAKw" resname="4D_FormMethod">
           <source>Form Method: </source>
           <target>Méthode formulaire : </target>
         </trans-unit>
-        <trans-unit id="36_2" resname="4D_Trigger">
+        <trans-unit id="tt265sMhsorWJmqzOcEoyA" resname="4D_Trigger">
           <source>Trigger: </source>
           <target>Trigger : </target>
         </trans-unit>
-        <trans-unit id="36_3" resname="4D_Form">
+        <trans-unit id="2gNBUGnMlpDs0D9U5yaKoQ" resname="4D_Form">
           <source>Form: </source>
           <target>Formulaire : </target>
         </trans-unit>
-        <trans-unit id="36_4" resname="4D_Subtable">
+        <trans-unit id="4lJ8gtzZn9Y2r2VyitXyUw" resname="4D_Subtable">
           <source>Subtable: </source>
           <target>Sous-structure : </target>
         </trans-unit>
-        <trans-unit id="36_5" resname="4D_Method">
+        <trans-unit id="GLy5GhTxaxIbMJ760_JDgA" resname="4D_Method">
           <source>Method: </source>
           <target>Méthode : </target>
         </trans-unit>
-        <trans-unit id="36_9" resname="4D_ObjectMethod">
+        <trans-unit id="FPGhn3ElrqQ7ZFfdpVjcRw" resname="4D_ObjectMethod">
           <source>Object Method: </source>
           <target>Méthode objet : </target>
         </trans-unit>
       </group>
       <group id="122" resname="STR# 122">
-        <trans-unit id="1" resname="thatValueIsNotAllowed">
+        <trans-unit id="8Zr5qVxufo2CAaaTrfFm1A" resname="thatValueIsNotAllowed">
           <source>That value is not allowed.</source>
           <target>Cette valeur n'est pas autoris√©e.</target>
         </trans-unit>
-        <trans-unit id="2" resname="theNumberMustNotBeGreaterThan">
+        <trans-unit id="yRN076xUuhHPm1dAE1UP+w" resname="theNumberMustNotBeGreaterThan">
           <source>The number must not be greater than ^.</source>
           <target>La valeur ne doit pas √™tre sup√©rieure √† ^.</target>
         </trans-unit>
-        <trans-unit id="3" resname="theNumberMustNotBeLessThan">
+        <trans-unit id="QTxgdnly0Ig24CX1nWZ9eg" resname="theNumberMustNotBeLessThan">
           <source>The number must not be less than ^.</source>
           <target>La valeur ne doit pas √™tre inf√©rieure √† ^.</target>
         </trans-unit>
       </group>
       <group id="90" resname="STR# 90">
-        <trans-unit id="1" resname="Error #">
+        <trans-unit id="YYixGOGI00_SPLS7FicQPg" resname="Error #">
           <source>Error #</source>
           <target>Erreur n¬∞</target>
         </trans-unit>
-        <trans-unit id="2" resname="The disk file directory is full.">
+        <trans-unit id="XvSmZZKAW0uu5PC3R11fig" resname="The disk file directory is full.">
           <source>The disk file directory is full.</source>
           <target>Le r√©pertoire du disque est satur√©.</target>
         </trans-unit>
-        <trans-unit id="3" resname="You cannot write on this volume. Make sure that it is not full, that it is not read only and that you have the necessary privileges.">
+        <trans-unit id="_JvdGybUlJLIEg4JjvO49A" resname="You cannot write on this volume. Make sure that it is not full, that it is not read only and that you have the necessary privileges.">
           <source>You cannot write on this volume.
 Make sure that it is not full, that it is not read only and that you have the necessary privileges.</source>
           <target>Impossible d‚Äô√©crire sur ce volume. 
 Assurez-vous qu'il n‚Äôest pas satur√©, qu‚Äôil est accessible en lecture et que vous poss√©dez les droits n√©cessaires.</target>
         </trans-unit>
-        <trans-unit id="4" resname="Input/output error.">
+        <trans-unit id="neCw6Aa1cmG1Nnk7wTB81w" resname="Input/output error.">
           <source>Input/output error.</source>
           <target>Erreur d'entr√©e-sortie</target>
         </trans-unit>
-        <trans-unit id="5" resname="The file name is invalid.">
+        <trans-unit id="JyPTmUPdC+7CiPBjILNgqA" resname="The file name is invalid.">
           <source>The file name is invalid.</source>
           <target>Nom de fichier incorrect. Il est trop long et/ou comporte un caract√®re incorrect.</target>
         </trans-unit>
-        <trans-unit id="6" resname="An attempt has been made to read or write beyond the end of a file.">
+        <trans-unit id="ERGwSE7ABNOo+svR7ZDoZA" resname="An attempt has been made to read or write beyond the end of a file.">
           <source>An attempt has been made to read or write beyond the end of a file.</source>
           <target>Tentative de lecture au-del√† de la fin du fichier</target>
         </trans-unit>
-        <trans-unit id="7" resname="An attempt has been made to read or write before the beginning of a file.">
+        <trans-unit id="2jZjiYbp66jum_NobsfmPg" resname="An attempt has been made to read or write before the beginning of a file.">
           <source>An attempt has been made to read or write before the beginning of a file.</source>
           <target>Tentative de lecture ou d'√©criture avant le d√©but du fichier</target>
         </trans-unit>
-        <trans-unit id="8" resname="Too many files open.">
+        <trans-unit id="kAc9SOrmFk2FByJHHybv2w" resname="Too many files open.">
           <source>Too many files open.</source>
           <target>Trop de fichiers ouverts.</target>
         </trans-unit>
-        <trans-unit id="9" resname="File not found.">
+        <trans-unit id="jZNUms1DUQrnUVSr4TjfIw" resname="File not found.">
           <source>File not found.</source>
           <target>Fichier non trouv√©</target>
         </trans-unit>
-        <trans-unit id="10" resname="The disk is locked.">
+        <trans-unit id="iGHiO63yQPuNlSIPhAdXjA" resname="The disk is locked.">
           <source>The disk is locked.</source>
           <target>Disque verrouill√©</target>
         </trans-unit>
-        <trans-unit id="11" resname="The file is locked or the pathname is not correct.">
+        <trans-unit id="aPV0ous5Qq8bUk5maYO33w" resname="The file is locked or the pathname is not correct.">
           <source>The file is locked or the pathname is not correct.</source>
           <target>Le fichier est verrouill√© ou le chemin d‚Äôacc√®s est incorrect.</target>
         </trans-unit>
-        <trans-unit id="12.2" resname="The file is already open, or the folder is full.">
+        <trans-unit id="_eIp1fBYekHJyIyv9TXlhg" resname="The file is already open, or the folder is full.">
           <source>The file is already open, or the folder is full.</source>
           <target>Fichier d√©j√† ouvert, ou dossier plein</target>
         </trans-unit>
-        <trans-unit id="13" resname="The file already exists.">
+        <trans-unit id="KTGuCjR6SiUcXXXiY3qlmw" resname="The file already exists.">
           <source>The file already exists.</source>
           <target>Tentative de cr√©ation d'un fichier d√©j√† existant</target>
         </trans-unit>
-        <trans-unit id="14" resname="An attempt has been made to save non-unique data to a table that has a unique field. ">
+        <trans-unit id="wNHSMpmDrq7g8RJHqp3XBw" resname="An attempt has been made to save non-unique data to a table that has a unique field. ">
           <source>An attempt has been made to save non-unique data to a table that has a unique field. </source>
           <target>La cl√© d'index existe d√©j√†.</target>
         </trans-unit>
-        <trans-unit id="15" resname="No more room to save the record.">
+        <trans-unit id="MNrsB1zQUvrjQ4LLcnzxzg" resname="No more room to save the record.">
           <source>No more room to save the record.</source>
           <target>Disque satur√©. Impossible de sauvegarder l'enregistrement.</target>
         </trans-unit>
-        <trans-unit id="16" resname="The maximum number of records has been reached.">
+        <trans-unit id="fFeLvh7hBsvLpAdC0RP3XQ" resname="The maximum number of records has been reached.">
           <source>The maximum number of records has been reached.</source>
           <target>Le nombre maximum d'enregistrements est atteint.</target>
         </trans-unit>
-        <trans-unit id="17" resname="The method stack is full.">
+        <trans-unit id="6wkbaXlESVsO14vzk10z4Q" resname="The method stack is full.">
           <source>The method stack is full.</source>
           <target>La pile de la m√©thode est pleine.</target>
         </trans-unit>
-        <trans-unit id="18" resname="The demonstration version limit has been reached.">
+        <trans-unit id="qFPDU_D8IpRiNgFIv4dbBA" resname="The demonstration version limit has been reached.">
           <source>The demonstration version limit has been reached.</source>
           <target>Limite de la version de d√©monstration</target>
         </trans-unit>
-        <trans-unit id="19" resname="User interruption.">
+        <trans-unit id="rNO9XrVK1rr3IVZCWsZdVw" resname="User interruption.">
           <source>User interruption.</source>
           <target>Interruption g√©n√©r√©e par l'utilisateur</target>
         </trans-unit>
-        <trans-unit id="20" resname="Problem saving print file.">
+        <trans-unit id="_TV5bEQlK9a0CLLJiN1DZw" resname="Problem saving print file.">
           <source>Problem saving print file.</source>
           <target>Probl√®mes d'enregistrement du fichier d'impression</target>
         </trans-unit>
-        <trans-unit id="21" resname="Unimplemented control instruction.">
+        <trans-unit id="KtRWChJfzOFqQ1wM2Yzs2A" resname="Unimplemented control instruction.">
           <source>Unimplemented control instruction.</source>
           <target>Instruction de contr√¥le non impl√©ment√©e</target>
         </trans-unit>
-        <trans-unit id="22" resname="An input/output error has occurred.">
+        <trans-unit id="S3AL4LmOzmTF5socxPdRIw" resname="An input/output error has occurred.">
           <source>An input/output error has occurred.</source>
           <target>Probl√®mes de communication avec l'imprimante</target>
         </trans-unit>
-        <trans-unit id="23" resname="Not enough space in memory.">
+        <trans-unit id="N0XljeKX_SbkgON51dj55A" resname="Not enough space in memory.">
           <source>Not enough space in memory.</source>
           <target>M√©moire insuffisante</target>
         </trans-unit>
-        <trans-unit id="24" resname="Printing process aborted by user.">
+        <trans-unit id="zmX4zJrIQl4QxDafdOIY8Q" resname="Printing process aborted by user.">
           <source>Printing process aborted by user.</source>
           <target>Impression interrompue par l'utilisateur</target>
         </trans-unit>
-        <trans-unit id="25" resname="Connection just closed.">
+        <trans-unit id="ZoOkQXl4x9g7ERz3c2cEIg" resname="Connection just closed.">
           <source>Connection just closed.</source>
           <target>La connexion avec l'imprimante a √©t√© interrompue.</target>
         </trans-unit>
-        <trans-unit id="26" resname="Printer closed or not found.">
+        <trans-unit id="HdEMExwvgwYizIsjn1DNdQ" resname="Printer closed or not found.">
           <source>Printer closed or not found.</source>
           <target>Imprimante √©teinte ou non connect√©e</target>
         </trans-unit>
-        <trans-unit id="27" resname="No LaserWriter chosen.">
+        <trans-unit id="+yZf2M27Ha62KwT5xCVdHA" resname="No LaserWriter chosen.">
           <source>No LaserWriter chosen.</source>
           <target>Aucune LaserWriter n'a √©t√© s√©lectionn√©e.</target>
         </trans-unit>
-        <trans-unit id="28" resname="Printer initialized with a different driver.">
+        <trans-unit id="WG6V1LG+v9oaTAZAUdhzmg" resname="Printer initialized with a different driver.">
           <source>Printer initialized with a different driver.</source>
           <target>L'imprimante a √©t√© initialis√©e avec une version du driver diff√©rente de la v√¥tre.</target>
         </trans-unit>
-        <trans-unit id="29" resname="Menu bars existing or more than one file.">
+        <trans-unit id="SyFDkbOkJhUkNwXwISthxw" resname="Menu bars existing or more than one file.">
           <source>Menu bars existing or more than one file.</source>
           <target>xxx</target>
         </trans-unit>
-        <trans-unit id="30" resname="Passwords existing.">
+        <trans-unit id="pWwHMB3cW_qZV+xyVQb0IA" resname="Passwords existing.">
           <source>Passwords existing.</source>
           <target>Ce mot de passe existe d√©j√†.</target>
         </trans-unit>
-        <trans-unit id="31" resname="Privilege Error.">
+        <trans-unit id="CpTlSbolqT3PZ2cdRWPq3Q" resname="Privilege Error.">
           <source>Privilege Error.</source>
           <target>Vous n'avez pas l'autorisation d'acc√®s.</target>
         </trans-unit>
-        <trans-unit id="32" resname="Timeout Error.">
+        <trans-unit id="a_3nrVsiX8odBzv1igPizw" resname="Timeout Error.">
           <source>Timeout Error.</source>
           <target>D√©passement du temps imparti</target>
         </trans-unit>
-        <trans-unit id="33" resname="Invalid Structure.">
+        <trans-unit id="PKbfBy8ldF0HiUitze6q8w" resname="Invalid Structure.">
           <source>Invalid Structure.</source>
           <target>Structure non valide</target>
         </trans-unit>
-        <trans-unit id="34" resname="Invalid Data address.">
+        <trans-unit id="FMapp+BLWmE3QsVk7inSOA" resname="Invalid Data address.">
           <source>Invalid Data address.</source>
           <target>Adresse de donn√©e non valide</target>
         </trans-unit>
-        <trans-unit id="35" resname="Invalid Index Structure.">
+        <trans-unit id="k3xMvu3IfkJM9pvvSfvPow" resname="Invalid Index Structure.">
           <source>Invalid Index Structure.</source>
           <target>Structure d'index non valide</target>
         </trans-unit>
-        <trans-unit id="36" resname="Invalid Record Structure.">
+        <trans-unit id="iupclu9b3Tjqru1lbg9yoA" resname="Invalid Record Structure.">
           <source>Invalid Record Structure.</source>
           <target>Structure d'enregistrement non valide</target>
         </trans-unit>
-        <trans-unit id="37" resname="Record # is out of range.">
+        <trans-unit id="bXBSByDfybXOpVle4cmTgQ" resname="Record # is out of range.">
           <source>Record # is out of range.</source>
           <target>Num√©ro d'enregistrement non valide</target>
         </trans-unit>
-        <trans-unit id="38" resname="Index Block # is out of range.">
+        <trans-unit id="uuS6zFaAzSpUMA613RAWxw" resname="Index Block # is out of range.">
           <source>Index Block # is out of range.</source>
           <target>Num√©ro de page d'index non valide</target>
         </trans-unit>
-        <trans-unit id="39" resname="Other records are linked to that one.">
+        <trans-unit id="yoM66e8Uu6rkTjx7zEDMgQ" resname="Other records are linked to that one.">
           <source>Other records are linked to that one.</source>
           <target>D'autres enregistrements sont li√©s √† celui-ci.</target>
         </trans-unit>
-        <trans-unit id="40" resname="Loop in referential integrity.">
+        <trans-unit id="0Ct6CAfThOu5p+myrtPa5g" resname="Loop in referential integrity.">
           <source>Loop in referential integrity.</source>
           <target>D√©tection d'une boucle lors de la suppression</target>
         </trans-unit>
-        <trans-unit id="41" resname="Duplicate key during a transaction.">
+        <trans-unit id="K1QkblHXhBzE+wMJD_pOUQ" resname="Duplicate key during a transaction.">
           <source>Duplicate key during a transaction.</source>
           <target>D√©tection d'une cl√© d√©j√† existante lors d'une transaction</target>
         </trans-unit>
-        <trans-unit id="42" resname="The same plug-in has been installed twice.">
+        <trans-unit id="lzULEnXY+5kNqfD84O2eQQ" resname="The same plug-in has been installed twice.">
           <source>The same plug-in has been installed twice.</source>
           <target>Attention ! Vous avez install√© deux fois le m√™me plug-in.</target>
         </trans-unit>
-        <trans-unit id="43" resname="This named selection does not exist.">
+        <trans-unit id="TpE0cBw5kAwRIQkFgY9PfQ" resname="This named selection does not exist.">
           <source>This named selection does not exist.</source>
           <target>Cette s√©lection n‚Äôexiste pas.</target>
         </trans-unit>
-        <trans-unit id="44" resname="This command could not be executed because the database is being backed up.">
+        <trans-unit id="ETugxQx1o5Wo_EvWVpTHtg" resname="This command could not be executed because the database is being backed up.">
           <source>This command could not be executed because the database is being backed up.</source>
           <target>Cette commande ne peut √™tre ex√©cut√©e car la base est en cours de sauvegarde.</target>
         </trans-unit>
-        <trans-unit id="45" resname="The process could not be started.">
+        <trans-unit id="NMlWoy8HRGSDrVWYEBt5Jg" resname="The process could not be started.">
           <source>The process could not be started.</source>
           <target>Le process ne peut √™tre d√©marr√©.</target>
         </trans-unit>
-        <trans-unit id="46" resname="The version number of 4D Server is incompatible with the version number of 4D Client.">
+        <trans-unit id="uLIYIXw_JWkaVmygrgMogQ" resname="The version number of 4D Server is incompatible with the version number of 4D Client.">
           <source>The version number of 4D Server is incompatible with the version number of 4D Client.</source>
           <target>Les versions de 4D¬†Server et 4D¬†Client sont incompatibles.</target>
         </trans-unit>
-        <trans-unit id="47" resname="Missing the hardware to do this.">
+        <trans-unit id="tek5z0WoUFUUFIifSbOhEQ" resname="Missing the hardware to do this.">
           <source>Missing the hardware to do this.</source>
           <target>La configuration mat√©rielle est incompl√®te.</target>
         </trans-unit>
-        <trans-unit id="48" resname="Inadequate hardware to do this.">
+        <trans-unit id="ltiuOYY+D5gdplRT0BE3XA" resname="Inadequate hardware to do this.">
           <source>Inadequate hardware to do this.</source>
           <target>La configuration mat√©rielle n‚Äôest pas appropri√©e.</target>
         </trans-unit>
-        <trans-unit id="49" resname="No such volume">
+        <trans-unit id="_PD29YK1_O7Y+mOANrvorA" resname="No such volume">
           <source>No such volume</source>
           <target>Volume inexistant</target>
         </trans-unit>
-        <trans-unit id="50" resname="File not open">
+        <trans-unit id="qP9_007JXJ9U1urPBAztBw" resname="File not open">
           <source>File not open</source>
           <target>Fichier non ouvert</target>
         </trans-unit>
-        <trans-unit id="51" resname="File not open anymore.">
+        <trans-unit id="6ivn2IBP3Anq73NWdYZ3lw" resname="File not open anymore.">
           <source>File not open anymore.</source>
           <target>Le fichier n‚Äôest plus ouvert.</target>
         </trans-unit>
-        <trans-unit id="52" resname="Permissions error. Attempt to open locked file for writing.">
+        <trans-unit id="vRoOsKNozSCcmfcH_dp9+w" resname="Permissions error. Attempt to open locked file for writing.">
           <source>Permissions error. Attempt to open locked file for writing.</source>
           <target>Vous n'avez pas les autorisations d'acc√®s n√©cessaires pour ouvrir le document en √©criture.</target>
         </trans-unit>
-        <trans-unit id="53" resname="Folder not found">
+        <trans-unit id="e0bJ_ZZbU0dbNeVznrHLmA" resname="Folder not found">
           <source>Folder not found</source>
           <target>Dossier non trouv√©</target>
         </trans-unit>
-        <trans-unit id="54" resname="File server has been disconnected.">
+        <trans-unit id="zvmqqz6Bcub47B3TFSVUdQ" resname="File server has been disconnected.">
           <source>File server has been disconnected.</source>
           <target>Le serveur de fichiers a √©t√© d√©connect√©.</target>
         </trans-unit>
-        <trans-unit id="55" resname="Quicktime is not installed.">
+        <trans-unit id="8kZGvS5EuyXqOwug25bGyg" resname="Quicktime is not installed.">
           <source>Quicktime is not installed.</source>
           <target>Quicktime n'est pas install√©.</target>
         </trans-unit>
-        <trans-unit id="56" resname="Data segment # is invalid.">
+        <trans-unit id="uHd+TxDLeW6Hu0HmPQRK+g" resname="Data segment # is invalid.">
           <source>Data segment # is invalid.</source>
           <target>Le num√©ro d'ordre de ce segment de donn√©es n'est pas le bon.</target>
         </trans-unit>
-        <trans-unit id="57" resname="License or privilege error">
+        <trans-unit id="XxpIE0pXYYXDF5dvntjXEw" resname="License or privilege error">
           <source>License or privilege error</source>
           <target>Erreur de licence ou de privil√®ge</target>
         </trans-unit>
-        <trans-unit id="58" resname="A modal window is active.">
+        <trans-unit id="Ge5ZmINbGDdk4la8kLhfCA" resname="A modal window is active.">
           <source>A modal window is active.</source>
           <target>Une fen√™tre modale est active.</target>
         </trans-unit>
-        <trans-unit id="59" resname="The current record has been changed from the trigger.">
+        <trans-unit id="9YuA3DvQ4Wnwjm3sn5w1hA" resname="The current record has been changed from the trigger.">
           <source>The current record has been changed from the trigger.</source>
           <target>L‚Äôenregistrement courant a √©t√© modifi√© depuis le trigger.</target>
         </trans-unit>
-        <trans-unit id="60" resname="The plug-in requires a serial number.">
+        <trans-unit id="MgZ6mf+rEs7mKXS5OneF3A" resname="The plug-in requires a serial number.">
           <source>The plug-in requires a serial number.</source>
           <target>Le plug-in requiert un num√©ro de s√©rie.</target>
         </trans-unit>
-        <trans-unit id="61" resname="The plug-in requires an expansion number.">
+        <trans-unit id="1r8DaNKCcBJzJRMdIuFHhA" resname="The plug-in requires an expansion number.">
           <source>The plug-in requires an expansion number.</source>
           <target>Le plug-in requiert un num√©ro d'expansion</target>
         </trans-unit>
-        <trans-unit id="62" resname="This serial number has already been entered. Please enter a new number.">
+        <trans-unit id="5kszKKtEAtV73lzswB3Dtw" resname="This serial number has already been entered. Please enter a new number.">
           <source>This serial number has already been entered. Please enter a new number.</source>
           <target>Ce num√©ro de s√©rie a d√©j√† √©t√© saisi. Veuillez taper un nouveau num√©ro.</target>
         </trans-unit>
-        <trans-unit id="63" resname="You have just launched a demo version of 4D.">
+        <trans-unit id="aPFUt9ihrzB4GZz4bxidQQ" resname="You have just launched a demo version of 4D.">
           <source>You have just launched a demo version of 4D.</source>
           <target>Vous venez de lancer une version de d√©monstration de 4D.</target>
         </trans-unit>
-        <trans-unit id="64" resname="This plug-in version is too old. Please use a 6.7 version or higher.">
+        <trans-unit id="vtOAX4XejxsSuMPKkKKoHA" resname="This plug-in version is too old. Please use a 6.7 version or higher.">
           <source>This plug-in version is too old. Please use a 6.7 version or higher.</source>
           <target>La version de ce plug-in est trop ancienne. Veuillez lancer une version 6.7 ou sup√©rieure.</target>
         </trans-unit>
-        <trans-unit id="65" resname="4D requires the CarbonLib 1.4 extension or above.">
+        <trans-unit id="b4TDMJRU_G07t1ic8YU9rg" resname="4D requires the CarbonLib 1.4 extension or above.">
           <source>4D requires the CarbonLib 1.4 extension or above.</source>
           <target>4D n√©cessite l‚Äôextension CarbonLib 1.4 ou sup√©rieure.</target>
         </trans-unit>
-        <trans-unit id="66" resname="Please activate or install this system extension and restart your machine.">
+        <trans-unit id="Xel6HgDUFeubZXTxtl2rzA" resname="Please activate or install this system extension and restart your machine.">
           <source>Please activate or install this system extension and restart your machine.</source>
           <target>Veuillez activer ou installer cette extension et red√©marrer.</target>
         </trans-unit>
-        <trans-unit id="67" resname="The database cannot be published.">
+        <trans-unit id="HBKzEMhLYTan31TOlwf_tg" resname="The database cannot be published.">
           <source>The database cannot be published.</source>
           <target>Impossible de publier cette base de donn√©es.</target>
         </trans-unit>
-        <trans-unit id="68" resname="The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server.">
+        <trans-unit id="l68bD0bbZgsiUqciZpQ_UA" resname="The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server.">
           <source>The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server.</source>
           <target>Il faut √™tre l‚Äôutilisateur ‚Äúroot‚Äù de la machine pour lancer le serveur Web avec ce num√©ro de port.</target>
         </trans-unit>
-        <trans-unit id="69" resname="The database cannot be published in secured mode.">
+        <trans-unit id="hvSzkQ2T_wEIb_RFv+bfwA" resname="The database cannot be published in secured mode.">
           <source>The database cannot be published in secured mode.</source>
           <target>Impossible de publier cette base de donn√©es en mode s√©curis√©.</target>
         </trans-unit>
-        <trans-unit id="70" resname="The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server in secured mode.">
+        <trans-unit id="cRv7daZrsIv9b_RggY0UhA" resname="The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server in secured mode.">
           <source>The ‚Äúroot‚Äù access privilege is required for this port number to start the Web server in secured mode.</source>
           <target>Il faut √™tre l‚Äôutilisateur ‚Äúroot‚Äù de la machine pour lancer le serveur Web en mode s√©curis√© avec ce num√©ro de port.</target>
         </trans-unit>
-        <trans-unit id="71" resname="Your serial number is already used on another computer and the maximum number of licenses has been reached. This product will now run in Demonstration mode.">
+        <trans-unit id="I1IlUhhvmTVYJyYWsetOjQ" resname="Your serial number is already used on another computer and the maximum number of licenses has been reached. This product will now run in Demonstration mode.">
           <source>Your serial number is already used on another computer and the maximum number of licenses has been reached. This product will now run in Demonstration mode.</source>
           <target>Votre num√©ro de s√©rie est d√©j√† utilis√© par un autre poste et le nombre maximum de licences est atteint. Ce produit passe en mode D√©monstration.</target>
         </trans-unit>
-        <trans-unit id="72" resname="Not enough privileges to start the web server on port # ! To gain privileges you must be authenticated as Administrator of this machine and restart the application for the changes to take effect. Do you want to change the privileges now?">
+        <trans-unit id="7dL+xSyx5w_RRyU5aLHMJQ" resname="Not enough privileges to start the web server on port # ! To gain privileges you must be authenticated as Administrator of this machine and restart the application for the changes to take effect. Do you want to change the privileges now?">
           <source>Not enough privileges to start the web server on port # !
 To gain privileges you must be authenticated as Administrator of this machine and restart the application for the changes to take effect.
 Do you want to change the privileges now?</source>
@@ -552,17 +552,17 @@ Do you want to change the privileges now?</source>
 Vous devez vous authentifier en tant qu‚ÄôAdministrateur et red√©marrer pour que la modification soit prise en compte.
 Souhaitez-vous changer les privil√®ges maintenant ?</target>
         </trans-unit>
-        <trans-unit id="73" resname="Authorization passed. Please restart the application for the changes to take effect.">
+        <trans-unit id="3Nst3efYe2uD6j79d1p5hQ" resname="Authorization passed. Please restart the application for the changes to take effect.">
           <source>Authorization passed. Please restart the application for the changes to take effect.</source>
           <target>L‚Äôautorisation est accord√©e. Vous devez maintenant relancer l‚Äôapplication.</target>
         </trans-unit>
-        <trans-unit id="74" resname="Error. Privilieges have not been changed. PLease refer to the documentation to look for possible causes.">
+        <trans-unit id="cTwbDs63lrkvFHDSQZcdwQ" resname="Error. Privilieges have not been changed. PLease refer to the documentation to look for possible causes.">
           <source>Error.
 Privilieges have not been changed. PLease refer to the documentation to look for possible causes.</source>
           <target>Erreur.
 Les privil√®ges n‚Äôont pas √©t√© chang√©. Reportez-vous √† la documentation pour consulter les causes possibles.</target>
         </trans-unit>
-        <trans-unit id="75" resname="Error. You do not have enough privileges to start the web server! Change the Application preferences to start the web server at launch. Please refer to the documentation for more information. The web server has not been started.">
+        <trans-unit id="24wCC079kOlLh1eL91Y75w" resname="Error. You do not have enough privileges to start the web server! Change the Application preferences to start the web server at launch. Please refer to the documentation for more information. The web server has not been started.">
           <source>Error.
 You do not have enough privileges to start the web server!
 Change the Application preferences to start the web server at launch.
@@ -573,530 +573,530 @@ Vous n‚Äôavez pas les privil√®ges pour d√©marrer le serveur web. Modif
 reportez-vous √† la documentation pour plus d‚Äôinformation.
 Le serveur web n‚Äôest pas d√©marr√©.</target>
         </trans-unit>
-        <trans-unit id="76" resname="This method cannot be imported.">
+        <trans-unit id="JKeyfRx6auAo7S0tnY9geg" resname="This method cannot be imported.">
           <source>This method cannot be imported.</source>
           <target>Impossible d‚Äôimporter cette m√©thode.</target>
         </trans-unit>
-        <trans-unit id="77" resname="Name of the computer using your serial number:">
+        <trans-unit id="d4eC+JwT7SgE9H1Uux33dg" resname="Name of the computer using your serial number:">
           <source>Name of the computer using your serial number:</source>
           <target>Nom du poste utilisant votre num√©ro de s√©rie :</target>
         </trans-unit>
-        <trans-unit id="78" resname="Conflictual Serial Number:">
+        <trans-unit id="VREv2Aa3XMTvNk9hm5dNeg" resname="Conflictual Serial Number:">
           <source>Conflictual Serial Number:</source>
           <target>Num√©ro de s√©rie en conflit :</target>
         </trans-unit>
-        <trans-unit id="79" resname="The 4D Extensions folder is either incomplete or missing.">
+        <trans-unit id="GcmlIK73eijC5A6IhsUC8A" resname="The 4D Extensions folder is either incomplete or missing.">
           <source>The 4D Extensions folder is either incomplete or missing.</source>
           <target>Le dossier 4D Extensions est incomplet ou absent.</target>
         </trans-unit>
-        <trans-unit id="80" resname="This application requires Mac OS 9.2">
+        <trans-unit id="6sgEXHR28oSR_eru3ocQtw" resname="This application requires Mac OS 9.2">
           <source>This application requires Mac OS 9.2</source>
           <target>Cette application n√©cessite Mac OS 9.2</target>
         </trans-unit>
-        <trans-unit id="81" resname="This application requires Mac OS 10.4.5 minimum">
+        <trans-unit id="cmo0Nb9gWGoZ6lLYQxVSrw" resname="This application requires Mac OS 10.4.5 minimum">
           <source>This application requires Mac OS 10.4.5 minimum</source>
           <target>Cette application n√©cessite Mac OS 10.4.5 minimum</target>
         </trans-unit>
-        <trans-unit id="82" resname="Warning: This method cannot be exported as a Web Service because its name contains some special XML characters.">
+        <trans-unit id="IIFDJuI_SNZrSr9D_zhCHg" resname="Warning: This method cannot be exported as a Web Service because its name contains some special XML characters.">
           <source>Warning: This method cannot be exported as a Web Service because its name contains some special XML characters.</source>
           <target>Attention : cette m√©thode ne peut pas √™tre export√©e comme Web Service car son nom contient certains caract√®res XML sp√©ciaux.</target>
         </trans-unit>
-        <trans-unit id="83" resname="The referenced element is null.">
+        <trans-unit id="b4NDVciT4fOw4fMZ5vKrYA" resname="The referenced element is null.">
           <source>The referenced element is null.</source>
           <target>L‚Äô√©l√©ment r√©f√©renc√© est nul.</target>
         </trans-unit>
-        <trans-unit id="84" resname="The referenced element is invalid.">
+        <trans-unit id="MQGjea7AdX2cZeJ2CUa_aQ" resname="The referenced element is invalid.">
           <source>The referenced element is invalid.</source>
           <target>L‚Äô√©l√©ment r√©f√©renc√© est invalide.</target>
         </trans-unit>
-        <trans-unit id="85" resname="The referenced element is not the ‚Äúroot‚Äù.">
+        <trans-unit id="cbHfZEpF_F1XK0akWcY7pw" resname="The referenced element is not the ‚Äúroot‚Äù.">
           <source>The referenced element is not the ‚Äúroot‚Äù.</source>
           <target>L‚Äô√©l√©ment r√©f√©renc√© n‚Äôest pas le ‚Äúroot‚Äù.</target>
         </trans-unit>
-        <trans-unit id="86" resname="The name of the element is unknown.">
+        <trans-unit id="F7yIMwdoQCSkqRMSijTI4g" resname="The name of the element is unknown.">
           <source>The name of the element is unknown.</source>
           <target>Le nom de l‚Äô√©l√©ment est inconnu.</target>
         </trans-unit>
-        <trans-unit id="87" resname="The index for this element is invalid.">
+        <trans-unit id="MtUrmSbdyT4lfId5YLxG8g" resname="The index for this element is invalid.">
           <source>The index for this element is invalid.</source>
           <target>L‚Äôindex pour cet √©l√©ment est invalide.</target>
         </trans-unit>
-        <trans-unit id="88" resname="There is no attribute with this name for this element.">
+        <trans-unit id="so0ml8SrXTLbSvgNrpEpWQ" resname="There is no attribute with this name for this element.">
           <source>There is no attribute with this name for this element.</source>
           <target>Il n‚Äôexiste pas d‚Äôattribut de ce nom pour cet √©l√©ment.</target>
         </trans-unit>
-        <trans-unit id="89" resname="The index for this attribute is invalid.">
+        <trans-unit id="XtiWctJ5BRvPQqZgD4cN4Q" resname="The index for this attribute is invalid.">
           <source>The index for this attribute is invalid.</source>
           <target>L‚Äôindex pour cet attribut est invalide.</target>
         </trans-unit>
-        <trans-unit id="90" resname="The XML DLL is not loaded.">
+        <trans-unit id="66bmNfOaJGGg_8csMUJivQ" resname="The XML DLL is not loaded.">
           <source>The XML DLL is not loaded.</source>
           <target>La DLL XML n‚Äôest pas charg√©e.</target>
         </trans-unit>
-        <trans-unit id="91" resname="The XML file is not valid.">
+        <trans-unit id="gikk3Ta2K9DOdsEHfQ5_+Q" resname="The XML file is not valid.">
           <source>The XML file is not valid.</source>
           <target>Le fichier XML n‚Äôest pas valide.</target>
         </trans-unit>
-        <trans-unit id="92" resname="The XML file is not well-formed.">
+        <trans-unit id="kTISXjoxyTytNfP79IpwLw" resname="The XML file is not well-formed.">
           <source>The XML file is not well-formed.</source>
           <target>Le fichier XML n‚Äôest pas bien form√©.</target>
         </trans-unit>
-        <trans-unit id="93" resname="The XML file is not valid or is not well-formed.">
+        <trans-unit id="t+eza9hCtijysA5vqXeuIQ" resname="The XML file is not valid or is not well-formed.">
           <source>The XML file is not valid or is not well-formed.</source>
           <target>Le fichier XML n‚Äôest pas valide ou n‚Äôest pas bien form√©.</target>
         </trans-unit>
-        <trans-unit id="94" resname="SOAP fault">
+        <trans-unit id="KYlPHZYCAVvyaLb1UAVyJQ" resname="SOAP fault">
           <source>SOAP fault</source>
           <target>Erreur SOAP</target>
         </trans-unit>
-        <trans-unit id="95" resname="XML parsing error">
+        <trans-unit id="6f6Mwsdh5pghtSgWs3_MWw" resname="XML parsing error">
           <source>XML parsing error</source>
           <target>Erreur analyse XML</target>
         </trans-unit>
-        <trans-unit id="96" resname="HTTP error">
+        <trans-unit id="BaF8BE+JZ2qDz18AAfj2_g" resname="HTTP error">
           <source>HTTP error</source>
           <target>Erreur HTTP</target>
         </trans-unit>
-        <trans-unit id="97" resname="Network error">
+        <trans-unit id="CGLqkM1QlXyza2HKr010ag" resname="Network error">
           <source>Network error</source>
           <target>Erreur r√©seau</target>
         </trans-unit>
-        <trans-unit id="98" resname="Internal fault">
+        <trans-unit id="NXE7CHzAF+5vyVj0UMnpSA" resname="Internal fault">
           <source>Internal fault</source>
           <target>Erreur interne</target>
         </trans-unit>
-        <trans-unit id="99" resname="The path specified is invalid.">
+        <trans-unit id="afK908fpqrY_xAMDhUViYA" resname="The path specified is invalid.">
           <source>The path specified is invalid.</source>
           <target>Le chemin d‚Äôacc√®s sp√©cifi√© est incorrect.</target>
         </trans-unit>
-        <trans-unit id="100" resname="The WSDL has moved to:">
+        <trans-unit id="bMzC3gnoUTx_yE374zbyFw" resname="The WSDL has moved to:">
           <source>The WSDL has moved to:</source>
           <target>Le WSDL a √©t√© d√©plac√© vers :</target>
         </trans-unit>
-        <trans-unit id="101" resname="The document‚Äôs reference is invalid.">
+        <trans-unit id="uDR7WPry5TDYffuJPYmCjQ" resname="The document‚Äôs reference is invalid.">
           <source>The document‚Äôs reference is invalid.</source>
           <target>La r√©f√©rence du document est incorrecte.</target>
         </trans-unit>
-        <trans-unit id="102" resname="The element is not open.">
+        <trans-unit id="CfE3GryQckJaw0jl7tK4Ww" resname="The element is not open.">
           <source>The element is not open.</source>
           <target>L‚Äô√©l√©ment n‚Äôest pas ouvert.</target>
         </trans-unit>
-        <trans-unit id="103" resname="The type of the array passed in parameter is invalid.">
+        <trans-unit id="gPri685qb90PmW9baONy5Q" resname="The type of the array passed in parameter is invalid.">
           <source>The type of the array passed in parameter is invalid.</source>
           <target>Le type du tableau pass√© en param√®tre est incorrect.</target>
         </trans-unit>
-        <trans-unit id="104" resname="The name of the element is invalid.">
+        <trans-unit id="46UmHaDYsrj57UL0SwSakQ" resname="The name of the element is invalid.">
           <source>The name of the element is invalid.</source>
           <target>Le nom de l‚Äô√©l√©ment est incorrect.</target>
         </trans-unit>
-        <trans-unit id="105" resname="This encoding is not supported.">
+        <trans-unit id="NA2S4gJ5_cWDcpAMowzZAw" resname="This encoding is not supported.">
           <source>This encoding is not supported.</source>
           <target>Cet encodage n‚Äôest pas support√©.</target>
         </trans-unit>
-        <trans-unit id="106" resname="The type of the node is invalid.">
+        <trans-unit id="D9koE1l4SApDNGAiL3gSSQ" resname="The type of the node is invalid.">
           <source>The type of the node is invalid.</source>
           <target>Le type du noeud est incorrect.</target>
         </trans-unit>
-        <trans-unit id="107" resname="Unable to add XML data (file not empty)">
+        <trans-unit id="nKEh4_ns96H0YzqiLfp5zg" resname="Unable to add XML data (file not empty)">
           <source>Unable to add XML data (file not empty)</source>
           <target>Impossible d‚Äôajouter des donn√©es XML (fichier non vide)</target>
         </trans-unit>
-        <trans-unit id="108" resname="To execute this command you have to have the Administrator rights.">
+        <trans-unit id="MGcCJ_CpDtcT8S+x8gy2xg" resname="To execute this command you have to have the Administrator rights.">
           <source>To execute this command you have to have the Administrator rights.</source>
           <target>Pour ex√©cuter cette commande vous devez avoir les privil√®ges Administrateur.</target>
         </trans-unit>
-        <trans-unit id="109" resname="A parameter was expected.">
+        <trans-unit id="m2jIBf761j_T2K6A1Xhzeg" resname="A parameter was expected.">
           <source>A parameter was expected.</source>
           <target>Il manque un param√®tre.</target>
         </trans-unit>
-        <trans-unit id="110" resname="Invalid attribut name.">
+        <trans-unit id="AT3Gav9WVNP6qhY39r7QZg" resname="Invalid attribut name.">
           <source>Invalid attribut name.</source>
           <target>Le nom de l‚Äôattribut est invalide.</target>
         </trans-unit>
-        <trans-unit id="111" resname="Impossible to connect a 4D Client to a customized server application.">
+        <trans-unit id="T33maAp+Z0nKJDFOuGw5dA" resname="Impossible to connect a 4D Client to a customized server application.">
           <source>Impossible to connect a 4D Client to a customized server application.</source>
           <target>Impossible de connecter un 4D Client  √† une application serveur personnalis√©e.</target>
         </trans-unit>
-        <trans-unit id="112" resname="The ‚Äú4D Standard Edition‚Äù package version limit has been reached">
+        <trans-unit id="EcKvZi1cTjD1_WMBUyq1rw" resname="The ‚Äú4D Standard Edition‚Äù package version limit has been reached">
           <source>The ‚Äú4D Standard Edition‚Äù package version limit has been reached</source>
           <target>Limite de la version dans l‚Äôoffre ‚Äú4D Standard Edition‚Äù</target>
         </trans-unit>
-        <trans-unit id="113" resname="Your license does not allow you to open a database in Compiled mode!">
+        <trans-unit id="ditSJWP7C+Rla+wVUKl6Kw" resname="Your license does not allow you to open a database in Compiled mode!">
           <source>Your license does not allow you to open a database in Compiled mode!</source>
           <target>Votre licence ne vous permet pas d‚Äôouvrir une base en mode Compil√© !</target>
         </trans-unit>
-        <trans-unit id="114" resname="For XML SAX parsing, the file must be open in read-only mode">
+        <trans-unit id="2aJRGarhxY0iDxt1X8yoVw" resname="For XML SAX parsing, the file must be open in read-only mode">
           <source>For XML SAX parsing, the file must be open in read-only mode</source>
           <target>Pour les analyses SAX XML, le fichier doit √™tre ouvert en mode lecture seulement</target>
         </trans-unit>
-        <trans-unit id="115" resname="The appropriate ODBC driver manager is not installed.">
+        <trans-unit id="QVmXbgQ6NxzUNS7bhO_8GQ" resname="The appropriate ODBC driver manager is not installed.">
           <source>The appropriate ODBC driver manager is not installed.</source>
           <target>Le gestionnaire ODBC appropri√© n‚Äôest pas install√©.</target>
         </trans-unit>
-        <trans-unit id="116" resname="Unable to open the  database {database_name}, please check it using the Maintenance and Security Center.">
+        <trans-unit id="5gy7jMaFUh9oPtXPD_cdXg" resname="Unable to open the  database {database_name}, please check it using the Maintenance and Security Center.">
           <source>Unable to open the  database {database_name}, please check it using the Maintenance and Security Center.</source>
           <target>Impossible d'ouvrir la base de donn√©es {database_name}, veuillez la v√©rifier en utilisant le Centre de s√©curit√© et de maintenance.</target>
         </trans-unit>
-        <trans-unit id="117" resname="Cannot load component {component_name}.">
+        <trans-unit id="Pux1_KF23e0yQVUlB93ToA" resname="Cannot load component {component_name}.">
           <source>Cannot load component {component_name}.</source>
           <target>Impossible de charger le composant {component_name}.</target>
         </trans-unit>
-        <trans-unit id="118" resname="The command {command_name} cannot be called from a component.">
+        <trans-unit id="VA5R91z4SvlNnZrtRW_Log" resname="The command {command_name} cannot be called from a component.">
           <source>The command {command_name} cannot be called from a component.</source>
           <target>La commande {command_name} ne peut pas √™tre appel√©e depuis un composant.</target>
         </trans-unit>
-        <trans-unit id="119" resname="Cannot call {command_name} command from a remote 4D Developer.">
+        <trans-unit id="5Q5gHozIErSVLSs6qNeYrA" resname="Cannot call {command_name} command from a remote 4D Developer.">
           <source>Cannot call {command_name} command from a remote 4D Developer.</source>
           <target>Impossible d'appeler la commande {command_name} depuis un 4D Developer distant.</target>
         </trans-unit>
       </group>
       <group id="36" resname="STR# 36">
-        <trans-unit id="1" resname="Form Method: ">
+        <trans-unit id="PrwH0ie16L+iI2p9JvtIXQ" resname="Form Method: ">
           <source>Form Method: </source>
           <target>M√©thode formulaire : </target>
         </trans-unit>
-        <trans-unit id="2" resname="Trigger: ">
+        <trans-unit id="piRXG_X_KOne+sV4_VDl3Q" resname="Trigger: ">
           <source>Trigger: </source>
           <target>Trigger : </target>
         </trans-unit>
-        <trans-unit id="3" resname="Form: ">
+        <trans-unit id="14zhrA5pZ25+8PcM1sHMPQ" resname="Form: ">
           <source>Form: </source>
           <target>Formulaire : </target>
         </trans-unit>
-        <trans-unit id="4" resname="Subtable: ">
+        <trans-unit id="lVcR3lwc091LPQALJ91AhQ" resname="Subtable: ">
           <source>Subtable: </source>
           <target>Sous-structure : </target>
         </trans-unit>
-        <trans-unit id="5" resname="Method: ">
+        <trans-unit id="7ZTXSW7y9keRRciFKYgjjQ" resname="Method: ">
           <source>Method: </source>
           <target>M√©thode : </target>
         </trans-unit>
-        <trans-unit id="6" resname="" translate="no">
+        <trans-unit id="a5yaQVq5g6Ec61JZX2renA" resname="" translate="no">
           <source/>
         </trans-unit>
-        <trans-unit id="7" resname="Value">
+        <trans-unit id="cY8qDF4iz549yK34EfFHNg" resname="Value">
           <source>Value</source>
           <target>Valeur</target>
         </trans-unit>
-        <trans-unit id="8" resname="This field can't be used in a query.">
+        <trans-unit id="+mN1k2XQJsThwCxV1ITRCw" resname="This field can't be used in a query.">
           <source>This field can't be used in a query.</source>
           <target>Impossible d‚Äôutiliser ce champ dans une recherche</target>
         </trans-unit>
-        <trans-unit id="9" resname="Object Method: ">
+        <trans-unit id="RNXhM5gjU5Nz0GI0wJF_tg" resname="Object Method: ">
           <source>Object Method: </source>
           <target>M√©thode objet : </target>
         </trans-unit>
       </group>
       <group id="29" resname="STR# 29">
-        <trans-unit id="1" resname="A &quot;(&quot; was expected.">
+        <trans-unit id="lcofOABxMsGDciBG7lN3dQ" resname="A &quot;(&quot; was expected.">
           <source>A "(" was expected.</source>
           <target>Il manque une parenth√®se ouvrante.</target>
         </trans-unit>
-        <trans-unit id="2" resname="A field was expected.">
+        <trans-unit id="JCeu4hWoY5B5De8fU5ed4A" resname="A field was expected.">
           <source>A field was expected.</source>
           <target>Il manque un champ.</target>
         </trans-unit>
-        <trans-unit id="3" resname="This command may be executed only on a field in a subtable.">
+        <trans-unit id="JvMIMEt5ALN5l6_U5Gj2MA" resname="This command may be executed only on a field in a subtable.">
           <source>This command may be executed only on a field in a subtable.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e que sur un champ appartenant √† une sous-table.</target>
         </trans-unit>
-        <trans-unit id="4" resname="Parameters in the list must all be of the same type.">
+        <trans-unit id="CZxscFBsr7+dy4Ccc_F+4w" resname="Parameters in the list must all be of the same type.">
           <source>Parameters in the list must all be of the same type.</source>
           <target>Les arguments de la liste doivent tous √™tre du m√™me type.</target>
         </trans-unit>
-        <trans-unit id="5" resname="There is no table to apply the command to.">
+        <trans-unit id="AqS9XwtOF_wxAOakTyerAA" resname="There is no table to apply the command to.">
           <source>There is no table to apply the command to.</source>
           <target>Impossible de d√©terminer sur quelle table appliquer cette fonction</target>
         </trans-unit>
-        <trans-unit id="6" resname="This command may only be executed on a field of type Subtable.">
+        <trans-unit id="QaRACg2Jhedhf5ZU+Sanuw" resname="This command may only be executed on a field of type Subtable.">
           <source>This command may only be executed on a field of type Subtable.</source>
           <target>Cette fonction ne peut √™tre ex√©cut√©e que sur un champ de type sous-table.</target>
         </trans-unit>
-        <trans-unit id="7" resname="A Numeric argument was expected.">
+        <trans-unit id="uU9LF59kAJpRqqcDy_XIUQ" resname="A Numeric argument was expected.">
           <source>A Numeric argument was expected.</source>
           <target>Il manque un argument de type num√©rique.</target>
         </trans-unit>
-        <trans-unit id="8" resname="An Alphanumeric argument was expected.">
+        <trans-unit id="FSSTaPLSPUJUXBC0MYTeCw" resname="An Alphanumeric argument was expected.">
           <source>An Alphanumeric argument was expected.</source>
           <target>Il manque un argument de type alphanum√©rique.</target>
         </trans-unit>
-        <trans-unit id="9" resname="The result of a conditional test was expected.">
+        <trans-unit id="KsUFKIjVS6n8VKVPFmK6AQ" resname="The result of a conditional test was expected.">
           <source>The result of a conditional test was expected.</source>
           <target>Il manque le r√©sultat d'une condition.</target>
         </trans-unit>
-        <trans-unit id="10" resname="The command cannot be applied to this field type.">
+        <trans-unit id="QmmfeN1Z1EMCzOP+8hRx8g" resname="The command cannot be applied to this field type.">
           <source>The command cannot be applied to this field type.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e √† ce type de donn√©es.</target>
         </trans-unit>
-        <trans-unit id="11" resname="The command cannot be applied between two conditional tests.">
+        <trans-unit id="Lz5jkCHcFfZAKAv9usu8RQ" resname="The command cannot be applied between two conditional tests.">
           <source>The command cannot be applied between two conditional tests.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e entre deux conditions.</target>
         </trans-unit>
-        <trans-unit id="12.2" resname="The command cannot be applied between two Numeric arguments.">
+        <trans-unit id="OBICLZmM6LsR555094RrfQ" resname="The command cannot be applied between two Numeric arguments.">
           <source>The command cannot be applied between two Numeric arguments.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e entre deux arguments num√©riques.</target>
         </trans-unit>
-        <trans-unit id="13" resname="The command cannot be applied between two Alphanumeric arguments.">
+        <trans-unit id="9EFGPBElIFWb9gET35PeMg" resname="The command cannot be applied between two Alphanumeric arguments.">
           <source>The command cannot be applied between two Alphanumeric arguments.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e entre deux arguments alphanum√©riques.</target>
         </trans-unit>
-        <trans-unit id="14" resname="The command cannot be applied between two Date arguments.">
+        <trans-unit id="KxXdALOKuAFPqyYb1vfwTQ" resname="The command cannot be applied between two Date arguments.">
           <source>The command cannot be applied between two Date arguments.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e entre deux arguments de type date.</target>
         </trans-unit>
-        <trans-unit id="15" resname="This operation is not compatible with the two arguments.">
+        <trans-unit id="MGGYGPqS6iiwxWKhiYEPPQ" resname="This operation is not compatible with the two arguments.">
           <source>This operation is not compatible with the two arguments.</source>
           <target>Les arguments de cette op√©ration ne sont pas compatibles.</target>
         </trans-unit>
-        <trans-unit id="16" resname="This field has no relation.">
+        <trans-unit id="eqLEra6Ynbed3rnD7ag4Dg" resname="This field has no relation.">
           <source>This field has no relation.</source>
           <target>Ce champ ne poss√®de aucun lien.</target>
         </trans-unit>
-        <trans-unit id="17" resname="A table was expected.">
+        <trans-unit id="yhepCNsL+dQpy25gjgbaPg" resname="A table was expected.">
           <source>A table was expected.</source>
           <target>Il manque une table.</target>
         </trans-unit>
-        <trans-unit id="18" resname="Field types are incompatible.">
+        <trans-unit id="ssvTYacsXCrvCuBly7BwKA" resname="Field types are incompatible.">
           <source>Field types are incompatible.</source>
           <target>Les types sont incompatibles.</target>
         </trans-unit>
-        <trans-unit id="19" resname="This field is not indexed.">
+        <trans-unit id="pFNr_g4Vh_HfccKJqI9BxQ" resname="This field is not indexed.">
           <source>This field is not indexed.</source>
           <target>Le champ n'est pas index√©.</target>
         </trans-unit>
-        <trans-unit id="20" resname="An &quot;=&quot; was expected.">
+        <trans-unit id="zvVJmEOIjzqyCmDZ_ci5PQ" resname="An &quot;=&quot; was expected.">
           <source>An "=" was expected.</source>
           <target>Il manque le signe √©gal (=).</target>
         </trans-unit>
-        <trans-unit id="21" resname="The method does not exist.">
+        <trans-unit id="9bMT2AZ75ocn3dV7ZIIKlw" resname="The method does not exist.">
           <source>The method does not exist.</source>
           <target>Cette m√©thode n'existe pas.</target>
         </trans-unit>
-        <trans-unit id="22" resname="The fields must belong to the same table or subtable for Order by or Charts.">
+        <trans-unit id="1C6bJSXjoW8iDT6OzZsYBQ" resname="The fields must belong to the same table or subtable for Order by or Charts.">
           <source>The fields must belong to the same table or subtable for Order by or Charts.</source>
           <target>Les champs doivent appartenir √† la m√™me table (ou √† la m√™me sous-table) pour un tri ou un graphe.</target>
         </trans-unit>
-        <trans-unit id="23" resname="A &quot;&lt;&quot; or &quot;>&quot; was expected.">
+        <trans-unit id="DjrSneXGCTMcoYVwbZuBTQ" resname="A &quot;&lt;&quot; or &quot;>&quot; was expected.">
           <source>A "&lt;" or "&gt;" was expected.</source>
           <target>Il manque le signe inf√©rieur (&lt;) ou sup√©rieur (&gt;).</target>
         </trans-unit>
-        <trans-unit id="24" resname="A &quot;;&quot; was expected.">
+        <trans-unit id="x9VWyuYHo671bVeC4kqtBQ" resname="A &quot;;&quot; was expected.">
           <source>A ";" was expected.</source>
           <target>Il manque un point-virgule (;).</target>
         </trans-unit>
-        <trans-unit id="25" resname="There are too many fields for an Order by.">
+        <trans-unit id="BiWMOw9Ovv5xOHw9ydpnpA" resname="There are too many fields for an Order by.">
           <source>There are too many fields for an Order by.</source>
           <target>Il existe trop de champs pour le tri.</target>
         </trans-unit>
-        <trans-unit id="26" resname="The field type cannot be Text, Picture or Subtable.">
+        <trans-unit id="T3tkvuYjxzl6HabhpMOqCg" resname="The field type cannot be Text, Picture or Subtable.">
           <source>The field type cannot be Text, Picture or Subtable.</source>
           <target>Le champ ne doit pas √™tre de type image, texte ou sous-table.</target>
         </trans-unit>
-        <trans-unit id="27" resname="The field must be prefixed by its table name.">
+        <trans-unit id="SCxb9IIGvz0eXq5GPLw92w" resname="The field must be prefixed by its table name.">
           <source>The field must be prefixed by its table name.</source>
           <target>Le nom du champ doit √™tre pr√©fix√© par le nom de la table auquel il appartient.</target>
         </trans-unit>
-        <trans-unit id="28" resname="The field type must be Numeric.">
+        <trans-unit id="86dRBC0T0NC8SwnJpnVnjQ" resname="The field type must be Numeric.">
           <source>The field type must be Numeric.</source>
           <target>Le champ doit √™tre du type num√©rique.</target>
         </trans-unit>
-        <trans-unit id="29" resname="The value must be 1 or 0.">
+        <trans-unit id="A3F7YDBr1P1vzXCqHpeHSQ" resname="The value must be 1 or 0.">
           <source>The value must be 1 or 0.</source>
           <target>La valeur doit √™tre √©gale √† 1 ou 0.</target>
         </trans-unit>
-        <trans-unit id="30" resname="A variable was expected.">
+        <trans-unit id="g9NDx2xAr9SbrQCBSL030w" resname="A variable was expected.">
           <source>A variable was expected.</source>
           <target>Il manque une variable.</target>
         </trans-unit>
-        <trans-unit id="31" resname="There is no menu bar with this number.">
+        <trans-unit id="XeAeBqCU39SmxLM9XQzN5w" resname="There is no menu bar with this number.">
           <source>There is no menu bar with this number.</source>
           <target>Aucune barre de menus ne porte ce num√©ro.</target>
         </trans-unit>
-        <trans-unit id="32" resname="A date was expected.">
+        <trans-unit id="B8XHKQISm0QYgsO4MKnGcw" resname="A date was expected.">
           <source>A date was expected.</source>
           <target>Il manque une date.</target>
         </trans-unit>
-        <trans-unit id="33" resname="Unimplemented command or function.">
+        <trans-unit id="dPF54B9bceLJjnf8cfaa8Q" resname="Unimplemented command or function.">
           <source>Unimplemented command or function.</source>
           <target>M√©thode ou fonction non impl√©ment√©e</target>
         </trans-unit>
-        <trans-unit id="35" resname="The sets are from different tables.">
+        <trans-unit id="8UFJ_si44Lmwq96TJ7wQqw" resname="The sets are from different tables.">
           <source>The sets are from different tables.</source>
           <target>La table et l'ensemble ne sont pas associ√©s.</target>
         </trans-unit>
-        <trans-unit id="36" resname="Invalid table name">
+        <trans-unit id="wUTUBcZK9pGUxBXyXEP81Q" resname="Invalid table name">
           <source>Invalid table name</source>
           <target>Nom de table incorrect</target>
         </trans-unit>
-        <trans-unit id="37" resname="A &quot;:=&quot; was expected.">
+        <trans-unit id="4M5oEzL+B4JAAoqw9StyyA" resname="A &quot;:=&quot; was expected.">
           <source>A ":=" was expected.</source>
           <target>Il manque le signe d'affectation (:=).</target>
         </trans-unit>
-        <trans-unit id="38" resname="This is a function, not a procedure.">
+        <trans-unit id="_bBnEjAHhLzyHAHXgbJDLA" resname="This is a function, not a procedure.">
           <source>This is a function, not a procedure.</source>
           <target>Ceci est une fonction et non une commande.</target>
         </trans-unit>
-        <trans-unit id="39" resname="The set does not exist.">
+        <trans-unit id="UiUMzW1zFz+KspKbBncVEA" resname="The set does not exist.">
           <source>The set does not exist.</source>
           <target>Cet ensemble n'existe pas.</target>
         </trans-unit>
-        <trans-unit id="40" resname="This is a procedure, not a function.">
+        <trans-unit id="_jzgJcAtNdGEdOjzT7j1CA" resname="This is a procedure, not a function.">
           <source>This is a procedure, not a function.</source>
           <target>Ceci est une commande et non une fonction.</target>
         </trans-unit>
-        <trans-unit id="41" resname="A variable or field belonging to a subtable was expected.">
+        <trans-unit id="vZNIZuVyfDQS+MvLvf15jw" resname="A variable or field belonging to a subtable was expected.">
           <source>A variable or field belonging to a subtable was expected.</source>
           <target>Il manque une variable ou un sous-champ.</target>
         </trans-unit>
-        <trans-unit id="42" resname="The record cannot be pushed onto the stack.">
+        <trans-unit id="Srad3uTcjM5ZBZoYO+Qgbw" resname="The record cannot be pushed onto the stack.">
           <source>The record cannot be pushed onto the stack.</source>
           <target>Impossible de d√©piler l‚Äôenregistrement.</target>
         </trans-unit>
-        <trans-unit id="43" resname="The function cannot be found.">
+        <trans-unit id="zQ73ommIHIQqU6wx_0vnew" resname="The function cannot be found.">
           <source>The function cannot be found.</source>
           <target>La fonction est introuvable.</target>
         </trans-unit>
-        <trans-unit id="44" resname="The method cannot be found.">
+        <trans-unit id="oQZjLzvx7O6Tmo+dWBJABA" resname="The method cannot be found.">
           <source>The method cannot be found.</source>
           <target>La m√©thode est introuvable.</target>
         </trans-unit>
-        <trans-unit id="45" resname="Field or variable expected.">
+        <trans-unit id="xkpuGRldTFN8F7TARcNgdg" resname="Field or variable expected.">
           <source>Field or variable expected.</source>
           <target>Il manque une variable ou un champ.</target>
         </trans-unit>
-        <trans-unit id="46" resname="A Numeric or Alphanumeric argument was expected.">
+        <trans-unit id="u76ay39rr+eOScvK4enemA" resname="A Numeric or Alphanumeric argument was expected.">
           <source>A Numeric or Alphanumeric argument was expected.</source>
           <target>Il manque un argument de type alphanum√©rique ou num√©rique.</target>
         </trans-unit>
-        <trans-unit id="47" resname="The field type must be alphanumeric.">
+        <trans-unit id="ApKw9qAyneGmRXcipalBdg" resname="The field type must be alphanumeric.">
           <source>The field type must be alphanumeric.</source>
           <target>Le champ doit √™tre de type alphanum√©rique.</target>
         </trans-unit>
-        <trans-unit id="48" resname="Syntax error.">
+        <trans-unit id="dRj4VnYhIVi8kyaLJUvg6g" resname="Syntax error.">
           <source>Syntax error.</source>
           <target>Erreur de syntaxe</target>
         </trans-unit>
-        <trans-unit id="49" resname="This operator cannot be used here.">
+        <trans-unit id="gr91HVPp2OplgLiPy0_zuA" resname="This operator cannot be used here.">
           <source>This operator cannot be used here.</source>
           <target>Impossible d‚Äôutiliser cet op√©rateur ici.</target>
         </trans-unit>
-        <trans-unit id="50" resname="These operators cannot be used together.">
+        <trans-unit id="wvB7zQwgQGcwTGlevKj3Bg" resname="These operators cannot be used together.">
           <source>These operators cannot be used together.</source>
           <target>Ces op√©rateurs ne peuvent pas √™tre utilis√©s conjointement.</target>
         </trans-unit>
-        <trans-unit id="51" resname="Plug-in not implemented">
+        <trans-unit id="Pzpls+GcYb8L65uuHImK4A" resname="Plug-in not implemented">
           <source>Plug-in not implemented</source>
           <target>Ce plug-in n'est pas impl√©ment√©.</target>
         </trans-unit>
-        <trans-unit id="52" resname="An array was expected or the type of the array was not appropriate.">
+        <trans-unit id="bNdZCBPQx_A06svYlKOR8g" resname="An array was expected or the type of the array was not appropriate.">
           <source>An array was expected or the type of the array was not appropriate.</source>
           <target>Il manque un argument de type tableau ou le type du tableau est incorrect.</target>
         </trans-unit>
-        <trans-unit id="53" resname="Indice out of range.">
+        <trans-unit id="tdcX_DfhFgZYCOY6E52gHA" resname="Indice out of range.">
           <source>Indice out of range.</source>
           <target>L'indice du tableau est en dehors des limites.</target>
         </trans-unit>
-        <trans-unit id="54" resname="Argument types are incompatible.">
+        <trans-unit id="8SBOCOZrdg20uw9eh3E9iQ" resname="Argument types are incompatible.">
           <source>Argument types are incompatible.</source>
           <target>Les arguments sont incompatibles.</target>
         </trans-unit>
-        <trans-unit id="55" resname="A Boolean argument was expected.">
+        <trans-unit id="yTLx_aXXxSWamfWzNksHGA" resname="A Boolean argument was expected.">
           <source>A Boolean argument was expected.</source>
           <target>Il manque un argument de type bool√©en.</target>
         </trans-unit>
-        <trans-unit id="56" resname="Field, variable or table expected.">
+        <trans-unit id="aEiBUGLO2IAkhnfwhABbnQ" resname="Field, variable or table expected.">
           <source>Field, variable or table expected.</source>
           <target>Il manque un champ, une variable ou une table.</target>
         </trans-unit>
-        <trans-unit id="57" resname="An operator was expected.">
+        <trans-unit id="S2_5Ttx1nt4YOpczx96N3w" resname="An operator was expected.">
           <source>An operator was expected.</source>
           <target>Il manque un op√©rateur.</target>
         </trans-unit>
-        <trans-unit id="58" resname="A &quot;)&quot; was expected.">
+        <trans-unit id="lGyU3bPUEjr4KVjR73KJ8Q" resname="A &quot;)&quot; was expected.">
           <source>A ")" was expected.</source>
           <target>Il manque une parenth√®se fermante.</target>
         </trans-unit>
-        <trans-unit id="59" resname="This kind of argument was not expected here.">
+        <trans-unit id="7jKZZBbbvP7Xf104UxrjnA" resname="This kind of argument was not expected here.">
           <source>This kind of argument was not expected here.</source>
           <target>Type d'argument inattendu</target>
         </trans-unit>
-        <trans-unit id="60" resname="A parameter or a local variable cannot be used in an EXECUTE statement in a compiled database.">
+        <trans-unit id="CFhAYeLqUwTukZYfzbQfaA" resname="A parameter or a local variable cannot be used in an EXECUTE statement in a compiled database.">
           <source>A parameter or a local variable cannot be used in an EXECUTE statement in a compiled database.</source>
           <target>Impossible de passer un param√®tre ou une variable locale √† une commande EXECUTER sur une base compil√©e</target>
         </trans-unit>
-        <trans-unit id="61" resname="The type of an array cannot be modified in a compiled database.">
+        <trans-unit id="u2wqYWkj0MkMHldFWRsWdw" resname="The type of an array cannot be modified in a compiled database.">
           <source>The type of an array cannot be modified in a compiled database.</source>
           <target>Impossible de modifier le type d'un tableau dans une base compil√©e</target>
         </trans-unit>
-        <trans-unit id="62" resname="The command cannot be applied to a subtable.">
+        <trans-unit id="GwBFt94+Etm_evj+6NO1tg" resname="The command cannot be applied to a subtable.">
           <source>The command cannot be applied to a subtable.</source>
           <target>Impossible d‚Äôappliquer cette commande √† une sous-table</target>
         </trans-unit>
-        <trans-unit id="63" resname="The field is not indexed.">
+        <trans-unit id="f85Q+63FG+JbBBdmGk7XXA" resname="The field is not indexed.">
           <source>The field is not indexed.</source>
           <target>Le champ n‚Äôest pas index√©.</target>
         </trans-unit>
-        <trans-unit id="64" resname="A picture field or variable was expected.">
+        <trans-unit id="NzzPl9jxsXVZzcxKmtvgOg" resname="A picture field or variable was expected.">
           <source>A picture field or variable was expected.</source>
           <target>Il manque un champ ou une variable de type image.</target>
         </trans-unit>
-        <trans-unit id="67" resname="This command cannot be executed on 4D Server.">
+        <trans-unit id="XfZ1KD+sb3KXXNXVLAPG_A" resname="This command cannot be executed on 4D Server.">
           <source>This command cannot be executed on 4D Server.</source>
           <target>Cette commande ne peut pas √™tre ex√©cut√©e sur 4D Server.</target>
         </trans-unit>
-        <trans-unit id="68" resname="A list was expected.">
+        <trans-unit id="HSywem2kDful_+VYtFHfwA" resname="A list was expected.">
           <source>A list was expected.</source>
           <target>Il manque une liste.</target>
         </trans-unit>
-        <trans-unit id="69" resname="An external window reference was expected.">
+        <trans-unit id="Z+dGlbropKjxTPpEIFnd7A" resname="An external window reference was expected.">
           <source>An external window reference was expected.</source>
           <target>Il manque une r√©f√©rence d‚Äôune fen√™tre externe.</target>
         </trans-unit>
-        <trans-unit id="70" resname="The command cannot be applied between two Picture arguments.">
+        <trans-unit id="WgSNmxQ_pU4FpA6epqPIfw" resname="The command cannot be applied between two Picture arguments.">
           <source>The command cannot be applied between two Picture arguments.</source>
           <target>Cette fonction ne peut √™tre appliqu√©e entre deux arguments de type image.</target>
         </trans-unit>
-        <trans-unit id="71" resname="The SET PRINT MARKER command can only be called in the header of a form being printed.">
+        <trans-unit id="mTxJuS4GEh23R9U3UC8fRg" resname="The SET PRINT MARKER command can only be called in the header of a form being printed.">
           <source>The SET PRINT MARKER command can only be called in the header of a form being printed.</source>
           <target>La commande FIXER TAQUET IMPRESSION peut uniquement √™tre appel√©e dans l‚Äôen-t√™te d‚Äôun formulaire en cours d‚Äôimpression.</target>
         </trans-unit>
-        <trans-unit id="72" resname="A pointer array was expected">
+        <trans-unit id="g9WFYt0dF0HWbYiT8m64iA" resname="A pointer array was expected">
           <source>A pointer array was expected</source>
           <target>Il manque un tableau pointeur.</target>
         </trans-unit>
-        <trans-unit id="73" resname="A numeric array was expected">
+        <trans-unit id="SyREVUDxAbjbyIvU+_42aw" resname="A numeric array was expected">
           <source>A numeric array was expected</source>
           <target>Il manque un tableau num√©rique.</target>
         </trans-unit>
-        <trans-unit id="74" resname="The size of arrays does not match">
+        <trans-unit id="lCoxxx_otdhsxG85MBAIdg" resname="The size of arrays does not match">
           <source>The size of arrays does not match</source>
           <target>La taille des tableaux ne correspond pas.</target>
         </trans-unit>
-        <trans-unit id="75" resname="No pointer on local arrays.">
+        <trans-unit id="x56n1uXXz6mXgmWh6phgVg" resname="No pointer on local arrays.">
           <source>No pointer on local arrays.</source>
           <target>Pas de pointeur sur les tableaux locaux.</target>
         </trans-unit>
-        <trans-unit id="76" resname="Bad array type.">
+        <trans-unit id="nbGmGnGp0QgcXj5tUscp8w" resname="Bad array type.">
           <source>Bad array type.</source>
           <target>Type de tableau erron√©.</target>
         </trans-unit>
-        <trans-unit id="77" resname="Bad variable name">
+        <trans-unit id="4lluK_epnpEooMt9Up2Hwg" resname="Bad variable name">
           <source>Bad variable name</source>
           <target>Nom de variable erron√©</target>
         </trans-unit>
-        <trans-unit id="78" resname="Invalid sort parameter">
+        <trans-unit id="npKEERdynZaJ7e11fPeCJA" resname="Invalid sort parameter">
           <source>Invalid sort parameter</source>
           <target>Param√®tre de tri invalide</target>
         </trans-unit>
-        <trans-unit id="79" resname="This command cannot be executed during the draw of a list.">
+        <trans-unit id="ha5NG6HFngemILGESWsDEg" resname="This command cannot be executed during the draw of a list.">
           <source>This command cannot be executed during the draw of a list.</source>
           <target>Cette commande ne peut pas √™tre ex√©cut√©e pendant le dessin d‚Äôune liste.</target>
         </trans-unit>
-        <trans-unit id="80" resname="Too many query arguments.">
+        <trans-unit id="cPQciO_hnujVTIbSGtfnWg" resname="Too many query arguments.">
           <source>Too many query arguments.</source>
           <target>Trop de lignes de recherche.</target>
         </trans-unit>
-        <trans-unit id="81" resname="The form was not found">
+        <trans-unit id="w0UCJZztWyWuGQsF3zC5+g" resname="The form was not found">
           <source>The form was not found</source>
           <target>Le formulaire n‚Äôa pas √©t√© trouv√©</target>
         </trans-unit>

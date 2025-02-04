@@ -63,7 +63,8 @@ Class constructor()
 		"splitLiterals"\
 		])
 		
-		This:C1470.options[$t]:=This:C1470.options[$t]#Null:C1517 ? This:C1470.options[$t] : True:C214
+		// This.options[$t]:=This.options[$t]#Null ? This.options[$t] : True
+		This:C1470.options[$t]:=This:C1470.options[$t] || True:C214
 		
 	End for each 
 	
@@ -202,8 +203,28 @@ Function beautify()
 		$line:=This:C1470.rgx.setTarget($raw).setPattern("(?mi-s)^(\\s*)").substitute("")  // Trim leading spaces
 		
 		This:C1470.line:=$line
-		This:C1470.previousLine:=Try(This:C1470._ouput[This:C1470._ouput.length-1])
-		This:C1470.nextLine:=Try(This:C1470.lines[This:C1470.lineIndex+1])
+		
+		//This.previousLine:=Try(This._ouput[This._ouput.length-1])
+		Try
+			
+			This:C1470.previousLine:=This:C1470._ouput[This:C1470._ouput.length-1]
+			
+		Catch
+			
+			This:C1470.previousLine:=""
+			
+		End try
+		
+		//This.nextLine:=Try(This.lines[This.lineIndex+1])
+		Try
+			
+			This:C1470.nextLine:=This:C1470.lines[This:C1470.lineIndex+1]
+			
+		Catch
+			
+			This:C1470.nextLine:=""
+			
+		End try
 		
 		This:C1470.rgx.target:=$line
 		
@@ -457,12 +478,10 @@ A comment line is preceded by an empty line if:
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function before($code : Text) : Text
 	
-	var $pattern; $t : Text
-	
 	// Mark:Use var instead of (_o_)C_xxx
 	If (This:C1470.options.useVar)
 		
-		$pattern:="(?-msi)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s){C_}\\((?![\\w\\s]+;\\s*\\$\\{?\\d+\\}?)([^{\\)]*)\\)"
+		var $pattern : Text:="(?-msi)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s){C_}\\((?![\\w\\s]+;\\s*\\$\\{?\\d+\\}?)([^{\\)]*)\\)"
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(604))).substitute("var \\1 : Blob")
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(305))).substitute("var \\1 : Boolean")
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{C_}"; Command name:C538(1488))).substitute("var \\1 : Collection")
@@ -495,7 +514,7 @@ Function before($code : Text) : Text
 		
 		Try
 			
-			$t:=This:C1470.unusedCharacter($code)
+			var $t:=This:C1470.unusedCharacter($code)
 			$code:=Replace string:C233($code; "\\"; $t*2)
 			$code:=This:C1470.rgx.setTarget($code).setPattern(This:C1470._patterns.ternaryOperator).substitute("\\2 := \\1 ? \\3 :\\4")
 			$code:=Replace string:C233($code; $t*2; "\\")
@@ -522,13 +541,13 @@ Function before($code : Text) : Text
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function after() : Text
 	
-	var $t : Text
 	var $indx : Integer
 	
 	// MARK: Remove consecutive blank lines
 	If (This:C1470.options.removeConsecutiveBlankLines)
 		
-		var $c : Collection:=[]
+		var $c:=[]
+		var $t : Text
 		
 		For each ($t; This:C1470._ouput)
 			
