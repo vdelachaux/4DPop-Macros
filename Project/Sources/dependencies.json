@@ -22,7 +22,7 @@
 		},
 		"4DPop XLIFF Pro": {
 			"github": "vdelachaux/4DPop-XLIFF-Pro",
-			"version": "latest"
+			"tag": "20.7.3"
 		},
 		"4DPop Bookmarks": {
 			"github": "vdelachaux/4DPop-Bookmarks",

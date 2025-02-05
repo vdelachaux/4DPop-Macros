@@ -1,8 +1,7 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"incapable"}
 // ----------------------------------------------------
-// Méthode : 4DPop_MACROS
+// Méthode : _4DPop_MACROS
 // Created 24/10/05 by Vincent de Lachaux
-// 4DPop Macros v 3.0
 // ----------------------------------------------------
 // Description
 // Entry point of all macros

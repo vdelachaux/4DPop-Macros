@@ -1,8 +1,7 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"incapable"}
 // In compiled mode we propose to create the test method
 ARRAY TEXT:C222($methods; 0x0000)
-$methods{0}:="4DPop_TEST_Macros"
-METHOD GET NAMES:C1166($methods; $methods{0}; *)
+METHOD GET NAMES:C1166($methods; "4DPop_TEST_Macros"; *)
 
 If (Size of array:C274($methods)=0)
 	
@@ -11,22 +10,23 @@ If (Size of array:C274($methods)=0)
 	If (Bool:C1537(OK))
 		
 		var $c:=[]
-		$c.push(Localized string:C991("testMethodForMacros"))
-		$c.push("var $Txt_method; $Txt_highlighted : Text")
-		$c.push("")
-		$c.push(Localized string:C991("in_txt_methodTheFullMethodContent"))
-		$c.push("GET MACRO PARAMETER:C997(Full method text:K5:17; $Txt_method)")
-		$c.push("")
-		$c.push(Localized string:C991("in_txt_highlightedTheHighlightedText"))
-		$c.push("GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_highlighted)")
-		$c.push("")
-		$c.push("// It's our sandbox…")
+		$c.push(Localized string:C991("testMethodForMacros"); \
+			"var $Txt_method; $Txt_highlighted : Text"; \
+			""; \
+			Localized string:C991("in_txt_methodTheFullMethodContent"); \
+			"GET MACRO PARAMETER:C997(Full method text:K5:17; $Txt_method)"; \
+			""; \
+			Localized string:C991("in_txt_highlightedTheHighlightedText"); \
+			"GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_highlighted)"; \
+			""; \
+			"// It's our sandbox…")
 		
-		METHOD SET CODE:C1194($methods{0}; $c.join("\r"); *)
-		METHOD SET ATTRIBUTE:C1192($methods{0}; Attribute invisible:K72:6; True:C214; *)
-		METHOD SET ATTRIBUTE:C1192($methods{0}; Attribute shared:K72:10; True:C214; *)
+		METHOD SET CODE:C1194("4DPop_TEST_Macros"; $c.join("\r"); *)
+		METHOD SET ATTRIBUTE:C1192("4DPop_TEST_Macros"; \
+			Attribute invisible:K72:6; True:C214; \
+			Attribute shared:K72:10; True:C214; *)
 		
-		METHOD OPEN PATH:C1213($methods{0}; *)
+		METHOD OPEN PATH:C1213("4DPop_TEST_Macros"; *)
 		
 	End if 
 	

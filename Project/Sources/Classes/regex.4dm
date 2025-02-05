@@ -43,6 +43,8 @@ Function setTarget($target) : cs:C1710.regex
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _setTarget($target)
 	
+	This:C1470.success:=True:C214
+	
 	Case of 
 			
 			//…………………………………………………………………………………………
@@ -98,6 +100,7 @@ Function get pattern() : Text
 Function set pattern($pattern : Text)
 	
 	This:C1470._pattern:=$pattern
+	This:C1470.success:=True:C214
 	
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get lastError() : Object
@@ -114,6 +117,7 @@ Function get lastError() : Object
 Function setPattern($pattern : Text) : cs:C1710.regex
 	
 	This:C1470._pattern:=$pattern
+	This:C1470.success:=True:C214
 	
 	return This:C1470
 	
@@ -381,6 +385,11 @@ Function extract($groups) : Collection
 	This:C1470.time:=Milliseconds:C459-$begin
 	
 	return This:C1470.matches.extract("data")
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function substituteAndKeep($replacement : Text; $count : Integer; $position : Integer)
+	
+	This:C1470.target:=This:C1470.substitute($replacement; $count; $position)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function substitute($replacement : Text; $count : Integer; $position : Integer) : Text

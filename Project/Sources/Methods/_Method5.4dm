@@ -27,8 +27,7 @@ Case of
 			
 			SELECT *
 			FROM _USER_COLUMNS
-			INTO
-			:test
+			INTO :test
 			
 		End SQL
 		//}

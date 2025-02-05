@@ -294,7 +294,7 @@
 		</data>
 		<key>Resources/InfoPlist.strings</key>
 		<data>
-		i80WiwP6myFC+CLwsNW7QAaZ31I=
+		SPyNEbqkmpc+gS6dVYeQlyNbvLE=
 		</data>
 		<key>Resources/constants.xlf</key>
 		<data>
@@ -376,7 +376,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			NHRsVUfdzj+M3eK3j2WlSTZ+GNI=
+			4x3XEy2PdpFfM/8A+GotQRB5rJ4=
 			</data>
 			<key>requirement</key>
 			<string>identifier "4DPop Macros.4DZ" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DYRKW64QA9</string>
@@ -473,11 +473,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PHRctAHuUWNML+ehi38iiLNiJpY=
+			q64Ff//XTk3AGTd1La9Z55BAtaA=
 			</data>
 			<key>hash2</key>
 			<data>
-			n/wCOOSwAUWFIHArkcV4rLfXO8BIrA42QfbXdai1E6Q=
+			arsJUBWQZDkoKJ0Vbc7GelYWMRi5SmkjNk+vv1b8mq8=
 			</data>
 		</dict>
 		<key>Resources/4DPop.json</key>
@@ -1276,11 +1276,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			i80WiwP6myFC+CLwsNW7QAaZ31I=
+			SPyNEbqkmpc+gS6dVYeQlyNbvLE=
 			</data>
 			<key>hash2</key>
 			<data>
-			+HbskLYfWyVo3TWjjHZ5kZWD6yjwXMawDOn9Isr8kG0=
+			xzK6MzJha5hFU/9sPVWakuzmHGXAoqedX+4sfNtlUkA=
 			</data>
 		</dict>
 		<key>Resources/constants.xlf</key>

@@ -1,12 +1,11 @@
-var $e : Object
-$e:=FORM Event:C1606
+var $e:=FORM Event:C1606
 
 Case of 
 		
 		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	: ($e.code=On Load:K2:1)
 		
-		var $c : Collection:=[]
+		var $c:=[]
 		Form:C1466.boolean:=cs:C1710.button.new("boolean").highlightShortcut().bestSize()
 		$c.push(Form:C1466.boolean)
 		Form:C1466.blob:=cs:C1710.button.new("blob").highlightShortcut().bestSize()
@@ -40,14 +39,13 @@ Case of
 		Form:C1466.list.events.push(On Mouse Move:K2:35)
 		
 		Form:C1466.filter:=cs:C1710.button.new("filter")
-		Form:C1466.filter.setTitle("all")
+		Form:C1466.filter.setTitle("All")
 		Form:C1466.currentFilter:="all"
 		
 		Form:C1466.refresh:=Formula:C1597(declaration_UI("refresh"))
 		OBJECT SET SCROLLBAR:C843(*; "declarationList"; 0; 2)
 		
 		var $o : Object
-		
 		For each ($o; Form:C1466.variables)
 			
 			$o.icon:=Form:C1466.types[Num:C11($o.type)].icon
@@ -68,7 +66,7 @@ Case of
 		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	: ($e.code=On Validate:K2:3)
 		
-		Form:C1466.apply()
+		Form:C1466._apply()
 		
 		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	: (Form:C1466.list.catch($e))
@@ -98,62 +96,62 @@ Case of
 				//======================================
 			: (Form:C1466.boolean.catch($e))
 				
-				Form:C1466.setType(Is boolean:K8:9)
+				Form:C1466._setType(Is boolean:K8:9)
 				
 				//======================================
 			: (Form:C1466.blob.catch($e))
 				
-				Form:C1466.setType(Is BLOB:K8:12)
+				Form:C1466._setType(Is BLOB:K8:12)
 				
 				//======================================
 			: (Form:C1466.collection.catch($e))
 				
-				Form:C1466.setType(Is collection:K8:32)
+				Form:C1466._setType(Is collection:K8:32)
 				
 				//======================================
 			: (Form:C1466.date.catch($e))
 				
-				Form:C1466.setType(Is date:K8:7)
+				Form:C1466._setType(Is date:K8:7)
 				
 				//======================================
 			: (Form:C1466.integer.catch($e))
 				
-				Form:C1466.setType(Is longint:K8:6)
+				Form:C1466._setType(Is longint:K8:6)
 				
 				//======================================
 			: (Form:C1466.object.catch($e))
 				
-				Form:C1466.setType(Is object:K8:27)
+				Form:C1466._setType(Is object:K8:27)
 				
 				//======================================
 			: (Form:C1466.picture.catch($e))
 				
-				Form:C1466.setType(Is picture:K8:10)
+				Form:C1466._setType(Is picture:K8:10)
 				
 				//======================================
 			: (Form:C1466.pointer.catch($e))
 				
-				Form:C1466.setType(Is pointer:K8:14)
+				Form:C1466._setType(Is pointer:K8:14)
 				
 				//======================================
 			: (Form:C1466.real.catch($e))
 				
-				Form:C1466.setType(Is real:K8:4)
+				Form:C1466._setType(Is real:K8:4)
 				
 				//======================================
 			: (Form:C1466.text.catch($e))
 				
-				Form:C1466.setType(Is text:K8:3)
+				Form:C1466._setType(Is text:K8:3)
 				
 				//======================================
 			: (Form:C1466.time.catch($e))
 				
-				Form:C1466.setType(Is time:K8:8)
+				Form:C1466._setType(Is time:K8:8)
 				
 				//======================================
 			: (Form:C1466.variant.catch($e))
 				
-				Form:C1466.setType(Is variant:K8:33)
+				Form:C1466._setType(Is variant:K8:33)
 				
 				//======================================
 			: (Form:C1466.array.catch($e))
