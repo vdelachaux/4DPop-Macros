@@ -1,4 +1,9 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
+////%W-518.1
+//COPY ARRAY($icons; $3->)
+////%W+518.1
+
+
 //comment
 
 var $i : Integer  //tset

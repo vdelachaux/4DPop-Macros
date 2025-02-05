@@ -196,7 +196,7 @@ Function isReservedComment($line : Text) : Boolean
 	return ($line=(kCommentMark+"}"))\
 		 || ($line=(kCommentMark+"]"))\
 		 || ($line=(kCommentMark+")"))\
-		 || (Match regex:C1019("(?m-si)^//%[A-Z][-+]$"; $line; 1; *))\
+		 || (Match regex:C1019("(?mi-s)^//%[A-Z][+-]\\d{3}\\.\\d+$"; $line; 1; *))\
 		 || (Match regex:C1019("(?mi-s)^/\\*.*\\*/$"; $line; 1; *))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
