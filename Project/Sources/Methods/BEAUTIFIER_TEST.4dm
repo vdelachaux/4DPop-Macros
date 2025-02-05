@@ -193,6 +193,11 @@ If (True:C214)
 								//%R-
 								$x:=1  //Don't add line before a closing compiler directive comment
 								//%R+
+								
+								//%W-518.1
+								$c:=[1; 2]  //Nor with the compiler's asserts
+								//%W+518.1
+								
 							End while 
 					End case 
 				: (True:C214)
