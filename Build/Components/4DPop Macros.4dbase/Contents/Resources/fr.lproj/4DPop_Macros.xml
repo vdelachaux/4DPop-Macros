@@ -180,7 +180,7 @@
     <!-- ******************************* CONVERSIONS ******************************* -->
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="Maquereau 4D : mdr">
         <text>Scomber scombrus : <caret/></text>
-    </macro><
+    </macro>
     
     <macro name="Convertir en Hexa" 
         in_menu="true" 
