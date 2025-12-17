@@ -1,6 +1,5 @@
 {
   "name": "Macros",
-  "media": "4DPop.png",
   "handler": "_4DPopMacros",
   "tools": {
     "method": "options"
