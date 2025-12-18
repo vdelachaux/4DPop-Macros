@@ -6,11 +6,7 @@
 	<dict>
 		<key>Resources/4DPop.json</key>
 		<data>
-		9Pz2sm/DUzrGJvS6r8RER9Sl0f8=
-		</data>
-		<key>Resources/4DPop.png</key>
-		<data>
-		SyvBnk56wShZGlK9+VtDvMqe+2s=
+		WUk9Xp36RcXSbcKDfXWDFxImnRQ=
 		</data>
 		<key>Resources/4DPop_Macros.xml</key>
 		<data>
@@ -294,7 +290,7 @@
 		</data>
 		<key>Resources/InfoPlist.strings</key>
 		<data>
-		2i2sJsb58XD4AtGWQ71ZaN4Rs6Q=
+		RHbB5BufrOvUAVL2vBpN3bFRiew=
 		</data>
 		<key>Resources/constants.xlf</key>
 		<data>
@@ -357,6 +353,10 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>Resources/logo.svg</key>
+		<data>
+		bndI7E6hlVnhN4eLLfLQcWAQvtg=
+		</data>
 		<key>Resources/macros.dtd</key>
 		<data>
 		zYxHLoEdJcwZdU+13C8V5uUle4A=
@@ -376,7 +376,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			oo1eveBuW+r6H41WKldv3znbsUM=
+			vish4Xw6nk8unzYh6f0QWWsNn0g=
 			</data>
 			<key>requirement</key>
 			<string>identifier "4DPop Macros.4DZ" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DYRKW64QA9</string>
@@ -441,21 +441,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1vT740yfafQWx5FMCu21avK8dIXSigTzcIsh1G7n30I=
+			4rwoEpBeu22XsduNZOpj3CwZVmq4WLzago34zR+kJng=
 			</data>
 		</dict>
 		<key>Resources/4DPop.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dXrwnDSJ+pHDd3MihdJiv+cIVmOlFdS4L11DB2GcsaU=
-			</data>
-		</dict>
-		<key>Resources/4DPop.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Ib8BHyQqt8rbuy43e8L5TT2kBY9NkrLJmDs2YhbbhdE=
+			mCqp8DAsyxZ4TLYnfcsDBKSlybzOypRGOY82Xg/ESSk=
 			</data>
 		</dict>
 		<key>Resources/4DPop_Macros.xml</key>
@@ -952,7 +945,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wIjsOodh7/JFxChfq1pf9q1lilpEji0srLux+uedtMM=
+			+CdlQF5aAPVCy7ctLr0TdKhJOVkx8r2P3t/vMFkL75U=
 			</data>
 		</dict>
 		<key>Resources/constants.xlf</key>
@@ -1027,6 +1020,13 @@
 			</data>
 			<key>optional</key>
 			<true/>
+		</dict>
+		<key>Resources/logo.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Rcu57zIsvouDLlSzXPibhhHGbGmoFOLsa//S3KL6HD8=
+			</data>
 		</dict>
 		<key>Resources/macros.dtd</key>
 		<dict>
