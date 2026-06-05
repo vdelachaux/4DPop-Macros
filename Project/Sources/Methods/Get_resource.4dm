@@ -30,12 +30,12 @@ If ($OK)
 	
 	If ($OK)
 		
-		TEXT TO BLOB:C554($Buffer; $valuePtr; Mac text without length:K22:10)
+		TEXT TO BLOB:C554($Buffer; $valuePtr->; Mac text without length:K22:10)
 		$OK:=(OK=1)
 		
 		If ($OK)
 			
-			BASE64 DECODE:C896($valuePtr)
+			BASE64 DECODE:C896($valuePtr->)
 			$OK:=(OK=1)
 			
 			If ($OK)
@@ -45,7 +45,7 @@ If ($OK)
 						//______________________________________________________
 					: ($Type="PICT")
 						
-						BLOB TO PICTURE:C682($valuePtr; $valuePtr->)
+						BLOB TO PICTURE:C682($valuePtr->; $valuePtr->)
 						$OK:=(OK=1)
 						
 						//______________________________________________________
@@ -57,7 +57,7 @@ If ($OK)
 				End case 
 			End if 
 			
-			SET BLOB SIZE:C606($valuePtr; 0)
+			SET BLOB SIZE:C606($valuePtr->; 0)
 			
 		End if 
 	End if 

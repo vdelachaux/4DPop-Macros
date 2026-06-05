@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/4DPop_Macros.xml</key>
 		<data>
-		GVBmsXrSpP91x/ccJL+0LrdvOG4=
+		XyuLszQANT+ZqUMHwZf7WVteDRk=
 		</data>
 		<key>Resources/Images/Action.png</key>
 		<data>
@@ -290,7 +290,7 @@
 		</data>
 		<key>Resources/InfoPlist.strings</key>
 		<data>
-		RHbB5BufrOvUAVL2vBpN3bFRiew=
+		VdcFGZrVjYNiYJLfufl6mMYQ7xU=
 		</data>
 		<key>Resources/constants.xlf</key>
 		<data>
@@ -339,7 +339,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lY34ea4Cn413BzkaZFWiEatKSMo=
+			gF4dnCWCODrc149PRCVY2a9Flpg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -355,7 +355,7 @@
 		</dict>
 		<key>Resources/logo.svg</key>
 		<data>
-		bndI7E6hlVnhN4eLLfLQcWAQvtg=
+		60aFJ1Org0cqa+1B2vBflqZZXxI=
 		</data>
 		<key>Resources/macros.dtd</key>
 		<data>
@@ -376,7 +376,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			vish4Xw6nk8unzYh6f0QWWsNn0g=
+			9uhaYqRgwS05iTyAtxpAMsp4Shw=
 			</data>
 			<key>requirement</key>
 			<string>identifier "4DPop Macros.4DZ" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DYRKW64QA9</string>
@@ -441,7 +441,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4rwoEpBeu22XsduNZOpj3CwZVmq4WLzago34zR+kJng=
+			bmd+1rvGMEymfFo2HVClUJLAd0H6hFs8dpgSjp44H4I=
 			</data>
 		</dict>
 		<key>Resources/4DPop.json</key>
@@ -455,7 +455,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			iHxg/C0QE4exG46lD3AKsPOLMd54Euz7aCB5SyHRZFI=
+			EVI4nwlO4Hgy2tu5p5CZ/MdC9kkrFeDRwYBEt2vihGk=
 			</data>
 		</dict>
 		<key>Resources/Images/Action.png</key>
@@ -945,7 +945,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+CdlQF5aAPVCy7ctLr0TdKhJOVkx8r2P3t/vMFkL75U=
+			UqZnC3QS2y0dusdWu0XkUQHFRG6M+3i4dwnOjNzWvDo=
 			</data>
 		</dict>
 		<key>Resources/constants.xlf</key>
@@ -1007,7 +1007,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zI71UwdqOupbePH72wn0SW8oSoXZvgVhbc4Fn1m0VT8=
+			M7qIcntnQD+PEANl5G87D6ug20u7uVJWgWlYsYy16gI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1025,7 +1025,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Rcu57zIsvouDLlSzXPibhhHGbGmoFOLsa//S3KL6HD8=
+			UzVY3VDEOgHgVezjnZzhOC5VK0W46fRXHcvhNr1R32s=
 			</data>
 		</dict>
 		<key>Resources/macros.dtd</key>

@@ -6,15 +6,15 @@
     <key>CFBundleName</key>
     <string>4DPop Macros</string>
     <key>CFBundleVersion</key>
-    <string>304</string>
+    <string>306</string>
     <key>NSHumanReadableCopyright</key>
-    <string>©vdl 2009-2025</string>
+    <string>©vdl 2009-2026</string>
     <key>CFBundleGetInfoString</key>
-    <string>21</string>
+    <string>21.1</string>
     <key>CFBundleLongVersionString</key>
-    <string>21 (303)</string>
+    <string>21.1 (305)</string>
     <key>CFBundleShortVersionString</key>
-    <string>21</string>
+    <string>21.1</string>
     <key>CFBundleDisplayName</key>
     <string>4DPop Macros</string>
   </dict>

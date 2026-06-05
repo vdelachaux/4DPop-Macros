@@ -140,7 +140,6 @@ Function split($useSelection : Boolean; $options : Integer)
 	
 	This:C1470.lines:=Split string:C1554($target; "\r"; $options)
 	
-	
 	//MARK:-
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function localizedControlFlow($control : Text) : Text
@@ -299,6 +298,37 @@ Function isFunction($in : Text) : Boolean
 	
 	return Match regex:C1019("(?m-si)^(local\\s|shared\\s)??(local\\s|shared\\s)??Function(.*?)\\((.*?)\\)"; $in; 1; *)
 	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function constantValue($in : Text)
+	
+	If (This:C1470.noSelection())
+		
+		return 
+		
+	End if 
+	
+	var $txt:=This:C1470.highlighted
+	var $value:=Formula from string:C1601($txt).call()
+	
+	Case of 
+			
+			//______________________________________________________
+		: (Value type:C1509($value)=Is undefined:K8:13)
+			
+			ALERT:C41("["+$txt+"] does not seem to be a constant!")
+			
+			//______________________________________________________
+		: (Value type:C1509($value)=Is text:K8:3)
+			
+			ALERT:C41("["+$txt+"] (Text) = \""+String:C10($value)+"\"")
+			
+			//______________________________________________________
+		Else 
+			
+			ALERT:C41("["+$txt+"] (Numeric) = "+String:C10($value))
+			
+			//______________________________________________________
+	End case 
 	
 	//MARK:-[MACROS]
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===

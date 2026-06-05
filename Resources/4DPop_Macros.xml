@@ -39,6 +39,13 @@
          <text><method>_4DPop_MACROS("compiler_directive")</method></text>
     </macro>
     
+    <macro name="Constant value…" 
+        in_menu="true" 
+        type_ahead="false" 
+        version="2">
+        <text><method>_4DPop_MACROS("constantValue")</method></text>
+    </macro>
+    
     <macro name="Find with Google" 
         in_menu="true" 
         type_ahead="false" 
