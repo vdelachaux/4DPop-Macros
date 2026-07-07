@@ -124,7 +124,7 @@ Case of
 		// ______________________________________________________
 	: ($entryPoint="filter")
 		
-		var $menu:=cs:C1710.menu.new()
+		var $menu:=cs:C1710.ui.menu.new()
 		$menu.append("All"; "all"; "all"=String:C10(Form:C1466.currentFilter))\
 			.line()\
 			.append("Undefined"; "undefined"; "undefined"=String:C10(Form:C1466.currentFilter)).enable(Form:C1466.variables.query("type=0").length>0)\
@@ -135,7 +135,7 @@ Case of
 			.append("Arrays"; "arrays"; "arrays"=String:C10(Form:C1466.currentFilter)).enable(Form:C1466.variables.query("array=true").length>0)\
 			.line()
 		
-		var $subMenu:=cs:C1710.menu.new()
+		var $subMenu:=cs:C1710.ui.menu.new()
 		var $types : Collection:=Form:C1466.types.extract("name"; "name"; "value"; "value").query("value!=null").orderBy("name")
 		
 		var $o : Object

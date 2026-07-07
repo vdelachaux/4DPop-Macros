@@ -13,7 +13,6 @@ var $i : Integer
 var $file; $src : 4D:C1709.File
 
 ARRAY TEXT:C222($nodes; 0)
-ARRAY TEXT:C222($results; 0)
 ARRAY LONGINT:C221($childTypes; 0)
 
 $file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml")
@@ -39,9 +38,11 @@ If ($file.exists)
 			
 			If ($i>0)
 				
-				If (_o_Rgx_ExtractText("\\[([^\\]]*)\\]"; $nodes{$i}; "1"; ->$results)=0)
+				var $groups:=cs:C1710.rgx.regex.new($nodes{$i}; "\\[([^\\]]*)\\]").extract(1)
+				
+				If ($groups.length>0)
 					
-					$language:=$results{1}
+					$language:=$groups[0]
 					break
 					
 				End if 

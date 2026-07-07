@@ -20,7 +20,7 @@ var $macro:=cs:C1710.macro.new()
 If ($macro.isMacroProcess)
 	
 	// MARK: Install menu bar to allow Copy - Paste
-	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
+	cs:C1710.ui.menuBar.new().defaultMinimalMenuBar().set()
 	
 End if 
 

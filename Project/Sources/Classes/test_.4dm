@@ -56,7 +56,7 @@ Function addToGroup($g : Object)
 	
 Function init()
 	
-	var $group : cs:C1710.group
+	var $group : cs:C1710.ui.group
 	
 	This:C1470.toBeInitialized:=False:C215
 	

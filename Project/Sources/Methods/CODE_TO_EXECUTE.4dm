@@ -7,11 +7,11 @@
 var $code; $line; $method; $outpout; $params; $pattern : Text
 var $result : Text
 var $withParams; $withResult : Boolean
-var $error; $i : Integer
+var $i : Integer
+var $rgx : cs:C1710.rgx.regex
 
 ARRAY TEXT:C222($_lines; 0x0000)
 ARRAY TEXT:C222($_controlFlow; 0x0000)
-ARRAY TEXT:C222($_extracted; 0x0000; 0x0000)
 
 // Mark:Get the Command names
 ARRAY TEXT:C222($_commands; 0x0000)
@@ -38,7 +38,7 @@ End for
 
 GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $code)
 
-$error:=_o_Rgx_SplitText("\\r"; $code; ->$_lines; 0 ?+ 11)
+COLLECTION TO ARRAY:C1562(Split string:C1554($code; "\r"; sk trim spaces:K86:2); $_lines)
 
 $pattern:="^(?:(.*?):=)?(.*?)(?:\\s*\\(+(.*?)\\))?$"
 
@@ -57,18 +57,18 @@ For ($i; 1; Size of array:C274($_lines); 1)
 			//______________________________________
 		Else 
 			
-			$error:=_o_Rgx_ExtractText($pattern; $line; ""; ->$_extracted)
+			$rgx:=cs:C1710.rgx.regex.new($line; $pattern)
 			
-			If ($error=0)
+			If ($rgx.match())
 				
-				$method:=$_extracted{1}{2}
+				$method:=$rgx.group(3)
 				
 				If (Find in array:C230($_commands; $method)=-1)
 					
-					$result:=$_extracted{1}{1}
+					$result:=$rgx.group(2)
 					$withResult:=(Length:C16($result)>0)
 					
-					$params:=$_extracted{1}{3}
+					$params:=$rgx.group(4)
 					$withParams:=(Length:C16($params)>0)
 					
 					$outpout:=$outpout\

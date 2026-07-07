@@ -3,13 +3,13 @@ var $key; $code; $name : Text
 var $i; $j : Integer
 var $attribute; $classes; $class : Object
 var $c : Collection
-var $regex : cs:C1710.regex
+var $regex : cs:C1710.rgx.regex
 
 ARRAY TEXT:C222($methods; 0)
 
 METHOD GET PATHS:C1163(Path class:K72:19; $methods; *)
 
-$regex:=cs:C1710.regex.new()
+$regex:=cs:C1710.rgx.regex.new()
 $classes:=New object:C1471
 
 For ($i; 1; Size of array:C274($methods); 1)

@@ -7,7 +7,7 @@ If (False:C215)
 	var $t : Text
 	var $o; $z : Object
 	var $toto : 4D:C1709.File
-	var $button; $button2 : cs:C1710.button
+	var $button; $button2 : cs:C1710.ui.button
 	
 	//$t:="$c:=Split string($t; \",\"; sk trim spaces).map(\"col_formula\"; Formula($1.result:=Num($1.value)))"
 	
@@ -28,8 +28,8 @@ If (False:C215)
 	
 	//End if
 	
-	$button:=cs:C1710.button.new()
-	$button2:=cs:C1710.button.new()
+	$button:=cs:C1710.ui.button.new()
+	$button2:=cs:C1710.ui.button.new()
 	//$toto:=4D.File.new()
 	$o:=New object:C1471
 	$z:=New object:C1471

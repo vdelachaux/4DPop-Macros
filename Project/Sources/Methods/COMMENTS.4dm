@@ -158,7 +158,7 @@ Case of
 					
 				Else 
 					
-					$comments:=_o_rgx($comments).substitute("(?si-m)<!--(.*)-->"; "<!--"+$t+"-->").result
+					$comments:=cs:C1710.rgx.regex.new($comments; "(?si-m)<!--(.*)-->").substitute("<!--"+$t+"-->")
 					
 				End if 
 				

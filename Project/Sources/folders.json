@@ -59,28 +59,11 @@
 			"00_convertComments",
 			"00_RUN",
 			"00_TESTS",
-			"COMPILER_TESTS",
 			"createSymbolicLink"
 		]
 	},
 	"#️⃣ API": {},
-	"♻️ LIBRAIRIES": {
-		"classes": [
-			"button",
-			"coord",
-			"dim",
-			"evt",
-			"group",
-			"input",
-			"listbox",
-			"menu",
-			"menuBar",
-			"regex",
-			"scrollable",
-			"static",
-			"widget"
-		]
-	},
+	"♻️ LIBRAIRIES": {},
 	"⚙️ MACROS": {
 		"methods": [
 			"_4DPop_MACROS",

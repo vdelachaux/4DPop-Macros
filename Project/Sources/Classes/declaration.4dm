@@ -209,7 +209,7 @@ declaration macro must omit the parameters of a formula
 					
 				End if 
 				
-				var $rgx : cs:C1710.regex:=This:C1470.rgx.setTarget($text).setPattern("(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)")
+				var $rgx : cs:C1710.rgx.regex:=This:C1470.rgx.setTarget($text).setPattern("(?mi-s)(\\$\\{?\\d+\\}?)+(?!\\w)")
 				
 				$text:=$t
 /*--------------------------------------------------------*/
@@ -590,7 +590,7 @@ declaration macro must omit the parameters of a formula
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		End case 
 		
-		This:C1470._ouput.push($line)
+		This:C1470._output.push($line)
 		
 	End for each 
 	
@@ -622,7 +622,7 @@ Function _parseParameters($line : Object)
 	var $parameter : Object
 	var $c : Collection
 	
-	var $rgx : cs:C1710.regex:=This:C1470.rgx.setTarget($line.code)
+	var $rgx : cs:C1710.rgx.regex:=This:C1470.rgx.setTarget($line.code)
 	
 	Case of 
 			
@@ -874,7 +874,7 @@ Function _apply()
 	
 	// MARK:-PARAMETERS
 	var $c:=This:C1470.variables.query("parameter=true")
-	var $o : Object:=This:C1470._ouput.query("type = :1 OR type = :2"; "Function"; "Class constructor").first()
+	var $o : Object:=This:C1470._output.query("type = :1 OR type = :2"; "Function"; "Class constructor").first()
 	
 	If ($c.length>0)\
 		 | ($o#Null:C1517)
@@ -930,7 +930,7 @@ Function _apply()
 					End if 
 				End if 
 				
-				$method+=String:C10(This:C1470._ouput.query("type = :1 OR type = :2"; "Function"; "Class constructor").first().comment)
+				$method+=String:C10(This:C1470._output.query("type = :1 OR type = :2"; "Function"; "Class constructor").first().comment)
 				$method+="\r"
 				
 			End if 
@@ -939,7 +939,7 @@ Function _apply()
 			
 			var $compilerDirectives : Text
 			
-			If (This:C1470._ouput.query("type = :1"; "#DECLARE").first()=Null:C1517)
+			If (This:C1470._output.query("type = :1"; "#DECLARE").first()=Null:C1517)
 				
 				// #DECLARE does not accept $1 ... $N as a parameter name, so we use the var keyword for parameters.
 				For each ($o; $c)
@@ -1021,7 +1021,7 @@ Function _apply()
 					End if 
 				End if 
 				
-				$method+=String:C10(This:C1470._ouput.query("type = :1"; "#DECLARE").first().comment)
+				$method+=String:C10(This:C1470._output.query("type = :1"; "#DECLARE").first().comment)
 				
 			End if 
 			
@@ -1178,7 +1178,7 @@ Function _apply()
 		
 		// Look for the first empty or declaration line
 		var $buffer : Text
-		For each ($o; This:C1470._ouput)
+		For each ($o; This:C1470._output)
 			
 			$t:=String:C10($o.type)
 			var $length:=Length:C16($method)
@@ -1224,7 +1224,7 @@ Function _apply()
 	End if 
 	
 	// Restore the code
-	For each ($o; This:C1470._ouput)
+	For each ($o; This:C1470._output)
 		
 		$t:=String:C10($o.type)
 		

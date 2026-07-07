@@ -35,7 +35,7 @@ Case of
 		GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $Txt_result)
 		
 		ARRAY TEXT:C222(<>tTxt_lines; 0x0000)
-		$Lon_Error:=_o_Rgx_SplitText("\\r"; $Txt_result; -><>tTxt_lines; 0 ?+ 11)
+		COLLECTION TO ARRAY:C1562(Split string:C1554($Txt_result; "\r"; sk trim spaces:K86:2); <>tTxt_lines)
 		
 		$Txt_result:=""
 		$Lon_Line_Number:=Size of array:C274(<>tTxt_lines)

@@ -20,7 +20,7 @@ ARRAY TEXT:C222(<>tTxt_lines; 0)
 // Si (Private_Boo_INIT ("4D Pack"))
 
 GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $output)
-$Lon_Error:=_o_Rgx_SplitText("\\r"; $output; -><>tTxt_lines; 0 ?+ 11)
+COLLECTION TO ARRAY:C1562(Split string:C1554($output; "\r"; sk trim spaces:K86:2); <>tTxt_lines)
 $output:=""
 
 // Récupérer les noms de commande localisés

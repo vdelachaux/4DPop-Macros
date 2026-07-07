@@ -51,7 +51,7 @@ If (OK=1)
 		End if 
 		
 		// Method names in bold
-		_o_Rgx_SubstituteText("(?m-si)\\s*((?:\\d*\\w*_)+\\w*)\\s*"; " **\\1** "; ->$tComment; 0)
+		$tComment:=cs:C1710.rgx.regex.new($tComment; "(?m-si)\\s*((?:\\d*\\w*_)+\\w*)\\s*").substitute(" **\\1** ")
 		
 		// Special characters
 		$tComment:=Replace string:C233($tComment; "<"; "&lt;")

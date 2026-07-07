@@ -14,7 +14,7 @@ Class constructor($page : Text)
 	Super:C1705()
 	
 	// Install menu bar to allow Copy - Paste
-	cs:C1710.menuBar.new().defaultMinimalMenuBar().set()
+	cs:C1710.ui.menuBar.new().defaultMinimalMenuBar().set()
 	
 	// Display the settings dialog box
 	This:C1470.windowRef:=Open form window:C675("SETTINGS"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)

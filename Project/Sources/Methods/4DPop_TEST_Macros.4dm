@@ -41,7 +41,7 @@ Else
 			
 			GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
 			
-			var $rgx:=cs:C1710.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
+			var $rgx:=cs:C1710.rgx.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
 			var $t:=$rgx.substitute("{\\1}")
 			
 			$rgx.setTarget($t)

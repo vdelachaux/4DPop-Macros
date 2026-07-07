@@ -1,20 +1,17 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-var $pathname : Text
-var $src : Object
-
 If (Shift down:C543)
 	
 	DOCUMENT:=Select folder:C670("Select the target folder:"; 8858; Package open:K24:8+Use sheet window:K24:11)
 	
 Else 
 	
-	$pathname:=Select document:C905(8858; ""; "Select the target file:"; Use sheet window:K24:11)
+	var $pathname:=Select document:C905(8858; ""; "Select the target file:"; Use sheet window:K24:11)
 	
 End if 
 
 If (Bool:C1537(OK))
 	
-	$src:=Test path name:C476(DOCUMENT)=Is a document:K24:1\
+	var $src : Object:=Test path name:C476(DOCUMENT)=Is a document:K24:1\
 		 ? File:C1566(DOCUMENT; fk platform path:K87:2)\
 		 : Folder:C1567(DOCUMENT; fk platform path:K87:2)
 	

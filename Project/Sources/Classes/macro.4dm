@@ -18,14 +18,14 @@ property lineIndex : Integer:=0
 property isCommentBlock : Boolean:=False:C215
 
 property _controlFlow : Object
-property _ouput : Collection:=[]
+property _output : Collection:=[]
 
 property decimalSeparator : Text
 
 property isProject : Boolean:=Bool:C1537(Get database parameter:C643(Is host database a project:K37:99))
 
 // MARK: Delegate
-property rgx : cs:C1710.regex:=cs:C1710.regex.new()
+property rgx : cs:C1710.rgx.regex:=cs:C1710.rgx.regex.new()
 
 Class constructor()
 	
@@ -398,7 +398,7 @@ Function PasteAndKeepTarget()
 Function objectLiteral()
 	
 	var $t : Text:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
-	var $rgx:=cs:C1710.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
+	var $rgx:=cs:C1710.rgx.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
 	$t:=$rgx.substitute("{\\1}")
 	$rgx.setTarget($t)
 	$rgx.setPattern("(?msi)\"(?=[^0-9])([^-\\s\"]+)\"\\s*;\\s*([^;}]+)")
