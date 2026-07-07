@@ -212,10 +212,6 @@
           <source>Users</source>
           <target>Users</target>
         </trans-unit>
-        <trans-unit id="R+0hAu7cUt752ws_ZGzWqA" resname="LocalVariables">
-          <source>Local variables</source>
-          <target>Local variables</target>
-        </trans-unit>
       </group>
       <group id="36" resname="4D STR# 36">
         <trans-unit id="MwZXlyu3_TIiSgDSQKBAKw" resname="4D_FormMethod">

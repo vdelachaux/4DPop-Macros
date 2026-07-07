@@ -58,10 +58,6 @@ This file is distributed under the same license as the 4D product package.
           <source>BLOB</source>
           <target>BLOB</target>
         </trans-unit>
-        <trans-unit id="fzxeRIs6RuE78sEb8vxNWg" resname="Float">
-          <source>Float</source>
-          <target>Float</target>
-        </trans-unit>
         <trans-unit id="_Dr+lHW9GHgilOoWdc8kYw" resname="Pointer">
           <source>Pointer</source>
           <target>Pointer</target>
@@ -78,21 +74,9 @@ This file is distributed under the same license as the 4D product package.
           <source>Method syntax</source>
           <target>Method syntax</target>
         </trans-unit>
-        <trans-unit id="lvAEBdku+mtuzTZexQCZdw" resname="OneLine_Option">
-          <source>A line for each variable</source>
-          <target>A line for each variable</target>
-        </trans-unit>
         <trans-unit id="fU6IR7wdeV7t2wNCky8OYw" resname="Button_Options">
           <source>Options</source>
           <target>Options</target>
-        </trans-unit>
-        <trans-unit id="0O3Ik3no9aEZWcMJn5+TpA" resname="Button_Back">
-          <source>Back</source>
-          <target>Back</target>
-        </trans-unit>
-        <trans-unit id="K3Ri6JMGqwBbd3AdJJYDbA" resname="OneLine_Comment">
-          <source>If this option is checked, a line of declaration will be created for each variable.</source>
-          <target>If this option is checked, a line of declaration will be created for each variable.</target>
         </trans-unit>
         <trans-unit id="r0mJIdRmwYjrhSd9nmfwjg" resname="MethodSyntax_Comment">
           <source>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</source>
@@ -102,41 +86,9 @@ This file is distributed under the same license as the 4D product package.
           <source>Type</source>
           <target>Type</target>
         </trans-unit>
-        <trans-unit id="LvBEdO4ut25GvxSCxdTQxw" resname="Label_Pattern">
-          <source>Pattern</source>
-          <target>Pattern</target>
-        </trans-unit>
-        <trans-unit id="INDAWbnJTPZWveVmxfWsnw" resname="Label_SyntaxList">
-          <source>RULES OF SYNTAX</source>
-          <target>RULES OF SYNTAX</target>
-        </trans-unit>
-        <trans-unit id="ALU5_fVFd19RhComo_muhA" resname="Label_VariableList">
-          <source>VARIABLES LIST</source>
-          <target>VARIABLES LIST</target>
-        </trans-unit>
         <trans-unit id="XFEWm5xliRuhkpGy2v9u_g" resname="Label_NumberOfVariablesPerLine">
           <source>Number of variables per declaration line:</source>
           <target>Number of variables per declaration line:</target>
-        </trans-unit>
-        <trans-unit id="CcNBEuvfViZb2SSMfIsybA" resname="DeclarationignoreCompilerDirectives">
-          <source>Ignore compiler directives</source>
-          <target>Ignore compiler directives</target>
-        </trans-unit>
-        <trans-unit id="COIBAi4CphJiHYfvOQWBdQ" resname="DeclarationtheVariablesDeclaredButNotUsedWill">
-          <source>The variables declared but not used will be removed.</source>
-          <target>The variables declared but not used will be removed.</target>
-        </trans-unit>
-        <trans-unit id="vtXsXctdJ+TJXh0osvA1uw" resname="DeclarationtheNameOfALocalVariableAlwaysStartsWithADollarSign">
-          <source>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</source>
-          <target>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters alphanumeric.</target>
-        </trans-unit>
-        <trans-unit id="O5lO5ckg4rK8IQHs9R2LUA" resname="DeclarationthisVariableIsAlreadyUsedInThisMethod">
-          <source>This variable is already used in this method.
-
-Would you like to continue?</source>
-          <target>This variable is already used in this method.
-
-Would you like to continue?</target>
         </trans-unit>
         <trans-unit id="juSNDTfwzGsh4Zbjl50lvQ" resname="removeUnnecessaryBlankLines">
           <source>Remove unnecessary blank lines</source>
@@ -149,10 +101,6 @@ Would you like to continue?</target>
         <trans-unit id="7c8On73u9rklN5Bz6dEvyA" resname="replaceObsoleteTypes">
           <source>Replace obsolete types</source>
           <target>Replace obsolete types</target>
-        </trans-unit>
-        <trans-unit id="TnoSDSIEAhFO_VnJQ+zJaw" resname="c_text&amp;TextArrayWillBeUsedInsteadC_alpha&amp;ArrayString">
-          <source>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</source>
-          <target>Uses C_TEXT &amp; TEXT ARRAY instead of C_ALPHA &amp; ARRAY STRING. Use C_LONGINT isntead of C_INTEGER.</target>
         </trans-unit>
         <trans-unit id="q+0t3zNMmK7hBr2+HdTbJA" resname="Object" type="unit">
           <source>Object</source>
@@ -176,14 +124,6 @@ Would you like to continue?</target>
         </trans-unit>
       </group>
       <group resname="Common">
-        <trans-unit id="h5yI38yHr1gKWclRH4fNnw" resname="Common_Escape">
-          <source>Escape</source>
-          <target>Escape</target>
-        </trans-unit>
-        <trans-unit id="wLOcYebgDds7FuH_yCz0vw" resname="Common_OK">
-          <source>OK</source>
-          <target>OK</target>
-        </trans-unit>
         <trans-unit id="GbWJUBMRoFqJ7vIzf4sMWg" resname="Common_Paste">
           <source>Paste</source>
           <target>Paste</target>
@@ -236,10 +176,6 @@ Would you like to continue?</target>
         </trans-unit>
       </group>
       <group id="36" resname="From 4D STR# 36">
-        <trans-unit id="BaLgFj_r7HZU2u0vy4AeeA" resname="Form Method">
-          <source>Form Method: </source>
-          <target>Form Method: </target>
-        </trans-unit>
         <trans-unit id="emUegOopJO9E5CFPNrpgsg" resname="Trigger">
           <source>Trigger: </source>
           <target>Trigger: </target>
@@ -330,15 +266,6 @@ Would you like to continue?</target>
         </trans-unit>
       </group>
       <group resname="messages">
-        <trans-unit id="D9rYlHuJCwlgVDgHOIyCrQ" resname="Mess_LocalizedVersionOfTheMacroFile">
-          <source>A localized version of the macros file "4DPop" has been successfully installed.
-
-The localized macros will be available next time you start the application.</source>
-          <target>A localized version of the macros file "4DPop" has been successfully installed.
-
-The localized macros will be available next time you start the application.</target>
-        </trans-unit>
-        
         <trans-unit id="A+0XGzX0Hg_EJVdHA3IK3Q" resname="testMethodForMacros">
           <source>// This method will be called when you choose the "Macro test" macro
 </source>
