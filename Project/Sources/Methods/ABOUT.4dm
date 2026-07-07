@@ -5,35 +5,30 @@
 // ----------------------------------------------------
 #DECLARE($text : Text)
 
-var $Lon_Bottom; $Lon_Height; $Lon_Left; $Lon_Right; $Lon_Top; $Lon_W : Integer
-var $Lon_Width : Integer
+var $autoHide : Boolean:=($text="AutoHide")
 
-var <>About_Lon_Flip; <>About_Lon_AutoHide; <>About_Lon_Image : Integer
-var <>About_Txt_Buffer; <>About_Txt_Macro; <>About_Txt_Displayed : Text
-
-If (Count parameters:C259>0)
+If (Not:C34($autoHide))
 	
-	If (Length:C16($text)>0)
-		
-		<>About_Lon_AutoHide:=Num:C11($text="AutoHide")
-		
-	End if 
-End if 
-
-If (<>About_Lon_AutoHide=0)
+	var $left; $top; $right; $bottom : Integer
+	GET WINDOW RECT:C443($left; $top; $right; $bottom; Frontmost window:C447)
 	
-	GET WINDOW RECT:C443($Lon_Left; $Lon_Top; $Lon_Right; $Lon_Bottom; Frontmost window:C447)
+	var $width; $height : Integer
+	FORM GET PROPERTIES:C674("ABOUT"; $width; $height)
 	
-	FORM GET PROPERTIES:C674("ABOUT"; $Lon_Width; $Lon_Height)
-	
-	$Lon_Left+=((($Lon_Right-$Lon_Left)\2)-($Lon_Width\2))
-	$Lon_Top+=((($Lon_Bottom-$Lon_Top)\3)-($Lon_Height\2))
-	$Lon_W:=Open window:C153($Lon_Left; $Lon_Top; $Lon_Left+$Lon_Width; $Lon_Top+$Lon_Height; Pop up window:K34:14)
+	$left+=((($right-$left)\2)-($width\2))
+	$top+=((($bottom-$top)\3)-($height\2))
+	var $winRef:=Open window:C153($left; $top; $left+$width; $top+$height; Pop up window:K34:14)
 	
 Else 
 	
-	$Lon_W:=Open form window:C675("ABOUT"; Pop up form window:K39:11; On the right:K39:3; At the bottom:K39:6)
+	$winRef:=Open form window:C675("ABOUT"; Pop up form window:K39:11; On the right:K39:3; At the bottom:K39:6)
 	
 End if 
 
-DIALOG:C40("ABOUT")
+DIALOG:C40("ABOUT"; {\
+autoHide: $autoHide; \
+displayed: ""; \
+flip: 180; \
+image: 3000; \
+picture: getResource("scomber"; "PICT"); \
+version: "4DPop Macros"})

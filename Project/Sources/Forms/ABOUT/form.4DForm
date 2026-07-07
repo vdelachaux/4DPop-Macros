@@ -9,7 +9,6 @@
 	"markerFooter": 240,
 	"events": [
 		"onLoad",
-		"onUnload",
 		"onTimer"
 	],
 	"method": "method.4dm",
@@ -36,12 +35,13 @@
 					"left": 0,
 					"width": 205,
 					"height": 160,
-					"dataSource": "<>About_Pict_Displayed",
-					"stroke": "#AAAAAA",
 					"class": "Par_défaut",
 					"borderStyle": "solid",
 					"enterable": false,
-					"contextMenu": "none"
+					"contextMenu": "none",
+					"dataSourceTypeHint": "picture",
+					"dataSource": "Form:C1466.picture",
+					"focusable": false
 				},
 				"Titles_11": {
 					"type": "text",
@@ -52,7 +52,8 @@
 					"textAlign": "center",
 					"fontSize": 13,
 					"fontStyle": "italic",
-					"text": "S c o m b e r     s c o m b r u s"
+					"text": "S c o m b e r     s c o m b r u s",
+					"visibility": "hidden"
 				},
 				"Titles_21": {
 					"type": "text",
@@ -70,8 +71,8 @@
 					"top": 35,
 					"left": 28,
 					"width": 169,
-					"height": 91,
-					"dataSource": "<>About_Txt_Displayed",
+					"height": 100,
+					"dataSource": "Form:C1466.displayed",
 					"stroke": "#0000FF",
 					"class": "xCode",
 					"fontWeight": "bold",
@@ -81,7 +82,8 @@
 					"contextMenu": "none",
 					"events": [
 						"onDataChange"
-					]
+					],
+					"focusable": false
 				},
 				"Titles_2": {
 					"type": "text",
@@ -92,10 +94,11 @@
 					"stroke": "#444444",
 					"textAlign": "right",
 					"fontSize": 12,
-					"text": "v i n c e n t   d e   l a c h a u x  "
+					"text": "v i n c e n t   d e   l a c h a u x  ",
+					"visibility": "hidden"
 				},
 				"Titles_12": {
-					"type": "text",
+					"type": "input",
 					"top": 140,
 					"left": 18,
 					"width": 180,
@@ -103,7 +106,12 @@
 					"stroke": "#444444",
 					"textAlign": "right",
 					"fontSize": 13,
-					"text": "<◊Txt_Buffer>"
+					"dataSource": "Form.version",
+					"enterable": false,
+					"fill": "transparent",
+					"borderStyle": "none",
+					"contextMenu": "none",
+					"visibility": "hidden"
 				},
 				"Bouton invisible1": {
 					"type": "button",
@@ -113,12 +121,23 @@
 					"height": 150,
 					"action": "cancel",
 					"display": false,
-					"method": "ObjectMethods/Bouton invisible1.4dm",
 					"events": [
 						"onClick"
 					]
 				}
 			}
 		}
-	]
+	],
+	"geometryStamp": 47,
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
 }

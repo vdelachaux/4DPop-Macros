@@ -3,14 +3,7 @@ var <>list : Integer
 
 var <>b1; <>b2; <>b3; <>b4; <>b5; <>b6; <>b7; <>b8; <>b9; <>b10; <>b11; <>b12; <>b13; <>b14; <>b15 : Integer
 
-var <>timerEvent : Integer
-var <>Txt_buffer : Text
-
 var <>regexFilePath : Text
-
-var <>About_Pict_Displayed : Picture
-var <>About_Lon_Flip; <>About_Lon_AutoHide; <>About_Lon_Image : Integer
-var <>About_Txt_Buffer; <>About_Txt_Macro; <>About_Txt_Displayed : Text
 
 var <>Boo_declarationInited : Boolean
 
@@ -78,12 +71,6 @@ If (False:C215)
 	C_TEXT:C284(str_hyphenation; $3)
 	C_TEXT:C284(str_hyphenation; $4)
 	
-	// Doc_gTxt_Files_And_Folders
-	C_TEXT:C284(_o_Files_And_Folders; $0)
-	C_TEXT:C284(_o_Files_And_Folders; $1)
-	C_TEXT:C284(_o_Files_And_Folders; $2)
-	C_TEXT:C284(_o_Files_And_Folders; $3)
-	C_BOOLEAN:C305(_o_Files_And_Folders; $4)
 	
 	// Win_NOT_UNDER_TOOLBAR
 	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)

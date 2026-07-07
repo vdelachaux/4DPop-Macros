@@ -143,6 +143,7 @@ Case of
 		// ______________________________________________________
 	: ($action="_se_Placer_au_Debut")
 		
+		var $t : Text
 		GET MACRO PARAMETER:C997(Full method text:K5:17; $t)
 		SET MACRO PARAMETER:C998(Full method text:K5:17; kCaret+$t)
 		

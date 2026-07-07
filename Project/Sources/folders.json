@@ -3,7 +3,6 @@
 		"methods": [
 			"_o_array_Attributes",
 			"_o_CENTERED",
-			"_o_Files_And_Folders",
 			"_o_isNumeric",
 			"_o_localizedControlFlow",
 			"_o_Preferences",
@@ -115,8 +114,7 @@
 			"COMPILER_component",
 			"declaration_UI",
 			"DOT_NOTATION",
-			"Get_resource",
-			"Get_Version",
+			"getResource",
 			"Init",
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
