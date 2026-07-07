@@ -59,6 +59,7 @@
 		"classes": [
 			"beautifier",
 			"declaration",
+			"invertExpression",
 			"log",
 			"macro",
 			"preferences",
@@ -123,7 +124,6 @@
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
 			"Install_resources",
-			"INVERT_EXPRESSION",
 			"METHOD_ANALYSE_TO_ARRAYS",
 			"METHOD_Syntax",
 			"METHODS",

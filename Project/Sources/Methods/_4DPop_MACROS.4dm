@@ -356,7 +356,7 @@ Case of
 		// ______________________________________________________
 	: ($action="invert_expression")  // Reverse expression
 		
-		INVERT_EXPRESSION
+		cs:C1710.invertExpression.new()
 		
 		// ______________________________________________________
 	: ($action="convert_to_execute")  // EXECUTER METHODE [New v13]
