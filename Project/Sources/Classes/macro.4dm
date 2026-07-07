@@ -662,10 +662,230 @@ Function commentBlock
 	This:C1470.paste("/*\r"+This:C1470.highlighted+"\r*/")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// Comments the first and the last line of a logic block
+	// Comments the boundary keywords (open / mid / close) of the outermost
+	// control structure found in the selection ("current level")
 Function comment_current_level()
 	
-	COMMENTS("bloc")
+	If (This:C1470.noSelection())
+		
+		return 
+		
+	End if 
+	
+	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
+	
+	var $keywords : Collection:=This:C1470._controlFlow[Command name:C538(41)="ALERT" ? "intl" : "fr"]
+	
+	// Order matters: "For each" before "For", "End for each" before "End for"
+	var $open : Collection:=[$keywords[13]; $keywords[7]; $keywords[5]; $keywords[3]; $keywords[9]; $keywords[11]; $keywords[0]]
+	var $close : Collection:=[$keywords[14]; $keywords[8]; $keywords[6]; $keywords[4]; $keywords[10]; $keywords[12]; $keywords[2]]
+	var $else : Text:=$keywords[1]
+	
+	var $lines : Collection:=Split string:C1554(This:C1470.highlighted; "\r")
+	var $depth; $i : Integer
+	var $changed : Boolean:=False:C215
+	var $line; $trimmed : Text
+	
+	For each ($line; $lines)
+		
+		$trimmed:=This:C1470._trimLeft($line)
+		
+		Case of 
+				
+				// A closing keyword: comment it only when it closes the outermost block
+			: (This:C1470._beginsWithAny($trimmed; $close))
+				
+				$depth-=1
+				
+				If ($depth=0)
+					
+					$lines[$i]:=kCommentMark+$line
+					$changed:=True:C214
+					
+				End if 
+				
+				// An opening keyword: comment it only at the outermost level
+			: (This:C1470._beginsWithAny($trimmed; $open))
+				
+				If ($depth=0)
+					
+					$lines[$i]:=kCommentMark+$line
+					$changed:=True:C214
+					
+				End if 
+				
+				$depth+=1
+				
+				// An "Else" or a "Case of" item belonging to the outermost block
+			: (($depth=1) && ((This:C1470._beginsWith($trimmed; $else)) || (Position:C15(":"; $trimmed)=1)))
+				
+				$lines[$i]:=kCommentMark+$line
+				$changed:=True:C214
+				
+		End case 
+		
+		$i+=1
+		
+	End for each 
+	
+	If ($changed)
+		
+		This:C1470.setHighlightedText($lines.join("\r"))
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Displays the comment editor and pastes the entered comment block into the selection
+Function edit_comment()
+	
+	var $comments : Text:=This:C1470.highlighted
+	var $c : Collection:=Split string:C1554($comments; "\r")
+	var $t : Text
+	var $i; $position : Integer
+	
+	// Remove any existing comment marks before editing
+	For each ($t; $c)
+		
+		$position:=Position:C15(kCommentMark; $t)
+		
+		If ($position>0)
+			
+			$c[$i]:=Substring:C12($t; $position+Length:C16(kCommentMark))
+			
+		End if 
+		
+		$i+=1
+		
+	End for each 
+	
+	var $window : Integer:=Open form window:C675("COMMENTS"; Movable dialog box:K34:7; Horizontally centered:K39:1; Vertically centered:K39:4; *)
+	SET MENU BAR:C67(1)
+	
+	var $o : Object:=New object:C1471("text"; $c.join("\r"))
+	DIALOG:C40("COMMENTS"; $o)
+	CLOSE WINDOW:C154
+	
+	If (Not:C34(Bool:C1537(OK)))
+		
+		return 
+		
+	End if 
+	
+	$comments:=$o.text
+	
+	If (Length:C16($comments)=0)
+		
+		return 
+		
+	End if 
+	
+	If (Position:C15("<span"; $comments)>0)
+		
+		$comments:=ST Get plain text:C1092($comments)
+		
+	End if 
+	
+	// Comment each non-empty line
+	$c:=Split string:C1554($comments; "\r")
+	$i:=0
+	
+	For each ($t; $c)
+		
+		If (Length:C16($t)>0)
+			
+			$c[$i]:=kCommentMark+Char:C90(Space:K15:42)+$t
+			
+		End if 
+		
+		$i+=1
+		
+	End for each 
+	
+	$comments:=$c.join("\r")
+	
+	// Expand placeholders
+	$comments:=Replace string:C233($comments; "<date/>"; String:C10(Current date:C33))
+	$comments:=Replace string:C233($comments; "<time/>"; String:C10(Current time:C178))
+	$comments:=Replace string:C233($comments; "<user_4D/>"; Current user:C182)
+	$comments:=Replace string:C233($comments; "<user_os/>"; Current machine:C483)
+	$comments:=Replace string:C233($comments; "<version_4D/>"; Application version:C493(*))
+	$comments:=Replace string:C233($comments; "<database_name/>"; Structure file:C489)
+	
+	var $title : Text:=_o_win_title(Frontmost window:C447)
+	$comments:=Replace string:C233($comments; "<method_name/>"; $title)
+	
+	$title:=Get window title:C450(Next window:C448(Frontmost window:C447))
+	$position:=Position:C15(" - "; $title)
+	
+	If ($position>0)
+		
+		$title:=Delete string:C232($title; 1; $position+2)
+		
+	End if 
+	
+	$title:=Replace string:C233($title; " *"; "")
+	
+	If (Position:C15(Localized string:C991("Form: "); $title)>0)
+		
+		$comments:=Replace string:C233($comments; "<form_name/>"; $title)
+		
+	End if 
+	
+	This:C1470.setHighlightedText($comments+kCaret)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// True if $text (already left-trimmed) begins with $keyword as a whole word
+Function _beginsWith($text : Text; $keyword : Text) : Boolean
+	
+	If (Position:C15($keyword; $text)#1)
+		
+		return False:C215
+		
+	End if 
+	
+	var $next : Integer:=Length:C16($keyword)+1
+	
+	If (Length:C16($text)<$next)
+		
+		return True:C214
+		
+	End if 
+	
+	var $char : Text:=$text[[$next]]
+	return ($char=" ") || ($char="(") || ($char=Char:C90(9))
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// True if $text begins with any of the given keywords (as whole words)
+Function _beginsWithAny($text : Text; $keywords : Collection) : Boolean
+	
+	var $keyword : Text
+	
+	For each ($keyword; $keywords)
+		
+		If (This:C1470._beginsWith($text; $keyword))
+			
+			return True:C214
+			
+		End if 
+		
+	End for each 
+	
+	return False:C215
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Removes leading spaces and tabs
+Function _trimLeft($text : Text) : Text
+	
+	var $t : Text:=$text
+	var $tab : Text:=Char:C90(9)
+	
+	While ((Length:C16($t)>0) && (($t[[1]]=" ") || ($t[[1]]=$tab)))
+		
+		$t:=Substring:C12($t; 2)
+		
+	End while 
+	
+	return $t
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function duplicateAndComment()
@@ -678,11 +898,11 @@ Function duplicateAndComment()
 	
 	If (Split string:C1554(This:C1470.highlighted; "\r").length=1)
 		
-		This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)*/
+		This:C1470.setHighlightedText(This:C1470._comment()+"\r"+This:C1470.highlighted+kCaret)
 		
 	Else 
 		
-		This:C1470.setHighlightedText(This:C1470._comment()+This:C1470.highlighted+kCaret)*/
+		This:C1470.setHighlightedText(This:C1470._comment()+This:C1470.highlighted+kCaret)
 		
 	End if 
 	

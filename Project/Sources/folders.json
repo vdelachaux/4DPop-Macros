@@ -99,7 +99,6 @@
 			"CREATE_BUTTON",
 			"DECLARATION",
 			"DECLARATIONS_SETTINGS",
-			"LIST",
 			"SETTINGS",
 			"SPECIAL_PASTE"
 		]
@@ -108,12 +107,10 @@
 		"methods": [
 			"_SETTINGS",
 			"ABOUT",
-			"Beautifier_init",
 			"CODE_TO_EXECUTE",
 			"CODE_TO_EXECUTE_FORMULA",
 			"codeForCollection",
 			"codeForObject",
-			"COMMENTS",
 			"Compiler_",
 			"COMPILER_component",
 			"declaration_UI",
@@ -124,8 +121,6 @@
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
 			"Install_resources",
-			"METHOD_ANALYSE_TO_ARRAYS",
-			"METHOD_Syntax",
 			"METHODS",
 			"Preferences_Get",
 			"Private_Boo_Paste_Regex_Pattern"

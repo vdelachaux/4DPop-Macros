@@ -4,9 +4,7 @@ var <>list : Integer
 var <>b1; <>b2; <>b3; <>b4; <>b5; <>b6; <>b7; <>b8; <>b9; <>b10; <>b11; <>b12; <>b13; <>b14; <>b15 : Integer
 
 var <>timerEvent : Integer
-var <>Txt_buffer; <>Txt_method : Text
-
-var <>Txt_Title : Text
+var <>Txt_buffer : Text
 
 var <>regexFilePath : Text
 
@@ -27,10 +25,6 @@ ARRAY LONGINT:C221(<>tLon_Line_Statut; 0)
 ARRAY TEXT:C222(<>tTxt_Patterns; 0)
 ARRAY TEXT:C222(<>tTxt_Directive; 0)
 
-ARRAY BOOLEAN:C223(<>tBoo_ListBox; 0)
-ARRAY TEXT:C222(<>tTxt_Comments; 0)
-ARRAY TEXT:C222(<>tTxt_Labels; 0)
-
 ARRAY TEXT:C222(M_4DPop_tTxt_Buffer; 0)
 
 var v1; v2; v3; v4 : Variant
@@ -47,19 +41,11 @@ If (False:C215)
 	C_TEXT:C284(_o_Preferences_Set; $1)
 	C_TEXT:C284(_o_Preferences_Set; $2)
 	
-	C_LONGINT:C283(Beautifier_init; $0)
-	
 	// Private_SET_OPTIONS
 	C_LONGINT:C283(OPTIONS_SET; ${1})
 	
 	// Private_Boo_Paste_Regex_Pattern
 	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
-	
-	// METHOD_ANALYSE_TO_ARRAYS
-	C_TEXT:C284(METHOD_ANALYSE_TO_ARRAYS; $1)
-	C_POINTER:C301(METHOD_ANALYSE_TO_ARRAYS; $2)
-	C_POINTER:C301(METHOD_ANALYSE_TO_ARRAYS; $3)
-	C_POINTER:C301(METHOD_ANALYSE_TO_ARRAYS; $4)
 	
 	// Private_Methods
 	C_TEXT:C284(METHODS; $1)

@@ -42,42 +42,6 @@ End if
 Case of 
 		
 		//________________________________________
-	: ($Txt_entryPoint="export")  // #10-2-2016
-		
-		$Txt_method:=$2
-		
-		If (Macintosh option down:C545 | Windows Alt down:C563)
-			
-			METHOD GET CODE:C1190($Txt_method; $Txt_buffer; 1; *)
-			
-		Else 
-			
-			METHOD GET CODE:C1190($Txt_method; $Txt_buffer; *)
-			
-		End if 
-		
-		$Txt_:=Select document:C905(8858; "com.4d.4d.method"; ""; File name entry:K24:17+Package open:K24:8+Use sheet window:K24:11)
-		
-		If (OK=1)
-			
-			METHOD RESOLVE PATH:C1165($Txt_method; $Lon_type; $Ptr_; $Txt_; $Txt_; *)
-			
-			If ($Lon_type=Path project method:K72:1)
-				
-				$Txt_target:=DOCUMENT
-				
-				If ($Txt_target#"@.mtd")
-					
-					$Txt_target:=$Txt_target+".mtd"
-					
-				End if 
-				
-				TEXT TO DOCUMENT:C1237($Txt_target; $Txt_buffer)
-				
-			End if 
-		End if 
-		
-		//________________________________________
 		//http://forums.4d.fr/Post/FR/13536439/1/13536440#13536440
 		//________________________________________
 	: ($Txt_entryPoint="new")\
@@ -116,52 +80,6 @@ Case of
 			
 			METHOD SET CODE:C1194($Txt_buffer; $Txt_target; *)
 			METHOD OPEN PATH:C1213($Txt_buffer; *)
-			
-		End if 
-		
-		//________________________________________
-	: ($Txt_entryPoint="list")
-		
-		METHOD GET NAMES:C1166($tTxt_methods; *)
-		SORT ARRAY:C229($tTxt_methods)
-		
-		$Mnu_main:=Create menu:C408
-		
-		For ($Lon_i; 1; Size of array:C274($tTxt_methods); 1)
-			
-			$Lon_x:=Position:C15("."; $tTxt_methods{$Lon_i})
-			$Lon_x:=Choose:C955($Lon_x=0; Position:C15("_"; $tTxt_methods{$Lon_i}); $Lon_x)
-			
-			If ($Lon_x>0)
-				
-				$Txt_tag:=Substring:C12($tTxt_methods{$Lon_i}; 1; $Lon_x-1)
-				
-				If ($Txt_tag#$tTxt_methods{0})
-					
-					$tTxt_methods{0}:=$Txt_tag
-					
-					$Mnu_module:=Create menu:C408
-					APPEND MENU ITEM:C411($Mnu_main; $Txt_tag; $Mnu_module)
-					
-				End if 
-				
-				APPEND MENU ITEM:C411($Mnu_module; $tTxt_methods{$Lon_i})
-				SET MENU ITEM PARAMETER:C1004($Mnu_module; -1; $tTxt_methods{$Lon_i})
-				
-			Else 
-				
-				APPEND MENU ITEM:C411($Mnu_main; $tTxt_methods{$Lon_i})
-				SET MENU ITEM PARAMETER:C1004($Mnu_main; -1; $tTxt_methods{$Lon_i})
-				
-			End if 
-		End for 
-		
-		$Txt_method:=Dynamic pop up menu:C1006($Mnu_main)
-		RELEASE MENU:C978($Mnu_main)
-		
-		If (Length:C16($Txt_method)>0)
-			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $Txt_method)
 			
 		End if 
 		

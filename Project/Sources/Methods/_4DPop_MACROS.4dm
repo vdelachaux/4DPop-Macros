@@ -103,32 +103,9 @@ Case of
 		SHOW ON DISK:C922($folder.platformPath; *)
 		
 		// ______________________________________________________
-	: ($action="method-export")  // #10-2-2016 - export the method
-		
-		METHODS("export"; $text)
-		
-		// ______________________________________________________
 	: ($action="method-new")  // #v14 Create a method with the selection
 		
 		METHODS("new"; $macro.highlighted)
-		
-		// ______________________________________________________
-	: ($action="method-comments")  // Edit method's comments
-		
-		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
-			
-			ALERT:C41("Not yet available in project mode")
-			
-		Else 
-			
-			COMMENTS("method"; $text)
-			
-		End if 
-		
-		// ______________________________________________________
-	: ($action="method-list")  // Display a hierarchical methods' menu
-		
-		METHODS("list")
 		
 		// ______________________________________________________
 	: ($action="method-attributes")  // #v13 Set methodes attributes
@@ -151,11 +128,6 @@ Case of
 		CLOSE WINDOW:C154
 		
 		// ______________________________________________________
-	: ($action="edit_comment")  // • Edit comments
-		
-		COMMENTS("edit")
-		
-		// ______________________________________________________
 	: ($action="about")
 		
 		If ($macro.isMacroProcess)
@@ -165,101 +137,6 @@ Case of
 		Else 
 			
 			ABOUT($text)
-			
-		End if 
-		
-		// ______________________________________________________
-	: ($action="_display_list@")
-		
-		var $size : Integer:=Size of array:C274(<>tTxt_Labels)
-		
-		If ($size>0)
-			
-			ARRAY TEXT:C222(<>tTxt_Comments; $size)
-			
-			var $bottom; $height; $left; $right; $top; $width : Integer
-			GET WINDOW RECT:C443($left; $top; $right; $bottom; Frontmost window:C447)
-			$left+=60
-			$top+=60
-			FORM GET PROPERTIES:C674("LIST"; $width; $height)
-			$winRef:=Open window:C153($left; $top; $left+$width; $top; Pop up window:K34:14)
-			
-			If ($action#"@not_sorted@")
-				
-				SORT ARRAY:C229(<>tTxt_Labels)
-				
-			End if 
-			
-			DIALOG:C40("LIST")
-			
-			If (OK=1)\
-				 & (<>tTxt_Labels>0)
-				
-				Case of 
-						
-						// .....................................................
-					: (Count parameters:C259=3)
-						
-						var $t:=Replace string:C233($text+"%"+$title; "%"; <>tTxt_Labels{<>tTxt_Labels})
-						
-						// .....................................................
-					: (Count parameters:C259=1)
-						
-						$t:=<>tTxt_Labels{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="*")  // Method with syntax
-						
-						_4DPop_MACROS("_syntax_"+<>tTxt_Labels{<>tTxt_Labels})
-						$t:=<>tTxt_Labels{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="+")  // Return the selected value
-						
-						$t:=<>tTxt_Labels{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="id")
-						
-						$t:=<>tTxt_Comments{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="str")
-						
-						$t:=$macro.highlighted+";"+String:C10(<>tTxt_Labels)+")`"+<>tTxt_Labels{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="STR#")
-						
-						$t:=<>tTxt_Comments{<>tTxt_Labels}
-						var $pos:=Position:C15(" - "; $t)
-						$t:=Command name:C538(510)+"("+Substring:C12($t; 1; $pos-1)+";"+Substring:C12($t; $pos+3)+")`"+<>tTxt_Labels{<>tTxt_Labels}
-						
-						// .....................................................
-					: ($text="none")
-						
-						$t:=""
-						
-						// .....................................................
-					Else 
-						
-						$t:=Macintosh option down:C545 | Windows Alt down:C563 ? <>tTxt_Comments{<>tTxt_Labels} : <>tTxt_Labels{<>tTxt_Labels}
-						$t:=Replace string:C233($text+"%"+$text; "%"; $t)
-						
-						// .....................................................
-				End case 
-				
-				If (Length:C16($t)>0)
-					
-					SET MACRO PARAMETER:C998(2; $t)
-					
-				End if 
-			End if 
-			
-			CLEAR VARIABLE:C89(<>Txt_buffer)
-			CLEAR VARIABLE:C89(<>Txt_Title)
-			CLEAR VARIABLE:C89(<>tTxt_Labels)
-			CLEAR VARIABLE:C89(<>tTxt_Comments)
 			
 		End if 
 		
@@ -347,11 +224,6 @@ Case of
 	: ($action="googleSearch")
 		
 		OPEN URL:C673("www.google.fr/search?q="+$macro.highlighted)
-		
-		// ______________________________________________________
-	: ($action="comment_current_level")  // Comments the first and the last line of a logic block
-		
-		COMMENTS("bloc")
 		
 		// ______________________________________________________
 	: ($action="invert_expression")  // Reverse expression
