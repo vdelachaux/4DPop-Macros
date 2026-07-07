@@ -1,23 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
-var <>list : Integer
-
-var <>b1; <>b2; <>b3; <>b4; <>b5; <>b6; <>b7; <>b8; <>b9; <>b10; <>b11; <>b12; <>b13; <>b14; <>b15 : Integer
-
-var <>regexFilePath : Text
-
-var <>Boo_declarationInited : Boolean
-
-ARRAY TEXT:C222(<>tTxt_2D_Declaration_Patterns; 0; 0)
-ARRAY LONGINT:C221(<>tLon_Declaration_Types; 0)
-
-ARRAY LONGINT:C221(<>tLon_command; 0)
-
 ARRAY TEXT:C222(<>tTxt_lines; 0)
-ARRAY LONGINT:C221(<>tLon_Line_Statut; 0)
-
-ARRAY TEXT:C222(<>tTxt_Patterns; 0)
-ARRAY TEXT:C222(<>tTxt_Directive; 0)
-
 ARRAY TEXT:C222(M_4DPop_tTxt_Buffer; 0)
 
 var v1; v2; v3; v4 : Variant
