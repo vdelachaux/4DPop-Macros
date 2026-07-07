@@ -65,16 +65,6 @@ If (False:C215)
 	C_TEXT:C284(METHODS; $1)
 	C_TEXT:C284(METHODS; $2)
 	
-	C_TEXT:C284(_o_Util_SPLIT_METHOD; $1)
-	C_POINTER:C301(_o_Util_SPLIT_METHOD; $2)
-	C_LONGINT:C283(_o_Util_SPLIT_METHOD; $3)
-	
-	C_LONGINT:C283(_o_util_Lon_Local_in_line; $0)
-	C_TEXT:C284(_o_util_Lon_Local_in_line; $1)
-	C_POINTER:C301(_o_util_Lon_Local_in_line; $2)
-	C_POINTER:C301(_o_util_Lon_Local_in_line; $3)
-	C_LONGINT:C283(_o_util_Lon_Local_in_line; $4)
-	
 	// Private_Txt_Get_Preferences
 	C_TEXT:C284(Preferences_Get; $0)
 	C_TEXT:C284(Preferences_Get; $1)
@@ -125,14 +115,5 @@ If (False:C215)
 	// Win_title
 	C_TEXT:C284(_o_win_title; $0)
 	C_LONGINT:C283(_o_win_title; $1)
-	
-	// Private_Lon_Declaration_Type
-	C_LONGINT:C283(Private_Lon_Declaration_Type; $0)
-	C_TEXT:C284(Private_Lon_Declaration_Type; $1)
-	C_POINTER:C301(Private_Lon_Declaration_Type; $2)
-	
-	// Private_EXTRACT_LOCAL_VARIABLES
-	C_TEXT:C284(_o_EXTRACT_LOCAL_VARIABLES; $1)
-	C_POINTER:C301(_o_EXTRACT_LOCAL_VARIABLES; $2)
 	
 End if 

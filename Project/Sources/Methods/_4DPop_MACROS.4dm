@@ -280,27 +280,6 @@ Case of
 		DOT_NOTATION($macro.highlighted)
 		
 		// ______________________________________________________
-	: ($action="locals_list")  // • List of local variables
-		
-		ARRAY TEXT:C222(<>tTxt_Labels; 0x0000)
-		_o_EXTRACT_LOCAL_VARIABLES("Method"; -><>tTxt_Labels)
-		$success:=(Size of array:C274(<>tTxt_Labels)>0)
-		
-		If ($success)
-			
-			If (Size of array:C274(<>tTxt_Labels)=1)  // One line
-				
-				SET MACRO PARAMETER:C998(Highlighted method text:K5:18; <>tTxt_Labels{1})
-				
-			Else 
-				
-				<>Txt_Title:=Localized string:C991("LocalVariables")
-				_4DPop_MACROS("_display_list_not_sorted")
-				
-			End if 
-		End if 
-		
-		// ______________________________________________________
 	: ($action="Keywords")  // [IN WORKS] Keywords list
 		
 		// (method, commands, variables and more)

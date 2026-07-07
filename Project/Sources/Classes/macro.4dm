@@ -348,15 +348,7 @@ Function PasteColor()
 	/// Compiler Directives for local variables
 Function Declarations()
 	
-	If (This:C1470.isProject)
-		
-		cs:C1710.declaration.new()
-		
-	Else 
-		
-		_o_DECLARATION
-		
-	End if 
+	cs:C1710.declaration.new()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function Beautifier()

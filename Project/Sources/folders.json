@@ -2,23 +2,12 @@
 	"_o_": {
 		"methods": [
 			"_o_array_Attributes",
-			"_o_array_declaration",
 			"_o_CENTERED",
-			"_o_DECLARATION",
-			"_o_EXTRACT_LOCAL_VARIABLES",
 			"_o_Files_And_Folders",
 			"_o_isNumeric",
 			"_o_localizedControlFlow",
 			"_o_Preferences",
 			"_o_Preferences_Set",
-			"_o_rgx",
-			"_o_Rgx_ExtractText",
-			"_o_Rgx_MatchText",
-			"_o_rgx_Options",
-			"_o_Rgx_SplitText",
-			"_o_Rgx_SubstituteText",
-			"_o_util_Lon_Local_in_line",
-			"_o_Util_SPLIT_METHOD",
 			"_o_win_title",
 			"_o_xml_attributes",
 			"_o_xml_cleanup",
@@ -30,11 +19,7 @@
 			"_o_xml_refToObject",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS",
-			"COMPILER_class",
-			"Compiler_Rgx",
 			"COMPILER_xml",
-			"rgx_NO_ERROR",
-			"test_rgx",
 			"xml_NO_ERROR"
 		]
 	},
@@ -104,9 +89,6 @@
 		"methods": [
 			"OPTIONS_GET",
 			"OPTIONS_SET"
-		],
-		"forms": [
-			"BINARY_DECLARATIONS"
 		]
 	},
 	"FORMS": {
@@ -146,8 +128,7 @@
 			"METHOD_Syntax",
 			"METHODS",
 			"Preferences_Get",
-			"Private_Boo_Paste_Regex_Pattern",
-			"Private_Lon_Declaration_Type"
+			"Private_Boo_Paste_Regex_Pattern"
 		]
 	},
 	"TESTS": {

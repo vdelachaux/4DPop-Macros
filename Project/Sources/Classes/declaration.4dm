@@ -48,13 +48,16 @@ Class constructor
 		var $file : 4D:C1709.File:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
 		$file:=$file.original || $file
 		
+		If (Not:C34($file.exists))
+			
+			// Create the settings file from the default resource
+			File:C1566("/RESOURCES/default.settings").copyTo($file.parent; "4DPop Macros.settings")
+			
+		End if 
+		
 		If ($file.exists)
 			
 			This:C1470.settings:=JSON Parse:C1218($file.getText()).declaration
-			
-		Else 
-			
-			_o_DECLARATION("Get_Syntax_Preferences")
 			
 		End if 
 		
