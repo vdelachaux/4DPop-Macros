@@ -169,10 +169,12 @@ propriétés `Form` ou des objets locaux.
   Méthode `CODE_TO_EXECUTE_FORMULA_test` (groupe TESTS) : passe des échantillons,
   renvoie les paires `{input; output}` et copie un rapport lisible dans le
   presse-papier.
-- **Commentaires en `//`** : `CODE_TO_EXECUTE_FORMULA` utilisait l'ancien marqueur
-  backtick `` ` `` pour détecter/générer les lignes de commentaire → remplacé par
-  `//` (détection `$Txt_Command="//@"`, préfixe `"// "`). Échantillons de test
-  idem.
+- **Commentaires via la constante `kCommentMark`** : `CODE_TO_EXECUTE_FORMULA`
+  utilisait l'ancien marqueur backtick `` ` `` puis `//` en dur → utilise
+  désormais `kCommentMark` (détection `$Txt_Command=kCommentMark+"@"`, préfixe
+  `kCommentMark+" "`). Si le marqueur change à l'avenir, seule la constante est à
+  mettre à jour (déjà utilisée dans `macro`/`specialPaste`). Échantillons de test
+  en `//` littéral (données d'exemple).
 - **`macro._comment` modernisée + `v1..v4` supprimés + `COMPILER_component`
   supprimé** : `_comment()` utilisait un hack `Formula from string("4D:C1810(v1;
   v2; v3; v4)")` (appel de la commande n°1810 par numéro) pour retrouver la ligne
