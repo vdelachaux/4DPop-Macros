@@ -1,10 +1,11 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_LONGINT:C283($end;$Lon_i)
+//%W-551.2
+C_LONGINT:C283($end; $Lon_i)
 If (True:C214)
-	For ($Lon_i;1;$end;10)
-		  //comment
-		For ($Lon_i;1;$end;1)
-			  //comment
+	For ($Lon_i; 1; $end; 10)
+		//comment
+		For ($Lon_i; 1; $end; 1)
+			//comment
 			Case of 
 				: (True:C214)
 				: (False:C215)
@@ -17,10 +18,11 @@ If (True:C214)
 			End case 
 		End for 
 	End for 
-	  //CONTINUOUS LINE
+	//CONTINUOUS LINE
 	If ((False:C215) | (True:C214)) & (False:C215)
-		  //True
+		//True
 	Else 
-		  //False
+		//False
 	End if 
 End if 
+//%W+551.2

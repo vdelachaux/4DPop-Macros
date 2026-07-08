@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><preferences stamp="23">
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="24">
 	<com.4d>
 		<interface>
 			<misc/>
@@ -10,7 +10,7 @@
 			</shortcuts>
 		</interface>
 		<compiler>
-			<options compilation_path="3" fat_binary="true" target="all"/>
+			<options compilation_path="4" fat_binary="true" target="all"/>
 			<typage default_for_button="2"/>
 			<method_suffix arrays="" interprocess_arrays="" interprocess_variables="" methods="" variables=""/>
 		</compiler>

@@ -1,5 +1,7 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
+//%W-551.2
 C_TEXT:C284($t)
+//%W+551.2
 
 If (True:C214)
 	
@@ -13,7 +15,7 @@ End if
 
 If (True:C214)
 	
-	  // Comment
+	// Comment
 	$t:="hello"
 	
 Else 

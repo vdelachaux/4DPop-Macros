@@ -50,7 +50,9 @@ Else
 	//$toto:=Substring($hello; 1; 1)
 	//$world:=Num($toto)
 	
+	//%W-551.1
 	_O_C_STRING:C293(10; $alpha)
+	//%W+551.1
 	
 	//C_LONGINT($indx)
 	//$indx:=Form.rule.indexOf(Form.ruleSelected[0])
