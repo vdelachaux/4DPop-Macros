@@ -123,7 +123,7 @@ Function convertXmlPrefToJson()->$settings : Object
 	
 	If (This:C1470.file.exists)
 		
-		$xml:=_o_xml_fileToObject(This:C1470.file.platformPath)
+		$xml:=cs:C1710.xml.me.fileToObject(This:C1470.file.platformPath)
 		
 		If ($xml.success)
 			

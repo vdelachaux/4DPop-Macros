@@ -5,9 +5,6 @@
 			"_o_localizedControlFlow",
 			"_o_Preferences",
 			"_o_win_title",
-			"_o_xml_elementToObject",
-			"_o_xml_fileToObject",
-			"_o_xml_refToObject",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS",
 			"COMPILER_xml",
@@ -62,7 +59,8 @@
 			"method",
 			"preferences",
 			"settings",
-			"specialPaste"
+			"specialPaste",
+			"xml"
 		]
 	},
 	"📦 COMPONENT": {

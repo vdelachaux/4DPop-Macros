@@ -98,6 +98,14 @@ propriétés `Form` ou des objets locaux.
   `folders.json`. Les 7 `_o_` VIVANTES gardées : `_o_isNumeric`,
   `_o_localizedControlFlow`, `_o_Preferences`, `_o_win_title`,
   `_o_xml_elementToObject`, `_o_xml_fileToObject`, `_o_xml_refToObject`.
+- **`_o_xml_*` (les 3 vivantes) → classe `xml`** (`Classes/xml.4dm`, `shared
+  singleton`) : `fileToObject($path; $references)` publique (retour inchangé
+  `{success; value; errors}`) + helpers privés `_refToObject`, `_elementToObject`
+  (récursif), `_collectChildren`. Appels migrés vers `cs.xml.me.fileToObject(...)`
+  (settings/preferences/_o_Preferences). Pas de classe `xml` en dépendance (les
+  deps sont `pop`, `rgx`, `ui`) → classe LOCALE. `COMPILER_xml` gardé pour la
+  seule var `xml_ERROR` (utilisée par `xml_NO_ERROR`), bloc `If (False)` vidé.
+  `xml` ajoutée aux classes du namespace dans `folders.json`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

@@ -65,7 +65,7 @@ If (OK=0)
 		
 		If ($src.exists)
 			
-			$Obj_xml:=_o_xml_fileToObject($src.platformPath)
+			$Obj_xml:=cs:C1710.xml.me.fileToObject($src.platformPath)
 			
 			If ($Obj_xml.value.M_4DPop#Null:C1517)
 				
@@ -136,7 +136,7 @@ Case of
 		//______________________________________________________
 	: ($Txt_EntryPoint="load")
 		
-		$Obj_xml:=_o_xml_fileToObject($Obj_preferences.platformPath)
+		$Obj_xml:=cs:C1710.xml.me.fileToObject($Obj_preferences.platformPath)
 		OK:=Num:C11($Obj_xml.success)
 		
 		If (OK=1)
