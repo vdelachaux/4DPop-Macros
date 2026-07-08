@@ -283,6 +283,44 @@ Voulez-vous que je crée cette méthode pour vous ?</target>
           <target>// mark: Dans $Txt_highlighted, le texte sélectionné de la méthode cas échéant
 </target>
         </trans-unit>
+        <trans-unit id="msg_macroNeedsMethod" resname="macroNeedsMethod">
+          <source>This macro requires a method to be open in the code editor.</source>
+          <target>Cette macro nécessite une méthode ouverte dans l'éditeur de code.</target>
+        </trans-unit>
+        <trans-unit id="msg_macroNeedsSelection" resname="macroNeedsSelection">
+          <source>This macro requires some selected text in the code editor.</source>
+          <target>Cette macro nécessite une sélection de texte dans l'éditeur de code.</target>
+        </trans-unit>
+        <trans-unit id="msg_unknownMacroAction" resname="unknownMacroAction">
+          <source>Unknown or unavailable macro action:</source>
+          <target>Action de macro inconnue ou indisponible :</target>
+        </trans-unit>
+        <trans-unit id="msg_obsoleteMacroAction" resname="obsoleteMacroAction">
+          <source>OBSOLETE ACTION
+No longer available or included in 4D</source>
+          <target>ACTION OBSOLÈTE
+N'est plus disponible ni intégrée à 4D</target>
+        </trans-unit>
+        <trans-unit id="msg_warningReference" resname="warningReference">
+          <source>Warning reference:</source>
+          <target>Référence d'avertissement :</target>
+        </trans-unit>
+        <trans-unit id="msg_noVariableToDeclare" resname="noVariableToDeclare">
+          <source>No local variable or parameter to declare!</source>
+          <target>Aucune variable locale ou paramètre à déclarer !</target>
+        </trans-unit>
+        <trans-unit id="msg_notAConstant" resname="notAConstant">
+          <source>does not seem to be a constant!</source>
+          <target>ne semble pas être une constante !</target>
+        </trans-unit>
+        <trans-unit id="msg_noTextInPasteboard" resname="noTextInPasteboard">
+          <source>No text in the pasteboard</source>
+          <target>Aucun texte dans le presse-papiers</target>
+        </trans-unit>
+        <trans-unit id="msg_textMustBeQuoted" resname="textMustBeQuoted">
+          <source>Selected text must be enclosed in quotation marks</source>
+          <target>Le texte sélectionné doit être entre guillemets</target>
+        </trans-unit>
       </group>
       <group resname="Method Properties">
         <trans-unit id="tcZeVuKExYJHBoxQk34pKg" resname="Proc_info_publishedInWsdl">

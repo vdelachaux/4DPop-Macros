@@ -18,6 +18,14 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Localisation des messages** : tous les messages utilisateur littéraux
+  (`ALERT`/`Request`) passés en `Localized string` avec 9 nouvelles clés XLIFF
+  (en+fr, groupe `messages`) : `macroNeedsMethod`, `macroNeedsSelection`,
+  `unknownMacroAction`, `obsoleteMacroAction`, `warningReference`,
+  `noVariableToDeclare`, `notAConstant`, `noTextInPasteboard`, `textMustBeQuoted`.
+  Concerne `_runMacro`, `macro`, `declaration`. Laissés en anglais : les `ASSERT`
+  (diagnostics développeur) et les 2 ALERT d'inspection de valeur `[nom] (Text/
+  Numeric) = valeur` (relevé, pas une phrase).
 - **`_runMacro` : alerte explicative en cas d'échec** : lorsqu'une action échoue
   (`$success=False`), une `ALERT` indique désormais la raison (variable `$reason`) :
   « requires a method », « requires selected text », ou « Unknown or unavailable

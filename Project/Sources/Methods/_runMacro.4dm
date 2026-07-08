@@ -89,7 +89,7 @@ Case of
 		// ______________________________________________________
 	: ($OBSOLETES.includes($action))
 		
-		ALERT:C41("OBSOLETE ACTION\rNo longer available or included in 4D")
+		ALERT:C41(Localized string:C991("obsoleteMacroAction"))
 		
 		// ______________________________________________________
 	: ($PASTE_ACTIONS.includes($action))
@@ -144,7 +144,7 @@ Case of
 	: (Length:C16($macro.method)=0)
 		
 		$success:=False:C215
-		$reason:="This macro requires a method to be open in the code editor."
+		$reason:=Localized string:C991("macroNeedsMethod")
 		
 		// ______________________________________________________
 	: ($action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
@@ -166,7 +166,7 @@ Case of
 	: (Length:C16($macro.highlighted)=0)
 		
 		$success:=False:C215
-		$reason:="This macro requires some selected text in the code editor."
+		$reason:=Localized string:C991("macroNeedsSelection")
 		
 		// ______________________________________________________
 	: ($action="copyWithoutIndentation")
@@ -208,7 +208,7 @@ Case of
 		
 		var $default : Text:=String:C10(Storage:C1525.macros.lastCompilerDirective) || "xxx.x"
 		
-		$t:=Request:C163("Warning reference:"; $default)
+		$t:=Request:C163(Localized string:C991("warningReference"); $default)
 		
 		If (Bool:C1537(OK))\
 			 && (Length:C16($t)>0)\
@@ -248,7 +248,7 @@ Case of
 	Else 
 		
 		$success:=False:C215
-		$reason:="Unknown or unavailable macro action: "+$action
+		$reason:=Localized string:C991("unknownMacroAction")+" "+$action
 		
 		// ______________________________________________________
 End case 

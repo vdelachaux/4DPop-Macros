@@ -108,7 +108,7 @@ Class constructor
 		
 	Else 
 		
-		ALERT:C41("No local variable or parameter to declare!")
+		ALERT:C41(Localized string:C991("noVariableToDeclare"))
 		
 	End if 
 	

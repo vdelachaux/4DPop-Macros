@@ -166,7 +166,7 @@ Function noSelection() : Boolean
 	If (Not:C34(This:C1470.withSelection))
 		
 		BEEP:C151
-		ALERT:C41("This macro requires text to be selected before it is called!")
+		ALERT:C41(Localized string:C991("macroNeedsSelection"))
 		return True:C214
 		
 	End if 
@@ -328,7 +328,7 @@ Function constantValue($in : Text)
 			//______________________________________________________
 		: (Value type:C1509($value)=Is undefined:K8:13)
 			
-			ALERT:C41("["+$txt+"] does not seem to be a constant!")
+			ALERT:C41("["+$txt+"] "+Localized string:C991("notAConstant"))
 			
 			//______________________________________________________
 		: (Value type:C1509($value)=Is text:K8:3)
@@ -388,7 +388,7 @@ Function PasteAndKeepTarget()
 	
 	If (Length:C16($t)=0)
 		
-		ALERT:C41("No text into the pasteboard")
+		ALERT:C41(Localized string:C991("noTextInPasteboard"))
 		
 	End if 
 	
@@ -497,7 +497,7 @@ Function ConvertToCallWithToken()
 		
 	Else 
 		
-		ALERT:C41("Selected text must be enclosed in quotation marks")
+		ALERT:C41(Localized string:C991("textMustBeQuoted"))
 		
 	End if 
 	
