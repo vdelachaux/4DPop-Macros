@@ -1,5 +1,5 @@
 // ----------------------------------------------------
-// Method : Méthode formulaire : SPECIAL_PASTE
+// Method: form method: SPECIAL_PASTE
 // Created 30/06/08 by vdl
 // ----------------------------------------------------
 // Description
