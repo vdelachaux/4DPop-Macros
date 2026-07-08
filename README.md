@@ -14,10 +14,50 @@
 <img src="https://img.shields.io/github/downloads/vdelachaux/4DPop-Macros/total"/>
 
 
-# <a name="overview">Overview</a>
-`4DPop Macros` adds macros available to the method editor. Using macro-commands saves a lot of time during method entry.
+# 4DPop Macros
 
-When the component is loaded, the macros are automatically installed and available in the method editor, they can be invoked:
+**4DPop Macros** adds a rich set of macro-commands to the 4D method editor. Using macro-commands saves a lot of time during method entry.
+
+Once the component is loaded, the macros are installed automatically — no manual setup required — and become available directly from the code editor.
+
+## Highlights
+
+- **Declarations…**: analyses the selected code, deduces the type of parameters and local variables, and writes the declarations using the modern `var` keyword.
+- **Beautifier…**: a configurable code formatter.
+- **Comments**: intelligent comment / uncomment (single-line, block or intra-line).
+- **Compiler directive…**: wraps a selection with `//%W-` … `//%W+` directives to selectively disable compiler warnings.
+- **Special paste…**: pastes clipboard content with transformations (string, comments, HTML, regex pattern, pathname, JSON-to-code, tokenized…).
+- **Copy and replace**, **Duplicate & comment**, **Copy with tokens** and several everyday helpers.
+- Most actions come with a keyboard shortcut, a predictive-input trigger, and an entry in the method editor's macro menu.
+
+## Prerequisites: component dependencies
+
+`4DPop Macros` relies on the following 4D components. When installed through the Dependencies Manager (recommended), they are resolved automatically:
+
+| Dependency | Repository |
+|---|---|
+| 4DPop | `vdelachaux/4DPop` |
+| Regex with Classes | `vdelachaux/Regex-with-Classes` |
+| UI with Classes | `vdelachaux/UI-with-Classes` |
+
+## Installation
+
+### Recommended (4D v21+): [Project dependencies](https://developer.4d.com/docs/Project/components/#adding-a-github-or-gitlab-dependency)
+
+Use the 4D Dependencies Manager UI to install the component:
+
+1. Open your project in 4D (v21+).
+2. Open the Dependencies Manager.
+3. Add a GitHub dependency.
+4. Enter the GitHub repository address: `vdelachaux/4DPop-Macros`.
+5. Choose the version you want (for example `latest`).
+6. Apply changes and let 4D update project dependencies.
+
+No manual JSON editing is required, and the dependencies listed above are pulled in automatically.
+
+## Usage
+
+When the component is loaded, the macros are automatically installed and available in the method editor. They can be invoked:
 
 * By clicking on the [Macros](https://doc.4d.com/4Dv19/4D/19/Method-editor.300-5416861.en.html) button in the method editor toolbar.
 * By double-clicking on their name in one of the footer lists of the method editor.
@@ -25,7 +65,7 @@ When the component is loaded, the macros are automatically installed and availab
 * For some, by a keyboard shortcut indicated in the "[Shortcut](#shortcut)" column below.
 * For some, in the predictive input window. The triggering text is indicated in the "[Input](#input)" column below.
 
-For more information on the use and operation of macros, you can refer to the [Creating and using macros  ](https://doc.4d.com/4Dv19/4D/19/Creating-and-using-macros.300-5416864.en.html) of the 4D documentation.
+For more information on the use and operation of macros, you can refer to the [Creating and using macros](https://doc.4d.com/4Dv19/4D/19/Creating-and-using-macros.300-5416864.en.html) page of the 4D documentation.
 
 
 # <a name="bestOf">Here are the macros I use every day</a>
@@ -85,9 +125,6 @@ This tool operate on the selected text of the frontmost method (or on the whole 
 > ```
 > 
 > 📍Two-dimensional arrays are not yet supported
-
-<br>
-⚠️ In binary mode, the tool is different and is not more maintained. Please refer to the old documentation.
 
 ### 👀 How the tool determine the item type?
 
@@ -151,7 +188,10 @@ If the selected text is already commented, it is uncommented. Otherwise, the mac
 * block comment:
 
 ```4d
-/*	APPEND TO ARRAY($tTxt_attributeName; "editable")	APPEND TO ARRAY($tTxt_attributeValue; "false")*/
+/*
+	APPEND TO ARRAY($tTxt_attributeName; "editable")
+	APPEND TO ARRAY($tTxt_attributeValue; "false")
+*/
 ```
 									
 * intra-line
@@ -166,7 +206,7 @@ ON ERR CALL(/*"noERROR"*/"")
 I use it when I want to preserve a piece of code before editing it, but an image is better than text ;-)
 <p align="center"><img src="./Documentation/duplicate.gif">
 
-## <a name="copyToken">🆕 Copy with tokens</a>
+## <a name="copyToken">Copy with tokens</a>
 
 As the name suggests, the selected code is copied with the tokens.
 
@@ -177,11 +217,22 @@ As the name suggests, the selected code is copied with the tokens.
 | Name | Goal | <a name="menu">Menu</a> | <a name="input">Input</a> | <a name="shortcut">Shortcut</a>\* |
 |------|------|:-------:|:----------:|:--------:|
 | [Macro test](#macroTest) | Call the project method `4DPop_TEST_Macros` of your database. Be sure to share the method.|✔︎||⌘ 0|
+| Constant value… | Evaluates the selected 4D constant and displays its value.|✔︎|||
+| Make an archive | Zips the current project to share it.|✔︎|||
+| New method… | Creates a new method containing the selected text and replaces the selection with the method name.|✔︎|_method||
+| Method attributes… | Displays a pop-up menu to toggle the attributes of the current method.|✔︎|_attributes||
 | Paste a color | Displays the system color palette and pastes the value of the selected color.|✔︎|_c||
-| Find with Google |Launch a Google search, in the default browser, with the selected test|✔︎|||
-| New method… | Creates a new method containing the selected text and replaces the selection with the method name.|✔︎|||
-| Remove blank lines |As the name suggests|✔︎||⌘ \*|
-| Comment block | Surround the selection with `/*` and `*/`|✔︎|||
+| Find with Google |Launch a Google search, in the default browser, with the selected text.|✔︎|||
+| Remove blank lines |As the name suggests.|✔︎||⌘ \*|
+| Conditional assertion | Wraps the selected expression in an `Asserted(…)` conditional assertion.|✔︎||⌘ æ|
+| Convert to call with token | Replaces a quoted method name with a tokenized call.|✔︎|||
+| Dot notation | Rewrites legacy `OB GET` / `OB SET` / `OB Is defined` into dot (or bracket) notation.|✔︎|||
+| Choose | Converts an `If … Else … End if` assignment into a `Choose` expression.|✔︎|||
+| EXECUTE METHOD | Rewrites direct project-method calls in the selection as `EXECUTE METHOD` calls.|✔︎|||
+| EXECUTE FORMULA | Rewrites method/command calls in the selection using `EXECUTE FORMULA`.|✔︎|||
+| Convert to Hexa | Converts the selected number to hexadecimal.|✔︎|||
+| Convert to decimal | Converts the selected hexadecimal value to decimal.|✔︎|||
+| Invert expression | Inverts the selected expressions line by line (swapping paired commands and assignments).|✔︎|||
 
 ## <a name="macroTest">Macro test</a>
 🚧
@@ -197,4 +248,8 @@ As the name suggests, the selected code is copied with the tokens.
 ### <a name="prefBeautifier">Beautifier preferences</a>
 
 <img src="./Documentation/prefBeautifier.png" width="500">
+
+## Source code
+
+The component is distributed in compiled form, with source code available in the `Sources` folder inside the component.
 
