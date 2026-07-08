@@ -298,9 +298,9 @@ Would you like me to create this method for you?</target>
         </trans-unit>
         <trans-unit id="msg_obsoleteMacroAction" resname="obsoleteMacroAction">
           <source>OBSOLETE ACTION
-No longer available or included in 4D</source>
+No longer available, possibly because it has been integrated into 4D</source>
           <target>OBSOLETE ACTION
-No longer available or included in 4D</target>
+No longer available, possibly because it has been integrated into 4D</target>
         </trans-unit>
         <trans-unit id="msg_warningReference" resname="warningReference">
           <source>Warning reference:</source>
