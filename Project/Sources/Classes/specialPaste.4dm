@@ -157,7 +157,86 @@ Function string($text : Text) : Text
 	$text:=Replace string:C233($text; Char:C90(Line feed:K15:40); "\\n")
 	$text:=Replace string:C233($text; Char:C90(Tab:K15:37); "\\t")
 	
-	return "\""+Replace string:C233(str_hyphenation($text; This:C1470.columns; "\\\r+"); "\\\r+"; "\"\\\r+\"")+"\""
+	return "\""+Replace string:C233(This:C1470._hyphenate($text; This:C1470.columns; "\\\r+"); "\\\r+"; "\"\\\r+\"")+"\""
+	
+	//=========================================================================
+	// Wraps $text to $columns columns, inserting $separator at each break (delimiter-aware)
+Function _hyphenate($text : Text; $columns : Integer; $separator : Text; $delimiters : Text) : Text
+	
+	$columns:=($columns<=0) ? 80 : $columns
+	$separator:=(Length:C16($separator)=0) ? "\r" : $separator
+	$delimiters:=(Length:C16($delimiters)=0) ? " -\r\n\t" : $delimiters
+	
+	var $out; $tempo : Text
+	var $x; $i : Integer
+	
+	$text:=Replace string:C233($text; "\r\n"; "\r")
+	$text:=Replace string:C233($text; "\n"; "\r")
+	
+	Repeat 
+		
+		If (Length:C16($text)<=$columns)
+			
+			$out:=$out+$text
+			$text:=""
+			
+		Else 
+			
+			$tempo:=Substring:C12($text; 1; $columns)
+			$x:=Position:C15("\r"; $tempo)
+			
+			Case of 
+					
+					//___________________________________________________
+				: ($x>0)  // Line feed
+					
+					$tempo:=Substring:C12($text; 1; $x)
+					$out:=$out+$tempo
+					
+					//___________________________________________________
+				: (Position:C15($text[[$columns]]; $delimiters)>0)  // Well cut
+					
+					$tempo:=Substring:C12($text; 1; $columns)
+					$out:=$out+$tempo+$separator
+					
+					//___________________________________________________
+				: (Position:C15($text[[$columns-1]]; $delimiters)>0)  // Almost good
+					
+					$tempo:=Substring:C12($text; 1; $columns-1)
+					$out:=$out+$tempo+$separator
+					
+					//___________________________________________________
+				: (Position:C15($text[[$columns+1]]; $delimiters)>0)  // Almost good
+					
+					$tempo:=Substring:C12($text; 1; $columns+1)
+					$out:=$out+$tempo+$separator
+					
+					//___________________________________________________
+				Else   // Find the right cut
+					
+					For ($i; $columns; 1; -1)
+						
+						$x:=Position:C15($tempo[[$i]]; $delimiters)
+						
+						If ($x>0)
+							
+							$tempo:=Substring:C12($tempo; 1; $i)
+							$out:=$out+$tempo+$separator
+							
+							$i:=0
+							
+						End if 
+					End for 
+					
+					//___________________________________________________
+			End case 
+			
+			$text:=Replace string:C233($text; $tempo; ""; 1)
+			
+		End if 
+	Until (Length:C16($text)=0)
+	
+	return $out
 	
 	//=========================================================================
 Function comments() : Text
@@ -200,13 +279,13 @@ Function comments() : Text
 				
 				If (Length:C16($t)#0)
 					
-					$text+=kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
+					$text+=kCommentMark+This:C1470._hyphenate($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
 					
 				End if 
 				
 			Else 
 				
-				$text+=kCommentMark+str_hyphenation($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
+				$text+=kCommentMark+This:C1470._hyphenate($t; This:C1470.columns; "\r"+kCommentMark)+"\r"
 				
 			End if 
 			

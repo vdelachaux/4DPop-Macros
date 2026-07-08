@@ -129,6 +129,11 @@ propriétés `Form` ou des objets locaux.
   → nom cible » (split sur `:`, strip du `*` non-sauvé) devient une fonction privée
   de la classe `macro` (seul appelant = `macro` lui-même, pour `<method_name/>`).
   Méthode supprimée, décl. retirée de `COMPILER_component` + `folders.json`.
+- **`str_hyphenation` → `specialPaste._hyphenate`** : l'utilitaire de wrapping de
+  texte (coupe à N colonnes, respect des délimiteurs) n'était utilisé que par
+  `specialPaste` (3×, couplé à `This.columns`). Devient une fonction privée de
+  `specialPaste`. Décls `C_`→signature typée. Méthode supprimée, décl. retirée de
+  `COMPILER_component` + `folders.json`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

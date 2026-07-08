@@ -17,14 +17,6 @@ If (False:C215)
 	// Private_Boo_Install_Regex
 	C_BOOLEAN:C305(Install_regex; $0)
 	
-	// Str_hyphenation
-	C_TEXT:C284(str_hyphenation; $0)
-	C_TEXT:C284(str_hyphenation; $1)
-	C_LONGINT:C283(str_hyphenation; $2)
-	C_TEXT:C284(str_hyphenation; $3)
-	C_TEXT:C284(str_hyphenation; $4)
-	
-	
 	// Win_NOT_UNDER_TOOLBAR
 	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
 	
