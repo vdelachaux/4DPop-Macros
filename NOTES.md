@@ -18,6 +18,59 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **`declaration` par fonction sur une classe entière** : quand la fenêtre est
+  une classe ET qu'il n'y a **pas de sélection**, `declaration` traite désormais
+  chaque `Function` / `Class constructor` séparément (le préambule — `property`,
+  `Class extends` — reste intact). Le constructeur aiguille vers `_processClass()`
+  (découpe en blocs via `isFunction`/`isConstructor`, `_reset()` + `parse()` +
+  `_dialog()` par bloc, réassemblage, un seul `kCaret` conservé) ou `_processScope()`
+  (comportement historique : méthode entière ou sélection). Avec sélection dans une
+  classe → `_processScope()` (scope sélectionné). Nouvelles fonctions : `_processScope`,
+  `_processClass`, `_reset`, `_dialog`. Réutilise `paste`/`split`/`isFunction`/
+  `isConstructor`/`class`/`withSelection` hérités de `macro`.
+  - **UX** : le titre de la fenêtre du dialogue affiche la fonction courante
+    (`SET WINDOW TITLE` via `_dialog($title)` + `_scopeName()`) pour savoir sur
+    quelle fonction on définit les types.
+  - **Déclarations au plus près de l'usage** : les variables locales SANS
+    affectation ne sont plus remontées en bloc en tête ; `_apply` construit une
+    déclaration par variable (`_buildDeclaration`) et l'insère juste avant sa
+    première utilisation (`_firstUseIndex`, avec remontée au début d'une
+    instruction multi-lignes `\` pour ne pas la casser). Les paramètres restent
+    dans la signature ; les rares variables sans usage localisé (`$orphans`)
+    restent en tête. Suppression du groupage `numberOfVariablePerLine`.
+  - **Fix parse** : un paramètre nommé référencé uniquement dans une ligne de
+    déclaration (`var $x:=…($param…)`) était compté 0 fois (rapporté « non
+    utilisé »). La branche DECLARATION LINE de `parse()` teste désormais
+    `This.parameters` avant de créer un local (comme le fait déjà la branche
+    EXTRACT LOCAL VARIABLES).
+  - **Dialogue seulement si nécessaire** (`_needsDialog()`) : on n'ouvre le
+    dialogue que si une déclaration MANQUE (local utilisé jamais déclaré) ou si
+    une variable est INUTILISÉE (count 0, hors valeur de retour). Sinon on
+    applique les règles en silence (`_apply` direct). Fonction sans variable →
+    laissée intacte. Si AUCUNE fonction n'a eu besoin du dialogue → une seule
+    alerte « Toutes les déclarations ont été vérifiées » (clé XLIFF
+    `allDeclarationsVerified`, en+fr). Correctif au passage : les fonctions sans
+    variable n'étaient plus réinsérées dans la classe (Else manquant) — corrigé
+    via un `Case of`.
+  - ⚠️ Limite connue : la branche DECLARATION LINE de `parse()` ne distingue pas
+    le LHS du RHS. Un token utilisé uniquement dans l'initialiseur d'un autre
+    `var` (`var $token:=Substring($result;…)`) ne doit PAS être considéré comme
+    déclaré — d'où le fait qu'on n'y force PAS `inDeclaration` sur les locals
+    déjà connus (sinon `_needsDialog` afficherait « vérifié » alors que `_apply`
+    ajoute quand même la déclaration).
+  - **Message « vérifié » informatif** : 3 lignes (`allDeclarationsVerified` +
+    `allVariablesDeclared` + `noUnusedVariable`, clés XLIFF en+fr) via
+    `_verifiedMessage()`.
+  - **Lignes vides parasites (méthode projet)** : deux corrections dans `_apply`.
+    (1) Si rien à remonter en tête (aucun paramètre, locals au fil de l'eau) on
+    n'exécute plus la logique de placement (qui insérait `\r` + caret → lignes
+    vides) ; `$method:=""`. (2) La boucle restore supprime les lignes vides
+    situées **dans la zone de déclarations en tête** — c.-à-d. entre la première
+    déclaration retirée (déplacée au fil de l'eau) et la première ligne de code
+    (`$removedDeclSeen && Not($codeSeen)`). Les blancs AVANT cette zone (après
+    l'en-tête de fonction) ou APRÈS du vrai code sont préservés. (Une 1re version
+    qui supprimait tout blanc jouxtant une déclaration retirée effaçait à tort les
+    blancs structurels d'une fonction déjà propre — remplacée par la règle de zone.)
 - **Regex externalisées — `declaration` (registre uniquement)** : le registre
   `_patterns` du constructeur (détection de type des `var`, gabarit `{type}`) migré
   vers `Resources/regex/declaration.txt` (`_dx` : `varType`/`classType`/

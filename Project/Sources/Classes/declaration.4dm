@@ -94,26 +94,238 @@ Class constructor
 	This:C1470._loadIcons()
 	This:C1470._loadGramSyntax()
 	
+	// A class without selection is processed function by function, otherwise the
+	// current scope (whole method or selection) is processed as a single unit.
+	If (This:C1470.class && Not:C34(This:C1470.withSelection))
+		
+		This:C1470._processClass()
+		
+	Else 
+		
+		This:C1470._processScope()
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Parses, prompts and pastes a single scope (whole method or selection)
+Function _processScope()
+	
 	This:C1470.parse()
 	
-	If (This:C1470.variables.length>0)
+	If (This:C1470.variables.length=0)
 		
-		This:C1470.windowRef:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
-		DIALOG:C40("DECLARATION"; This:C1470)
+		ALERT:C41(Localized string:C991("noVariableToDeclare"))
+		return 
 		
-		If (Bool:C1537(OK))
+	End if 
+	
+	If (This:C1470._needsDialog())
+		
+		// A declaration is missing or a variable is unused → let the user decide
+		If (This:C1470._dialog())
 			
 			This:C1470.paste(This:C1470.method)
 			
 		End if 
 		
-		CLOSE WINDOW:C154(This:C1470.windowRef)
-		
 	Else 
 		
-		ALERT:C41(Localized string:C991("noVariableToDeclare"))
+		// Everything is already declared and used → apply the rules silently
+		This:C1470._apply()
+		This:C1470.paste(This:C1470.method)
+		ALERT:C41(This:C1470._verifiedMessage())
 		
 	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Processes a whole class, one Function/Class constructor at a time
+Function _processClass()
+	
+	var $source : Text:=This:C1470.method
+	var $lines : Collection:=Split string:C1554($source; "\r")
+	
+	// Split the class into a preamble (properties, Class extends…) and function blocks
+	var $preamble : Collection:=[]
+	var $blocks : Collection:=[]
+	var $block : Collection:=Null:C1517
+	
+	var $line : Text
+	For each ($line; $lines)
+		
+		If (This:C1470.isFunction($line) || This:C1470.isConstructor($line))
+			
+			$block:=[$line]
+			$blocks.push($block)
+			
+		Else 
+			
+			If ($block=Null:C1517)
+				
+				$preamble.push($line)
+				
+			Else 
+				
+				$block.push($line)
+				
+			End if 
+		End if 
+	End for each 
+	
+	var $result : Collection:=[]
+	
+	If ($preamble.length>0)
+		
+		$result.push($preamble.join("\r"))
+		
+	End if 
+	
+	var $processed : Integer:=0
+	var $prompted : Boolean:=False:C215
+	
+	For each ($block; $blocks)
+		
+		var $code : Text:=$block.join("\r")
+		
+		This:C1470._reset()
+		This:C1470.method:=$code
+		This:C1470.parse()
+		
+		Case of 
+				
+				//______________________________________________________
+			: (This:C1470.variables.length=0)
+				
+				// No variable in this function → keep it untouched
+				$result.push($code)
+				
+				//______________________________________________________
+			: (This:C1470._needsDialog())
+				
+				// A declaration is missing or a variable is unused → ask the user
+				$processed+=1
+				$prompted:=True:C214
+				$result.push(This:C1470._dialog(This:C1470._scopeName()) ? This:C1470.method : $code)
+				
+				//______________________________________________________
+			Else 
+				
+				// Everything already declared and used → apply the rules silently
+				$processed+=1
+				This:C1470._apply()
+				$result.push(This:C1470.method)
+				
+				//______________________________________________________
+		End case 
+	End for each 
+	
+	If ($processed=0)
+		
+		// No function needed anything → nothing to paste
+		ALERT:C41(This:C1470._verifiedMessage())
+		return 
+		
+	End if 
+	
+	var $out : Text:=$result.join("\r")
+	
+	// Keep a single caret (the one from the first rewritten function)
+	var $pos : Integer:=Position:C15(kCaret; $out)
+	
+	If ($pos>0)
+		
+		$out:=Replace string:C233($out; kCaret; "")
+		$out:=Substring:C12($out; 1; $pos-1)+kCaret+Substring:C12($out; $pos)
+		
+	End if 
+	
+	This:C1470.paste($out)
+	
+	If (Not:C34($prompted))
+		
+		// Every function was already clean → confirm the check
+		ALERT:C41(This:C1470._verifiedMessage())
+		
+	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Resets the per-scope accumulators before parsing a new function block
+Function _reset()
+	
+	This:C1470.locales:=[]
+	This:C1470.parameters:=[]
+	This:C1470.classes:=[]
+	This:C1470.assigned:=[]
+	This:C1470.variables:=[]
+	This:C1470._output:=[]
+	This:C1470.isCommentBlock:=False:C215
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Opens the declaration dialog and returns whether the user validated it.
+	// $title (optional) is shown in the window title so the user knows which
+	// function's variables are currently being defined.
+Function _dialog($title : Text) : Boolean
+	
+	This:C1470.windowRef:=Open form window:C675("DECLARATION"; Movable form dialog box:K39:8; Horizontally centered:K39:1; At the top:K39:5; *)
+	
+	If (Count parameters:C259>=1) && (Length:C16($title)>0)
+		
+		SET WINDOW TITLE:C213($title; This:C1470.windowRef)
+		
+	End if 
+	
+	DIALOG:C40("DECLARATION"; This:C1470)
+	CLOSE WINDOW:C154(This:C1470.windowRef)
+	
+	return Bool:C1537(OK)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Human-readable name of the currently parsed function/constructor
+Function _scopeName() : Text
+	
+	var $fn : Object:=This:C1470._output.query("type = :1 OR type = :2"; "Function"; "Class constructor").first()
+	
+	If ($fn=Null:C1517)
+		
+		return ""
+		
+	End if 
+	
+	If ($fn.type="Class constructor")
+		
+		return "Class constructor"
+		
+	End if 
+	
+	return "Function "+String:C10($fn.function)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// True when the scope needs user input: a declaration is missing (a used local
+	// that was never declared) or a variable is unused (declared but never referenced).
+Function _needsDialog() : Boolean
+	
+	// Missing declaration: a used local variable that was not declared in the source
+	If (This:C1470.variables.query("parameter=null & count>0 & inDeclaration=null & assigned=null & array=null").length>0)
+		
+		return True:C214
+		
+	End if 
+	
+	// Unused variable (the function return is not expected to be referenced)
+	If (This:C1470.variables.query("count=0 & (order#0 | order=null)").length>0)
+		
+		return True:C214
+		
+	End if 
+	
+	return False:C215
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Informative message shown when a scope/class needed no user input
+Function _verifiedMessage() : Text
+	
+	return Localized string:C991("allDeclarationsVerified")+"\r"\
+		+Localized string:C991("allVariablesDeclared")+"\r"\
+		+Localized string:C991("noUnusedVariable")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split() : cs:C1710.declaration
@@ -326,6 +538,20 @@ declaration macro must omit the parameters of a formula
 								Else 
 									
 									var $var : Object
+									
+									// A named parameter referenced inside a declaration line must be
+									// credited to the existing parameter, not turned into a phantom
+									// local — otherwise the real parameter keeps count 0 and is
+									// reported as unused.
+									$var:=This:C1470.parameters.query("value=:1"; $t).first()
+									
+									If ($var#Null:C1517)
+										
+										$var.count:=$var.count+1
+										continue
+										
+									End if 
+									
 									$var:=This:C1470.locales.query("value=:1"; $t).first()
 									
 									If ($var=Null:C1517)
@@ -354,6 +580,9 @@ declaration macro must omit the parameters of a formula
 										
 									Else 
 										
+										// Only increment: a token seen here may just be used in the
+										// initializer (RHS) of another var, so it must NOT be flagged
+										// as declared.
 										$var.count+=1
 										
 									End if 
@@ -1019,125 +1248,56 @@ Function _apply()
 	
 	$method:=This:C1470._addNewLine($method)
 	
-	// MARK:-LOCAL VARIABLES WITH SIMPLE TYPE
-	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class=null & assigned=null")
+	// MARK:-LOCAL VARIABLES — declared close to their first use, not hoisted
+	// $inline maps an _output line index (as text) to the declarations that must
+	// be inserted right before that line ; $orphans holds declarations whose use
+	// could not be located (kept at the top of the block, as a safety net).
+	var $t : Text
+	var $inline : Object:={}
+	var $orphans : Collection:=[]
 	
-	If ($c.length>0)
+	$c:=This:C1470.variables.query("(parameter=null & count>0 & assigned=null & array=null) or (array=true & count>0 & static=false)")
+	
+	var $local : Object
+	For each ($local; $c)
 		
-		var $type : Object
-		For each ($type; This:C1470.types.query("value!=null"))
+		var $declaration : Text:=This:C1470._buildDeclaration($local)
+		
+		If (Length:C16($declaration)=0)
 			
-			var $cc:=[]
+			continue
 			
-			For each ($o; $c.query("type=:1"; $type.value))
-				
-				If ($o.type=Is object:K8:27)
-					
-					// Is it a class?
-					If (This:C1470.classes.query("value=:1"; $o.value).first()#Null:C1517)
-						
-						// Will be processed below
-						$o.class:=This:C1470.classes.query("value=:1"; $o.value).first().class
-						
-					Else 
-						
-						$cc.push($o.value)
-						
-					End if 
-					
-				Else 
-					
-					$cc.push($o.value)
-					
-				End if 
-			End for each 
+		End if 
+		
+		var $at : Integer:=This:C1470._firstUseIndex($local)
+		
+		If ($at<0)
 			
-			If ($cc.length>0)
+			$orphans.push($declaration)
+			
+		Else 
+			
+			var $key : Text:=String:C10($at)
+			
+			If ($inline[$key]=Null:C1517)
 				
-				// Limit the number of variables per declaration's line
-				var $variablesNumberPerLine : Integer:=$options.numberOfVariablePerLine=Null:C1517 ? 10 : $options.numberOfVariablePerLine
+				$inline[$key]:=[]
 				
-				If ($type.value=Is variant:K8:33)
-					
-					If ($cc.length>$variablesNumberPerLine)
-						
-						For ($i; 1; $cc.length; $variablesNumberPerLine)
-							
-							$method+="var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+"\r"
-							$cc.remove(0; $variablesNumberPerLine)
-							
-						End for 
-					End if 
-					
-					If ($cc.length>0)
-						
-						$method+="var "+$cc.join("; ")+"\r"
-						
-					End if 
-					
-				Else 
-					
-					If ($cc.length>$variablesNumberPerLine)
-						
-						var $i : Integer
-						For ($i; 1; $cc.length; $variablesNumberPerLine)
-							
-							$method+="var "+$cc.slice(0; $variablesNumberPerLine).join("; ")+" :"+$type.name+"\r"
-							$cc.remove(0; $variablesNumberPerLine)
-							
-						End for 
-					End if 
-					
-					If ($cc.length>0)
-						
-						$method+="var "+$cc.join("; ")+" :"+$type.name+"\r"
-						
-					End if 
-					
-				End if 
 			End if 
-		End for each 
-	End if 
+			
+			$inline[$key].push($declaration)
+			
+		End if 
+	End for each 
 	
-	// MARK:-LOCAL VARIABLES LINKED TO A CLASSE
-	$c:=This:C1470.variables.query("parameter=null & array=null & count>0 & class!=null & assigned=null")
-	
-	If ($c.length>0)
+	// Declarations without a located use stay at the top of the block
+	If ($orphans.length>0)
 		
-		var $t : Text
-		For each ($t; $c.distinct("class"))
-			
-			$method+="var "+$c.query("class=:1"; $t).extract("value").join("; ")+" :"+$t+"\r"
-			
-		End for each 
+		$method+=$orphans.join("\r")+"\r"
+		
 	End if 
 	
 	$method:=This:C1470._addNewLine($method)
-	
-	// MARK:-ARRAYS
-	$c:=This:C1470.variables.query("array=true & count>0 & static=false")
-	
-	If ($c.length>0)
-		
-		$method+=("\r"*Num:C11(Length:C16($method)>0))
-		
-		For each ($type; This:C1470.types.query("arrayCommand!=null"))
-			
-			For each ($o; $c.query("type=:1"; $type.value))
-				
-				If ($o.dimension#Null:C1517)
-					
-					$method+=Parse formula:C1576("4d:C"+String:C10($type.arrayCommand))\
-						+"("+$o.value+(";0"*$o.dimension)+")\r"
-					
-				End if 
-			End for each 
-		End for each 
-		
-		// Remove the last carriage return
-		$method:=Delete string:C232($method; Length:C16($method); 1)
-		
-	End if 
 	
 	If (Length:C16($method)>0)
 		
@@ -1156,87 +1316,134 @@ Function _apply()
 		
 	Else 
 		
-		// Look for the first empty or declaration line
-		var $buffer : Text
-		For each ($o; This:C1470._output)
+		If (Match regex:C1019("(?m-si)[^\r]"; $method; 1))
 			
-			$t:=String:C10($o.type)
-			var $length:=Length:C16($method)
-			
-			Case of 
-					
-					// ___________________
-				: ($t="comment")
-					
-					$buffer+=$o.code+"\r"
-					var $l:=Length:C16($buffer)
-					$o.skip:=True:C214
-					
-					// ___________________
-				: ($t="empty")
-					
-					$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
-					
-					break
-					
-					// ___________________
-				Else 
-					
-					If ($l<=0)
+			// Parameter declarations to hoist: place them after the leading comments
+			// and set the caret there.
+			var $buffer : Text
+			For each ($o; This:C1470._output)
+				
+				$t:=String:C10($o.type)
+				var $length:=Length:C16($method)
+				
+				Case of 
 						
-						// Insert before
-						$method+=kCaret
+						// ___________________
+					: ($t="comment")
 						
-					Else 
+						$buffer+=$o.code+"\r"
+						var $l:=Length:C16($buffer)
+						$o.skip:=True:C214
+						
+						// ___________________
+					: ($t="empty")
 						
 						$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
 						
-					End if 
-					
-					break
-					
-					// ___________________
-			End case 
-		End for each 
-		
-		$method:=This:C1470._addNewLine($method)
+						break
+						
+						// ___________________
+					Else 
+						
+						If ($l<=0)
+							
+							// Insert before
+							$method+=kCaret
+							
+						Else 
+							
+							$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
+							
+						End if 
+						
+						break
+						
+						// ___________________
+				End case 
+			End for each 
+			
+			$method:=This:C1470._addNewLine($method)
+			
+		Else 
+			
+			// Nothing to hoist (all locals are placed near their use): don't add
+			// blank lines nor a caret at the top of the method.
+			$method:=""
+			
+		End if 
 		
 	End if 
 	
-	// Restore the code
-	For each ($o; This:C1470._output)
+	// Restore the code, injecting each variable's declaration before its first use.
+	// $removedDeclSeen/$codeSeen delimit the leading declaration zone: blank lines
+	// that fall inside it (between the first hoisted-out declaration and the first
+	// real code line) are dropped so no hole is left behind. Blanks before that
+	// zone or after real code are preserved.
+	var $index : Integer
+	var $removedDeclSeen : Boolean:=False:C215
+	var $codeSeen : Boolean:=False:C215
+	For ($index; 0; This:C1470._output.length-1; 1)
 		
+		$o:=This:C1470._output[$index]
 		$t:=String:C10($o.type)
+		
+		var $decls : Collection:=$inline[String:C10($index)]
+		
+		If ($decls#Null:C1517)
+			
+			$method+=$decls.join("\r")+"\r"
+			
+		End if 
 		
 		Case of 
 				
 				//___________________
 			: (Bool:C1537($o.skip))
 				
-				// <NOTHING MORE TO DO>
+				// A removed declaration opens the leading declaration zone
+				If ($t="declaration")
+					
+					$removedDeclSeen:=True:C214
+					
+				End if 
 				
 				//___________________
 			: ($t="empty")
 				
-				If ($method="@\r\r")\
-					 | ($method=("@"+kCaret+"\r"))
-					
-					// Skip
-					
-				Else 
-					
-					$method+="\r"
-					
-				End if 
+				Case of 
+						
+						//········································
+					: ($removedDeclSeen && (Not:C34($codeSeen)))
+						
+						// Blank inside the emptied declaration zone → drop it
+						
+						//········································
+					: ($method="@\r\r") || ($method=("@"+kCaret+"\r"))
+						
+						// Skip (avoid a duplicate blank)
+						
+						//········································
+					Else 
+						
+						$method+="\r"
+						
+						//········································
+				End case 
 				
 				//________________________________________
 			Else 
+				
+				If ($t#"comment")
+					
+					$codeSeen:=True:C214
+					
+				End if 
 				
 				$method+=$o.code+"\r"
 				
 				//________________________________________
 		End case 
-	End for each 
+	End for 
 	
 	// Remove the last carriage return
 	$method:=Delete string:C232($method; Length:C16($method); 1)
@@ -1249,6 +1456,119 @@ Function _apply()
 	End if 
 	
 	This:C1470.method:=$method
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Builds the declaration statement for a single local variable / array
+Function _buildDeclaration($var : Object) : Text
+	
+	// MARK:-Array
+	If (Bool:C1537($var.array)) && (Not:C34(Bool:C1537($var.static)))
+		
+		var $arrayType : Object:=This:C1470.types[Num:C11($var.type)]
+		
+		If ($arrayType#Null:C1517) && ($arrayType.arrayCommand#Null:C1517) && ($var.dimension#Null:C1517)
+			
+			return Parse formula:C1576("4d:C"+String:C10($arrayType.arrayCommand))+"("+$var.value+(";0"*$var.dimension)+")"
+			
+		End if 
+		
+		return ""
+		
+	End if 
+	
+	// MARK:-Class-typed variable
+	var $class : Text:=String:C10($var.class)
+	
+	If (Length:C16($class)=0) && ($var.type=Is object:K8:27)
+		
+		var $known : Object:=This:C1470.classes.query("value=:1"; $var.value).first()
+		
+		If ($known#Null:C1517)
+			
+			$class:=String:C10($known.class)
+			
+		End if 
+	End if 
+	
+	If (Length:C16($class)>0)
+		
+		return "var "+$var.value+" :"+$class
+		
+	End if 
+	
+	// MARK:-Scalar type (only when the type is known)
+	var $type : Object:=This:C1470.types[Num:C11($var.type)]
+	
+	If ($type=Null:C1517) || ($type.value=Null:C1517)
+		
+		return ""
+		
+	End if 
+	
+	If ($type.value=Is variant:K8:33)
+		
+		return "var "+$var.value
+		
+	End if 
+	
+	return "var "+$var.value+" :"+$type.name
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Index in _output of the first genuine use of the variable (-1 if none found)
+Function _firstUseIndex($var : Object) : Integer
+	
+	var $pattern : Text:="(?m-si)(?<!\\.)\\"+$var.value+"(?!\\w)"
+	var $index : Integer
+	
+	For ($index; 0; This:C1470._output.length-1; 1)
+		
+		var $o : Object:=This:C1470._output[$index]
+		
+		If (Bool:C1537($o.skip))
+			
+			continue
+			
+		End if 
+		
+		var $type : Text:=String:C10($o.type)
+		
+		If ($type="empty") || ($type="comment")
+			
+			continue
+			
+		End if 
+		
+		If (Match regex:C1019($pattern; String:C10($o.code); 1))
+			
+			// Walk back to the first physical line of a \-continued statement so the
+			// declaration is never inserted in the middle of a multi-line instruction.
+			While ($index>0)
+				
+				var $previous : Object:=This:C1470._output[$index-1]
+				var $previousType : Text:=String:C10($previous.type)
+				
+				If ($previousType="empty") || ($previousType="comment")
+					
+					break
+					
+				End if 
+				
+				If (Not:C34(This:C1470.isMultiline(String:C10($previous.code))))
+					
+					break
+					
+				End if 
+				
+				$index:=$index-1
+				
+			End while 
+			
+			return $index
+			
+		End if 
+	End for 
+	
+	return -1
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _addNewLine($text : Text)->$result : Text

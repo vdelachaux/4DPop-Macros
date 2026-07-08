@@ -310,6 +310,18 @@ No longer available, possibly because it has been integrated into 4D</target>
           <source>No local variable or parameter to declare!</source>
           <target>No local variable or parameter to declare!</target>
         </trans-unit>
+        <trans-unit id="msg_allDeclarationsVerified" resname="allDeclarationsVerified">
+          <source>All declarations have been verified.</source>
+          <target>All declarations have been verified.</target>
+        </trans-unit>
+        <trans-unit id="msg_allVariablesDeclared" resname="allVariablesDeclared">
+          <source>All variables are declared.</source>
+          <target>All variables are declared.</target>
+        </trans-unit>
+        <trans-unit id="msg_noUnusedVariable" resname="noUnusedVariable">
+          <source>No variable is unused.</source>
+          <target>No variable is unused.</target>
+        </trans-unit>
         <trans-unit id="msg_notAConstant" resname="notAConstant">
           <source>does not seem to be a constant!</source>
           <target>does not seem to be a constant!</target>
