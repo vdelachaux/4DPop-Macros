@@ -18,6 +18,12 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Regex externalisées — `declaration` (registre uniquement)** : le registre
+  `_patterns` du constructeur (détection de type des `var`, gabarit `{type}`) migré
+  vers `Resources/regex/declaration.txt` (`_dx` : `varType`/`classType`/
+  `varWithAssignment`). **Décision : les ~48 regex inline des méthodes restent
+  inline** (dupliquées, concaténées multi-lignes, échappements piégeux à préserver ;
+  trop risqué sans compilateur). Ne pas chercher à « finir ».
 - **Regex externalisées — `beautifier` (complet)** : registre du constructeur
   ET regex inline des méthodes (`before()` `{C_}`/`{op}`, `splitTests`,
   `_controls.caseOfItem`, `maybeFormatComment`, `_splitLiterals`…) migrés vers
