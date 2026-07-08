@@ -110,7 +110,7 @@ Case of
 		// ______________________________________________________
 	: ($action="method-attributes")  // #v13 Set method attributes
 		
-		cs:C1710.method.new().attributes()
+		cs:C1710.method.new().attributes($text)
 		
 		// ______________________________________________________
 	: ($action="3D_button")  // #v12 Rapid 3D button génération

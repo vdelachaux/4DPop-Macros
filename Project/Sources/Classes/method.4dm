@@ -4,8 +4,12 @@ Class extends macro
 //  • create()     — extract the current selection into a new project method
 //  • attributes() — toggle the attributes of the selected method
 
-// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-// Extract the highlighted selection into a new project method and replace it with the method call
+Class constructor()
+	
+	Super:C1705()
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Extract the highlighted selection into a new project method and replace it with the method call
 Function create()
 	
 	ARRAY TEXT:C222($names; 0x0000)
@@ -46,9 +50,13 @@ Function create()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// Display a pop up menu to toggle the attributes of the selected method
-Function attributes()
+Function attributes($target : Text)
 	
-	var $target : Text:=This:C1470.highlighted
+	If (Length:C16($target)=0)
+		
+		$target:=Current method path:C1201
+		
+	End if 
 	
 	If (Length:C16($target)=0)
 		

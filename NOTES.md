@@ -49,20 +49,27 @@ propriétés `Form` ou des objets locaux.
 - **`METHODS` → classe `method`** (`Classes/method.4dm`, `extends macro`) : le
   dispatcher project method `METHODS` est supprimé. Ses 2 entry points
   deviennent des fonctions : `create()` (ex-`"new"` : extraction de la sélection
-  dans une nouvelle méthode) et `attributes()` (ex-`"attributes"` : pop up menu
-  des attributs, cible = `This.highlighted`). Appels dans `_4DPop_MACROS.4dm` :
-  `cs.method.new().create()` / `cs.method.new().attributes()`. Le garde-fou
+  dans une nouvelle méthode) et `attributes($target)` (ex-`"attributes"` : pop up
+  menu des attributs). Appels dans `_4DPop_MACROS.4dm` :
+  `cs.method.new().create()` / `cs.method.new().attributes($text)`. Le garde-fou
   « Not yet available in project mode » de `method-attributes` est SUPPRIMÉ
   (activé en mode projet). Décl. interprocess `METHODS` retirée de
   `COMPILER_component.4dm` ; `METHODS` retiré de `folders.json` (+ `method`
   ajouté aux classes du namespace).
+  ⚠️ RÈGLE 4D : une classe qui `extends` DOIT avoir un `Class constructor()`
+  dont la 1ʳᵉ ligne est `Super()`, sinon les initialiseurs de propriété du
+  parent ne s'exécutent pas (`This.title` Null → crash `Match regex` « argument
+  alphanumérique attendu »). `method` a donc son constructeur `Super()`.
 - **Macro `method-attributes` exposée** : le point d'entrée existait dans le
   dispatcher mais aucune macro ne l'appelait. Ajout de l'entrée
   `_4DPop_MACROS("method-attributes")` dans les 3 XML sources
   (`Macros v2/4DPop_Macros.xml`, `Resources/4DPop_Macros.xml`,
   `Resources/fr.lproj/4DPop_Macros.xml`), après « New method » / « Nouvelle
   méthode ». Noms : « Method attributes… » / « Attributs de la méthode… »,
-  `type_ahead_text="_attributes"`.
+  `type_ahead_text="_attributes"`. La macro passe le chemin de la méthode
+  courante comme 2ᵉ param via le tag `<method_path/>` (même motif que la macro
+  « Declarations ») → devient la `$target` de `attributes()` (fallback
+  `Current method path` si vide).
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
