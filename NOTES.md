@@ -125,6 +125,10 @@ propriétés `Form` ou des objets locaux.
   appel) ; `set` met à jour `This.data` (via `Use`) + le fichier. Le chargement
   des `declarations` (mort) est supprimé. `Storage.macros` (pour `lastUsed` du
   dispatcher) est désormais créé dans `Init`, pas par `preferences`.
+- **`_o_win_title` → `macro._windowTitle`** : le helper « titre de fenêtre éditeur
+  → nom cible » (split sur `:`, strip du `*` non-sauvé) devient une fonction privée
+  de la classe `macro` (seul appelant = `macro` lui-même, pour `<method_name/>`).
+  Méthode supprimée, décl. retirée de `COMPILER_component` + `folders.json`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

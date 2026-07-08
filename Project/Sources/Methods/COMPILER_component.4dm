@@ -28,8 +28,4 @@ If (False:C215)
 	// Win_NOT_UNDER_TOOLBAR
 	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
 	
-	// Win_title
-	C_TEXT:C284(_o_win_title; $0)
-	C_LONGINT:C283(_o_win_title; $1)
-	
 End if 

@@ -93,6 +93,21 @@ Function setHighlightedText($text : Text)
 	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $text)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Returns the target (form/method name) from an editor window's title
+Function _windowTitle($window : Integer) : Text
+	
+	var $ref : Integer:=Count parameters:C259>=1 ? $window : Frontmost window:C447
+	
+	var $c : Collection:=Split string:C1554(Get window title:C450($ref); ":"; sk trim spaces:K86:2)
+	var $title : Text:=$c[Num:C11($c.length>1)]
+	
+	// PC bug: the title is suffixed with '*' when the method is modified and not saved
+	$title:=Replace string:C233($title; " *"; "")
+	$title:=Replace string:C233($title; "*"; "")
+	
+	return $title
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function paste($text : Text; $useSelection : Boolean)
 	
 	$useSelection:=Count parameters:C259>=2 ? $useSelection : This:C1470.withSelection
@@ -811,7 +826,7 @@ Function edit_comment()
 	$comments:=Replace string:C233($comments; "<version_4D/>"; Application version:C493(*))
 	$comments:=Replace string:C233($comments; "<database_name/>"; Structure file:C489)
 	
-	var $title : Text:=_o_win_title(Frontmost window:C447)
+	var $title : Text:=This:C1470._windowTitle(Frontmost window:C447)
 	$comments:=Replace string:C233($comments; "<method_name/>"; $title)
 	
 	$title:=Get window title:C450(Next window:C448(Frontmost window:C447))
