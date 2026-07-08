@@ -117,6 +117,14 @@ propriétés `Form` ou des objets locaux.
   numérique désormais inline `Match regex("^\d+$")`). Clés spéciales `@_file/@_folder/
   @_path` de `Get_Value` abandonnées (jamais utilisées). Décl. retirées de
   `COMPILER_component`, entrées retirées de `folders.json`.
+- **`preferences` : abandon total de `Storage`** — le singleton porte l'état en
+  mémoire (`property data`, un `New shared object`). Constat : `Storage.macros.`
+  `preferences` et `Storage.macros.declarations` étaient écrits mais **relus par
+  personne** (la classe `declaration` lit son propre JSON ; `settings` relit le
+  fichier). `get($key)` renvoie `This.data[$key]` (in-memory, plus de DOM par
+  appel) ; `set` met à jour `This.data` (via `Use`) + le fichier. Le chargement
+  des `declarations` (mort) est supprimé. `Storage.macros` (pour `lastUsed` du
+  dispatcher) est désormais créé dans `Init`, pas par `preferences`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

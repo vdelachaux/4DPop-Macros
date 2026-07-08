@@ -1,25 +1,16 @@
 property file : 4D:C1709.File
 property loaded : Boolean:=False:C215
+property data : Object
 
-// Preferences accessor (modern rewrite of the legacy _o_Preferences method).
-// Reads/writes the base64-encoded values in <M_4DPop><preferences> of the
-// "4DPop Preferences.xml" file and mirrors them into Storage.macros.
+// Preferences accessor (shared singleton — cs.preferences.me).
+// Owns the preferences in memory (This.data), reads/writes the base64-encoded
+// values in <M_4DPop><preferences> of the "4DPop Preferences.xml" file.
 
 shared singleton Class constructor()
 	
+	This:C1470.data:=New shared object:C1526
 	This:C1470.file:=This:C1470._resolveFile()
-	
-	If (Storage:C1525.macros=Null:C1517)
-		
-		Use (Storage:C1525)
-			
-			Storage:C1525.macros:=New shared object:C1526("lastUsed"; "")
-			
-		End use 
-		
-	End if 
-	
-	This:C1470.loaded:=This:C1470._populate()
+	This:C1470.loaded:=This:C1470._load()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// Resolves the settings file, restoring it from an old file or the template if needed
@@ -79,8 +70,8 @@ Function _resolveFile() : 4D:C1709.File
 	return $settingFile
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// (Re)reads the file into Storage.macros.preferences + declarations; returns the success
-Function _populate() : Boolean
+	// Loads the file into This.data; returns the success
+Function _load() : Boolean
 	
 	If (Not:C34(This:C1470.file.exists))
 		
@@ -90,22 +81,6 @@ Function _populate() : Boolean
 		
 	End if 
 	
-	Use (Storage:C1525.macros)
-		
-		If (Storage:C1525.macros.preferences=Null:C1517)
-			
-			Storage:C1525.macros.preferences:=New shared object:C1526
-			
-		End if 
-		
-	End use 
-	
-	Use (Storage:C1525.macros.preferences)
-		
-		Storage:C1525.macros.preferences.platformPath:=This:C1470.file.platformPath
-		
-	End use 
-	
 	var $o : Object:=cs:C1710.xml.me.fileToObject(This:C1470.file.platformPath)
 	
 	If (Not:C34($o.success))
@@ -114,88 +89,45 @@ Function _populate() : Boolean
 		
 	End if 
 	
-	var $settings : Object:=$o.value.M_4DPop
-	var $key : Text
+	var $preferences : Object:=$o.value.M_4DPop.preferences
 	
-	Use (Storage:C1525.macros.preferences)
+	If ($preferences#Null:C1517)
 		
-		For each ($key; $settings.preferences)
+		var $key : Text
+		
+		Use (This:C1470.data)
 			
-			If ($settings.preferences[$key].$#Null:C1517)
+			For each ($key; $preferences)
 				
-				Storage:C1525.macros.preferences[$key]:=This:C1470._decode($settings.preferences[$key].$)
-				
-			End if 
-			
-		End for each 
-		
-	End use 
-	
-	Use (Storage:C1525.macros)
-		
-		Storage:C1525.macros.declarations:=New shared object:C1526
-		
-	End use 
-	
-	Use (Storage:C1525.macros.declarations)
-		
-		Storage:C1525.macros.declarations.version:=$settings.declarations.version
-		Storage:C1525.macros.declarations.declaration:=New shared collection:C1527
-		
-		var $declaration : Object
-		
-		For each ($declaration; $settings.declarations.declaration)
-			
-			var $shared : Object:=New shared object:C1526
-			
-			Use ($shared)
-				
-				For each ($key; $declaration)
+				If ($preferences[$key].$#Null:C1517)
 					
-					$shared[$key]:=$declaration[$key]
+					This:C1470.data[$key]:=This:C1470._decode($preferences[$key].$)
 					
-				End for each 
+				End if 
 				
-			End use 
+			End for each 
 			
-			Storage:C1525.macros.declarations.declaration.push($shared)
-			
-		End for each 
+		End use 
 		
-	End use 
+	End if 
 	
 	return True:C214
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// Returns the value of a preference (integer-looking text is coerced to a number), or Null
+	// Returns the in-memory value of a preference (Null if not set)
 Function get($key : Text) : Variant
 	
-	var $result : Variant:=Null:C1517
-	var $root : Text:=DOM Parse XML source:C719(String:C10(This:C1470.file.platformPath))
-	
-	If (OK#1)
-		
-		return $result
-		
-	End if 
-	
-	var $node : Text:=DOM Find XML element:C864($root; "/M_4DPop/preferences/"+$key)
-	
-	If (OK=1)
-		
-		var $encoded : Text
-		DOM GET XML ELEMENT VALUE:C731($node; $encoded)
-		$result:=This:C1470._decode($encoded)
-		
-	End if 
-	
-	DOM CLOSE XML:C722($root)
-	
-	return $result
+	return This:C1470.data[$key]
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// Sets (creating it if needed) a preference value, then reloads Storage
+	// Sets a preference: updates This.data and persists it (creating the node if needed) to the file
 Function set($key : Text; $value : Variant)
+	
+	Use (This:C1470.data)
+		
+		This:C1470.data[$key]:=$value
+		
+	End use 
 	
 	var $root : Text:=DOM Parse XML source:C719(This:C1470.file.platformPath)
 	
@@ -225,8 +157,6 @@ Function set($key : Text; $value : Variant)
 	End if 
 	
 	DOM CLOSE XML:C722($root)
-	
-	This:C1470._populate()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// Base64-decodes a stored value and coerces integer-looking text to a number

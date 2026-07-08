@@ -35,6 +35,16 @@ If (Count parameters:C259=0)\
 	
 	INSTALL_LOCALIZED_MACROS
 	
+	If (Storage:C1525.macros=Null:C1517)  // Holds the dispatcher's lastUsed action
+		
+		Use (Storage:C1525)
+			
+			Storage:C1525.macros:=New shared object:C1526("lastUsed"; "")
+			
+		End use 
+		
+	End if 
+	
 	If (cs:C1710.preferences.me.loaded)
 		
 		If (Install_regex)
