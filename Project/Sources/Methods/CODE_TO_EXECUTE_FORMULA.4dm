@@ -11,15 +11,13 @@
 // ----------------------------------------------------
 var $Lon_CommandParameters; $Lon_Error; $Lon_i; $Lon_Lignes; $Lon_Position; $Lon_x : Integer
 var $output; $Txt_Code; $Txt_Command : Text
+var $lines; $controlFlow : Collection
 
 ARRAY TEXT:C222($tTxt_Commands; 0)
-ARRAY TEXT:C222($tTxt_controlFlow; 0)
-
-ARRAY TEXT:C222($_lines; 0)
 ARRAY TEXT:C222($_buffer; 0)
 
 GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $output)
-COLLECTION TO ARRAY:C1562(Split string:C1554($output; "\r"; sk trim spaces:K86:2); $_lines)
+$lines:=Split string:C1554($output; "\r"; sk trim spaces:K86:2)
 $output:=""
 
 // Récupérer les noms de commande localisés
@@ -39,13 +37,15 @@ Repeat
 	End if 
 Until (OK=0)
 
-COLLECTION TO ARRAY:C1562(cs:C1710.controlFlow.me.keywords; $tTxt_controlFlow)
+$controlFlow:=cs:C1710.controlFlow.me.keywords
 
-For ($Lon_Lignes; 1; Size of array:C274($_lines); 1)
+$Lon_Lignes:=0
+
+For each ($Txt_Code; $lines)
+	
+	$Lon_Lignes+=1
 	
 	ARRAY TEXT:C222($_buffer; 0)
-	
-	$Txt_Code:=$_lines{$Lon_Lignes}
 	
 	$Lon_Position:=Position:C15(":="; $Txt_Code)
 	
@@ -138,7 +138,7 @@ For ($Lon_Lignes; 1; Size of array:C274($_lines); 1)
 			$output+=$Txt_Command
 			
 			// ______________________________________________________
-		: (Find in array:C230($tTxt_controlFlow; $Txt_Command)>0)  // Structure conditionelle
+		: ($controlFlow.indexOf($Txt_Command)>=0)  // Structure conditionelle
 			
 			If ($Lon_Lignes>1)
 				
@@ -262,6 +262,6 @@ For ($Lon_Lignes; 1; Size of array:C274($_lines); 1)
 			$output+=")"
 			//________________________________________________________________________________
 	End case 
-End for 
+End for each 
 
 SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $output)

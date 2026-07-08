@@ -157,6 +157,12 @@ propriétés `Form` ou des objets locaux.
   interprocess/process utilisés UNIQUEMENT comme buffers de travail dans
   `CODE_TO_EXECUTE_FORMULA`. Renommés en `$_lines` / `$_buffer` (locaux). Retirés
   de `COMPILER_component` (ne reste que `var v1;v2;v3;v4`).
+- **`CODE_TO_EXECUTE_FORMULA` : passage aux collections** — `$_lines` (les lignes)
+  et `$tTxt_controlFlow` (les mots-clés) deviennent des collections (`$lines`,
+  `$controlFlow`) au lieu de `COLLECTION TO ARRAY` + travail sur tableau : boucle
+  `For each ($Txt_Code; $lines)` (avec compteur `$Lon_Lignes`), test
+  `$controlFlow.indexOf($Txt_Command)>=0`. `$_buffer` et `$tTxt_Commands` restent
+  des tableaux (ce dernier a une logique index=numéro-de-commande à préserver).
 - **`macro._comment` modernisée + `v1..v4` supprimés + `COMPILER_component`
   supprimé** : `_comment()` utilisait un hack `Formula from string("4D:C1810(v1;
   v2; v3; v4)")` (appel de la commande n°1810 par numéro) pour retrouver la ligne
