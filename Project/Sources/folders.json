@@ -60,6 +60,7 @@
 			"log",
 			"macro",
 			"method",
+			"patterns",
 			"preferences",
 			"settings",
 			"specialPaste",
@@ -77,7 +78,7 @@
 			"win_NOT_UNDER_TOOLBAR"
 		]
 	},
-	"4️⃣ 4DPop": {
+	"4️⃣DPop": {
 		"methods": [
 			"_4DPopMacros",
 			"options"

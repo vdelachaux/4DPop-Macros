@@ -1,0 +1,31 @@
+# 4DPop Macros — regex patterns for the `macro` class.
+# Format:  <key><TAB><pattern>   (raw PCRE, NO 4D escaping — write \d, not \\d)
+# Blank lines and lines starting with # are ignored.
+# Loaded by the cs.patterns shared singleton (group = file name without extension).
+
+# --- macro.Class constructor: split the code-editor window title ---
+titleParts	(?m-si)^([^:]*\s*:\s)([[:ascii:]]*)(\.[[:ascii:]]*)?(?:\s*\*)?$
+
+# --- line predicates ---
+lineContinuation	(?mi-s).*?\\$
+numeric	(?mi-s)^(?:\+|-)?\d*?(?:(?:\.|,)\d*?)??
+classConstructor	(?m-si)^(singleton\s|shared\s)??(singleton\s|shared\s)??Class constructor
+functionDeclaration	(?m-si)^(local\s|shared\s)??(local\s|shared\s)??Function(.*?)\((.*?)\)
+
+# --- comment predicates ---
+blockComment	(?mi-s)^/\*.*\*/$
+markerComment	(?mi-s)^//\s*(?:mark|todo|fixme):
+markerSection	(?mi-s)^//\s*(?:mark|todo|fixme):-
+separatorLine	(?mi-s)^//\s*(.)(?:\1|\s){10,}
+warningDirective	(?mi-s)^//%[A-Z][+-](?:\d{3}\.\d)?$
+openingWarning	(?m-si)^//%[A-Z]-$
+closingWarning	(?m-si)^//%[A-Z]\+$
+
+# --- object literal conversion (objectLiteral) ---
+newObjectCall	(?ms-i)New object\((.*?)\)
+objectKeyValue	(?msi)"(?=[^0-9])([^-\s"]+)"\s*;\s*([^;}]+)
+
+# --- token / comment extraction ---
+quotedString	(?mi-s)^"[^"]*"
+blockCommentCapture	(?si-m)/\*(.*)\*/\s*
+lineCommentCapture	(?mi-s)//\s*(.*)$

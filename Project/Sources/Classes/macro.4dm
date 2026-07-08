@@ -26,13 +26,16 @@ property isProject : Boolean:=Bool:C1537(Get database parameter:C643(Is host dat
 // MARK: Delegate
 property rgx : cs:C1710.rgx.regex:=cs:C1710.rgx.regex.new()
 
+// MARK: Regex patterns (raw, loaded from /RESOURCES/regex/macro.txt)
+property _rx : Object:=cs:C1710.patterns.me.group("macro")
+
 Class constructor()
 	
 	ARRAY LONGINT:C221($len; 0)
 	ARRAY LONGINT:C221($pos; 0)
 	
 	// Identify the name & the type of the current method
-	If (Match regex:C1019("(?m-si)^([^:]*\\s*:\\s)([[:ascii:]]*)(\\.[[:ascii:]]*)?(?:\\s*\\*)?$"; This:C1470.title; 1; $pos; $len))
+	If (Match regex:C1019(This:C1470._rx.titleParts; This:C1470.title; 1; $pos; $len))
 		
 		var $ƒ:=Formula from string:C1601(Parse formula:C1576("Get localized string:C1578($1)"))
 		var $t:=Substring:C12(This:C1470.title; $pos{1}; $len{1})
@@ -184,7 +187,7 @@ Function isNotEmpty( ...  : Text) : Boolean
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isMultiline($line) : Boolean
 	
-	return Match regex:C1019("(?mi-s).*?\\\\$"; $line; 1; *)
+	return Match regex:C1019(This:C1470._rx.lineContinuation; $line; 1; *)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotMultiline($line) : Boolean
@@ -208,8 +211,8 @@ Function isReservedComment($line : Text) : Boolean
 	return ($line=(kCommentMark+"}"))\
 		 || ($line=(kCommentMark+"]"))\
 		 || ($line=(kCommentMark+")"))\
-		 || (Match regex:C1019("(?mi-s)^//%[A-Z][+-](?:\\d{3}\\.\\d)?$"; $line; 1; *))\
-		 || (Match regex:C1019("(?mi-s)^/\\*.*\\*/$"; $line; 1; *))
+		 || (Match regex:C1019(This:C1470._rx.warningDirective; $line; 1; *))\
+		 || (Match regex:C1019(This:C1470._rx.blockComment; $line; 1; *))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotReservedComment($line : Text) : Boolean
@@ -221,7 +224,7 @@ Function isMarkerComment($line : Text) : Boolean
 	
 	If (This:C1470.isComment($line))
 		
-		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):"; $line; 1; *)
+		return Match regex:C1019(This:C1470._rx.markerComment; $line; 1; *)
 		
 	End if 
 	
@@ -235,8 +238,8 @@ Function isSeparatorLineComment($line : Text) : Boolean
 	
 	If (This:C1470.isComment($line))
 		
-		return Match regex:C1019("(?mi-s)^//\\s*(?:mark|todo|fixme):-"; $line; 1; *)\
-			 || Match regex:C1019("(?mi-s)^//\\s*(.)(?:\\1|\\s){10,}"; $line; 1; *)
+		return Match regex:C1019(This:C1470._rx.markerSection; $line; 1; *)\
+			 || Match regex:C1019(This:C1470._rx.separatorLine; $line; 1; *)
 		
 	End if 
 	
@@ -251,7 +254,7 @@ Function isOpeningReservedComment($line : Text) : Boolean
 	return ($line=(kCommentMark+"}"))\
 		 || ($line=(kCommentMark+"]"))\
 		 || ($line=(kCommentMark+")"))\
-		 || (Match regex:C1019("(?m-si)^//%[A-Z]-$"; $line; 1; *))
+		 || (Match regex:C1019(This:C1470._rx.openingWarning; $line; 1; *))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotOpeningReservedComment($line : Text) : Boolean
@@ -264,7 +267,7 @@ Function isClosingReservedComment($line : Text) : Boolean
 	return ($line=(kCommentMark+"}"))\
 		 || ($line=(kCommentMark+"]"))\
 		 || ($line=(kCommentMark+")"))\
-		 || (Match regex:C1019("(?m-si)^//%[A-Z]\\+$"; $line; 1; *))
+		 || (Match regex:C1019(This:C1470._rx.closingWarning; $line; 1; *))
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isNotClosingReservedComment($line : Text) : Boolean
@@ -294,7 +297,7 @@ Function unusedCharacter($code : Text) : Text
 	
 Function isNumeric($in : Text) : Boolean
 	
-	return Match regex:C1019("(?mi-s)^(?:\\+|-)?\\d*?(?:(?:\\.|,)\\d*?)??"; $in; 1; *)
+	return Match regex:C1019(This:C1470._rx.numeric; $in; 1; *)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isDECLARE($in : Text) : Boolean
@@ -304,12 +307,12 @@ Function isDECLARE($in : Text) : Boolean
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isConstructor($in : Text) : Boolean
 	
-	return Match regex:C1019("(?m-si)^(singleton\\s|shared\\s)??(singleton\\s|shared\\s)??Class constructor"; $in; 1; *)
+	return Match regex:C1019(This:C1470._rx.classConstructor; $in; 1; *)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function isFunction($in : Text) : Boolean
 	
-	return Match regex:C1019("(?m-si)^(local\\s|shared\\s)??(local\\s|shared\\s)??Function(.*?)\\((.*?)\\)"; $in; 1; *)
+	return Match regex:C1019(This:C1470._rx.functionDeclaration; $in; 1; *)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function constantValue($in : Text)
@@ -403,10 +406,10 @@ Function PasteAndKeepTarget()
 Function objectLiteral()
 	
 	var $t : Text:=This:C1470.withSelection ? This:C1470.highlighted : This:C1470.method
-	var $rgx:=cs:C1710.rgx.regex.new($t; "(?ms-i)New object\\((.*?)\\)")
+	var $rgx:=cs:C1710.rgx.regex.new($t; This:C1470._rx.newObjectCall)
 	$t:=$rgx.substitute("{\\1}")
 	$rgx.setTarget($t)
-	$rgx.setPattern("(?msi)\"(?=[^0-9])([^-\\s\"]+)\"\\s*;\\s*([^;}]+)")
+	$rgx.setPattern(This:C1470._rx.objectKeyValue)
 	$t:=$rgx.substitute("\\1:\\2")
 	This:C1470.paste($t)
 	
@@ -490,7 +493,7 @@ Function ConvertToCallWithToken()
 		
 	End if 
 	
-	If (Match regex:C1019("(?mi-s)^\"[^\"]*\""; This:C1470.highlighted; 1; *))
+	If (Match regex:C1019(This:C1470._rx.quotedString; This:C1470.highlighted; 1; *))
 		
 		This:C1470.paste("Formula:C1597("+Replace string:C233(This:C1470.highlighted; "\""; "")+").source")
 		POST KEY:C465(3)
@@ -650,8 +653,8 @@ Function comment()
 		
 	End if 
 	
-	If (Match regex:C1019("(?si-m)/\\*(.*)\\*/\\s*"; This:C1470.highlighted; 1; $pos; $len))\
-		 || (Match regex:C1019("(?mi-s)//\\s*(.*)$"; This:C1470.highlighted; 1; $pos; $len))
+	If (Match regex:C1019(This:C1470._rx.blockCommentCapture; This:C1470.highlighted; 1; $pos; $len))\
+		 || (Match regex:C1019(This:C1470._rx.lineCommentCapture; This:C1470.highlighted; 1; $pos; $len))
 		
 		var $c : Collection
 		$c:=Split string:C1554(Substring:C12(This:C1470.highlighted; $pos{1}; $len{1}); "\r")

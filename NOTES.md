@@ -18,6 +18,14 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Regex externalisées (pilote sur `macro`)** : nouvelle classe `patterns`
+  (shared singleton, `cs.patterns.me`) qui charge les regex depuis
+  `/RESOURCES/regex/*.txt` (un fichier = un groupe ; lignes `clé<TAB>regex brute`,
+  **sans échappement 4D**). `macro` référence désormais `This._rx.<clé>`
+  (17 patterns migrés vers `Resources/regex/macro.txt`). Format texte choisi car
+  JSON exigerait encore `\\`. À étendre à `beautifier` (29) et `declaration` (54)
+  si le pilote convient — attention : ces classes ont des **gabarits**
+  (`{control}`, `{type}`…) → stocker le gabarit, garder la substitution en code.
 - **Localisation des messages** : tous les messages utilisateur littéraux
   (`ALERT`/`Request`) passés en `Localized string` avec 9 nouvelles clés XLIFF
   (en+fr, groupe `messages`) : `macroNeedsMethod`, `macroNeedsSelection`,
