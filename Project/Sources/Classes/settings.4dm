@@ -9,9 +9,27 @@ property beautifier : Collection
 
 Class constructor($page : Text)
 	
-	var $indx : Integer
-	
 	Super:C1705()
+	
+	ARRAY LONGINT:C221($windows; 0)
+	WINDOW LIST:C442($windows)
+	
+	var $title : Text:=Localized string:C991("preferences")
+	
+	var $i : Integer
+	For ($i; 1; Size of array:C274($windows); 1)
+		
+		If (Get window title:C450($windows{$i})=$title)
+			
+			// Already running -> move to foreground
+			var $bottom; $left; $right; $top : Integer
+			GET WINDOW RECT:C443($left; $top; $right; $bottom; $windows{$i})
+			SET WINDOW RECT:C444($left; $top; $right; $bottom; $windows{$i})
+			
+			return 
+			
+		End if 
+	End for 
 	
 	// Install menu bar to allow Copy - Paste
 	cs:C1710.ui.menuBar.new().defaultMinimalMenuBar().set()
@@ -23,7 +41,7 @@ Class constructor($page : Text)
 	
 	If (Count parameters:C259>=1)
 		
-		$indx:=This:C1470.pages.indexOf($page)
+		var $indx:=This:C1470.pages.indexOf($page)
 		
 		If ($indx#-1)
 			
@@ -32,9 +50,7 @@ Class constructor($page : Text)
 		End if 
 	End if 
 	
-	DIALOG:C40("SETTINGS"; This:C1470)
-	
-	CLOSE WINDOW:C154(This:C1470.windowRef)
+	DIALOG:C40("SETTINGS"; This:C1470; *)
 	
 	//==============================================================
 Function loadSettings()
@@ -101,14 +117,14 @@ Function loadSettings()
 	// Obsolete
 	OB REMOVE:C1226(This:C1470.settings.beautifier; "replaceDeprecatedCommand")
 	
-	This:C1470.beautifier:=New collection:C1472
+	This:C1470.beautifier:=[]
 	
 	For each ($key; This:C1470.settings.beautifier)
 		
-		This:C1470.beautifier.push(New object:C1471(\
-			"key"; $key; \
-			"label"; Localized string:C991($key); \
-			"on"; Bool:C1537(This:C1470.settings.beautifier[$key])))
+		This:C1470.beautifier.push({\
+			key: $key; \
+			label: Localized string:C991($key); \
+			on: Bool:C1537(This:C1470.settings.beautifier[$key])})
 		
 	End for each 
 	
@@ -129,9 +145,9 @@ Function convertXmlPrefToJson()->$settings : Object
 			
 			$xml:=$xml.value.M_4DPop
 			
-			$settings:=New object:C1471
+			$settings:={}
 			
-			$settings.version:=New object:C1471
+			$settings.version:={}
 			
 			For each ($key; $xml.version)
 				
@@ -139,11 +155,11 @@ Function convertXmlPrefToJson()->$settings : Object
 				
 			End for each 
 			
-			$settings.declaration:=New object:C1471(\
-				"version"; $xml.declarations.version; \
-				"rules"; $xml.declarations.declaration)
+			$settings.declaration:={\
+				version: $xml.declarations.version; \
+				rules: $xml.declarations.declaration}
 			
-			$c:=New collection:C1472
+			$c:=[]
 			$c[1]:=293
 			$c[2]:=604
 			$c[3]:=305
@@ -174,19 +190,19 @@ Function convertXmlPrefToJson()->$settings : Object
 			
 			$c[122]:=284
 			
-			$keywords:=New collection:C1472
-			$keywords.push(New object:C1471("no"; 283; "key"; "Integer"))
-			$keywords.push(New object:C1471("no"; 284; "key"; "Text"))
-			$keywords.push(New object:C1471("no"; 285; "key"; "Real"))
-			$keywords.push(New object:C1471("no"; 286; "key"; "Picture"))
-			$keywords.push(New object:C1471("no"; 301; "key"; "Pointer"))
-			$keywords.push(New object:C1471("no"; 305; "key"; "Boolean"))
-			$keywords.push(New object:C1471("no"; 306; "key"; "Time"))
-			$keywords.push(New object:C1471("no"; 307; "key"; "Date"))
-			$keywords.push(New object:C1471("no"; 604; "key"; "Blob"))
-			$keywords.push(New object:C1471("no"; 1216; "key"; "Object"))
-			$keywords.push(New object:C1471("no"; 1488; "key"; "Collection"))
-			$keywords.push(New object:C1471("no"; 1683; "key"; "Variant"))
+			$keywords:=[]
+			$keywords.push({no: 283; key: "Integer"})
+			$keywords.push({no: 284; key: "Text"})
+			$keywords.push({no: 285; key: "Real"})
+			$keywords.push({no: 286; key: "Picture"})
+			$keywords.push({no: 301; key: "Pointer"})
+			$keywords.push({no: 305; key: "Boolean"})
+			$keywords.push({no: 306; key: "Time"})
+			$keywords.push({no: 307; key: "Date"})
+			$keywords.push({no: 604; key: "Blob"})
+			$keywords.push({no: 1216; key: "Object"})
+			$keywords.push({no: 1488; key: "Collection"})
+			$keywords.push({no: 1683; key: "Variant"})
 			
 			For each ($o; $settings.declaration.rules)
 				
@@ -207,9 +223,9 @@ Function convertXmlPrefToJson()->$settings : Object
 			BASE64 DECODE:C896($x)
 			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			
-			$settings.declaration.options:=New object:C1471(\
-				"trimEmptyLines"; $l ?? 29; \
-				"generateComments"; $l ?? 31)
+			$settings.declaration.options:={\
+				trimEmptyLines: $l ?? 29; \
+				generateComments: $l ?? 31}
 			
 			If ($xml.preferences.numberOfVariablePerLine.$#Null:C1517)
 				
@@ -229,41 +245,41 @@ Function convertXmlPrefToJson()->$settings : Object
 				BASE64 DECODE:C896($x)
 				$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 				
-				$settings.beautifier:=New object:C1471(\
-					"replaceDeprecatedCommand"; $l ?? 15; \
-					"removeConsecutiveBlankLines"; $l ?? 10; \
-					"removeEmptyLinesAtTheBeginOfMethod"; $l ?? 1; \
-					"removeEmptyLinesAtTheEndOfMethod"; $l ?? 2; \
-					"lineBreakBeforeBranchingStructures"; $l ?? 3; \
-					"lineBreakBeforeLoopingStructures"; $l ?? 6; \
-					"lineBreakBeforeAndAfterSequentialStructuresIncluded"; $l ?? 4; \
-					"separationLineForCaseOf"; $l ?? 5; \
-					"aLineOfCommentsMustBePrecededByALineBreak"; $l ?? 11; \
-					"groupingClosureInstructions"; $l ?? 9; \
-					"addTheIncrementForTheLoops"; $l ?? 8; \
-					"splitTestLines"; $l ?? 12; \
-					"replaceComparisonsToAnEmptyStringByLengthTest"; $l ?? 13; \
-					"replaceIfElseEndIfByChoose"; $l ?? 14; \
-					"splitKeyValueLines"; $l ?? 7)
+				$settings.beautifier:={\
+					replaceDeprecatedCommand: $l ?? 15; \
+					removeConsecutiveBlankLines: $l ?? 10; \
+					removeEmptyLinesAtTheBeginOfMethod: $l ?? 1; \
+					removeEmptyLinesAtTheEndOfMethod: $l ?? 2; \
+					lineBreakBeforeBranchingStructures: $l ?? 3; \
+					lineBreakBeforeLoopingStructures: $l ?? 6; \
+					lineBreakBeforeAndAfterSequentialStructuresIncluded: $l ?? 4; \
+					separationLineForCaseOf: $l ?? 5; \
+					aLineOfCommentsMustBePrecededByALineBreak: $l ?? 11; \
+					groupingClosureInstructions: $l ?? 9; \
+					addTheIncrementForTheLoops: $l ?? 8; \
+					splitTestLines: $l ?? 12; \
+					replaceComparisonsToAnEmptyStringByLengthTest: $l ?? 13; \
+					replaceIfElseEndIfByChoose: $l ?? 14; \
+					splitKeyValueLines: $l ?? 7}
 				
 			Else 
 				
-				$settings.beautifier:=New object:C1471(\
-					"replaceDeprecatedCommand"; True:C214; \
-					"removeConsecutiveBlankLines"; True:C214; \
-					"removeEmptyLinesAtTheBeginOfMethod"; True:C214; \
-					"removeEmptyLinesAtTheEndOfMethod"; True:C214; \
-					"lineBreakBeforeBranchingStructures"; True:C214; \
-					"lineBreakBeforeLoopingStructures"; True:C214; \
-					"lineBreakBeforeAndAfterSequentialStructuresIncluded"; True:C214; \
-					"separationLineForCaseOf"; True:C214; \
-					"aLineOfCommentsMustBePrecededByALineBreak"; True:C214; \
-					"groupingClosureInstructions"; True:C214; \
-					"addTheIncrementForTheLoops"; True:C214; \
-					"splitTestLines"; True:C214; \
-					"replaceComparisonsToAnEmptyStringByLengthTest"; True:C214; \
-					"replaceIfElseEndIfByChoose"; False:C215; \
-					"splitKeyValueLines"; True:C214)
+				$settings.beautifier:={\
+					replaceDeprecatedCommand: True:C214; \
+					removeConsecutiveBlankLines: True:C214; \
+					removeEmptyLinesAtTheBeginOfMethod: True:C214; \
+					removeEmptyLinesAtTheEndOfMethod: True:C214; \
+					lineBreakBeforeBranchingStructures: True:C214; \
+					lineBreakBeforeLoopingStructures: True:C214; \
+					lineBreakBeforeAndAfterSequentialStructuresIncluded: True:C214; \
+					separationLineForCaseOf: True:C214; \
+					aLineOfCommentsMustBePrecededByALineBreak: True:C214; \
+					groupingClosureInstructions: True:C214; \
+					addTheIncrementForTheLoops: True:C214; \
+					splitTestLines: True:C214; \
+					replaceComparisonsToAnEmptyStringByLengthTest: True:C214; \
+					replaceIfElseEndIfByChoose: False:C215; \
+					splitKeyValueLines: True:C214}
 				
 			End if 
 			
@@ -273,14 +289,14 @@ Function convertXmlPrefToJson()->$settings : Object
 				
 				TEXT TO BLOB:C554($xml.preferences.specialPasteChoice.$; $x; Mac text without length:K22:10)
 				BASE64 DECODE:C896($x)
-				$settings.specialPast:=New object:C1471(\
-					"selected"; Num:C11(BLOB to text:C555($x; \
-					Mac text without length:K22:10)))
+				$settings.specialPast:={\
+					selected: Num:C11(BLOB to text:C555($x; \
+					Mac text without length:K22:10))}
 				
 			Else 
 				
-				$settings.specialPast:=New object:C1471(\
-					"selected"; 1)
+				$settings.specialPast:={\
+					selected: 1}
 				
 			End if 
 			
@@ -289,15 +305,15 @@ Function convertXmlPrefToJson()->$settings : Object
 				TEXT TO BLOB:C554($xml.preferences.specialPasteOptions.$; $x; Mac text without length:K22:10)
 				BASE64 DECODE:C896($x)
 				$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
-				$settings.specialPast.options:=New object:C1471(\
-					"ignoreBlankLines"; $l ?? 10; \
-					"deleteIndentation"; $l ?? 11)
+				$settings.specialPast.options:={\
+					ignoreBlankLines: $l ?? 10; \
+					deleteIndentation: $l ?? 11}
 				
 			Else 
 				
-				$settings.specialPast.options:=New object:C1471(\
-					"ignoreBlankLines"; False:C215; \
-					"deleteIndentation"; False:C215)
+				$settings.specialPast.options:={\
+					ignoreBlankLines: False:C215; \
+					deleteIndentation: False:C215}
 				
 			End if 
 			

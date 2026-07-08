@@ -772,7 +772,7 @@ Function edit_comment()
 	var $window : Integer:=Open form window:C675("COMMENTS"; Movable dialog box:K34:7; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 	SET MENU BAR:C67(1)
 	
-	var $o : Object:=New object:C1471("text"; $c.join("\r"))
+	var $o : Object:={text: $c.join("\r")}
 	DIALOG:C40("COMMENTS"; $o)
 	CLOSE WINDOW:C154
 	

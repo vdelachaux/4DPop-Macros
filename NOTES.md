@@ -18,6 +18,13 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Notation littérale objet/collection** : remplacement de `New object(...)` /
+  `New collection(...)` par `{clé: valeur; …}` / `[…]` dans tout le code
+  production (classes `settings`, `specialPaste`, `macro` ; formulaires `SETTINGS`,
+  `COMMENTS`, `DECLARATIONS_SETTINGS`). Non converti quand les clés ne sont pas des
+  identifiants valides : `declaration.gramSyntax` (clés numériques
+  `String(Is object…)`). `New shared object/collection` inchangés (pas de littéral
+  partagé).
 - **Option « Method syntax » (déclaration) supprimée** : avec le direct typing,
   l'option `methodDeclaration` (bloc `If(False)` de directives de compilation
   `4d:C…(nom;$0)` inséré en tête des méthodes projet) est obsolète. Retirée

@@ -15,9 +15,9 @@ Case of
 		//______________________________________________________
 	: ($e.code=On Load:K2:1)
 		
-		OBJECT SET VALUE:C1742("declarations"; New object:C1471(\
-			"rules"; Form:C1466.settings.declaration.rules.orderBy("label desc"); \
-			"options"; Form:C1466.settings.declaration.options))
+		OBJECT SET VALUE:C1742("declarations"; {\
+			rules: Form:C1466.settings.declaration.rules.orderBy("label desc"); \
+			options: Form:C1466.settings.declaration.options})
 		
 		FORM GOTO PAGE:C247(Form:C1466.page)
 		

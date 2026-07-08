@@ -44,12 +44,12 @@ Case of
 				//……………………………………………………………………………………
 			: ($e.objectName="rules")
 				
-				Form:C1466.rule:=New collection:C1472
+				Form:C1466.rule:=[]
 				
 				For each ($rule; Split string:C1554(Form:C1466.current.value; ";"))
 					
-					Form:C1466.rule.push(New object:C1471(\
-						"value"; $rule))
+					Form:C1466.rule.push({\
+						value: $rule})
 					
 					LISTBOX SELECT ROW:C912(*; "rule"; 1; lk replace selection:K53:1)
 					
@@ -78,7 +78,7 @@ Case of
 		
 		SET TIMER:C645(0)
 		
-		Form:C1466.rule:=New collection:C1472
+		Form:C1466.rule:=[]
 		
 		If (Form:C1466.current=Null:C1517)
 			
@@ -89,8 +89,8 @@ Case of
 			
 			For each ($rule; Split string:C1554(Form:C1466.current.value; ";"))
 				
-				Form:C1466.rule.push(New object:C1471(\
-					"value"; $rule))
+				Form:C1466.rule.push({\
+					value: $rule})
 				
 			End for each 
 			

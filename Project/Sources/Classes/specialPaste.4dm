@@ -37,19 +37,16 @@ Class constructor()
 		Case of 
 				
 				//______________________________________________________
-			: (New collection:C1472(\
-				"string"; \
-				"comments"; \
-				"htmlCode").indexOf($t)#-1)
+			: (["string"; "comments"; "htmlCode"].indexOf($t)#-1)
 				
-				$o.options:=New object:C1471
+				$o.options:={}
 				$o.options["1"]:="deleteIndentation"
 				$o.options["2"]:="ignoreBlankLines"
 				
 				//______________________________________________________
 			: ($t="pathname")
 				
-				$o.options:=New object:C1471
+				$o.options:={}
 				$o.options["1"]:="relative"
 				$o.options["2"]:="posix"
 				
