@@ -88,6 +88,16 @@ propriétés `Form` ou des objets locaux.
   `cs.ui.menu` (`.append($t;$t)` en boucle, `.popup().selected`, `.choice`) au
   lieu de `Pop up menu` + index `$c[$l-1]`. Seul usage natif restant : le
   brouillon `00_TESTS.4dm` (non commité).
+- **Suppression de 8 méthodes `_o_` mortes + `Compiler_`** (0 appelant réel ;
+  seules mentions = les blocs `If (False)` de déclaration des `COMPILER_*`) :
+  `_o_array_Attributes`, `_o_CENTERED`, `_o_Preferences_Set`, `_o_xml_attributes`,
+  `_o_xml_cleanup`, `_o_xml_encode`, `_o_xml_findByName`, `_o_xml_findElement`.
+  Le cluster `_o_xml_*` est redondant avec la classe `xml` dispo en dépendance UI.
+  `Compiler_.4dm` (ne contenait que ces décl. mortes) supprimé. Déclarations
+  retirées de `Compiler_`/`COMPILER_xml`/`COMPILER_component`, entrées retirées de
+  `folders.json`. Les 7 `_o_` VIVANTES gardées : `_o_isNumeric`,
+  `_o_localizedControlFlow`, `_o_Preferences`, `_o_win_title`,
+  `_o_xml_elementToObject`, `_o_xml_fileToObject`, `_o_xml_refToObject`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

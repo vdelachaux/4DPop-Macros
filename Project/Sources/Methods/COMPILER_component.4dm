@@ -11,11 +11,6 @@ If (False:C215)
 	C_POINTER:C301(_o_localizedControlFlow; $2)
 	C_POINTER:C301(_o_localizedControlFlow; $3)
 	
-	// Private_Boo_Set_Preferences
-	C_BOOLEAN:C305(_o_Preferences_Set; $0)
-	C_TEXT:C284(_o_Preferences_Set; $1)
-	C_TEXT:C284(_o_Preferences_Set; $2)
-	
 	// Private_Boo_Paste_Regex_Pattern
 	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
 	

@@ -1,20 +1,12 @@
 {
 	"_o_": {
 		"methods": [
-			"_o_array_Attributes",
-			"_o_CENTERED",
 			"_o_isNumeric",
 			"_o_localizedControlFlow",
 			"_o_Preferences",
-			"_o_Preferences_Set",
 			"_o_win_title",
-			"_o_xml_attributes",
-			"_o_xml_cleanup",
 			"_o_xml_elementToObject",
-			"_o_xml_encode",
 			"_o_xml_fileToObject",
-			"_o_xml_findByName",
-			"_o_xml_findElement",
 			"_o_xml_refToObject",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS",
@@ -110,7 +102,6 @@
 			"CODE_TO_EXECUTE_FORMULA",
 			"codeForCollection",
 			"codeForObject",
-			"Compiler_",
 			"COMPILER_component",
 			"declaration_UI",
 			"DOT_NOTATION",
