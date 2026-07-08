@@ -153,6 +153,10 @@ propriétés `Form` ou des objets locaux.
   supprimée. `win_NOT_UNDER_TOOLBAR` modernisée (`#DECLARE() : Integer` + `var`).
   Le bloc `If (False)` de `COMPILER_component` est désormais VIDE (supprimé) ;
   restent uniquement `<>tTxt_lines`, `M_4DPop_tTxt_Buffer`, `v1..v4`.
+- **`<>tTxt_lines` / `M_4DPop_tTxt_Buffer` → locaux** : c'étaient des tableaux
+  interprocess/process utilisés UNIQUEMENT comme buffers de travail dans
+  `CODE_TO_EXECUTE_FORMULA`. Renommés en `$_lines` / `$_buffer` (locaux). Retirés
+  de `COMPILER_component` (ne reste que `var v1;v2;v3;v4`).
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
