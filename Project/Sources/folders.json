@@ -1,8 +1,7 @@
 {
-	"_o_": {
+	"(_o_)": {
 		"methods": [
-			"4DPop_MACROS_INIT",
-			"4DPop_MACROS_SETTINGS"
+			"(4DPop_MACROS_SETTINGS)"
 		]
 	},
 	"(Binary database)": {
@@ -35,7 +34,16 @@
 			"createSymbolicLink"
 		]
 	},
-	"#️⃣ API": {},
+	"#️⃣ API": {
+		"methods": [
+			"_Method131",
+			"_Method2",
+			"_Method4",
+			"_Method5",
+			"_Method6",
+			"beautifier_bug"
+		]
+	},
 	"♻️ LIBRAIRIES": {},
 	"⚙️ MACROS": {
 		"methods": [
@@ -88,7 +96,6 @@
 	},
 	"private": {
 		"methods": [
-			"_SETTINGS",
 			"ABOUT",
 			"CODE_TO_EXECUTE",
 			"CODE_TO_EXECUTE_FORMULA",
@@ -128,8 +135,23 @@
 			"CODE_TO_EXECUTE_FORMULA_test",
 			"createFR2USMacro",
 			"DECLARATION_Formula",
+			"DECLARATION_Test",
 			"DECLARE",
 			"literals",
+			"Method1",
+			"Method120",
+			"Method121",
+			"Method122",
+			"Method123",
+			"Method124",
+			"Method132",
+			"Method2",
+			"Method3",
+			"Method4",
+			"Method5",
+			"Method6",
+			"Method7",
+			"Method89",
 			"test_replace_o",
 			"TrueMethod"
 		],
@@ -142,6 +164,7 @@
 	},
 	"trash": {
 		"groups": [
+			"(_o_)",
 			"(Binary database)",
 			"(BINARY)",
 			"(classes)",

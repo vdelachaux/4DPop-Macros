@@ -1,9 +1,9 @@
-C_OBJECT:C1216($o)
+var $o : Object
 
 If (Macintosh command down:C546)\
  | (Windows Alt down:C563)
 	
-	For each ($o;Form:C1466.beautifier)
+	For each ($o; Form:C1466.beautifier)
 		
 		$o.on:=Form:C1466.current.on
 		

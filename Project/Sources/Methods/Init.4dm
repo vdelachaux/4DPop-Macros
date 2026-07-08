@@ -3,7 +3,7 @@
 // User name (OS): Vincent de Lachaux
 // Date and time: 02/02/06, 10:11:40
 // ----------------------------------------------------
-// Method: M_4DPop_oBoo_INIT
+// Method: Init was M_4DPop_oBoo_INIT
 // ----------------------------------------------------
 // Modified by vdl (01/07/07)
 // V11 compatibility
@@ -31,7 +31,7 @@ End if
 If (Count parameters:C259=0)\
  && (Not:C34(Storage:C1525.component.inited))
 	
-
+	
 	If (Storage:C1525.macros=Null:C1517)  // Holds the dispatcher's lastUsed action
 		
 		Use (Storage:C1525)
