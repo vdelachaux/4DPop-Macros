@@ -47,11 +47,8 @@ If (Count parameters:C259=0)\
 	
 	If (cs:C1710.preferences.me.loaded)
 		
-		If (Install_regex)
-			
-			return Install_resources
-			
-		End if 
+		return Install_resources
+		
 	End if 
 	
 	Use (Storage:C1525.component)

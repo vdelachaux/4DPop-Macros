@@ -134,6 +134,13 @@ propriétés `Form` ou des objets locaux.
   `specialPaste` (3×, couplé à `This.columns`). Devient une fonction privée de
   `specialPaste`. Décls `C_`→signature typée. Méthode supprimée, décl. retirée de
   `COMPILER_component` + `folders.json`.
+- **Suppression de `Install_regex` (obsolète)** : elle écrivait `regex.xml`
+  (patterns `Get_Macro`/`Method_Parsing`/`Get_Locals`…), vestige de la base
+  binaire, que PLUS AUCUN code ne relit (le regex actif est inline `Match regex`
+  + `cs.rgx.regex`). Son seul rôle dans `Init` était de « garder » l'appel à
+  `Install_resources` (elle renvoyait toujours True) → `Init` appelle désormais
+  `Install_resources` directement. Décl. retirée de `COMPILER_component`, entrée
+  de `folders.json`. (Idem `Private_Boo_Paste_Regex_Pattern`, mort, supprimé.)
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

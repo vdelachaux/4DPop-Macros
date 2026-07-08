@@ -11,9 +11,6 @@ If (False:C215)
 	C_POINTER:C301(_o_localizedControlFlow; $2)
 	C_POINTER:C301(_o_localizedControlFlow; $3)
 	
-	// Private_Boo_Install_Regex
-	C_BOOLEAN:C305(Install_regex; $0)
-	
 	// Win_NOT_UNDER_TOOLBAR
 	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
 	
