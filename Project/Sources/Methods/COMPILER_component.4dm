@@ -11,9 +11,6 @@ If (False:C215)
 	C_POINTER:C301(_o_localizedControlFlow; $2)
 	C_POINTER:C301(_o_localizedControlFlow; $3)
 	
-	// Private_Boo_Paste_Regex_Pattern
-	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
-	
 	// Private_Boo_Install_Regex
 	C_BOOLEAN:C305(Install_regex; $0)
 	

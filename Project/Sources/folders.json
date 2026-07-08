@@ -101,8 +101,7 @@
 			"Init",
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
-			"Install_resources",
-			"Private_Boo_Paste_Regex_Pattern"
+			"Install_resources"
 		]
 	},
 	"TESTS": {
