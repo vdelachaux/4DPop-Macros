@@ -83,6 +83,11 @@ propriétés `Form` ou des objets locaux.
   localise dans le contexte du COMPOSANT UI (pas Macros) : on crée donc le menu
   en `cs.ui.menu.new("no-localization")` et on passe des libellés DÉJÀ localisés
   via `Localized string(...)` (contexte Macros).
+- **`Pop up menu` du bouton COMMENTS migré** : `Forms/COMMENTS/ObjectMethods/
+  Bouton 3D2.4dm` (insertion de tags `<date/>`, `<time/>`…) utilise désormais
+  `cs.ui.menu` (`.append($t;$t)` en boucle, `.popup().selected`, `.choice`) au
+  lieu de `Pop up menu` + index `$c[$l-1]`. Seul usage natif restant : le
+  brouillon `00_TESTS.4dm` (non commité).
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

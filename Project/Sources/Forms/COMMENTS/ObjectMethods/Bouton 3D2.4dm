@@ -3,8 +3,8 @@
   //  Created : 31/01/06 by Vincent de Lachaux
   //  ----------------------------------------------------
 C_BOOLEAN:C305($bStyled)
-C_LONGINT:C283($end;$l;$start)
-C_TEXT:C284($t;$tMenu;$tTag)
+C_LONGINT:C283($end;$start)
+C_TEXT:C284($t;$tTag)
 C_COLLECTION:C1488($c)
 
 $c:=New collection:C1472(\
@@ -18,17 +18,17 @@ $c:=New collection:C1472(\
 "form_name"\
 )
 
+var $menu:=cs:C1710.ui.menu.new("no-localization")
+
 For each ($t;$c)
 	
-	$tMenu:=$tMenu+$t+";"
+	$menu.append($t;$t)
 	
 End for each 
 
-$l:=Pop up menu:C542($tMenu)
-
-If ($l#0)
+If ($menu.popup().selected)
 	
-	$tTag:="<"+$c[$l-1]+"/>"
+	$tTag:="<"+$menu.choice+"/>"
 	$bStyled:=OBJECT Is styled text:C1261(*;"comment")
 	
 	GET HIGHLIGHT:C209(*;"comment";$start;$end)
