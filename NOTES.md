@@ -163,6 +163,12 @@ propriétés `Form` ou des objets locaux.
   `For each ($Txt_Code; $lines)` (avec compteur `$Lon_Lignes`), test
   `$controlFlow.indexOf($Txt_Command)>=0`. `$_buffer` et `$tTxt_Commands` restent
   des tableaux (ce dernier a une logique index=numéro-de-commande à préserver).
+- **`CODE_TO_EXECUTE_FORMULA` dual-mode + méthode de test** : `#DECLARE($code :
+  Text) : Text`. Sans paramètre = mode macro (GET/SET MACRO PARAMETER, inchangé
+  pour le dispatcher) ; avec un texte = transforme et RETOURNE le résultat.
+  Méthode `CODE_TO_EXECUTE_FORMULA_test` (groupe TESTS) : passe des échantillons,
+  renvoie les paires `{input; output}` et copie un rapport lisible dans le
+  presse-papier.
 - **`macro._comment` modernisée + `v1..v4` supprimés + `COMPILER_component`
   supprimé** : `_comment()` utilisait un hack `Formula from string("4D:C1810(v1;
   v2; v3; v4)")` (appel de la commande n°1810 par numéro) pour retrouver la ligne

@@ -9,6 +9,8 @@
 // Modified by vdl (09/10/07)
 // -> v11
 // ----------------------------------------------------
+#DECLARE($code : Text) : Text
+
 var $Lon_CommandParameters; $Lon_Error; $Lon_i; $Lon_Lignes; $Lon_Position; $Lon_x : Integer
 var $output; $Txt_Code; $Txt_Command : Text
 var $lines; $controlFlow : Collection
@@ -16,8 +18,13 @@ var $lines; $controlFlow : Collection
 ARRAY TEXT:C222($tTxt_Commands; 0)
 ARRAY TEXT:C222($_buffer; 0)
 
-GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $output)
-$lines:=Split string:C1554($output; "\r"; sk trim spaces:K86:2)
+If (Count parameters:C259=0)  // Macro mode: read the current selection
+	
+	GET MACRO PARAMETER:C997(Highlighted method text:K5:18; $code)
+	
+End if 
+
+$lines:=Split string:C1554($code; "\r"; sk trim spaces:K86:2)
 $output:=""
 
 // Récupérer les noms de commande localisés
@@ -264,4 +271,12 @@ For each ($Txt_Code; $lines)
 	End case 
 End for each 
 
-SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $output)
+If (Count parameters:C259=0)  // Macro mode: replace the selection
+	
+	SET MACRO PARAMETER:C998(Highlighted method text:K5:18; $output)
+	
+Else 
+	
+	return $output
+	
+End if 
