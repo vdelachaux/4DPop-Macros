@@ -72,58 +72,24 @@ Function attributes($target : Text)
 		
 	End if 
 	
-	var $menu : Text:=Create menu:C408
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_invisible"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute invisible:K72:6))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute invisible:K72:6; *); Char:C90(18); ""))
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_availableThrough4dHtml"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute published Web:K72:7))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute published Web:K72:7; *); Char:C90(18); ""))
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_offeredAsAWebService"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute published SOAP:K72:8))
 	var $wsdl : Boolean:=METHOD Get attribute:C1169($target; Attribute published SOAP:K72:8; *)
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955($wsdl; Char:C90(18); ""))
 	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_publishedInWsdl"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute published WSDL:K72:9))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute published WSDL:K72:9; *); Char:C90(18); ""))
+	var $menu:=cs:C1710.ui.menu.new("no-localization")
 	
-	If (Not:C34($wsdl))
+	$menu.append(Localized string:C991("Proc_info_invisible"); String:C10(Attribute invisible:K72:6); METHOD Get attribute:C1169($target; Attribute invisible:K72:6; *))\
+		.append(Localized string:C991("Proc_info_availableThrough4dHtml"); String:C10(Attribute published Web:K72:7); METHOD Get attribute:C1169($target; Attribute published Web:K72:7; *))\
+		.append(Localized string:C991("Proc_info_offeredAsAWebService"); String:C10(Attribute published SOAP:K72:8); $wsdl)\
+		.append(Localized string:C991("Proc_info_publishedInWsdl"); String:C10(Attribute published WSDL:K72:9); METHOD Get attribute:C1169($target; Attribute published WSDL:K72:9; *)).enable($wsdl)\
+		.append(Localized string:C991("Proc_info_sharedByComponentsAndHostDatabase"); String:C10(Attribute shared:K72:10); METHOD Get attribute:C1169($target; Attribute shared:K72:10; *))\
+		.append(Localized string:C991("Proc_info_availableThroughSql"); String:C10(Attribute published SQL:K72:11); METHOD Get attribute:C1169($target; Attribute published SQL:K72:11; *))\
+		.append(Localized string:C991("Proc_info_executeOnServer"); String:C10(Attribute executed on server:K72:12); METHOD Get attribute:C1169($target; Attribute executed on server:K72:12; *))
+	
+	If ($menu.popup().selected)
 		
-		DISABLE MENU ITEM:C150($menu; -1)
-		
-	End if 
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_sharedByComponentsAndHostDatabase"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute shared:K72:10))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute shared:K72:10; *); Char:C90(18); ""))
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_availableThroughSql"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute published SQL:K72:11))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute published SQL:K72:11; *); Char:C90(18); ""))
-	
-	APPEND MENU ITEM:C411($menu; Localized string:C991("Proc_info_executeOnServer"))
-	SET MENU ITEM PARAMETER:C1004($menu; -1; String:C10(Attribute executed on server:K72:12))
-	SET MENU ITEM MARK:C208($menu; -1; \
-		Choose:C955(METHOD Get attribute:C1169($target; Attribute executed on server:K72:12; *); Char:C90(18); ""))
-	
-	var $choice : Integer:=Num:C11(Dynamic pop up menu:C1006($menu))
-	
-	If ($choice#0)
+		var $choice : Integer:=Num:C11($menu.choice)
 		
 		METHOD SET ATTRIBUTE:C1192($target; $choice; \
 			Not:C34(METHOD Get attribute:C1169($target; $choice; *)); *)
 		
 	End if 
-	
-	RELEASE MENU:C978($menu)
 	

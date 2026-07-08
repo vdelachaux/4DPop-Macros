@@ -76,6 +76,13 @@ propriétés `Form` ou des objets locaux.
   [class]/method »). Garde en tête de `attributes()` : `If (Not(This.projectMethod))`
   → `ALERT(Localized string("attributesProjectMethodOnly"))` + `return`. Nouvelle
   clé XLIFF `attributesProjectMethodOnly` (en + fr).
+- **Menu contextuel via `cs.ui.menu`** (dépendance UI) au lieu des commandes
+  natives (`Create menu`/`APPEND MENU ITEM`/`Dynamic pop up menu`). Chaînage
+  `.append(label; param; mark).enable(bool)` puis `.popup()` (auto-release,
+  `Dynamic pop up menu` à la souris) → `.selected` / `.choice`. ⚠️ `append`
+  localise dans le contexte du COMPOSANT UI (pas Macros) : on crée donc le menu
+  en `cs.ui.menu.new("no-localization")` et on passe des libellés DÉJÀ localisés
+  via `Localized string(...)` (contexte Macros).
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
