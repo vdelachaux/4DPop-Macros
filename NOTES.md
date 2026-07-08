@@ -106,6 +106,17 @@ propriétés `Form` ou des objets locaux.
   deps sont `pop`, `rgx`, `ui`) → classe LOCALE. `COMPILER_xml` gardé pour la
   seule var `xml_ERROR` (utilisée par `xml_NO_ERROR`), bloc `If (False)` vidé.
   `xml` ajoutée aux classes du namespace dans `folders.json`.
+- **`_o_Preferences` → classe `preferences`** (`shared singleton`, `cs.preferences.me`) :
+  la classe `preferences` existait mais était MORTE (jamais instanciée) et sa
+  `loadPreferences` était BUGGÉE (itérait `M_4DPop` au lieu de `M_4DPop.preferences`).
+  Réécrite avec la logique legacy correcte : `_resolveFile`, `_populate() : Boolean`,
+  `get($key) : Variant`, `set($key; $value)`, `_decode`/`_encode` (base64), propriété
+  `loaded`. Appels migrés : `Init` → `cs.preferences.me.loaded` ; `specialPaste`
+  (4×) → `.get()`/`.set()` (valeurs au lieu de pointeurs). SUPPRIMÉS : `_o_Preferences`,
+  `Preferences_Get` (mort, 0 appelant réel), `_o_isNumeric` (orphelin ; coercition
+  numérique désormais inline `Match regex("^\d+$")`). Clés spéciales `@_file/@_folder/
+  @_path` de `Get_Value` abandonnées (jamais utilisées). Décl. retirées de
+  `COMPILER_component`, entrées retirées de `folders.json`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

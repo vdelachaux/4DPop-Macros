@@ -14,22 +14,8 @@ If (False:C215)
 	// Private_Boo_Paste_Regex_Pattern
 	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
 	
-	// Private_Txt_Get_Preferences
-	C_TEXT:C284(Preferences_Get; $0)
-	C_TEXT:C284(Preferences_Get; $1)
-	
 	// Private_Boo_Install_Regex
 	C_BOOLEAN:C305(Install_regex; $0)
-	
-	C_BOOLEAN:C305(_o_Preferences; $0)
-	C_TEXT:C284(_o_Preferences; $1)
-	C_TEXT:C284(_o_Preferences; $2)
-	C_POINTER:C301(_o_Preferences; $3)
-	
-	
-	// Str_gBoo_IsNumeric
-	C_BOOLEAN:C305(_o_isNumeric; $0)
-	C_TEXT:C284(_o_isNumeric; $1)
 	
 	// Str_hyphenation
 	C_TEXT:C284(str_hyphenation; $0)

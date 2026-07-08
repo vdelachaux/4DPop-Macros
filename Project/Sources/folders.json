@@ -1,9 +1,7 @@
 {
 	"_o_": {
 		"methods": [
-			"_o_isNumeric",
 			"_o_localizedControlFlow",
-			"_o_Preferences",
 			"_o_win_title",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS",
@@ -108,7 +106,6 @@
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_regex",
 			"Install_resources",
-			"Preferences_Get",
 			"Private_Boo_Paste_Regex_Pattern"
 		]
 	},

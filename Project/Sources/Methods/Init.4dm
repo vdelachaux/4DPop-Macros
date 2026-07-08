@@ -35,7 +35,7 @@ If (Count parameters:C259=0)\
 	
 	INSTALL_LOCALIZED_MACROS
 	
-	If (_o_Preferences)
+	If (cs:C1710.preferences.me.loaded)
 		
 		If (Install_regex)
 			

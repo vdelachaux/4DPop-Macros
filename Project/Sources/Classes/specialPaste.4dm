@@ -65,10 +65,10 @@ Class constructor()
 	If (Bool:C1537(OK))
 		
 		var $selected : Integer:=This:C1470.currentTargetIndex
-		_o_Preferences("Set_Value"; "specialPasteChoice"; ->$selected)
+		cs:C1710.preferences.me.set("specialPasteChoice"; $selected)
 		
 		var $options : Integer:=This:C1470.options
-		_o_Preferences("Set_Value"; "specialPasteOptions"; ->$options)
+		cs:C1710.preferences.me.set("specialPasteOptions"; $options)
 		
 		This:C1470.setHighlightedText(This:C1470.preview+kCaret)
 		
@@ -100,14 +100,14 @@ Function onLoad()
 		// Get the raw text
 		This:C1470.original:=Get text from pasteboard:C524
 		
-		_o_Preferences("Get_Value"; "specialPasteChoice"; ->$selected)
+		$selected:=Num:C11(cs:C1710.preferences.me.get("specialPasteChoice"))
 		This:C1470.selected:=Choose:C955(($selected>This:C1470.target.length) | ($selected<=0); 1; $selected)
 		
 	End if 
 	
 	LISTBOX SELECT ROW:C912(*; "choice"; This:C1470.selected; lk replace selection:K53:1)
 	
-	_o_Preferences("Get_Value"; "specialPasteOptions"; ->$options)
+	$options:=Num:C11(cs:C1710.preferences.me.get("specialPasteOptions"))
 	This:C1470.options:=$options
 	
 	OBJECT SET VALUE:C1742("option_2"; Num:C11($options ?? 10))
