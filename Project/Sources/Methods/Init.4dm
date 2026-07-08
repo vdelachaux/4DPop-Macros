@@ -1,9 +1,9 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
-// Nom utilisateur (OS) : Vincent de Lachaux
-// Date et heure : 02/02/06, 10:11:40
+// User name (OS): Vincent de Lachaux
+// Date and time: 02/02/06, 10:11:40
 // ----------------------------------------------------
-// Méthode : M_4DPop_oBoo_INIT
+// Method: M_4DPop_oBoo_INIT
 // ----------------------------------------------------
 // Modified by vdl (01/07/07)
 // V11 compatibility
