@@ -35,3 +35,25 @@ splittableCommands	(?mi-s)^[^/]*{command}\(.*\)(?:\s*{commentMark}[^$]*)?$
 
 # --- separator comment line (comment mark + 5+ identical chars) ---
 commentLine	(?m-si)^\s*{commentMark}\s*(.)\1{4,}
+
+# --- patterns used inside method bodies ---
+# Case-of item marker (in _controls)
+caseOfMarker	(?mi-s)^\s*:\s*\(
+# beautify(): trim leading spaces of a raw line
+leadingSpaces	(?mi-s)^(\s*)
+# For loop arguments (detect a missing increment)
+forLoopArgs	(?mi-s)\(([^;]*;[^;]*;[^;]*)(;.*?)?\)
+# before(): C_xxx -> var (the {C_} placeholder is replaced per command)
+cDirective	(?-msi)(?<!{commentMark})(?<!{commentMark}\s){C_}\((?![\w\s]+;\s*\$\{?\d+\}?)([^{\)]*)\)
+# before(): compound assignment operators (the {op} placeholder is replaced per operator)
+compoundOp	(?mi-s)^([^:]*):=\1(?:\\R\W*)?{op}(.*)?$
+# before(): Choose(a;b;c) without inner parentheses -> ternary
+ternaryChoose	(?mi-s){cmd955}\(([^();]*?);([^();]*?);([^();]*?)\)
+# maybeFormatComment(): keep urls/addresses intact
+urlComment	(?mi-s)(.*?".*?:/+.*?")(?:\s*//(.*?))?$
+urlLikeComment	(?mi-s)"[^:]*:{commentMark}
+markerCommentParts	(?mi-s)^\s*((?:mark|todo|fixme):-*)(.*)$
+# splitTests(): break on logical operators
+logicalOperators	(?mi-s)(\)\s*(&{1,2}|\|{1,2})\s*\()
+# _splitLiterals(): assignment of an object/collection literal ({1}/{2} = delimiters)
+literalAssignment	(?mi-s)^.*?:=\{1}[^}]*?\{2}\s*(?:/[/*].*)?$

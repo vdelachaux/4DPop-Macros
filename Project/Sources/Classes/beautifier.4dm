@@ -12,6 +12,9 @@ property caseOfLevel : Integer:=-1
 property _controls; _patterns : Object
 property _splittableCommands : Collection
 
+// MARK: Regex patterns (raw, loaded from /RESOURCES/regex/beautifier.txt)
+property _bx : Object:=cs:C1710.patterns.me.group("beautifier")
+
 Class extends macro
 
 Class constructor()
@@ -80,7 +83,7 @@ Class constructor()
 		else: $c[1]; \
 		endIf: $c[2]; \
 		caseOf: $c[3]; \
-		caseOfItem: "(?mi-s)^\\s*:\\s*\\("; \
+		caseOfItem: This:C1470._bx.caseOfMarker; \
 		endCase: $c[4]; \
 		while: $c[5]; \
 		endWhile: $c[6]; \
@@ -105,7 +108,7 @@ Class constructor()
 		This:C1470._controls.endForEach]
 	
 	// Mark:-[Patterns]  (raw regex from /RESOURCES/regex/beautifier.txt)
-	var $rx : Object:=cs:C1710.patterns.me.group("beautifier")
+	var $rx : Object:=This:C1470._bx
 	
 	// Mark:Localised flow controls
 	$t:=$rx.flowControl
@@ -197,7 +200,7 @@ Function beautify()
 	
 	For each ($raw; This:C1470.lines)
 		
-		$line:=This:C1470.rgx.setTarget($raw).setPattern("(?mi-s)^(\\s*)").substitute("")  // Trim leading spaces
+		$line:=This:C1470.rgx.setTarget($raw).setPattern(This:C1470._bx.leadingSpaces).substitute("")  // Trim leading spaces
 		
 		This:C1470.line:=$line
 		
@@ -397,7 +400,7 @@ A comment line is preceded by an empty line if:
 			: (This:C1470.rgx.setPattern(This:C1470._patterns.For).match())
 				
 				If (This:C1470.options.addTheIncrementForTheLoops)\
-					 && (This:C1470.rgx.setPattern("(?mi-s)\\(([^;]*;[^;]*;[^;]*)(;.*?)?\\)").match())\
+					 && (This:C1470.rgx.setPattern(This:C1470._bx.forLoopArgs).match())\
 					 && (This:C1470.rgx.matches[2].length=0)
 					
 					This:C1470.line:=Replace string:C233($line; This:C1470.rgx.matches[1].data; This:C1470.rgx.matches[1].data+";1")
@@ -478,7 +481,7 @@ Function before($code : Text) : Text
 	// Mark:Use var instead of (_o_)C_xxx
 	If (This:C1470.options.useVar)
 		
-		var $pattern : Text:="(?-msi)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s){C_}\\((?![\\w\\s]+;\\s*\\$\\{?\\d+\\}?)([^{\\)]*)\\)"
+		var $pattern : Text:=This:C1470._bx.cDirective
 		
 		var $types : Collection:=[\
 			{cmd: Command name:C538(604); type: " : Blob"}; \
@@ -507,7 +510,7 @@ Function before($code : Text) : Text
 	// Mark:Compound assignment operators
 	If (This:C1470.options.compoundAssignmentOperators)
 		
-		$pattern:="(?mi-s)^([^:]*):=\\1(?:\\\\R\\W*)?{op}(.*)?$"
+		$pattern:=This:C1470._bx.compoundOp
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{op}"; "-")).substitute("\\1-=\\2")
 		$code:=This:C1470.rgx.setTarget($code).setPattern(Replace string:C233($pattern; "{op}"; "\\+")).substitute("\\1+=\\2")
 		
@@ -517,7 +520,7 @@ Function before($code : Text) : Text
 	If (This:C1470.options.replaceIfElseEndIfByChoose)  // Use ternary operator
 		
 		// Peels one nesting level per pass until no more Choose(…;…;…) without inner parentheses remains
-		var $ternary : Text:="(?mi-s)"+Command name:C538(955)+"\\(([^();]*?);([^();]*?);([^();]*?)\\)"
+		var $ternary : Text:=This:C1470._bx.ternaryChoose
 		While (This:C1470.rgx.setTarget($code).setPattern($ternary).match())
 			
 			$code:=This:C1470.rgx.substitute("\\1 ? \\2 : \\3")
@@ -672,7 +675,7 @@ Function formatComment($line : Text) : Text
 	var $code; $comment : Text
 	
 	// Caution with urls or addresses such as “https://...", "file:///...”
-	If (Match regex:C1019("(?mi-s)(.*?\".*?:/+.*?\")(?:\\s*//(.*?))?$"; $line; 1; $pos; $len))
+	If (Match regex:C1019(This:C1470._bx.urlComment; $line; 1; $pos; $len))
 		
 		$code:=Substring:C12($line; $pos{1}; $len{1})
 		$comment:=Substring:C12($line; $pos{2}; $len{2})
@@ -695,7 +698,7 @@ Function formatComment($line : Text) : Text
 	Case of 
 			
 			// ______________________________________________________
-		: (Match regex:C1019("(?mi-s)\"[^:]*:"+kCommentMark+""; $comment; 1))  // Don't modify url like "https://…"
+		: (Match regex:C1019(This:C1470._bx.urlLikeComment; $comment; 1))  // Don't modify url like "https://…"
 			
 			If ($comment[[1]]#" ")
 				
@@ -708,7 +711,7 @@ Function formatComment($line : Text) : Text
 			return $code+kCommentMark+$comment
 			
 			// ______________________________________________________
-		: (Match regex:C1019("(?mi-s)^\\s*((?:mark|todo|fixme):-*)(.*)$"; $comment; 1; $pos; $len; *))
+		: (Match regex:C1019(This:C1470._bx.markerCommentParts; $comment; 1; $pos; $len; *))
 			
 			var $marker : Text:=Substring:C12($comment; $pos{1}; $len{1})
 			
@@ -981,7 +984,7 @@ or
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function splitTests($line : Text) : Text
 	
-	return This:C1470.rgx.setTarget($line).setPattern("(?mi-s)(\\)\\s*(&{1,2}|\\|{1,2})\\s*\\()").substitute(")\\\r\\2(")
+	return This:C1470.rgx.setTarget($line).setPattern(This:C1470._bx.logicalOperators).substitute(")\\\r\\2(")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function splitObject($line : Text) : Text
@@ -999,7 +1002,7 @@ Function _splitLiterals($line : Text; $dlmt : Text) : Text
 	var $comment : Text
 	
 	var $pattern : Text
-	$pattern:="(?mi-s)^.*?:=\\{1}[^}]*?\\{2}\\s*(?:/[/*].*)?$"
+	$pattern:=This:C1470._bx.literalAssignment
 	$pattern:=Replace string:C233($pattern; "{1}"; $dlmt[[1]])
 	$pattern:=Replace string:C233($pattern; "{2}"; $dlmt[[2]])
 	
