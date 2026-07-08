@@ -203,11 +203,19 @@ Case of
 		// ______________________________________________________
 	: ($action="compiler_directive")  // Add compiler directive around the highlighted text
 		
-		$t:=Request:C163("Warning reference:"; "xxx.x")
+		var $default : Text:=String:C10(Storage:C1525.macros.lastCompilerDirective) || "xxx.x"
+		
+		$t:=Request:C163("Warning reference:"; $default)
 		
 		If (Bool:C1537(OK))\
 			 && (Length:C16($t)>0)\
 			 && ($t="@.@")
+			
+			Use (Storage:C1525.macros)
+				
+				Storage:C1525.macros.lastCompilerDirective:=$t  // Keep it for the next call (session)
+				
+			End use 
 			
 			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
 			
