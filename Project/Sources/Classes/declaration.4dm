@@ -36,6 +36,9 @@ property _notforArray:=["collection"; "variant"]
 
 property windowRef : Integer
 
+// MARK: Regex patterns (raw, loaded from /RESOURCES/regex/declaration.txt)
+property _dx : Object:=cs:C1710.patterns.me.group("declaration")
+
 Class extends macro
 
 Class constructor
@@ -69,7 +72,7 @@ Class constructor
 	
 	This:C1470._notforArray:=["collection"; "variant"]
 	
-	var $pattern : Text:="(?mi-s)(?<!"+kCommentMark+")(?:\\$[^:]*)?:\\s*{type}[:\\s]*"
+	var $pattern : Text:=This:C1470._dx.varType
 	
 	This:C1470._patterns:={\
 		varInteger: Replace string:C233($pattern; "{type}"; "Integer"); \
@@ -82,10 +85,10 @@ Class constructor
 		varDate: Replace string:C233($pattern; "{type}"; "Date"); \
 		varBlob: Replace string:C233($pattern; "{type}"; "Blob"); \
 		varObject: Replace string:C233($pattern; "{type}"; "Object"); \
-		varClass: Replace string:C233($pattern; "{type}"; "(?:4d|cs)\\.\\w*"); \
+		varClass: Replace string:C233($pattern; "{type}"; This:C1470._dx.classType); \
 		varCollection: Replace string:C233($pattern; "{type}"; "Collection"); \
 		varVariant: Replace string:C233($pattern; "{type}"; "Variant"); \
-		varWithAssignment: "(?m-si)^var\\s*(\\$\\w*)\\s*(?:\\:(.*))?:=.*?$"\
+		varWithAssignment: This:C1470._dx.varWithAssignment\
 		}
 	
 	This:C1470._loadIcons()

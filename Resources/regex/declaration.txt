@@ -1,0 +1,11 @@
+# 4DPop Macros — regex patterns for the `declaration` class.
+# Format:  <key><TAB><pattern>   (raw PCRE, NO 4D escaping — write \d, not \\d)
+# Blank lines and lines starting with # are ignored.
+#
+# Load-time placeholders (cs.patterns._resolve): {commentMark} {cmdNNN}
+# Per-item placeholders substituted in code: {type}
+
+# --- constructor registry: detect a variable's declared type ---
+varType	(?mi-s)(?<!{commentMark})(?:\$[^:]*)?:\s*{type}[:\s]*
+classType	(?:4d|cs)\.\w*
+varWithAssignment	(?m-si)^var\s*(\$\w*)\s*(?:\:(.*))?:=.*?$
