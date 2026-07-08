@@ -18,6 +18,10 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **`_runMacro` : alerte explicative en cas d'échec** : lorsqu'une action échoue
+  (`$success=False`), une `ALERT` indique désormais la raison (variable `$reason`) :
+  « requires a method », « requires selected text », ou « Unknown or unavailable
+  macro action: <action> ». Le `BEEP` est conservé.
 - **Notation littérale objet/collection** : remplacement de `New object(...)` /
   `New collection(...)` par `{clé: valeur; …}` / `[…]` dans tout le code
   production (classes `settings`, `specialPaste`, `macro` ; formulaires `SETTINGS`,

@@ -31,6 +31,7 @@ End if
 
 var $macro:=cs:C1710.macro.new()
 var $success:=True:C214
+var $reason : Text
 
 If ($macro.isMacroProcess)
 	
@@ -143,6 +144,7 @@ Case of
 	: (Length:C16($macro.method)=0)
 		
 		$success:=False:C215
+		$reason:="This macro requires a method to be open in the code editor."
 		
 		// ______________________________________________________
 	: ($action="dot_notation")  // [IN WORKS] convert OB GET/OB SET to dot notation
@@ -164,6 +166,7 @@ Case of
 	: (Length:C16($macro.highlighted)=0)
 		
 		$success:=False:C215
+		$reason:="This macro requires some selected text in the code editor."
 		
 		// ______________________________________________________
 	: ($action="copyWithoutIndentation")
@@ -245,6 +248,7 @@ Case of
 	Else 
 		
 		$success:=False:C215
+		$reason:="Unknown or unavailable macro action: "+$action
 		
 		// ______________________________________________________
 End case 
@@ -253,6 +257,12 @@ If (Not:C34($success))\
  && ($action#"_@")  // Error
 	
 	BEEP:C151
+	
+	If (Length:C16($reason)>0)
+		
+		ALERT:C41($reason)
+		
+	End if 
 	
 End if 
 
