@@ -15,9 +15,9 @@ $samples:=[\
 "BEEP"; \
 "$result:=Uppercase:C13(\"hello\")"; \
 "ALERT:C41(\"Test\"; \"OK\")"; \
-"`a comment line"; \
+"// a comment line"; \
 "If ($x>0)\rALERT:C41(\"positive\")\rEnd if"; \
-"$sum:=$a+$b\rTRACE\r`done"]
+"$sum:=$a+$b\rTRACE\r// done"]
 
 $results:=[]
 

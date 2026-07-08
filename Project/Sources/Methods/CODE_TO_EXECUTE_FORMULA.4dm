@@ -134,7 +134,7 @@ For each ($Txt_Code; $lines)
 			$output+="\r"
 			
 			// ______________________________________________________
-		: ($Txt_Command="`@")  // Ligne de commentaire
+		: ($Txt_Command="//@")  // Ligne de commentaire
 			
 			If ($Lon_Lignes>1)
 				
@@ -190,7 +190,7 @@ For each ($Txt_Code; $lines)
 			End if 
 			
 			// D'abord la ligne d'origine en commentaires…
-			$output+="`"
+			$output+="// "
 			
 			If (Length:C16($_buffer{0})>0)
 				
