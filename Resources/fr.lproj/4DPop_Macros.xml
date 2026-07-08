@@ -71,6 +71,14 @@
         <text><method>_4DPop_MACROS("method-new")</method></text>        
     </macro>
     
+    <macro name="Attributs de la méthode…" 
+        in_menu="true" 
+        type_ahead="true" 
+        type_ahead_text="_attributes" 
+        version="2">        
+        <text><method>_4DPop_MACROS("method-attributes")</method></text>        
+    </macro>
+    
     <macro name="Beautifier/§" 
         in_menu="true" 
         type_ahead="false" 

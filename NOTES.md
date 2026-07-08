@@ -56,6 +56,13 @@ propriétés `Form` ou des objets locaux.
   (activé en mode projet). Décl. interprocess `METHODS` retirée de
   `COMPILER_component.4dm` ; `METHODS` retiré de `folders.json` (+ `method`
   ajouté aux classes du namespace).
+- **Macro `method-attributes` exposée** : le point d'entrée existait dans le
+  dispatcher mais aucune macro ne l'appelait. Ajout de l'entrée
+  `_4DPop_MACROS("method-attributes")` dans les 3 XML sources
+  (`Macros v2/4DPop_Macros.xml`, `Resources/4DPop_Macros.xml`,
+  `Resources/fr.lproj/4DPop_Macros.xml`), après « New method » / « Nouvelle
+  méthode ». Noms : « Method attributes… » / « Attributs de la méthode… »,
+  `type_ahead_text="_attributes"`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

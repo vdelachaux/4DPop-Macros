@@ -110,3 +110,4 @@ Function attributes()
 	End if 
 	
 	RELEASE MENU:C978($menu)
+	
