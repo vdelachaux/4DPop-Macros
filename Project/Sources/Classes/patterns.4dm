@@ -56,9 +56,29 @@ Function _parse($text : Text) : Object
 		If ($tab>0)
 			
 			$key:=Substring:C12($line; 1; $tab-1)
-			$o[$key]:=Substring:C12($line; $tab+1)
+			$o[$key]:=This:C1470._resolve(Substring:C12($line; $tab+1))
 			
 		End if 
 	End for each 
 	
 	return $o
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Resolves the session-stable placeholders of a raw pattern:
+	//  {commentMark} -> the comment marker ; {cmdNNN} -> the localized name of command NNN
+Function _resolve($pattern : Text) : Text
+	
+	var $result : Text:=Replace string:C233($pattern; "{commentMark}"; kCommentMark)
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	
+	While (Match regex:C1019("(?m-s)\\{cmd(\\d+)\\}"; $result; 1; $pos; $len))
+		
+		var $token : Text:=Substring:C12($result; $pos{0}; $len{0})
+		var $number : Integer:=Num:C11(Substring:C12($result; $pos{1}; $len{1}))
+		$result:=Replace string:C233($result; $token; Command name:C538($number))
+		
+	End while 
+	
+	return $result

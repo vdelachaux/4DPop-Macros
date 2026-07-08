@@ -18,6 +18,15 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Regex externalisées — `beautifier` (registre)** : le registre de patterns du
+  constructeur (`_patterns`, `_splittableCommands`) migré vers
+  `Resources/regex/beautifier.txt`. Le singleton `patterns` **résout au chargement**
+  les jetons stables par session : `{commentMark}`→marqueur, `{cmdNNN}`→`Command
+  name(NNN)` (via `_resolve`). Le constructeur ne substitue plus que les jetons
+  par-item : `{control}`, `{closure}`, `{closures}`, `{if}/{else}/{endIf}`,
+  `{command}`. ⚠️ Les regex **inline à usage unique** des méthodes (`before()`,
+  `splitTests`, `_controls.caseOfItem`…) restent en place — migration incrémentale
+  possible en phase 2, à faire avec 4D ouvert. **À TESTER dans 4D avant `declaration`.**
 - **Regex externalisées (pilote sur `macro`)** : nouvelle classe `patterns`
   (shared singleton, `cs.patterns.me`) qui charge les regex depuis
   `/RESOURCES/regex/*.txt` (un fichier = un groupe ; lignes `clé<TAB>regex brute`,

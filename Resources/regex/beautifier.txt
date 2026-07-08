@@ -1,0 +1,37 @@
+# 4DPop Macros — regex patterns for the `beautifier` class.
+# Format:  <key><TAB><pattern>   (raw PCRE, NO 4D escaping — write \d, not \\d)
+# Blank lines and lines starting with # are ignored.
+#
+# Placeholders resolved by cs.patterns at load time (session-stable):
+#   {commentMark}  -> the comment marker (//)
+#   {cmdNNN}       -> the localized name of the 4D command NNN
+# Placeholders substituted by the beautifier constructor (per item):
+#   {control} {closure} {closures} {command} {if} {else} {endIf}
+
+# --- localized flow controls / closures ---
+flowControl	(?m-si)(?<!{commentMark})^(?:/\*.*\*/)?{control}\b
+caseOfItem	(?<!{commentMark})\r*(\r:\s\([^\r]*\r)\r*
+beginSQL	(?<!{commentMark})^(?:/\*.*\*/)?{cmd948}
+endSQL	(?<!{commentMark})^(?:/\*.*\*/)?{cmd949}
+closure	(?<!{commentMark})(?:{closures})\b
+closureInstructions	(?mi-s)(?<!{commentMark})(?<!{commentMark}\s)(?:/\*.*\*/)?({closure}[^\R]*)(\R)(\R*)
+keywords	(?mi-s)^(?:break|continue|return|Try|Catch|End try)
+
+# --- ternary / choose ---
+ternaryOperator	(?mi-s){if}\s\(([^)]*)\)\W*(\$.*?):=(.*)(?:\s*{commentMark}.*)?\s*\R{else}.*\R\s*\2:=(.*)(?:\s*{commentMark}.*)?\s*\R{endIf}
+choose	(?i-ms){cmd955}\(([^;]*?);\s*([^;]*?);\s*([^;]*?)\)(\s*{commentMark}.*?)?\R
+
+# --- comparison with an empty string ---
+emptyString	(?mi-s)(?:\(|;)([^)#=;]+)(?<!:)(#|=)""
+
+# --- commands whose parameters are split into key/value lines ---
+splittable1471	(?mi-s)(.*?:=){cmd1471}\((.*?)\)(.*?)$
+splittable1220	(?mi-s){cmd1220}\(([^;]*?);(.*?)\)(\s*{commentMark}.*?)?$
+splittable1055	(?mi-s){cmd1055}\((.*?)\)(\s*{commentMark}.*?)?$
+splittable865	(?mi-s)(.*?:=){cmd865}\((.*?)\)(\s*/{commentMark}.*?)?$
+splittable866	(?mi-s){cmd866}\((.*?)\)(\s*{commentMark}.*?)?$
+splittable1093	(?mi-s){cmd1093}\((.*?)\)(\s*{commentMark}.*?)?$
+splittableCommands	(?mi-s)^[^/]*{command}\(.*\)(?:\s*{commentMark}[^$]*)?$
+
+# --- separator comment line (comment mark + 5+ identical chars) ---
+commentLine	(?m-si)^\s*{commentMark}\s*(.)\1{4,}

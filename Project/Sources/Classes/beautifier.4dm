@@ -104,9 +104,11 @@ Class constructor()
 		This:C1470._controls.endUse; \
 		This:C1470._controls.endForEach]
 	
-	// Mark:-[Patterns]
+	// Mark:-[Patterns]  (raw regex from /RESOURCES/regex/beautifier.txt)
+	var $rx : Object:=cs:C1710.patterns.me.group("beautifier")
+	
 	// Mark:Localised flow controls
-	$t:="(?m-si)(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?{control}\\b"
+	$t:=$rx.flowControl
 	This:C1470._patterns:={\
 		If: Replace string:C233($t; "{control}"; This:C1470._controls.if); \
 		Else: Replace string:C233($t; "{control}"; This:C1470._controls.else); \
@@ -123,16 +125,16 @@ Class constructor()
 		EndUse: Replace string:C233($t; "{control}"; This:C1470._controls.endUse); \
 		ForEach: Replace string:C233($t; "{control}"; This:C1470._controls.forEach); \
 		EndForEach: Replace string:C233($t; "{control}"; This:C1470._controls.endForEach); \
-		CaseOfItem: "(?<!"+kCommentMark+")\\r*(\\r:\\s\\([^\\r]*\\r)\\r*"; \
-		BeginSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(948); \
-		EndSQL: "(?<!"+kCommentMark+")^(?:/\\*.*\\*/)?"+Command name:C538(949)\
+		CaseOfItem: $rx.caseOfItem; \
+		BeginSQL: $rx.beginSQL; \
+		EndSQL: $rx.endSQL\
 		}
 	
 	// MARK: Closures
-	This:C1470._patterns.closure:="(?<!"+kCommentMark+")(?:"+This:C1470.closures.join("|")+")\\b"
+	This:C1470._patterns.closure:=Replace string:C233($rx.closure; "{closures}"; This:C1470.closures.join("|"))
 	
 	// MARK: Localised closures
-	$t:="(?mi-s)(?<!"+kCommentMark+")(?<!"+kCommentMark+"\\s)(?:/\\*.*\\*/)?({closure}[^\\R]*)(\\R)(\\R*)"
+	$t:=$rx.closureInstructions
 	This:C1470._patterns.closureInstructions:=[\
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endIf); \
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endCase); \
@@ -143,35 +145,32 @@ Class constructor()
 		Replace string:C233($t; "{closure}"; This:C1470._controls.endForEach)\
 		]
 	
-	This:C1470._patterns.keywords:="(?mi-s)^(?:break|continue|return|Try|Catch|End try)"
+	This:C1470._patterns.keywords:=$rx.keywords
 	
 	// MARK: Ternary operators
-	This:C1470._patterns.ternaryOperator:="(?mi-s)"\
-		+This:C1470._controls.if+"\\s\\(([^)]*)\\)\\W*(\\$.*?):=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
-		+This:C1470._controls.else+".*\\R\\s*\\2:=(.*)(?:\\s*"+kCommentMark+".*)?\\s*\\R"\
-		+This:C1470._controls.endIf
+	This:C1470._patterns.ternaryOperator:=Replace string:C233(Replace string:C233(Replace string:C233($rx.ternaryOperator; "{if}"; This:C1470._controls.if); "{else}"; This:C1470._controls.else); "{endIf}"; This:C1470._controls.endIf)
 	
 	// MARK: Choose
-	This:C1470._patterns.choose:="(?i-ms)"+Command name:C538(955)+"\\(([^;]*?);\\s*([^;]*?);\\s*([^;]*?)\\)(\\s*"+kCommentMark+".*?)?\\R"
+	This:C1470._patterns.choose:=$rx.choose
 	
 	// MARK: Comparisson with empty string
-	This:C1470._patterns.emptyString:="(?mi-s)(?:\\(|;)([^)#=;]+)(?<!:)(#|=)\"\""
+	This:C1470._patterns.emptyString:=$rx.emptyString
 	
 	// MARK: Commands whose parameters must be divided into key/value lines
 	This:C1470._splittableCommands:=[\
-		{name: Command name:C538(1471); id: 1471; pattern: "(?mi-s)(.*?:=)"+Command name:C538(1471)+"\\((.*?)\\)(.*?)$"; commentIndex: 4}; \
-		{name: Command name:C538(1220); id: 1220; pattern: "(?mi-s)"+Command name:C538(1220)+"\\(([^;]*?);(.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 4}; \
-		{name: Command name:C538(1055); id: 1055; pattern: "(?mi-s)"+Command name:C538(1055)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}; \
-		{name: Command name:C538(865); id: 865; pattern: "(?mi-s)(.*?:=)"+Command name:C538(865)+"\\((.*?)\\)(\\s*/"+kCommentMark+".*?)?$"; commentIndex: 4}; \
-		{name: Command name:C538(866); id: 866; pattern: "(?mi-s)"+Command name:C538(866)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}; \
-		{name: Command name:C538(1093); id: 1093; pattern: "(?mi-s)"+Command name:C538(1093)+"\\((.*?)\\)(\\s*"+kCommentMark+".*?)?$"; commentIndex: 3}\
+		{name: Command name:C538(1471); id: 1471; pattern: $rx.splittable1471; commentIndex: 4}; \
+		{name: Command name:C538(1220); id: 1220; pattern: $rx.splittable1220; commentIndex: 4}; \
+		{name: Command name:C538(1055); id: 1055; pattern: $rx.splittable1055; commentIndex: 3}; \
+		{name: Command name:C538(865); id: 865; pattern: $rx.splittable865; commentIndex: 4}; \
+		{name: Command name:C538(866); id: 866; pattern: $rx.splittable866; commentIndex: 3}; \
+		{name: Command name:C538(1093); id: 1093; pattern: $rx.splittable1093; commentIndex: 3}\
 		]
 	
 	// MARK: Splittable commands
-	This:C1470._patterns.splittableCommands:="(?mi-s)^[^/]*{command}\\(.*\\)(?:\\s*"+kCommentMark+"[^$]*)?$"
+	This:C1470._patterns.splittableCommands:=$rx.splittableCommands
 	
 	// Separator line is made with a comment mark and at least 5 times the same character
-	This:C1470._patterns.commentLine:="(?m-si)^\\s*"+kCommentMark+"\\s*(.)\\1{4,}"
+	This:C1470._patterns.commentLine:=$rx.commentLine
 	
 	This:C1470.specialComments:="%}])"  // Compilation modifier & …
 	
