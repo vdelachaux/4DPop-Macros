@@ -22,6 +22,12 @@
 			"xml_NO_ERROR"
 		]
 	},
+	"(Binary database)": {
+		"methods": [
+			"(OPTIONS_GET)",
+			"(OPTIONS_SET)"
+		]
+	},
 	"(BINARY)": {},
 	"(classes)": {},
 	"(lib)": {
@@ -68,7 +74,6 @@
 	},
 	"📦 COMPONENT": {
 		"groups": [
-			"Binary database",
 			"FORMS",
 			"private"
 		]
@@ -83,12 +88,6 @@
 		"methods": [
 			"_4DPopMacros",
 			"options"
-		]
-	},
-	"Binary database": {
-		"methods": [
-			"OPTIONS_GET",
-			"OPTIONS_SET"
 		]
 	},
 	"FORMS": {
@@ -163,6 +162,7 @@
 	},
 	"trash": {
 		"groups": [
+			"(Binary database)",
 			"(BINARY)",
 			"(classes)",
 			"(lib)",

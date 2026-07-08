@@ -16,9 +16,6 @@ If (False:C215)
 	C_TEXT:C284(_o_Preferences_Set; $1)
 	C_TEXT:C284(_o_Preferences_Set; $2)
 	
-	// Private_SET_OPTIONS
-	C_LONGINT:C283(OPTIONS_SET; ${1})
-	
 	// Private_Boo_Paste_Regex_Pattern
 	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
 	
@@ -37,9 +34,6 @@ If (False:C215)
 	C_TEXT:C284(_o_Preferences; $1)
 	C_TEXT:C284(_o_Preferences; $2)
 	C_POINTER:C301(_o_Preferences; $3)
-	
-	// Private_GET_OPTIONS
-	C_LONGINT:C283(OPTIONS_GET; ${1})
 	
 	
 	// Str_gBoo_IsNumeric

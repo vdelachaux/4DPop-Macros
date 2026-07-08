@@ -40,6 +40,12 @@ propriétés `Form` ou des objets locaux.
   par `CODE_TO_EXECUTE_FORMULA.4dm`) ; `var v1;v2;v3;v4 : Variant` (nécessaires à
   `macro.4dm` → `Formula from string("4D:C1810(v1;v2;v3;v4)")` tant que le direct
   typing n'est pas prêt).
+- **Suppression `OPTIONS_GET` / `OPTIONS_SET`** (méthodes propres aux bases
+  binaires, déplacées vers `Project/Trash/Methods/`) : les 2 déclarations
+  associées retirées de `COMPILER_component.4dm` ; groupe `Binary database`
+  passé en corbeille dans `folders.json` (`(Binary database)` sous `trash`,
+  retiré de `📦 COMPONENT`). Aucun appelant vivant restant (seules occurrences
+  hors trash = `DerivedData/`, régénéré au build).
 
 ## À faire / pistes pour la suite
 - `method-attributes` contient encore une branche mode DB avec ALERT
