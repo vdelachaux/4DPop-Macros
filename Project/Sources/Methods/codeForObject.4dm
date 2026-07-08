@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-#DECLARE($Obj_object : Object; $key : Text) : Text
+#DECLARE($object : Object; $key : Text) : Text
 
 var $code; $t : Text
 
@@ -14,7 +14,7 @@ Else
 	
 End if 
 
-For each ($t; $Obj_object)
+For each ($t; $object)
 	
 	If (Length:C16($t)=0)\
 		 | (Match regex:C1019("^\\d"; $t; 1))
@@ -24,40 +24,40 @@ For each ($t; $Obj_object)
 		Case of 
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is null:K8:31)
+			: (Value type:C1509($object[$t])=Is null:K8:31)
 				
 				$code+="Null:C1517"
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is object:K8:27)
+			: (Value type:C1509($object[$t])=Is object:K8:27)
 				
-				$code+=codeForObject($Obj_object[$t]; $key+"[\""+$t+"\"]")
-				
-				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is text:K8:3)
-				
-				$code+="\""+$Obj_object[$t]+"\""
+				$code+=codeForObject($object[$t]; $key+"[\""+$t+"\"]")
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is real:K8:4)\
-				 | (Value type:C1509($Obj_object[$t])=Is longint:K8:6)
+			: (Value type:C1509($object[$t])=Is text:K8:3)
 				
-				$code+=String:C10($Obj_object[$t])
-				
-				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is boolean:K8:9)
-				
-				$code+=$Obj_object[$t] ? "True:C214" : "False:C215"
+				$code+="\""+$object[$t]+"\""
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is date:K8:7)
+			: (Value type:C1509($object[$t])=Is real:K8:4)\
+				 | (Value type:C1509($object[$t])=Is longint:K8:6)
 				
-				$code+="!"+String:C10($Obj_object[$t])+"!"
+				$code+=String:C10($object[$t])
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is collection:K8:32)
+			: (Value type:C1509($object[$t])=Is boolean:K8:9)
 				
-				$code+=codeForCollection($Obj_object[$t]; $key+"[\""+$t+"\"]")
+				$code+=$object[$t] ? "True:C214" : "False:C215"
+				
+				// ______________________________________________________
+			: (Value type:C1509($object[$t])=Is date:K8:7)
+				
+				$code+="!"+String:C10($object[$t])+"!"
+				
+				// ______________________________________________________
+			: (Value type:C1509($object[$t])=Is collection:K8:32)
+				
+				$code+=codeForCollection($object[$t]; $key+"[\""+$t+"\"]")
 				
 				// ______________________________________________________
 		End case 
@@ -69,40 +69,40 @@ For each ($t; $Obj_object)
 		Case of 
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is null:K8:31)
+			: (Value type:C1509($object[$t])=Is null:K8:31)
 				
 				$code+="Null:C1517"
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is object:K8:27)
+			: (Value type:C1509($object[$t])=Is object:K8:27)
 				
-				$code+=codeForObject($Obj_object[$t]; $key+"."+$t)
-				
-				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is text:K8:3)
-				
-				$code+="\""+$Obj_object[$t]+"\""
+				$code+=codeForObject($object[$t]; $key+"."+$t)
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is real:K8:4)\
-				 | (Value type:C1509($Obj_object[$t])=Is longint:K8:6)
+			: (Value type:C1509($object[$t])=Is text:K8:3)
 				
-				$code+=String:C10($Obj_object[$t])
-				
-				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is boolean:K8:9)
-				
-				$code+=$Obj_object[$t] ? "True:C214" : "False:C215"
+				$code+="\""+$object[$t]+"\""
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is date:K8:7)
+			: (Value type:C1509($object[$t])=Is real:K8:4)\
+				 | (Value type:C1509($object[$t])=Is longint:K8:6)
 				
-				$code+="!"+String:C10($Obj_object[$t])+"!"
+				$code+=String:C10($object[$t])
 				
 				// ______________________________________________________
-			: (Value type:C1509($Obj_object[$t])=Is collection:K8:32)
+			: (Value type:C1509($object[$t])=Is boolean:K8:9)
 				
-				$code+=codeForCollection($Obj_object[$t]; $key+"."+$t)
+				$code+=$object[$t] ? "True:C214" : "False:C215"
+				
+				// ______________________________________________________
+			: (Value type:C1509($object[$t])=Is date:K8:7)
+				
+				$code+="!"+String:C10($object[$t])+"!"
+				
+				// ______________________________________________________
+			: (Value type:C1509($object[$t])=Is collection:K8:32)
+				
+				$code+=codeForCollection($object[$t]; $key+"."+$t)
 				
 				// ______________________________________________________
 		End case 
