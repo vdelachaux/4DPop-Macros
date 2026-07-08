@@ -18,6 +18,11 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Documentation 4D (markdown)** : ajout de `Documentation/Classes/<Classe>.md`
+  (11) et `Documentation/Methods/<Méthode>.md` (19 méthodes production), selon la
+  norme 4D (commentaire HTML de résumé = tooltip éditeur, `## Description`,
+  `## Parameters`/`## Functions`, `## Example` en ```4d```). En anglais. Les
+  `.DS_Store` sont ignorés par git.
 - **Renommage dispatcher** : `_4DPop_MACROS` → `_runMacro`
   (`Project/Sources/Methods/_runMacro.4dm`). Nom plus parlant, sans « 4DPop ».
   Références mises à jour : `folders.json` (groupe ⚙️ MACROS), les 3 XML de
