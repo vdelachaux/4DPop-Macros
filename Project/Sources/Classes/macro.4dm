@@ -17,7 +17,6 @@ property lineIndex : Integer:=0
 
 property isCommentBlock : Boolean:=False:C215
 
-property _controlFlow : Object
 property _output : Collection:=[]
 
 property decimalSeparator : Text
@@ -159,8 +158,7 @@ Function split($useSelection : Boolean; $options : Integer)
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function localizedControlFlow($control : Text) : Text
 	
-	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
-	return Command name:C538(41)="ALERT" ? $control : This:C1470._controlFlow.fr(This:C1470._controlFlow.intl.indexOf($control))
+	return cs:C1710.controlFlow.me.localized($control)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function noSelection() : Boolean
@@ -687,9 +685,7 @@ Function comment_current_level()
 		
 	End if 
 	
-	This:C1470._controlFlow:=This:C1470._controlFlow || JSON Parse:C1218(File:C1566("/RESOURCES/controlFlow.json").getText())
-	
-	var $keywords : Collection:=This:C1470._controlFlow[Command name:C538(41)="ALERT" ? "intl" : "fr"]
+	var $keywords : Collection:=cs:C1710.controlFlow.me.keywords
 	
 	// Order matters: "For each" before "For", "End for each" before "End for"
 	var $open : Collection:=[$keywords[13]; $keywords[7]; $keywords[5]; $keywords[3]; $keywords[9]; $keywords[11]; $keywords[0]]

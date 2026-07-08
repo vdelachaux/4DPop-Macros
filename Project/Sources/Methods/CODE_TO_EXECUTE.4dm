@@ -28,7 +28,7 @@ Repeat
 	End if 
 Until (OK=0)
 
-_o_localizedControlFlow(""; ->$_controlFlow)
+COLLECTION TO ARRAY:C1562(cs:C1710.controlFlow.me.keywords; $_controlFlow)
 
 For ($i; 1; Size of array:C274($_controlFlow); 1)
 	

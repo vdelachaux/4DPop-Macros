@@ -1,26 +1,21 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
-  // ----------------------------------------------------
-  // Méthode : win_NOT_UNDER_TOOBAR
-  // Created 28/10/05 par Vincent de Lachaux
-  // ----------------------------------------------------
-  // Description
-  //
-  // ----------------------------------------------------
-C_LONGINT:C283($0)
+// ----------------------------------------------------
+// Method : win_NOT_UNDER_TOOLBAR
+// Created 28/10/05 by Vincent de Lachaux
+// ----------------------------------------------------
+// Moves the current form window down if it sits under the toolbar; returns its reference
+// ----------------------------------------------------
+#DECLARE() : Integer
 
-C_LONGINT:C283($Lon_Bottom;$Lon_Left;$Lon_Right;$Lon_Top;$Lon_Window)
+var $bottom; $left; $right; $top : Integer
+var $window : Integer:=Current form window:C827
 
-If (False:C215)
-	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR ;$0)
-End if 
+GET WINDOW RECT:C443($left; $top; $right; $bottom; $window)
 
-$Lon_Window:=Current form window:C827
-GET WINDOW RECT:C443($Lon_Left;$Lon_Top;$Lon_Right;$Lon_Bottom;$Lon_Window)
-
-If ($Lon_Top<Tool bar height:C1016)
+If ($top<Tool bar height:C1016)
 	
-	SET WINDOW RECT:C444($Lon_Left;50;$Lon_Right;$Lon_Bottom+Tool bar height:C1016+10;$Lon_Window)
+	SET WINDOW RECT:C444($left; 50; $right; $bottom+Tool bar height:C1016+10; $window)
 	
 End if 
 
-$0:=$Lon_Window
+return $window

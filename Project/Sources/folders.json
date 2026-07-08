@@ -1,7 +1,6 @@
 {
 	"_o_": {
 		"methods": [
-			"_o_localizedControlFlow",
 			"4DPop_MACROS_INIT",
 			"4DPop_MACROS_SETTINGS"
 		]
@@ -47,6 +46,7 @@
 	"👥 NAMESPACE": {
 		"classes": [
 			"beautifier",
+			"controlFlow",
 			"declaration",
 			"invertExpression",
 			"log",

@@ -141,6 +141,18 @@ propriétés `Form` ou des objets locaux.
   `Install_resources` (elle renvoyait toujours True) → `Init` appelle désormais
   `Install_resources` directement. Décl. retirée de `COMPILER_component`, entrée
   de `folders.json`. (Idem `Private_Boo_Paste_Regex_Pattern`, mort, supprimé.)
+- **`_o_localizedControlFlow` → singleton `cs.controlFlow`** : les mots-clés de
+  structure (`controlFlow.json`) ne varient pas dans une session → classe
+  `shared singleton` (`cs.controlFlow.me`), chargée UNE fois via
+  `OB Copy(JSON Parse(...); ck shared)`. API : `get keywords : Collection`
+  (intl ou fr selon la langue 4D) + `localized($ctrl) : Text`. Remplace le
+  `property _controlFlow` + les 2 chargements JSON inline de `macro` (dont un
+  `.fr(...)` corrigé en `.fr[...]`), et les 2 appels `_o_localizedControlFlow(
+  ""; ->$array)` de `CODE_TO_EXECUTE`/`CODE_TO_EXECUTE_FORMULA` (→ `COLLECTION
+  TO ARRAY(cs.controlFlow.me.keywords; $array)`). `_o_localizedControlFlow`
+  supprimée. `win_NOT_UNDER_TOOLBAR` modernisée (`#DECLARE() : Integer` + `var`).
+  Le bloc `If (False)` de `COMPILER_component` est désormais VIDE (supprimé) ;
+  restent uniquement `<>tTxt_lines`, `M_4DPop_tTxt_Buffer`, `v1..v4`.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

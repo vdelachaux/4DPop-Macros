@@ -3,15 +3,3 @@ ARRAY TEXT:C222(<>tTxt_lines; 0)
 ARRAY TEXT:C222(M_4DPop_tTxt_Buffer; 0)
 
 var v1; v2; v3; v4 : Variant
-
-If (False:C215)
-	
-	C_TEXT:C284(_o_localizedControlFlow; $0)
-	C_TEXT:C284(_o_localizedControlFlow; $1)
-	C_POINTER:C301(_o_localizedControlFlow; $2)
-	C_POINTER:C301(_o_localizedControlFlow; $3)
-	
-	// Win_NOT_UNDER_TOOLBAR
-	C_LONGINT:C283(win_NOT_UNDER_TOOLBAR; $0)
-	
-End if 

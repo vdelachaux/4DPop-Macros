@@ -40,7 +40,7 @@ Repeat
 	End if 
 Until (OK=0)
 
-_o_localizedControlFlow(""; ->$tTxt_controlFlow)
+COLLECTION TO ARRAY:C1562(cs:C1710.controlFlow.me.keywords; $tTxt_controlFlow)
 
 For ($Lon_Lignes; 1; Size of array:C274(<>tTxt_lines); 1)
 	
