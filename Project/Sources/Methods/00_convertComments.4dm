@@ -1,8 +1,9 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
-_O_C_LONGINT:C283($l)
-_O_C_TEXT:C284($kTxt_separator; $t; $tComment; $tContent; $tMarkDown; $tPlainText)
-_O_C_TEXT:C284($tSyntax)
-_O_C_OBJECT:C1216($folderTarget; $o)
+//%W-551.2
+var $l : Integer
+var $kTxt_separator; $t; $tComment; $tContent; $tMarkDown; $tPlainText : Text
+var $tSyntax : Text
+var $folderTarget; $o : Object
 
 $t:=Select folder:C670("Select the comment folder"; 8858)
 
@@ -67,3 +68,4 @@ If (OK=1)
 		
 	End for each 
 End if 
+//%W+551.2
