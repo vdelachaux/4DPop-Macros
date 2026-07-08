@@ -49,7 +49,7 @@ Function create()
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// Display a pop up menu to toggle the attributes of the selected method
+	// Display a pop up menu to toggle the attributes of the current method
 Function attributes($target : Text)
 	
 	If (Not:C34(This:C1470.projectMethod))
