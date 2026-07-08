@@ -157,6 +157,15 @@ propriétés `Form` ou des objets locaux.
   interprocess/process utilisés UNIQUEMENT comme buffers de travail dans
   `CODE_TO_EXECUTE_FORMULA`. Renommés en `$_lines` / `$_buffer` (locaux). Retirés
   de `COMPILER_component` (ne reste que `var v1;v2;v3;v4`).
+- **`macro._comment` modernisée + `v1..v4` supprimés + `COMPILER_component`
+  supprimé** : `_comment()` utilisait un hack `Formula from string("4D:C1810(v1;
+  v2; v3; v4)")` (appel de la commande n°1810 par numéro) pour retrouver la ligne
+  de la sélection. Remplacé par un test simple : ligne entière si la sélection
+  figure dans `Split(This.method)` (via `.indexOf`), sinon `/* */` ; multi-ligne
+  = bloc `/* */` avec `\r` final (séparateur pour `duplicateAndComment`). Plus de
+  `v1..v4` → le dernier contenu de `COMPILER_component` disparaît, donc la méthode
+  est SUPPRIMÉE (+ son appel dans `Init`, + entrée `folders.json`). Le composant
+  n'a plus aucune méthode de déclaration compilateur.
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

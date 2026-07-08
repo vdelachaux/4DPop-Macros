@@ -31,10 +31,7 @@ End if
 If (Count parameters:C259=0)\
  && (Not:C34(Storage:C1525.component.inited))
 	
-	COMPILER_component
-	
-	INSTALL_LOCALIZED_MACROS
-	
+
 	If (Storage:C1525.macros=Null:C1517)  // Holds the dispatcher's lastUsed action
 		
 		Use (Storage:C1525)

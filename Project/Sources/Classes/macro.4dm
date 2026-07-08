@@ -921,8 +921,7 @@ Function duplicateAndComment()
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _comment() : Text
 	
-	var $c : Collection
-	$c:=Split string:C1554(This:C1470.highlighted; "\r")
+	var $c : Collection:=Split string:C1554(This:C1470.highlighted; "\r")
 	
 	If ($c[0]="")
 		
@@ -936,24 +935,20 @@ Function _comment() : Text
 		
 	End if 
 	
-	If ($c.length=1)
+	If ($c.length>1)  // Multiple lines: block comment (trailing CR to separate a duplicated selection)
 		
-		var v1; v2; v3; v4 : Variant
-		Formula from string:C1601("4D:C1810(v1; v2; v3; v4)").call()
+		return "/*\r"+$c.join("\r")+"\r*/\r"
 		
-		If ($c[0]=Split string:C1554(This:C1470.method; "\r")[v3])
-			
-			return "// "+This:C1470.highlighted
-			
-		Else 
-			
-			return "/*"+This:C1470.highlighted+"*/"
-			
-		End if 
+	End if 
+	
+	// Single line: "// " if a whole method line is selected, "/* */" for a partial selection
+	If (Split string:C1554(This:C1470.method; "\r").indexOf($c[0])>=0)
+		
+		return "// "+This:C1470.highlighted
 		
 	Else 
 		
-		return "/*\r"+$c.join("\r")+"\r*/"+("\r"*Num:C11(v1=v2))
+		return "/*"+This:C1470.highlighted+"*/"
 		
 	End if 
 	
