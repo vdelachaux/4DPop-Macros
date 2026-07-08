@@ -1,5 +1,5 @@
 // ----------------------------------------------------
-// Method : Méthode formulaire : M4DPop_About
+// Method: form method: M4DPop_About
 // Created 27/01/06 by Vincent de Lachaux
 // ----------------------------------------------------
 var $e:=FORM Event:C1606
