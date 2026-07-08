@@ -1,10 +1,10 @@
 //%attributes = {"invisible":true,"preemptive":"incapable"}
 // ----------------------------------------------------
-// Méthode : private_CODE_TO_EXECUTE
-// Created 24/10/05 par Vincent de Lachaux
+// Method: private_CODE_TO_EXECUTE
+// Created 24/10/05 by Vincent de Lachaux
 // ----------------------------------------------------
 // Description
-// Réécris le code sélectionné avec la commande EXECUTER
+// Rewrites the selected code using the EXECUTE FORMULA command
 // ----------------------------------------------------
 // Modified by vdl (09/10/07)
 // -> v11
@@ -27,8 +27,7 @@ End if
 $lines:=Split string:C1554($code; "\r"; sk trim spaces:K86:2)
 $output:=""
 
-// Récupérer les noms de commande localisés
-
+// Collect the localized command names
 Repeat 
 	
 	$i+=1
@@ -129,12 +128,12 @@ For each ($line; $lines)
 	Case of 
 			
 			// ______________________________________________________
-		: (Length:C16($command+$line)=0)  // Ligne vide
+		: (Length:C16($command+$line)=0)  // Empty line
 			
 			$output+="\r"
 			
 			// ______________________________________________________
-		: ($command=kCommentMark+"@")  // Ligne de commentaire
+		: ($command=kCommentMark+"@")  // Comment line
 			
 			If ($lineNumber>1)
 				
@@ -145,7 +144,7 @@ For each ($line; $lines)
 			$output+=$command
 			
 			// ______________________________________________________
-		: ($controlFlow.indexOf($command)>=0)  // Structure conditionelle
+		: ($controlFlow.indexOf($command)>=0)  // Control-flow structure
 			
 			If ($lineNumber>1)
 				
@@ -189,7 +188,7 @@ For each ($line; $lines)
 				
 			End if 
 			
-			// D'abord la ligne d'origine en commentaires…
+			// First, the original line as a comment…
 			$output+=kCommentMark+" "
 			
 			If (Length:C16($_buffer{0})>0)
@@ -221,17 +220,17 @@ For each ($line; $lines)
 			
 			$output+="\r"
 			
-			// …Puis appel de la commande EXECUTER
+			// …then the call to the EXECUTE FORMULA command
 			$output+=Command name:C538(63)+"("
 			
-			// Eventuel retour
+			// Optional assignment target
 			If (Length:C16($_buffer{0})>0)
 				
 				$output+="\""+$_buffer{0}+":=\"+"
 				
 			End if 
 			
-			// Estce une commande 4D ?
+			// Is it a 4D command?
 			$commandIndex:=Find in array:C230($commandNames; $command)
 			
 			If ($commandIndex>0)
