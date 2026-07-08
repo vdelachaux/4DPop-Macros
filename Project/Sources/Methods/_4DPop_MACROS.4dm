@@ -1,6 +1,6 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"incapable"}
 // ----------------------------------------------------
-// Méthode : _4DPop_MACROS
+// Method: _4DPop_MACROS
 // Created 24/10/05 by Vincent de Lachaux
 // ----------------------------------------------------
 // Description
@@ -113,7 +113,7 @@ Case of
 		cs:C1710.method.new().attributes($text)
 		
 		// ______________________________________________________
-	: ($action="3D_button")  // #v12 Rapid 3D button génération
+	: ($action="3D_button")  // #v12 Rapid 3D button generation
 		
 		var $winRef:=Open form window:C675("CREATE_BUTTON"; Plain form window:K39:10; Horizontally centered:K39:1; Vertically centered:K39:4; *)
 		DIALOG:C40("CREATE_BUTTON")
@@ -232,12 +232,12 @@ Case of
 		cs:C1710.invertExpression.new()
 		
 		// ______________________________________________________
-	: ($action="convert_to_execute")  // EXECUTER METHODE [New v13]
+	: ($action="convert_to_execute")  // EXECUTE METHOD [New v13]
 		
 		CODE_TO_EXECUTE
 		
 		// ______________________________________________________
-	: ($action="convert_to_formula")  // EXECUTER FORMULE
+	: ($action="convert_to_formula")  // EXECUTE FORMULA
 		
 		CODE_TO_EXECUTE_FORMULA
 		
