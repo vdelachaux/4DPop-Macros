@@ -22,42 +22,42 @@
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS</method></text>
+        <text><method>_runMacro</method></text>
     </macro>
     
     <macro name="Declarations.../$" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("Declarations";"<method_path/>")</method></text>
+        <text><method>_runMacro("Declarations";"<method_path/>")</method></text>
     </macro>
     
     <macro name="Compiler directive… /¢" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-         <text><method>_4DPop_MACROS("compiler_directive")</method></text>
+         <text><method>_runMacro("compiler_directive")</method></text>
     </macro>
     
     <macro name="Constant value…" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("constantValue")</method></text>
+        <text><method>_runMacro("constantValue")</method></text>
     </macro>
     
     <macro name="Find with Google" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("googleSearch")</method></text>
+        <text><method>_runMacro("googleSearch")</method></text>
     </macro>
     
     <macro name="Make an archive" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("zipForShare")</method></text>
+        <text><method>_runMacro("zipForShare")</method></text>
     </macro>
     
     <!-- ******************************* METHODS ******************************* -->
@@ -68,7 +68,7 @@
         type_ahead="true" 
         type_ahead_text="_method" 
         version="2">        
-        <text><method>_4DPop_MACROS("method-new")</method></text>        
+        <text><method>_runMacro("method-new")</method></text>        
     </macro>
         
     <macro name="Method attributes…" 
@@ -76,40 +76,40 @@
         type_ahead="true" 
         type_ahead_text="_attributes" 
         version="2">        
-        <text><method>_4DPop_MACROS("method-attributes";"<method_path/>")</method></text>        
+        <text><method>_runMacro("method-attributes";"<method_path/>")</method></text>        
     </macro>
         
     <macro name="Beautifier/§" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>_4DPop_MACROS("Beautifier")</method></text>        
+        <text><method>_runMacro("Beautifier")</method></text>        
     </macro>
     
     <macro name="Remove blank lines/*" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>_4DPop_MACROS("RemoveBlankLines")</method></text>        
+        <text><method>_runMacro("RemoveBlankLines")</method></text>        
     </macro>
     
     <!-- ******************************* COPY PASTE ******************************* -->
     <macro name="-" in_menu="true" type_ahead="true" type_ahead_text="Scomber scombrus : lol">
-        <text><method>_4DPop_MACROS("about")</method></text>
+        <text><method>_runMacro("about")</method></text>
     </macro>
     
     <macro name="Copy with tokens"
         in_menu="true"
         type_ahead="false"
         version="2">
-        <text><method>_4DPop_MACROS("CopyWithTokens")</method></text>
+        <text><method>_runMacro("CopyWithTokens")</method></text>
     </macro>
     
     <macro name="Copy and replace/©" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("PasteAndKeepTarget")</method></text>
+        <text><method>_runMacro("PasteAndKeepTarget")</method></text>
     </macro>
     
     <macro name="Special paste.../◊" 
@@ -117,7 +117,7 @@
         type_ahead="true" 
         type_ahead_text="_p"
         version="2">
-        <text><method>_4DPop_MACROS("SpecialPaste")</method></text>
+        <text><method>_runMacro("SpecialPaste")</method></text>
     </macro>
     
     <macro name="Past a color expression" 
@@ -125,7 +125,7 @@
         type_ahead="true" 
         type_ahead_text="_c"
         version="2">
-        <text><method>_4DPop_MACROS("PasteColor")</method></text>
+        <text><method>_runMacro("PasteColor")</method></text>
     </macro>
     
     <!-- ******************************* COMMENTS ******************************* -->
@@ -137,14 +137,14 @@
         in_menu="true"
         type_ahead="false"
         version="2">
-        <text><method>_4DPop_MACROS("comment")</method></text>
+        <text><method>_runMacro("comment")</method></text>
     </macro>
     
     <macro name="Duplicate and comment/∂"
         in_menu="true"
         type_ahead="false"
         version="2">
-        <text><method>_4DPop_MACROS("duplicateAndComment")</method></text>
+        <text><method>_runMacro("duplicateAndComment")</method></text>
     </macro>
     
     <!-- ******************************* REFACTORING ******************************* -->
@@ -154,42 +154,42 @@
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("Asserted")</method></text>
+        <text><method>_runMacro("Asserted")</method></text>
     </macro>
     
     <macro name="Convert to call with token" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("ConvertToCallWithToken")</method></text>
+        <text><method>_runMacro("ConvertToCallWithToken")</method></text>
     </macro>
     
     <macro name="Dot notation" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("dot_notation")</method></text>
+        <text><method>_runMacro("dot_notation")</method></text>
     </macro>
     
     <macro name="Choose" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>_4DPop_MACROS("Choose")</method></text>        
+        <text><method>_runMacro("Choose")</method></text>        
     </macro>
     
     <macro name="EXECUTE METHOD" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>_4DPop_MACROS("convert_to_execute")</method></text>        
+        <text><method>_runMacro("convert_to_execute")</method></text>        
     </macro>
     
     <macro name="EXECUTE FORMULA" 
         in_menu="true" 
         type_ahead="false" 
         version="2">        
-        <text><method>_4DPop_MACROS("convert_to_formula")</method></text>        
+        <text><method>_runMacro("convert_to_formula")</method></text>        
     </macro>
         
     <!-- ******************************* CONVERSIONS ******************************* -->
@@ -201,14 +201,14 @@
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("convert_hexa")</method></text>
+        <text><method>_runMacro("convert_hexa")</method></text>
     </macro>
     
     <macro name="Convert to decimal" 
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("convert_decimal")</method></text>
+        <text><method>_runMacro("convert_decimal")</method></text>
     </macro>
     
     <macro name="-" type_ahead="false"><text/></macro>
@@ -217,7 +217,7 @@
         in_menu="true" 
         type_ahead="false" 
         version="2">
-        <text><method>_4DPop_MACROS("invert_expression")</method></text>
+        <text><method>_runMacro("invert_expression")</method></text>
     </macro>
     
     <macro name="-"  in_menu="true" type_ahead="false"><text/></macro>

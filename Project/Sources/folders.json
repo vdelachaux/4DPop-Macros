@@ -39,7 +39,7 @@
 	"♻️ LIBRAIRIES": {},
 	"⚙️ MACROS": {
 		"methods": [
-			"_4DPop_MACROS",
+			"_runMacro",
 			"4DPop_TEST_Macros"
 		]
 	},

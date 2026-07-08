@@ -18,7 +18,13 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
-- **Dispatcher** `_4DPop_MACROS.4dm` / `METHODS.4dm` : suppression des actions
+- **Renommage dispatcher** : `_4DPop_MACROS` → `_runMacro`
+  (`Project/Sources/Methods/_runMacro.4dm`). Nom plus parlant, sans « 4DPop ».
+  Références mises à jour : `folders.json` (groupe ⚙️ MACROS), les 3 XML de
+  macros (`Macros v2/`, `Resources/`, `Resources/fr.lproj/` — 26 appels chacun),
+  en-tête de la méthode. Appelé en interne via `Current method name` (dynamique),
+  donc pas d'autre appelant `.4dm` à modifier.
+- **Dispatcher** `_runMacro.4dm` / `METHODS.4dm` : suppression des actions
   obsolètes (`method-export`, `method-list`, `export`, `list`, branches
   `_display_list@`). Conservé : `new`, `attributes`, `about`.
 - **Formulaire LIST** : dossier `Forms/LIST/` supprimé + entrée retirée de
@@ -50,7 +56,7 @@ propriétés `Form` ou des objets locaux.
   dispatcher project method `METHODS` est supprimé. Ses 2 entry points
   deviennent des fonctions : `create()` (ex-`"new"` : extraction de la sélection
   dans une nouvelle méthode) et `attributes($target)` (ex-`"attributes"` : pop up
-  menu des attributs). Appels dans `_4DPop_MACROS.4dm` :
+  menu des attributs). Appels dans `_runMacro.4dm` :
   `cs.method.new().create()` / `cs.method.new().attributes($text)`. Le garde-fou
   « Not yet available in project mode » de `method-attributes` est SUPPRIMÉ
   (activé en mode projet). Décl. interprocess `METHODS` retirée de
@@ -62,7 +68,7 @@ propriétés `Form` ou des objets locaux.
   alphanumérique attendu »). `method` a donc son constructeur `Super()`.
 - **Macro `method-attributes` exposée** : le point d'entrée existait dans le
   dispatcher mais aucune macro ne l'appelait. Ajout de l'entrée
-  `_4DPop_MACROS("method-attributes")` dans les 3 XML sources
+  `_runMacro("method-attributes")` dans les 3 XML sources
   (`Macros v2/4DPop_Macros.xml`, `Resources/4DPop_Macros.xml`,
   `Resources/fr.lproj/4DPop_Macros.xml`), après « New method » / « Nouvelle
   méthode ». Noms : « Method attributes… » / « Attributs de la méthode… »,
