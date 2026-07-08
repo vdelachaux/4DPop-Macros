@@ -153,19 +153,6 @@
 					"fontTheme": "normal",
 					"fontSize": 10
 				},
-				"projectMethodDirective": {
-					"type": "checkbox",
-					"top": 342,
-					"left": 215,
-					"width": 139,
-					"height": 16,
-					"sizingX": "move",
-					"tooltip": ":xliff:MethodSyntax_Comment",
-					"text": ":xliff:MethodSyntax_Option",
-					"focusable": false,
-					"dataSource": "Form:C1466.options.methodDeclaration",
-					"dataSourceTypeHint": "boolean"
-				},
 				"trimEmptyLines": {
 					"type": "checkbox",
 					"top": 364,
@@ -297,7 +284,6 @@
 				"remove",
 				"input",
 				"variableNumber",
-				"projectMethodDirective",
 				"trimEmptyLines",
 				"generateComments"
 			]

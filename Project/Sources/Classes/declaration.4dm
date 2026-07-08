@@ -940,8 +940,6 @@ Function _apply()
 			
 		Else 
 			
-			var $compilerDirectives : Text
-			
 			If (This:C1470._output.query("type = :1"; "#DECLARE").first()=Null:C1517)
 				
 				// #DECLARE does not accept $1 ... $N as a parameter name, so we use the var keyword for parameters.
@@ -950,12 +948,10 @@ Function _apply()
 					If ($o.class#Null:C1517)
 						
 						$method+="var "+$o.value+":"+$o.class+"\r"
-						$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";"+$o.value+")\r"
 						
 					Else 
 						
 						$method+="var "+$o.value+":"+This:C1470.types[$o.type].name+"\r"
-						$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";"+$o.value+")\r"
 						
 					End if 
 				End for each 
@@ -973,7 +969,6 @@ Function _apply()
 					If ($o.class#Null:C1517)
 						
 						$method+=":"+$o.class
-						$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";$"+String:C10($o.order)+")\r"
 						
 					Else 
 						
@@ -983,15 +978,6 @@ Function _apply()
 							
 						End if 
 						
-						If ($o.value="...")  //variadic
-							
-							$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";${"+String:C10($o.order)+"})\r"
-							
-						Else 
-							
-							$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$"+String:C10($o.order)+")\r"
-							
-						End if 
 					End if 
 				End for each 
 				
@@ -1013,28 +999,16 @@ Function _apply()
 						If ($o.class#Null:C1517)
 							
 							$method+=$o.class
-							$compilerDirectives+="C_OBJECT:C1216("+This:C1470.name+";$0)\r"
 							
 						Else 
 							
 							$method+=This:C1470.types[$o.type].name
-							$compilerDirectives+="4d:C"+String:C10(This:C1470.types[$o.type].directive)+"("+This:C1470.name+";$0)\r"
 							
 						End if 
 					End if 
 				End if 
 				
 				$method+=String:C10(This:C1470._output.query("type = :1"; "#DECLARE").first().comment)
-				
-			End if 
-			
-			// * COMPILER DIRECTIVES
-			If (This:C1470.projectMethod)\
-				 && (Bool:C1537($options.methodDeclaration))
-				
-				$method+="\r\r"+This:C1470.localizedControlFlow("If")+"(:C215)\r"
-				$method+=Delete string:C232($compilerDirectives; Length:C16($compilerDirectives); 1)+"\r"
-				$method+=This:C1470.localizedControlFlow("End if")
 				
 			End if 
 		End if 

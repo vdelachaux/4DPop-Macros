@@ -145,7 +145,6 @@
 			}
 		],
 		"options": {
-			"methodDeclaration": true,
 			"oneLinePerVariable": false,
 			"trimEmptyLines": true,
 			"replaceObsoleteTypes": false,

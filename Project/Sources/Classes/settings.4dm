@@ -208,7 +208,6 @@ Function convertXmlPrefToJson()->$settings : Object
 			$l:=Num:C11(BLOB to text:C555($x; Mac text without length:K22:10))
 			
 			$settings.declaration.options:=New object:C1471(\
-				"methodDeclaration"; $l ?? 27; \
 				"trimEmptyLines"; $l ?? 29; \
 				"generateComments"; $l ?? 31)
 			

@@ -70,17 +70,9 @@ This file is distributed under the same license as the 4D product package.
           <source>Array</source>
           <target>Array</target>
         </trans-unit>
-        <trans-unit id="uCkd_tttbK8eMgkpYqHdDw" resname="MethodSyntax_Option">
-          <source>Method syntax</source>
-          <target>Method syntax</target>
-        </trans-unit>
         <trans-unit id="fU6IR7wdeV7t2wNCky8OYw" resname="Button_Options">
           <source>Options</source>
           <target>Options</target>
-        </trans-unit>
-        <trans-unit id="r0mJIdRmwYjrhSd9nmfwjg" resname="MethodSyntax_Comment">
-          <source>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</source>
-          <target>This option allows, for the project methods receiving one or more parameters and/or returning a value, to insert after the lines of declarations the directives of compilation.</target>
         </trans-unit>
         <trans-unit id="TuoqIIvoPDO8vAEilJn_Tw" resname="Label_Type">
           <source>Type</source>

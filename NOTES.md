@@ -18,6 +18,14 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Option « Method syntax » (déclaration) supprimée** : avec le direct typing,
+  l'option `methodDeclaration` (bloc `If(False)` de directives de compilation
+  `4d:C…(nom;$0)` inséré en tête des méthodes projet) est obsolète. Retirée
+  partout : classe `declaration` (bloc consommateur + toute la construction morte
+  de `$compilerDirectives`), `Resources/default.settings`, migration XML→JSON de
+  `settings.convertXmlPrefToJson`, checkbox `projectMethodDirective` du formulaire
+  `DECLARATIONS_SETTINGS`, et chaînes XLIFF `MethodSyntax_Option`/`_Comment`
+  (en+fr). Le `#DECLARE(...)` moderne reste inchangé.
 - **Documentation 4D (markdown)** : ajout de `Documentation/Classes/<Classe>.md`
   (11) et `Documentation/Methods/<Méthode>.md` (19 méthodes production), selon la
   norme 4D (commentaire HTML de résumé = tooltip éditeur, `## Description`,
