@@ -19,10 +19,6 @@ If (False:C215)
 	// Private_Boo_Paste_Regex_Pattern
 	C_BOOLEAN:C305(Private_Boo_Paste_Regex_Pattern; $0)
 	
-	// Private_Methods
-	C_TEXT:C284(METHODS; $1)
-	C_TEXT:C284(METHODS; $2)
-	
 	// Private_Txt_Get_Preferences
 	C_TEXT:C284(Preferences_Get; $0)
 	C_TEXT:C284(Preferences_Get; $1)

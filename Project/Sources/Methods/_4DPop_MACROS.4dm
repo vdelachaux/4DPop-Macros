@@ -105,20 +105,12 @@ Case of
 		// ______________________________________________________
 	: ($action="method-new")  // #v14 Create a method with the selection
 		
-		METHODS("new"; $macro.highlighted)
+		cs:C1710.method.new().create()
 		
 		// ______________________________________________________
-	: ($action="method-attributes")  // #v13 Set methodes attributes
+	: ($action="method-attributes")  // #v13 Set method attributes
 		
-		If (Bool:C1537(Get database parameter:C643(113)))  // Project mode
-			
-			ALERT:C41("Not yet available in project mode")
-			
-		Else 
-			
-			METHODS("attributes"; $text)
-			
-		End if 
+		cs:C1710.method.new().attributes()
 		
 		// ______________________________________________________
 	: ($action="3D_button")  // #v12 Rapid 3D button génération

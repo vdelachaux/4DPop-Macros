@@ -46,10 +46,18 @@ propriétés `Form` ou des objets locaux.
   passé en corbeille dans `folders.json` (`(Binary database)` sous `trash`,
   retiré de `📦 COMPONENT`). Aucun appelant vivant restant (seules occurrences
   hors trash = `DerivedData/`, régénéré au build).
+- **`METHODS` → classe `method`** (`Classes/method.4dm`, `extends macro`) : le
+  dispatcher project method `METHODS` est supprimé. Ses 2 entry points
+  deviennent des fonctions : `create()` (ex-`"new"` : extraction de la sélection
+  dans une nouvelle méthode) et `attributes()` (ex-`"attributes"` : pop up menu
+  des attributs, cible = `This.highlighted`). Appels dans `_4DPop_MACROS.4dm` :
+  `cs.method.new().create()` / `cs.method.new().attributes()`. Le garde-fou
+  « Not yet available in project mode » de `method-attributes` est SUPPRIMÉ
+  (activé en mode projet). Décl. interprocess `METHODS` retirée de
+  `COMPILER_component.4dm` ; `METHODS` retiré de `folders.json` (+ `method`
+  ajouté aux classes du namespace).
 
 ## À faire / pistes pour la suite
-- `method-attributes` contient encore une branche mode DB avec ALERT
-  « Not yet available in project mode » — à nettoyer.
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
   formulaires.
 - Passer au direct typing pour pouvoir retirer `v1..v4` de COMPILER_component.
