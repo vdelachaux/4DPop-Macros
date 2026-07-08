@@ -52,6 +52,14 @@ Function create()
 	// Display a pop up menu to toggle the attributes of the selected method
 Function attributes($target : Text)
 	
+	If (Not:C34(This:C1470.projectMethod))
+		
+		ALERT:C41(Localized string:C991("attributesProjectMethodOnly"))
+		
+		return 
+		
+	End if 
+	
 	If (Length:C16($target)=0)
 		
 		$target:=Current method path:C1201

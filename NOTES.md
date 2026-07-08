@@ -70,6 +70,12 @@ propriétés `Form` ou des objets locaux.
   courante comme 2ᵉ param via le tag `<method_path/>` (même motif que la macro
   « Declarations ») → devient la `$target` de `attributes()` (fallback
   `Current method path` si vide).
+- **`attributes()` réservé aux méthodes projet** : `METHOD Get attribute` /
+  `METHOD SET ATTRIBUTE` ne fonctionnent QUE sur les méthodes projet (sur une
+  classe/méthode objet/database method → erreur -9768 « Invalid object path:
+  [class]/method »). Garde en tête de `attributes()` : `If (Not(This.projectMethod))`
+  → `ALERT(Localized string("attributesProjectMethodOnly"))` + `return`. Nouvelle
+  clé XLIFF `attributesProjectMethodOnly` (en + fr).
 
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres

@@ -336,6 +336,10 @@ Would you like me to create this method for you?</target>
           <source>There is already a method with that name.</source>
           <target>There is already a method with that name.</target>
         </trans-unit>
+        <trans-unit id="AtTrPrOjMeThOnLyA01x" resname="attributesProjectMethodOnly">
+          <source>Method attributes are only available for project methods.</source>
+          <target>Method attributes are only available for project methods.</target>
+        </trans-unit>
       </group>
       <group resname="beautifier">
         <trans-unit id="Qg9bt8IhIDdvEvWUbGS+mg" resname="removeEmptyLinesAtTheBeginOfMethod">
