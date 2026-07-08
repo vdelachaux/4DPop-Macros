@@ -11,11 +11,11 @@
 // ----------------------------------------------------
 #DECLARE($code : Text) : Text
 
-var $Lon_CommandParameters; $Lon_Error; $Lon_i; $Lon_Lignes; $Lon_Position; $Lon_x : Integer
-var $output; $Txt_Code; $Txt_Command : Text
+var $parameterCount; $i; $lineNumber; $position; $commandIndex : Integer
+var $output; $line; $command : Text
 var $lines; $controlFlow : Collection
 
-ARRAY TEXT:C222($tTxt_Commands; 0)
+ARRAY TEXT:C222($commandNames; 0)
 ARRAY TEXT:C222($_buffer; 0)
 
 If (Count parameters:C259=0)  // Macro mode: read the current selection
@@ -31,14 +31,14 @@ $output:=""
 
 Repeat 
 	
-	$Lon_i+=1
-	$output:=Command name:C538($Lon_i)
+	$i+=1
+	$output:=Command name:C538($i)
 	
 	If (OK=1)
 		
 		If (Character code:C91($output)#At sign:K15:46)
 			
-			APPEND TO ARRAY:C911($tTxt_Commands; $output)
+			APPEND TO ARRAY:C911($commandNames; $output)
 			
 		End if 
 	End if 
@@ -46,20 +46,20 @@ Until (OK=0)
 
 $controlFlow:=cs:C1710.controlFlow.me.keywords
 
-$Lon_Lignes:=0
+$lineNumber:=0
 
-For each ($Txt_Code; $lines)
+For each ($line; $lines)
 	
-	$Lon_Lignes+=1
+	$lineNumber+=1
 	
 	ARRAY TEXT:C222($_buffer; 0)
 	
-	$Lon_Position:=Position:C15(":="; $Txt_Code)
+	$position:=Position:C15(":="; $line)
 	
-	If ($Lon_Position>0)
+	If ($position>0)
 		
-		$_buffer{0}:=Substring:C12($Txt_Code; 1; $Lon_Position-1)
-		$Txt_Code:=Substring:C12($Txt_Code; $Lon_Position+2)
+		$_buffer{0}:=Substring:C12($line; 1; $position-1)
+		$line:=Substring:C12($line; $position+2)
 		
 	Else 
 		
@@ -67,87 +67,87 @@ For each ($Txt_Code; $lines)
 		
 	End if 
 	
-	$Lon_Position:=Position:C15("("; $Txt_Code)
+	$position:=Position:C15("("; $line)
 	
-	If ($Lon_Position>0)
+	If ($position>0)
 		
-		$Txt_Command:=Substring:C12($Txt_Code; 1; $Lon_Position-1)
-		$Txt_Code:=Substring:C12($Txt_Code; $Lon_Position+1)
+		$command:=Substring:C12($line; 1; $position-1)
+		$line:=Substring:C12($line; $position+1)
 		
 	Else 
 		
-		$Txt_Command:=$Txt_Code
-		$Txt_Code:=""
+		$command:=$line
+		$line:=""
 		
 	End if 
 	
-	While ($Txt_Command=" @")
+	While ($command=" @")
 		
-		$Txt_Command:=Substring:C12($Txt_Command; 2)
-		
-	End while 
-	
-	While ($Txt_Command="@ ")
-		
-		$Txt_Command:=Substring:C12($Txt_Command; 1; Length:C16($Txt_Command)-1)
+		$command:=Substring:C12($command; 2)
 		
 	End while 
 	
-	If (Length:C16($Txt_Code)#0)
+	While ($command="@ ")
 		
-		While ($Txt_Code[[Length:C16($Txt_Code)]]#")")
+		$command:=Substring:C12($command; 1; Length:C16($command)-1)
+		
+	End while 
+	
+	If (Length:C16($line)#0)
+		
+		While ($line[[Length:C16($line)]]#")")
 			
-			$Txt_Code:=Substring:C12($Txt_Code; 1; Length:C16($Txt_Code)-1)
+			$line:=Substring:C12($line; 1; Length:C16($line)-1)
 			
 		End while 
 		
-		If (Length:C16($Txt_Code)#0)
+		If (Length:C16($line)#0)
 			
-			$Txt_Code:=Substring:C12($Txt_Code; 1; Length:C16($Txt_Code)-1)
+			$line:=Substring:C12($line; 1; Length:C16($line)-1)
 			
-			While (Length:C16($Txt_Code)#0)
+			While (Length:C16($line)#0)
 				
-				$Lon_Position:=Position:C15(";"; $Txt_Code)
+				$position:=Position:C15(";"; $line)
 				
-				If ($Lon_Position>0)
+				If ($position>0)
 					
-					APPEND TO ARRAY:C911($_buffer; Substring:C12($Txt_Code; 1; $Lon_Position-1))
-					$Txt_Code:=Substring:C12($Txt_Code; $Lon_Position+1)
+					APPEND TO ARRAY:C911($_buffer; Substring:C12($line; 1; $position-1))
+					$line:=Substring:C12($line; $position+1)
 					
 				Else 
 					
-					APPEND TO ARRAY:C911($_buffer; $Txt_Code)
-					$Txt_Code:=""
+					APPEND TO ARRAY:C911($_buffer; $line)
+					$line:=""
 					
 				End if 
 			End while 
 		End if 
 	End if 
 	
-	$Lon_CommandParameters:=Size of array:C274($_buffer)
+	$parameterCount:=Size of array:C274($_buffer)
 	
 	Case of 
 			
 			// ______________________________________________________
-		: (Length:C16($Txt_Command+$Txt_Code)=0)  // Ligne vide
+		: (Length:C16($command+$line)=0)  // Ligne vide
 			
 			$output+="\r"
 			
 			// ______________________________________________________
-		: ($Txt_Command=kCommentMark+"@")  // Ligne de commentaire
+		: ($command=kCommentMark+"@")  // Ligne de commentaire
 			
-			If ($Lon_Lignes>1)
+			If ($lineNumber>1)
 				
 				$output+="\r"
 				
 			End if 
 			
-			$output+=$Txt_Command
+			$output+=$command
 			
 			// ______________________________________________________
-		: ($controlFlow.indexOf($Txt_Command)>=0)  // Structure conditionelle
+		: ($controlFlow.indexOf($command)>=0)  // Structure conditionelle
 			
-			If ($Lon_Lignes>1)
+			If ($lineNumber>1)
 				
 				$output+="\r"
 				
@@ -159,17 +159,17 @@ For each ($Txt_Code; $lines)
 				
 			End if 
 			
-			$output+=$Txt_Command
+			$output+=$command
 			
-			If ($Lon_CommandParameters>0)
+			If ($parameterCount>0)
 				
 				$output+="("
 				
-				For ($Lon_i; 1; $Lon_CommandParameters; 1)
+				For ($i; 1; $parameterCount; 1)
 					
-					$output+=$_buffer{$Lon_i}
+					$output+=$_buffer{$i}
 					
-					If ($Lon_i<$Lon_CommandParameters)
+					If ($i<$parameterCount)
 						
 						$output+=";"
 						
@@ -183,7 +183,7 @@ For each ($Txt_Code; $lines)
 			// ______________________________________________________
 		Else 
 			
-			If ($Lon_Lignes>1)
+			If ($lineNumber>1)
 				
 				$output+="\r"
 				
@@ -198,17 +198,17 @@ For each ($Txt_Code; $lines)
 				
 			End if 
 			
-			$output+=$Txt_Command
+			$output+=$command
 			
-			If ($Lon_CommandParameters>0)
+			If ($parameterCount>0)
 				
 				$output+="("
 				
-				For ($Lon_i; 1; $Lon_CommandParameters; 1)
+				For ($i; 1; $parameterCount; 1)
 					
-					$output+=$_buffer{$Lon_i}
+					$output+=$_buffer{$i}
 					
-					If ($Lon_i<$Lon_CommandParameters)
+					If ($i<$parameterCount)
 						
 						$output+=";"
 						
@@ -232,30 +232,30 @@ For each ($Txt_Code; $lines)
 			End if 
 			
 			// Estce une commande 4D ?
-			$Lon_x:=Find in array:C230($tTxt_Commands; $Txt_Command)
+			$commandIndex:=Find in array:C230($commandNames; $command)
 			
-			If ($Lon_x>0)
+			If ($commandIndex>0)
 				
 				$output+=Command name:C538(538)
 				$output+="("
-				$output+=String:C10($Lon_x)
+				$output+=String:C10($commandIndex)
 				$output+=")"
 				
 			Else 
 				
-				$output+="\""+$Txt_Command+"\""
+				$output+="\""+$command+"\""
 				
 			End if 
 			
-			If ($Lon_CommandParameters>0)
+			If ($parameterCount>0)
 				
 				$output+="+\"("
 				
-				For ($Lon_i; 1; $Lon_CommandParameters; 1)
+				For ($i; 1; $parameterCount; 1)
 					
-					$output+=Replace string:C233($_buffer{$Lon_i}; "\""; "\\\"")
+					$output+=Replace string:C233($_buffer{$i}; "\""; "\\\"")
 					
-					If ($Lon_i<$Lon_CommandParameters)
+					If ($i<$parameterCount)
 						
 						$output+=";"
 						

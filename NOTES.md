@@ -169,9 +169,16 @@ propriétés `Form` ou des objets locaux.
   Méthode `CODE_TO_EXECUTE_FORMULA_test` (groupe TESTS) : passe des échantillons,
   renvoie les paires `{input; output}` et copie un rapport lisible dans le
   presse-papier.
+- **Nommage `CODE_TO_EXECUTE_FORMULA`** : variables à préfixe hongrois renommées en
+  camelCase parlant (`$Lon_Lignes`→`$lineNumber`, `$Txt_Code`→`$line`,
+  `$Txt_Command`→`$command`, `$Lon_Position`→`$position`,
+  `$Lon_CommandParameters`→`$parameterCount`, `$Lon_x`→`$commandIndex`,
+  `$Lon_i`→`$i`, `$tTxt_Commands`→`$commandNames`). `$Lon_Error` (inutilisé)
+  supprimé. `$_buffer` conservé (pas de préfixe de type). À faire ailleurs :
+  `Method6`, `Forms/CREATE_BUTTON/.../source` (hors fichiers d'exemple/test).
 - **Commentaires via la constante `kCommentMark`** : `CODE_TO_EXECUTE_FORMULA`
   utilisait l'ancien marqueur backtick `` ` `` puis `//` en dur → utilise
-  désormais `kCommentMark` (détection `$Txt_Command=kCommentMark+"@"`, préfixe
+  désormais `kCommentMark` (détection `$command=kCommentMark+"@"`, préfixe
   `kCommentMark+" "`). Si le marqueur change à l'avenir, seule la constante est à
   mettre à jour (déjà utilisée dans `macro`/`specialPaste`). Échantillons de test
   en `//` littéral (données d'exemple).
