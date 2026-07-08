@@ -209,7 +209,7 @@ Case of
 			 && (Length:C16($t)>0)\
 			 && ($t="@.@")
 			
-			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "    // %W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
+			SET MACRO PARAMETER:C998(Highlighted method text:K5:18; "//%W-"+$t+"\r"+$macro.highlighted+"\r//%W+"+$t)
 			
 		End if 
 		
