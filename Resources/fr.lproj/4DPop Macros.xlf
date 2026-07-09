@@ -320,7 +320,8 @@ N'est plus disponible, éventuellement parce qu'elle a été intégrée à 4D</t
         <trans-unit id="msg_noUnusedVariable" resname="noUnusedVariable">
           <source>No variable is unused.</source>
           <target>Aucune variable n'est inutilisée.</target>
-        </trans-unit>        <trans-unit id="msg_notAConstant" resname="notAConstant">
+        </trans-unit>
+        <trans-unit id="msg_notAConstant" resname="notAConstant">
           <source>does not seem to be a constant!</source>
           <target>ne semble pas être une constante !</target>
         </trans-unit>

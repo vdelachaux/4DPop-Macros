@@ -208,7 +208,7 @@ Function _processClass()
 	If ($processed=0)
 		
 		// No function needed anything → nothing to paste
-		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
+		ALERT:C41(This:C1470._verifiedMessage())
 		return 
 		
 	End if 
@@ -230,9 +230,17 @@ Function _processClass()
 	If (Not:C34($prompted))
 		
 		// Every function was already clean → confirm the check
-		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
+		ALERT:C41(This:C1470._verifiedMessage())
 		
 	End if 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Informative message shown when a scope/class needed no user input
+Function _verifiedMessage() : Text
+	
+	return Localized string:C991("allDeclarationsVerified")+"\r"\
+		+Localized string:C991("allVariablesDeclared")+"\r"\
+		+Localized string:C991("noUnusedVariable")
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// Resets the per-scope accumulators before parsing a new function block
@@ -1290,7 +1298,7 @@ Function _apply()
 				$inline[$key].push($local)
 				
 				//___________________
-			End case 
+		End case 
 	End for each 
 	
 	// Declarations without a located use stay at the top of the block, grouped by type
@@ -1583,7 +1591,7 @@ Function _groupDeclarations($locals : Collection) : Collection
 				$groups[$sig].push($local.value)
 				
 				//___________________
-			End case 
+		End case 
 	End for each 
 	
 	var $sig2 : Text
