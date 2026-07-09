@@ -72,7 +72,7 @@ Case of
 		// ______________________________________________________
 	: ($entryPoint="refresh")  // Update UI
 		
-		$o:=Count parameters:C259>=2 ? $data : Form:C1466.current
+		var $o : Object:=Count parameters:C259>=2 ? $data : Form:C1466.current
 		
 		If ($o=Null:C1517)
 			
@@ -113,6 +113,30 @@ Case of
 			
 		End for each 
 		
+		// Class picker: shown only for Object-typed variables; reflects the found class
+		var $isObject : Boolean:=(Num:C11($o.type)=Is object:K8:27) & Not:C34(Bool:C1537($o.array))
+		
+		OBJECT SET VISIBLE:C603(*; "classPopup"; $isObject)
+		
+		If ($isObject) && (Form:C1466.classDrop#Null:C1517)
+			
+			var $class : Text:=String:C10($o.class)
+			$class:=Length:C16($class)=0 ? "Object" : $class
+			
+			var $idx : Integer:=Form:C1466.classDrop.values.indexOf($class)
+			
+			If ($idx=-1)
+				
+				Form:C1466.classDrop.values.push($class)
+				$idx:=Form:C1466.classDrop.values.length-1
+				
+			End if 
+			
+			Form:C1466.classDrop.value:=$class
+			Form:C1466.classDrop.index:=$idx
+			
+		End if 
+		
 		Form:C1466.subset:=Form:C1466.subset  // Touch to update
 		
 		LISTBOX SELECT ROW:C912(*; "declarationList"; Form:C1466.index; lk replace selection:K53:1)
@@ -137,8 +161,6 @@ Case of
 		
 		var $subMenu:=cs:C1710.ui.menu.new()
 		var $types : Collection:=Form:C1466.types.extract("name"; "name"; "value"; "value").query("value!=null").orderBy("name")
-		
-		var $o : Object
 		
 		For each ($o; $types)
 			

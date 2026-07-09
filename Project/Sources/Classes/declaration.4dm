@@ -1,30 +1,17 @@
+Class extends macro
+
 property locales:=[]
 property parameters:=[]
 property classes:=[]
 property types:=[]
 property assigned:=[]
 property variables : Collection
+property classIcon : Picture  // icon for object variables that carry a class (4D.x / cs.x)
 
-property gramSyntax : Object:=New object:C1471(\
-String:C10(Is object:K8:27); []; \
-String:C10(Is object:K8:27)+"_1"; []; \
-String:C10(Is boolean:K8:9); []; \
-String:C10(Is boolean:K8:9)+"_1"; []; \
-String:C10(Is longint:K8:6); []; \
-String:C10(Is longint:K8:6)+"_1"; []; \
-String:C10(Is text:K8:3); []; \
-String:C10(Is text:K8:3)+"_1"; []; \
-String:C10(Is real:K8:4); []; \
-String:C10(Is real:K8:4)+"_1"; []; \
-String:C10(Is collection:K8:32); []; \
-String:C10(Is collection:K8:32)+"_1"; []; \
-String:C10(Is pointer:K8:14); []; \
-String:C10(Is pointer:K8:14)+"_1"; []; \
-String:C10(Is date:K8:7); []; \
-String:C10(Is date:K8:7)+"_1"; []; \
-String:C10(Is time:K8:8); []; \
-String:C10(Is time:K8:8)+"_1"; []; \
-String:C10(Is BLOB:K8:12)+"_1"; [])
+// Session syntax store (shared singleton): return / first-parameter types of
+// commands and the return type of class members, parsed once per session from the
+// 4D syntax file (Resources/en.lproj/syntaxEN.json).
+property _syntax : cs:C1710.syntax:=cs:C1710.syntax.me
 
 property settings : Object
 
@@ -34,12 +21,13 @@ property parameterNumber:=0
 property _patterns : Object
 property _notforArray:=["collection"; "variant"]
 
+// Current scope source with comments stripped (used by the clairvoyance scope scans)
+property _scopeCode : Text
+
 property windowRef : Integer
 
 // MARK: Regex patterns (raw, loaded from /RESOURCES/regex/declaration.txt)
 property _dx : Object:=cs:C1710.patterns.me.group("declaration")
-
-Class extends macro
 
 Class constructor
 	
@@ -92,7 +80,6 @@ Class constructor
 		}
 	
 	This:C1470._loadIcons()
-	This:C1470._loadGramSyntax()
 	
 	// A class without selection is processed function by function, otherwise the
 	// current scope (whole method or selection) is processed as a single unit.
@@ -133,7 +120,7 @@ Function _processScope()
 		// Everything is already declared and used → apply the rules silently
 		This:C1470._apply()
 		This:C1470.paste(This:C1470.method)
-		ALERT:C41(This:C1470._verifiedMessage())
+		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
 		
 	End if 
 	
@@ -221,7 +208,7 @@ Function _processClass()
 	If ($processed=0)
 		
 		// No function needed anything → nothing to paste
-		ALERT:C41(This:C1470._verifiedMessage())
+		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
 		return 
 		
 	End if 
@@ -243,7 +230,7 @@ Function _processClass()
 	If (Not:C34($prompted))
 		
 		// Every function was already clean → confirm the check
-		ALERT:C41(This:C1470._verifiedMessage())
+		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
 		
 	End if 
 	
@@ -320,14 +307,6 @@ Function _needsDialog() : Boolean
 	return False:C215
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
-	// Informative message shown when a scope/class needed no user input
-Function _verifiedMessage() : Text
-	
-	return Localized string:C991("allDeclarationsVerified")+"\r"\
-		+Localized string:C991("allVariablesDeclared")+"\r"\
-		+Localized string:C991("noUnusedVariable")
-	
-	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function split() : cs:C1710.declaration
 	
 	Super:C1706.split(This:C1470.withSelection)
@@ -345,6 +324,7 @@ Function parse() : cs:C1710.declaration
 	
 	This:C1470._removeDirective()
 	This:C1470.split()
+	This:C1470._scopeCode:=This:C1470._cleanCode(This:C1470.method)
 	
 	var $text : Text
 	For each ($text; This:C1470.lines)
@@ -580,10 +560,9 @@ declaration macro must omit the parameters of a formula
 										
 									Else 
 										
-										// Only increment: a token seen here may just be used in the
-										// initializer (RHS) of another var, so it must NOT be flagged
-										// as declared.
+										// Already seen from a usage line: mark it as now declared
 										$var.count+=1
+										$var.inDeclaration:=True:C214
 										
 									End if 
 									
@@ -782,6 +761,8 @@ declaration macro must omit the parameters of a formula
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
 											: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))$"; $line.code; 1; *))
 												
+												var $retClass : Text:=This:C1470._returnClassOf($line.code)
+												
 												Case of 
 														
 														//____________________________________
@@ -795,9 +776,9 @@ declaration macro must omit the parameters of a formula
 														$var.type:=38
 														
 														//____________________________________
-													: (False:C215)
+													: ($retClass#"")
 														
-														// TODO: Get from member fonction or attribute
+														$var.class:=$retClass  // return class of the member (e.g. .file → 4D.File)
 														
 														//____________________________________
 													Else 
@@ -1099,9 +1080,20 @@ Function _setType($type : Integer; $target : Object)
 	End if 
 	
 	$o.type:=$type
-	$o.icon:=This:C1470.types[$o.type].icon
+	$o.icon:=This:C1470._iconFor($o)
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Icon shown for a variable in the dialog list: the dedicated "class" icon when the
+	// variable is an object carrying a class (4D.x / cs.x), otherwise its plain type icon
+Function _iconFor($var : Object) : Picture
+	
+	If ($var.type=Is object:K8:27) && (Length:C16(String:C10($var.class))>0) && (This:C1470.classIcon#Null:C1517)
+		
+		return This:C1470.classIcon
+		
+	End if 
+	
+	return This:C1470.types[Num:C11($var.type)].icon
 Function _apply()
 	
 	var $method : Text
@@ -1254,6 +1246,7 @@ Function _apply()
 	// could not be located (kept at the top of the block, as a safety net).
 	var $t : Text
 	var $inline : Object:={}
+	var $inlineAssign : Object:={}
 	var $orphans : Collection:=[]
 	
 	$c:=This:C1470.variables.query("(parameter=null & count>0 & assigned=null & array=null) or (array=true & count>0 & static=false)")
@@ -1261,9 +1254,8 @@ Function _apply()
 	var $local : Object
 	For each ($local; $c)
 		
-		var $declaration : Text:=This:C1470._buildDeclaration($local)
-		
-		If (Length:C16($declaration)=0)
+		// Skip variables whose type could not be determined (not declarable)
+		If (Length:C16(This:C1470._buildDeclaration($local))=0)
 			
 			continue
 			
@@ -1271,29 +1263,40 @@ Function _apply()
 		
 		var $at : Integer:=This:C1470._firstUseIndex($local)
 		
-		If ($at<0)
-			
-			$orphans.push($declaration)
-			
-		Else 
-			
-			var $key : Text:=String:C10($at)
-			
-			If ($inline[$key]=Null:C1517)
+		Case of 
 				
-				$inline[$key]:=[]
+				//___________________
+			: ($at<0)
 				
-			End if 
-			
-			$inline[$key].push($declaration)
-			
-		End if 
+				$orphans.push($local)
+				
+				//___________________
+			: (Not:C34(Bool:C1537($local.array)) && (Match regex:C1019("(?m-si)^\\s*\\"+$local.value+"\\s*:="; String:C10(This:C1470._output[$at].code); 1)))
+				
+				// The first use assigns the variable itself → declare and assign together
+				$inlineAssign[String:C10($at)]:=$local
+				
+				//___________________
+			Else 
+				
+				var $key : Text:=String:C10($at)
+				
+				If ($inline[$key]=Null:C1517)
+					
+					$inline[$key]:=[]
+					
+				End if 
+				
+				$inline[$key].push($local)
+				
+				//___________________
+			End case 
 	End for each 
 	
-	// Declarations without a located use stay at the top of the block
+	// Declarations without a located use stay at the top of the block, grouped by type
 	If ($orphans.length>0)
 		
-		$method+=$orphans.join("\r")+"\r"
+		$method+=This:C1470._groupDeclarations($orphans).join("\r")+"\r"
 		
 	End if 
 	
@@ -1316,72 +1319,50 @@ Function _apply()
 		
 	Else 
 		
-		If (Match regex:C1019("(?m-si)[^\r]"; $method; 1))
+		// Look for the first empty or declaration line
+		var $buffer : Text
+		For each ($o; This:C1470._output)
 			
-			// Parameter declarations to hoist: place them after the leading comments
-			// and set the caret there.
-			var $buffer : Text
-			For each ($o; This:C1470._output)
-				
-				$t:=String:C10($o.type)
-				var $length:=Length:C16($method)
-				
-				Case of 
-						
-						// ___________________
-					: ($t="comment")
-						
-						$buffer+=$o.code+"\r"
-						var $l:=Length:C16($buffer)
-						$o.skip:=True:C214
-						
-						// ___________________
-					: ($t="empty")
-						
-						$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
-						
-						break
-						
-						// ___________________
-					Else 
-						
-						If ($l<=0)
-							
-							// Insert before
-							$method+=kCaret
-							
-						Else 
-							
-							$method:=$buffer+Substring:C12($method; 1; $length-1)+"\r"+kCaret
-							
-						End if 
-						
-						break
-						
-						// ___________________
-				End case 
-			End for each 
+			$t:=String:C10($o.type)
+			var $length:=Length:C16($method)
 			
-			$method:=This:C1470._addNewLine($method)
-			
-		Else 
-			
-			// Nothing to hoist (all locals are placed near their use): don't add
-			// blank lines nor a caret at the top of the method.
-			$method:=""
-			
-		End if 
+			Case of 
+					
+					// ___________________
+				: ($t="comment")
+					
+					$buffer+=$o.code+"\r"
+					var $l:=Length:C16($buffer)
+					$o.skip:=True:C214
+					
+					// ___________________
+				: ($t="empty")
+					
+					$method:=$buffer+Substring:C12($method; 1; $length-1)
+					
+					break
+					
+					// ___________________
+				Else 
+					
+					If ($l>0)
+						
+						$method:=$buffer+Substring:C12($method; 1; $length-1)
+						
+					End if 
+					
+					break
+					
+					// ___________________
+			End case 
+		End for each 
+		
+		$method:=This:C1470._addNewLine($method)
 		
 	End if 
 	
-	// Restore the code, injecting each variable's declaration before its first use.
-	// $removedDeclSeen/$codeSeen delimit the leading declaration zone: blank lines
-	// that fall inside it (between the first hoisted-out declaration and the first
-	// real code line) are dropped so no hole is left behind. Blanks before that
-	// zone or after real code are preserved.
+	// Restore the code, injecting each variable's declaration before its first use
 	var $index : Integer
-	var $removedDeclSeen : Boolean:=False:C215
-	var $codeSeen : Boolean:=False:C215
 	For ($index; 0; This:C1470._output.length-1; 1)
 		
 		$o:=This:C1470._output[$index]
@@ -1391,7 +1372,7 @@ Function _apply()
 		
 		If ($decls#Null:C1517)
 			
-			$method+=$decls.join("\r")+"\r"
+			$method+=This:C1470._groupDeclarations($decls).join("\r")+"\r"
 			
 		End if 
 		
@@ -1400,46 +1381,37 @@ Function _apply()
 				//___________________
 			: (Bool:C1537($o.skip))
 				
-				// A removed declaration opens the leading declaration zone
-				If ($t="declaration")
-					
-					$removedDeclSeen:=True:C214
-					
-				End if 
+				// <NOTHING MORE TO DO>
 				
 				//___________________
 			: ($t="empty")
 				
-				Case of 
-						
-						//········································
-					: ($removedDeclSeen && (Not:C34($codeSeen)))
-						
-						// Blank inside the emptied declaration zone → drop it
-						
-						//········································
-					: ($method="@\r\r") || ($method=("@"+kCaret+"\r"))
-						
-						// Skip (avoid a duplicate blank)
-						
-						//········································
-					Else 
-						
-						$method+="\r"
-						
-						//········································
-				End case 
+				If ($method="@\r\r")\
+					 | ($method=("@"+kCaret+"\r"))
+					
+					// Skip
+					
+				Else 
+					
+					$method+="\r"
+					
+				End if 
 				
 				//________________________________________
 			Else 
 				
-				If ($t#"comment")
+				var $assign : Object:=$inlineAssign[String:C10($index)]
+				
+				If ($assign#Null:C1517)
 					
-					$codeSeen:=True:C214
+					// Merge the declaration with its assignment on a single line
+					$method+=This:C1470._buildDeclaration($assign)+" "+Substring:C12($o.code; Position:C15(":="; $o.code))+"\r"
+					
+				Else 
+					
+					$method+=$o.code+"\r"
 					
 				End if 
-				
-				$method+=$o.code+"\r"
 				
 				//________________________________________
 		End case 
@@ -1448,6 +1420,18 @@ Function _apply()
 	// Remove the last carriage return
 	$method:=Delete string:C232($method; Length:C16($method); 1)
 	
+	// Strip spurious leading blank lines. (The declarations are now inserted inline,
+	// so the caret no longer marks a hoisting point.)
+	If (Not:C34(This:C1470.class))
+		
+		While (Position:C15("\r"; $method)=1)
+			
+			$method:=Substring:C12($method; 2)
+			
+		End while 
+		
+	End if 
+	
 	If (Bool:C1537($options.trimEmptyLines))
 		
 		$method:=This:C1470.rgx.setTarget($method).setPattern("\\r{2,}").substitute("\r\r")
@@ -1455,7 +1439,49 @@ Function _apply()
 		
 	End if 
 	
+	// The caret goes at the very end for project methods (placing it mid-method left
+	// stray blank lines, and gluing it before "var" made 4D drop the following space).
+	If (Not:C34(This:C1470.class))
+		
+		$method+=kCaret
+		
+	End if 
+	
 	This:C1470.method:=$method
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Sorted list of class names offered in the declaration dialog: the 4D classes
+	// (4D.x) from the syntax file, "Object" (plain object / no class), plus the cs.*
+	// and 4D.* classes actually referenced in the parsed code. Native types such as
+	// Collection are excluded (they are picked through their own radio button).
+Function _classChoices() : Collection
+	
+	var $set : Object:={}
+	
+	var $name : Text
+	For each ($name; This:C1470._syntax.classNames())
+		
+		If (Position:C15("."; $name)>0)  // real classes only (4D.x); skip native types (Collection)
+			
+			$set[$name]:=True:C214
+			
+		End if 
+	End for each 
+	
+	var $known : Object
+	For each ($known; This:C1470.classes)
+		
+		If (Length:C16(String:C10($known.class))>0)
+			
+			$set[String:C10($known.class)]:=True:C214
+			
+		End if 
+	End for each 
+	
+	var $list : Collection:=OB Keys:C1719($set).sort()
+	$list.unshift("Object")  // plain object (no class) always first
+	
+	return $list
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Builds the declaration statement for a single local variable / array
@@ -1479,7 +1505,7 @@ Function _buildDeclaration($var : Object) : Text
 	// MARK:-Class-typed variable
 	var $class : Text:=String:C10($var.class)
 	
-	If (Length:C16($class)=0) && ($var.type=Is object:K8:27)
+	If ($var.class=Null:C1517) && ($var.type=Is object:K8:27)
 		
 		var $known : Object:=This:C1470.classes.query("value=:1"; $var.value).first()
 		
@@ -1512,6 +1538,62 @@ Function _buildDeclaration($var : Object) : Text
 	End if 
 	
 	return "var "+$var.value+" :"+$type.name
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Groups local variables into declaration lines, merging variables that share the
+	// same type onto a single "var $a; $b : Type" line. Arrays (and any non-"var"
+	// form) are emitted individually; variables with an unknown type are skipped.
+Function _groupDeclarations($locals : Collection) : Collection
+	
+	var $lines : Collection:=[]
+	var $groups : Object:={}
+	var $order : Collection:=[]
+	
+	var $local : Object
+	For each ($local; $locals)
+		
+		var $built : Text:=This:C1470._buildDeclaration($local)
+		
+		Case of 
+				
+				//___________________
+			: (Length:C16($built)=0)
+				
+				// Unknown type → not declared
+				
+				//___________________
+			: (Position:C15("var "; $built)#1)
+				
+				// Array or other non-"var" declaration → keep as-is
+				$lines.push($built)
+				
+				//___________________
+			Else 
+				
+				// Signature = everything after "var $value" (e.g. " :Text", "" for variant)
+				var $sig : Text:=Substring:C12($built; Length:C16("var "+$local.value)+1)
+				
+				If ($groups[$sig]=Null:C1517)
+					
+					$groups[$sig]:=[]
+					$order.push($sig)
+					
+				End if 
+				
+				$groups[$sig].push($local.value)
+				
+				//___________________
+			End case 
+	End for each 
+	
+	var $sig2 : Text
+	For each ($sig2; $order)
+		
+		$lines.push("var "+$groups[$sig2].join("; ")+$sig2)
+		
+	End for each 
+	
+	return $lines
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Index in _output of the first genuine use of the variable (-1 if none found)
@@ -1601,6 +1683,8 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 	
 	var $t:=Replace string:C233(Replace string:C233($text; "{"; "\\{"); "}"; "\\}")
 	
+	$line:=This:C1470._cleanCode($line)  // drop inline comments so the scans don't trip on "//"
+	
 	// MARK:- Literal syntax
 	Case of 
 			
@@ -1667,16 +1751,26 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is longint:K8:6
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: (Match regex:C1019("(?m-si)\\"+$t+"\\s*[-+/\\*]="; $line; 1))  // $var += -= *= /= with a non-literal RHS → numeric
+			
+			return Is real:K8:4
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*"+kCommentMark+")"+\
 			"|(?:\\s*/\\*))"; $line; 1))
 			
 			return Is boolean:K8:9
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: (Match regex:C1019("(?m-si)\\"+$t+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1))  // $var[<number>] → collection element access (scans the whole scope)
+			
+			return Is collection:K8:32
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $line; 1))\
 			 || (Match regex:C1019("(?m-si):="+Parse formula:C1576("Form:C1466")+"[^.]"; $line; 1))
 			
-			return Is object:K8:27
+			return This:C1470._memberReceiver($text)
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:!\\d+-\\d+-\\d+!)"; $line; 1))
@@ -1705,40 +1799,178 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is boolean:K8:9
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		Else   // Use gram.syntax
+		Else   // For each variables, then the session syntax store
 			
-			var $type : Text
-			For each ($type; This:C1470.gramSyntax)
+			var $forEach : Integer:=This:C1470._forEachType($text)
+			
+			If ($forEach#-1)
 				
-				var $indx:=Position:C15("_"; $type)
+				return $forEach
 				
-				If ($indx>0)
-					
-					var $pattern : Text
-					For each ($pattern; This:C1470.gramSyntax[$type])
-						
-						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t); $line; 1))
-							
-							return Num:C11(Substring:C12($type; 1; $indx-1))
-							
-						End if 
-					End for each 
-					
-				Else 
-					
-					For each ($pattern; This:C1470.gramSyntax[$type])
-						
-						If (Match regex:C1019(Replace string:C233($pattern; "%"; $t)+"(?=$|\\(|(?:\\s*"+kCommentMark+")"+"|(?:\\s*/\\*))"+")"; $line; 1))
-							
-							return Num:C11($type)
-							
-						End if 
-					End for each 
-				End if 
-			End for each 
+			End if 
+			
+			return This:C1470._syntax.guessType($text; $line)
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	End case 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Type of a variable involved in a "For each ( loopVar ; expression )":
+	//   • loop variable    → element type from its usage, or Text (object iteration)
+	//   • bare iterated var → Collection or Object, per the loop variable's usage
+	// Returns -1 when $var is not a For each variable.
+Function _forEachType($var : Text) : Integer
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	var $esc : Text:="\\"+$var
+	
+	// $var is the loop variable: For each ( $var ; … )
+	If (Match regex:C1019("(?m-si)(?:For each|Pour chaque)\\s*\\(\\s*"+$esc+"\\s*;"; This:C1470._scopeCode; 1))
+		
+		var $element : Integer:=This:C1470._loopVarType($var)
+		
+		return ($element#0) ? $element : Is text:K8:3
+		
+	End if 
+	
+	// $var is the (bare) iterated expression: For each ( loopVar ; $var {; begin {; end}} )
+	If (Match regex:C1019("(?m-si)(?:For each|Pour chaque)\\s*\\(\\s*(\\$\\w+)\\s*;\\s*"+$esc+"\\s*(?:;|\\))"; This:C1470._scopeCode; 1; $pos; $len))
+		
+		var $loopVar : Text:=Substring:C12(This:C1470._scopeCode; $pos{1}; $len{1})
+		
+		return (This:C1470._loopVarType($loopVar)#0) ? Is collection:K8:32 : Is object:K8:27
+		
+	End if 
+	
+	return -1
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Element type of a loop variable, inferred from its usage in the scope:
+	//   $v[<n>] → collection ; $v.member → object ; $v in arithmetic/comparison → real ;
+	//   else 0
+Function _loopVarType($var : Text) : Integer
+	
+	var $esc : Text:="\\"+$var
+	
+	Case of 
+			
+			//___________________
+		: (Match regex:C1019("(?m-si)"+$esc+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1))
+			
+			return Is collection:K8:32
+			
+			//___________________
+		: (Match regex:C1019("(?m-si)"+$esc+"\\."; This:C1470._scopeCode; 1))
+			
+			return Is object:K8:27
+			
+			//___________________
+		: (Match regex:C1019("(?m-si)(?:"+$esc+"\\s*[-+/\\*%<>]|[-+/\\*%]=?\\s*"+$esc+"\\b|[<>]=?\\s*"+$esc+"\\b)"; This:C1470._scopeCode; 1))
+			
+			return Is real:K8:4
+			
+			//___________________
+		Else 
+			
+			return 0
+			
+			//___________________
+	End case 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Type constant for a variable used as the receiver of a member ($var.member):
+	// derives its class from the accessed member names (e.g. .getText → 4D.File,
+	// .length → Collection) and records it so the variable is declared precisely
+Function _memberReceiver($var : Text) : Integer
+	
+	var $class : Text:=This:C1470._receiverClassOf($var)
+	
+	Case of 
+			
+			//___________________
+		: ($class="Collection")
+			
+			return Is collection:K8:32
+			
+			//___________________
+		: ($class="") || ($class="Object")
+			
+			return Is object:K8:27
+			
+			//___________________
+		Else 
+			
+			This:C1470.classes.push({value: $var; class: $class})
+			return Is object:K8:27
+			
+			//___________________
+	End case 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Class shared by every member accessed on $var in the scope (e.g. .getText and
+	// .extension both resolve to 4D.File); "" when they disagree or none is specific
+Function _receiverClassOf($var : Text) : Text
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	var $esc : Text:="\\"+$var
+	var $classes : Collection:=[]
+	var $start : Integer:=1
+	
+	While (Match regex:C1019("(?m-si)"+$esc+"\\.([A-Za-z]\\w*)"; This:C1470._scopeCode; $start; $pos; $len))
+		
+		var $class : Text:=This:C1470._syntax.memberReceiverClass(Substring:C12(This:C1470._scopeCode; $pos{1}; $len{1}))
+		
+		If (($class#"") && ($classes.indexOf($class)<0))
+			
+			$classes.push($class)
+			
+		End if 
+		
+		$start:=$pos{1}+$len{1}
+		
+	End while 
+	
+	return ($classes.length=1) ? $classes[0] : ""
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Return class of the member call ending an assignment RHS (e.g. "…:=$f.file(…)"
+	// → "4D.File"); "" when the member has no unambiguous return class
+Function _returnClassOf($code : Text) : Text
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	
+	If (Match regex:C1019("(?mi-s)\\.([A-Za-z]\\w*)\\s*\\([^)]*\\)\\s*$"; $code; 1; $pos; $len))
+		
+		return This:C1470._syntax.memberReturnClass(Substring:C12($code; $pos{1}; $len{1}))
+		
+	End if 
+	
+	return ""
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Removes /* … */ and // comments so the clairvoyance scans are not fooled by them
+	// (e.g. "$x  // …" must not look like a division, and a trailing comment must not
+	// break an end-of-expression anchor)
+Function _cleanCode($text : Text) : Text
+	
+	var $pos; $len : Integer
+	
+	While (Match regex:C1019("(?s)/\\*.*?\\*/"; $text; 1; $pos; $len))
+		
+		$text:=Delete string:C232($text; $pos; $len)
+		
+	End while 
+	
+	While (Match regex:C1019("//[^\r\n]*"; $text; 1; $pos; $len))
+		
+		$text:=Delete string:C232($text; $pos; $len)
+		
+	End while 
+	
+	return $text
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _loadIcons()
@@ -1759,6 +1991,9 @@ Function _loadIcons()
 		value: Is object:K8:27; \
 		arrayCommand: 1221; \
 		directive: 1216}
+	
+	READ PICTURE FILE:C678($root.file("field_class.svg").platformPath; $icon)
+	This:C1470.classIcon:=$icon
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is collection:K8:32; "00")+$suffix).platformPath; $icon)
 	This:C1470.types[Is collection:K8:32]:={\
@@ -1845,173 +2080,6 @@ Function _loadIcons()
 		value: Is real:K8:4; \
 		arrayCommand: 219; \
 		directive: 285}
-	
-	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
-Function _loadGramSyntax()
-	
-	var $file : 4D:C1709.File
-	$file:=Is macOS:C1572\
-		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/gram.4dsyntax")\
-		 : File:C1566(Application file:C491; fk platform path:K87:2).parent.file("Resources/gram.4dsyntax")
-	
-	If (Not:C34($file.exists))
-		
-		return 
-		
-	End if 
-	
-	var $patterns : Object
-	$patterns:={\
-		affectation: "(?m-is)\\%:=(?:(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \
-		affectationSuite: "|(?:#)(?=$|\\(|(?:\\s*"+kCommentMark+")|(?:\\s*/\\*))"; \
-		first: "(?m-is)#\\s*\\(\\%"\
-		}
-	
-	var $t : Text
-	var $first; $i; $return : Integer
-	
-	For each ($t; Split string:C1554($file.getText(); "\n"; sk trim spaces:K86:2))
-		
-		$i+=1
-		$return:=-1
-		$first:=-1
-		
-		If (Match regex:C1019("(?m-si)^\\t@"; $t; 1))
-			
-			continue  // The command entry is unused
-			
-		End if 
-		
-		var $pattern : Text:="(?m-si)^\\t{type}\\s<==\\s"
-		
-		Case of 
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "o"); $t; 1))\
-				 && ($i#3) && ($i#4)
-				
-				$return:=Is object:K8:27
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "j"); $t; 1))
-				
-				$return:=Is collection:K8:32
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "B"); $t; 1))
-				
-				$return:=Is boolean:K8:9
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "L"); $t; 1))
-				
-				$return:=Is longint:K8:6
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "S"); $t; 1))
-				
-				$return:=Is text:K8:3
-				
-				//______________________________________________________
-			: (Match regex:C1019("(?m-si)^\\ta\\d*\\s<==\\s"; $t; 1))
-				
-				$return:=Is text:K8:3
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "R"); $t; 1))
-				
-				$return:=Is real:K8:4
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "U"); $t; 1))
-				
-				$return:=Is pointer:K8:14
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "D"); $t; 1))
-				
-				$return:=Is date:K8:7
-				
-				//______________________________________________________
-			: (Match regex:C1019(Replace string:C233($pattern; "{type}"; "T"); $t; 1))
-				
-				$return:=Is time:K8:8
-				
-				//______________________________________________________
-		End case 
-		
-		If ($return#-1)
-			
-			If (This:C1470.gramSyntax[String:C10($return)].length=0)
-				
-				This:C1470.gramSyntax[String:C10($return)].push(Replace string:C233($patterns.affectation; "#"; Parse formula:C1576("4d:C"+String:C10($i))))
-				
-			Else 
-				
-				This:C1470.gramSyntax[String:C10($return)][0]:=This:C1470.gramSyntax[String:C10($return)][0]\
-					+Replace string:C233($patterns.affectationSuite; "#"; Parse formula:C1576("4d:C"+String:C10($i)))
-				
-			End if 
-		End if 
-		
-		$pattern:="(?m-si)^[^:]+\\s:\\s\\d+\\s:\\s(?:[^;/]*)?"
-		
-		Case of 
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"o"; $t; 1))
-				
-				$first:=Is object:K8:27
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"j"; $t; 1))
-				
-				$first:=Is collection:K8:32
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"a"; $t; 1))
-				
-				$first:=Is text:K8:3
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"L"; $t; 1))
-				
-				$first:=Is longint:K8:6
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"R"; $t; 1))
-				
-				$first:=Is real:K8:4
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"D"; $t; 1))
-				
-				$first:=Is date:K8:7
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"T"; $t; 1))
-				
-				$first:=Is time:K8:8
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"B"; $t; 1))
-				
-				$first:=Is boolean:K8:9
-				
-				//______________________________________________________
-			: (Match regex:C1019($pattern+"b"; $t; 1))
-				
-				$first:=Is BLOB:K8:12
-				
-				//________________________________________
-		End case 
-		
-		If ($first#-1)
-			
-			This:C1470.gramSyntax[String:C10($first)+"_1"].push(Replace string:C233($patterns.first; "#"; Parse formula:C1576("4d:C"+String:C10($i))))
-			
-		End if 
-	End for each 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Remove the compilation directives

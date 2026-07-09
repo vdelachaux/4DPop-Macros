@@ -7,7 +7,6 @@
 // Tests if the language of the system and the language of the macros are the same.
 // If not, installs a localized file if any
 // ----------------------------------------------------
-// Declarations
 var $file : 4D:C1709.File
 $file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml")
 

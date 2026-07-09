@@ -38,7 +38,6 @@ If (Count parameters:C259=0)\
 			Storage:C1525.macros:=New shared object:C1526("lastUsed"; "")
 			
 		End use 
-		
 	End if 
 	
 	If (cs:C1710.preferences.me.loaded)

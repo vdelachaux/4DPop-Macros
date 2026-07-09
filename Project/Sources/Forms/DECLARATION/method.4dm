@@ -42,13 +42,20 @@ Case of
 		Form:C1466.filter.setTitle("All")
 		Form:C1466.currentFilter:="all"
 		
+		// Class picker (shown only for Object-typed variables): all 4D classes from the
+		// syntax file + "Object" + the cs.*/4D.* classes referenced in the parsed code
+		Form:C1466.classDrop:=cs:C1710.ui.dropDown.new("classPopup"; {values: Form:C1466._classChoices(); placeholder: "Object"}).addToGroup(Form:C1466.isSelected)
+		
+		cs:C1710.ui.static.new("line1").addToGroup(Form:C1466.isSelected)
+		cs:C1710.ui.static.new("line2").addToGroup(Form:C1466.isSelected)
+		
 		Form:C1466.refresh:=Formula:C1597(declaration_UI("refresh"))
 		OBJECT SET SCROLLBAR:C843(*; "declarationList"; 0; 2)
 		
 		var $o : Object
 		For each ($o; Form:C1466.variables)
 			
-			$o.icon:=Form:C1466.types[Num:C11($o.type)].icon
+			$o.icon:=Form:C1466._iconFor($o)
 			
 		End for each 
 		
@@ -87,6 +94,21 @@ Case of
 			Form:C1466.list.setHelpTip("")
 			
 		End if 
+		
+		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	: (Form:C1466.classDrop.catch($e))
+		
+		If (Form:C1466.current#Null:C1517)
+			
+			var $picked : Text:=String:C10(Form:C1466.classDrop.value)
+			
+			Form:C1466.current.class:=($picked="Object") ? "" : $picked
+			Form:C1466.current.type:=Is object:K8:27
+			Form:C1466.current.icon:=Form:C1466._iconFor(Form:C1466.current)
+			
+		End if 
+		
+		Form:C1466.refresh()
 		
 		//––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	: ($e.code=On Clicked:K2:4)

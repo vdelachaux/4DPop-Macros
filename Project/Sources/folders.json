@@ -64,6 +64,7 @@
 			"preferences",
 			"settings",
 			"specialPaste",
+			"syntax",
 			"xml"
 		]
 	},
@@ -160,6 +161,7 @@
 			"TEST"
 		],
 		"classes": [
+			"myClass",
 			"test_"
 		]
 	},
