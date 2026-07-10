@@ -989,6 +989,10 @@ Function _parseParameters($line : Object)
 	End if 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Type declared by an EXPLICIT declaration line: each branch matches one type
+	// written either as "var … : Type", "C_TYPE(…)" or "ARRAY TYPE(…)" and returns the
+	// matching 4D type constant. Returns 0 (no case) when the line declares nothing.
 Function _getTypeFromDeclaration($text : Text) : Integer
 	
 	var $o : Object
@@ -1767,7 +1771,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 	Case of 
 			
 			//________________________________________________________________________________
-		: (Match regex:C1019("(?mi-s).*:=Form"; $line; 1))
+		: (Match regex:C1019("(?mi-s).*:=Form"; $line; 1))  // Assigned the Form object
 			
 			return Is object:K8:27
 			
@@ -1792,6 +1796,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			 || (Match regex:C1019("(?m-si)\\"+$t+"\\s*[#=<>]=?\\s*\""; $line; 1))\
 			 || (Match regex:C1019("(?m-si)\"[^\"]*\"\\s*[#=<>]=?\\s*\\"+$t+"\\b"; $line; 1))
 			
+			// Assigned to / compared with a string literal (e.g. $t:="x", $t="x", "x"=$t) → text
 			return Is text:K8:3
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1803,6 +1808,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("Radian:K30:3"); $line; 1))\
 			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("e number:K30:4"); $line; 1))
 			
+			// A decimal literal or a math constant (Pi / Degree / Radian / e) → real
 			return Is real:K8:4
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1813,6 +1819,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXTEXTLENBEFOREV11:K35:3"); $line; 1))\
 			 || (Match regex:C1019("[-+/\\*:]=-*\\d"; $line; 1))
 			
+			// An integer literal or an integer bound (MAXINT / MAXLONG / …) → long integer
 			return Is longint:K8:6
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1824,6 +1831,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:"+Command name:C538(214)+"|"+Command name:C538(215)+")(?=$|\\(|(?:\\s*"+kCommentMark+")"+\
 			"|(?:\\s*/\\*))"; $line; 1))
 			
+			// Assigned True / False → boolean
 			return Is boolean:K8:9
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1836,15 +1844,16 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $line; 1))\
 			 || (Match regex:C1019("(?m-si):="+Parse formula:C1576("Form:C1466")+"[^.]"; $line; 1))
 			
+			// Member access "$t.…" (or assigned Form) → infer the receiver class, else object
 			return This:C1470._memberReceiver($text)
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:!\\d+-\\d+-\\d+!)"; $line; 1))
+		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:!\\d+-\\d+-\\d+!)"; $line; 1))  // Assigned a date literal !dd-mm-yyyy!
 			
 			return Is date:K8:7
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:\\?\\d+:\\d+:\\d+\\?)"; $line; 1))
+		: (Match regex:C1019("(?m-si)\\"+$t+":=(?:\\?\\d+:\\d+:\\d+\\?)"; $line; 1))  // Assigned a time literal ?hh:mm:ss?
 			
 			return Is time:K8:8
 			
@@ -1852,15 +1861,16 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 		: (Match regex:C1019("(?mi-s)\\"+$t+":=->"; $line; 1))\
 			 || (Match regex:C1019("(?mi-s)\\"+$t+"->"; $line; 1))
 			
+			// Pointer syntax "->" → pointer
 			return Is pointer:K8:14
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)(?:For|Boucle)\\s\\((?:[^;]*;\\s*){0,3}(\\"+$t+")"; $line; 1))
+		: (Match regex:C1019("(?m-si)(?:For|Boucle)\\s\\((?:[^;]*;\\s*){0,3}(\\"+$t+")"; $line; 1))  // Counter of a For(…) loop
 			
 			return Is longint:K8:6
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)(?:If|Si|Not|Non)\\s*\\(\\"+$t+"\\)"; $line; 1))
+		: (Match regex:C1019("(?m-si)(?:If|Si|Not|Non)\\s*\\(\\"+$t+"\\)"; $line; 1))  // Used as a test in If(…) / Not(…)
 			
 			return Is boolean:K8:9
 			
@@ -1956,18 +1966,21 @@ Function _loopVarType($var : Text) : Integer
 			//___________________
 		: (Match regex:C1019("(?m-si)"+$esc+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1; $pos; $len))
 			
+			// Indexed access "$v[<n>]" → the loop element is a collection
 			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is collection:K8:32
 			
 			//___________________
 		: (Match regex:C1019("(?m-si)"+$esc+"\\."; This:C1470._scopeCode; 1; $pos; $len))
 			
+			// Member access "$v.member" → the loop element is an object
 			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is object:K8:27
 			
 			//___________________
 		: (Match regex:C1019("(?m-si)(?:"+$esc+"\\s*[-+/\\*%<>]|[-+/\\*%]=?\\s*"+$esc+"\\b|[<>]=?\\s*"+$esc+"\\b)"; This:C1470._scopeCode; 1; $pos; $len))
 			
+			// Used in an arithmetic / comparison expression → the loop element is a real
 			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is real:K8:4
 			
