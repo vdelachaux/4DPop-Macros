@@ -1817,7 +1817,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXINT:K35:1"); $line; 1))\
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXLONG:K35:2"); $line; 1))\
 			 || (Match regex:C1019(":=\\s*"+Parse formula:C1576("MAXTEXTLENBEFOREV11:K35:3"); $line; 1))\
-			 || (Match regex:C1019("[-+/\\*:]=-*\\d"; $line; 1))
+			 || (Match regex:C1019("(?m-si)\\"+$t+"\\s*[-+/\\*:]=-*\\d"; $line; 1))
 			
 			// An integer literal or an integer bound (MAXINT / MAXLONG / …) → long integer
 			return Is longint:K8:6
@@ -1844,7 +1844,14 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 		: (Match regex:C1019("(?m-si)\\"+$t+"\\."; $line; 1))\
 			 || (Match regex:C1019("(?m-si):="+Parse formula:C1576("Form:C1466")+"[^.]"; $line; 1))
 			
-			// Member access "$t.…" (or assigned Form) → infer the receiver class, else object
+			// A member ASSIGNMENT ("$o.prop:=…") makes $o a plain mutable object; a
+			// member read / call ("$f.getText()") lets us infer the receiver class.
+			If (Match regex:C1019("(?m-si)\\"+$t+"\\.\\w+\\s*:="; $line; 1))
+				
+				return Is object:K8:27
+				
+			End if 
+			
 			return This:C1470._memberReceiver($text)
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1870,7 +1877,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is longint:K8:6
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)(?:If|Si|Not|Non)\\s*\\(\\"+$t+"\\)"; $line; 1))  // Used as a test in If(…) / Not(…)
+		: (Match regex:C1019("(?m-si)(?:If|Si|Not|Non|While|Until|Tant que|Jusque)\\s*\\(\\"+$t+"\\)"; $line; 1))  // Whole condition of If/Not/While/Until(…) → boolean
 			
 			return Is boolean:K8:9
 			
@@ -2250,115 +2257,10 @@ Function _cleanCode($text : Text) : Text
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _loadIcons()
 	
-	var $root : 4D:C1709.Folder:=Folder:C1567("/RESOURCES/Images/fieldIcons")
-	var $suffix : Text:=(Get Application color scheme:C1763(*)="dark") ? "_dark.png" : ".png"
-	var $icon : Picture
-	
-	READ PICTURE FILE:C678($root.file("field_00"+$suffix).platformPath; $icon)
-	This:C1470.types[0]:={\
-		name: "undefined"; \
-		icon: $icon}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is object:K8:27; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is object:K8:27]:={\
-		name: "object"; \
-		icon: $icon; \
-		value: Is object:K8:27; \
-		arrayCommand: 1221; \
-		directive: 1216}
-	
-	// Class icon: field_class.svg embeds a light/dark media query (works on 21R3+),
-	// but SVG light/dark rendering is unavailable on 21.1, so pick the explicit
-	// _dark variant by color scheme (like the PNG icons). Remove field_class_dark.svg
-	// and this suffix once 21.1 support is dropped.
-	READ PICTURE FILE:C678($root.file("field_class"+((Get Application color scheme:C1763(*)="dark") ? "_dark" : "")+".svg").platformPath; $icon)
-	This:C1470.classIcon:=$icon
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is collection:K8:32; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is collection:K8:32]:={\
-		name: "collection"; \
-		icon: $icon; \
-		value: Is collection:K8:32; \
-		directive: 1488}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is longint:K8:6; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is longint:K8:6]:={\
-		name: "integer"; \
-		icon: $icon; \
-		value: Is longint:K8:6; \
-		arrayCommand: 221; \
-		directive: 283}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is boolean:K8:9; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is boolean:K8:9]:={\
-		name: "boolean"; \
-		icon: $icon; \
-		value: Is boolean:K8:9; \
-		arrayCommand: 223; \
-		directive: 305}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is text:K8:3; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is text:K8:3]:={\
-		name: "text"; \
-		icon: $icon; \
-		value: Is text:K8:3; \
-		arrayCommand: 222; \
-		directive: 284}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is date:K8:7; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is date:K8:7]:={\
-		name: "date"; \
-		icon: $icon; \
-		value: Is date:K8:7; \
-		arrayCommand: 224; \
-		directive: 307}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is time:K8:8; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is time:K8:8]:={\
-		name: "time"; \
-		icon: $icon; \
-		value: Is time:K8:8; \
-		arrayCommand: 1223; \
-		directive: 306}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is picture:K8:10; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is picture:K8:10]:={\
-		name: "picture"; \
-		icon: $icon; \
-		value: Is picture:K8:10; \
-		arrayCommand: 279; \
-		directive: 286}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is variant:K8:33; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is variant:K8:33]:={\
-		name: "variant"; \
-		icon: $icon; \
-		value: Is variant:K8:33; \
-		directive: 1683}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is pointer:K8:14; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is pointer:K8:14]:={\
-		name: "pointer"; \
-		icon: $icon; \
-		value: Is pointer:K8:14; \
-		arrayCommand: 280; \
-		directive: 301}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is BLOB:K8:12; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is BLOB:K8:12]:={\
-		name: "blob"; \
-		icon: $icon; \
-		value: Is BLOB:K8:12; \
-		arrayCommand: 1222; \
-		directive: 604}
-	
-	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is real:K8:4; "00")+$suffix).platformPath; $icon)
-	This:C1470.types[Is real:K8:4]:={\
-		name: "real"; \
-		icon: $icon; \
-		value: Is real:K8:4; \
-		arrayCommand: 219; \
-		directive: 285}
+	// Icons are read from disk once per session (and per color scheme) by the shared
+	// cs.fieldIcons singleton, not on every macro call.
+	This:C1470.types:=cs:C1710.fieldIcons.me.types
+	This:C1470.classIcon:=cs:C1710.fieldIcons.me.classIcon
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Remove the compilation directives

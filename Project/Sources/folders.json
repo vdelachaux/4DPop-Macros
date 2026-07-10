@@ -53,6 +53,7 @@
 			"beautifier",
 			"controlFlow",
 			"declaration",
+			"fieldIcons",
 			"invertExpression",
 			"log",
 			"macro",

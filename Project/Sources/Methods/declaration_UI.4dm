@@ -87,10 +87,12 @@ Case of
 		
 		// Line shown under the list: the line that let clairvoyance DEDUCE the type
 		// (typeCode) when the "showDeductionLine" option is on and such a line exists;
-		// otherwise the variable's FIRST-USE line (code).
-		Form:C1466.line:=(Bool:C1537(Form:C1466.settings.options.showDeductionLine) && (Length:C16(String:C10($o.typeCode))>0))\
+		// otherwise the variable's FIRST-USE line (code). Comments are stripped so the
+		// displayed line never shows a trailing "// …" fragment.
+		var $rawLine : Text:=(Bool:C1537(Form:C1466.settings.options.showDeductionLine) && (Length:C16(String:C10($o.typeCode))>0))\
 			 ? String:C10($o.typeCode)\
 			 : String:C10($o.code)
+		Form:C1466.line:=Form:C1466._trimLine(Form:C1466._cleanCode($rawLine))
 		
 		var $t : Text
 		

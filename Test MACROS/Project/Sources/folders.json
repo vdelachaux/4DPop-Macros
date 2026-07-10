@@ -23,6 +23,7 @@
 	},
 	"Clairvoyance": {
 		"methods": [
+			"clairvoyance_controFlow",
 			"clairvoyance_test",
 			"clairvoyance_test_classes",
 			"clairvoyance_test_collections",

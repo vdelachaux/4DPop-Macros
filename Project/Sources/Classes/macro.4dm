@@ -366,7 +366,7 @@ Function Declarations()
 	
 	// The Declarations macro targets PROJECT mode only (it writes the `var` keyword);
 	// binary databases are no longer supported.
-	If (Get database parameter:C643(Is host database a project:K37:113)=0)
+	If (Get database parameter:C643(Is host database a project:K37:99)=0)
 		
 		BEEP:C151
 		ALERT:C41(Localized string:C991("binaryDatabaseNotSupported"))
