@@ -310,6 +310,10 @@ No longer available, possibly because it has been integrated into 4D</target>
           <source>No local variable or parameter to declare!</source>
           <target>No local variable or parameter to declare!</target>
         </trans-unit>
+        <trans-unit id="msg_binaryDatabaseNotSupported" resname="binaryDatabaseNotSupported">
+          <source>The Declarations macro is not available for binary databases. It only supports project mode.</source>
+          <target>The Declarations macro is not available for binary databases. It only supports project mode.</target>
+        </trans-unit>
         <trans-unit id="msg_allDeclarationsVerified" resname="allDeclarationsVerified">
           <source>All declarations have been verified.</source>
           <target>All declarations have been verified.</target>

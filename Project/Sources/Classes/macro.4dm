@@ -364,6 +364,16 @@ Function PasteColor()
 	/// Compiler Directives for local variables
 Function Declarations()
 	
+	// The Declarations macro targets PROJECT mode only (it writes the `var` keyword);
+	// binary databases are no longer supported.
+	If (Get database parameter:C643(Is host database a project:K37:113)=0)
+		
+		BEEP:C151
+		ALERT:C41(Localized string:C991("binaryDatabaseNotSupported"))
+		return 
+		
+	End if 
+	
 	cs:C1710.declaration.new()
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===

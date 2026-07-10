@@ -91,6 +91,8 @@ This tool operate on the selected text of the frontmost method (or on the whole 
 
 \*Not yet for a class method, so it's best to work with the selection for now. 
 
+> ⚠️ The declaration macro no longer supports binary databases: it targets project mode only and always writes declarations with the `var` keyword.
+
 <p align="center"><img src="./Documentation/declaration.png" width="800 "></p>
 
 * ① The list displays first the parameters, then the local variables.
