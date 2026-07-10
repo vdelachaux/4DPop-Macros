@@ -101,7 +101,7 @@ Function _processScope()
 	
 	If (This:C1470.variables.length=0)
 		
-		ALERT:C41(Localized string:C991("noVariableToDeclare"))
+		ALERT:C41(This:C1470._verifiedMessage())
 		return 
 		
 	End if 
@@ -120,8 +120,7 @@ Function _processScope()
 		// Everything is already declared and used → apply the rules silently
 		This:C1470._apply()
 		This:C1470.paste(This:C1470.method)
-		ALERT:C41(Localized string:C991("allDeclarationsVerified"))
-		
+		ALERT:C41(This:C1470._verifiedMessage())  //
 	End if 
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
@@ -767,7 +766,7 @@ declaration macro must omit the parameters of a formula
 												$var.class:="4D.Function"
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s)\\.\\w*(?:\\([^\\)]*\\))$"; $line.code; 1; *))
+											: (Match regex:C1019("(?mi-s).*\\.\\w*(?:\\([^\\)]*\\))$"; $line.code; 1; *))
 												
 												var $retClass : Text:=This:C1470._returnClassOf($line.code)
 												
@@ -791,7 +790,8 @@ declaration macro must omit the parameters of a formula
 														//____________________________________
 													Else 
 														
-														$var.type:=0
+														// Unknown member return class: keep generic Object.
+														$var.type:=Is object:K8:27
 														
 														//____________________________________
 												End case 
@@ -1102,6 +1102,8 @@ Function _iconFor($var : Object) : Picture
 	End if 
 	
 	return This:C1470.types[Num:C11($var.type)].icon
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _apply()
 	
 	var $method : Text
@@ -1394,12 +1396,18 @@ Function _apply()
 				//___________________
 			: ($t="empty")
 				
-				If ($method="@\r\r")\
-					 | ($method=("@"+kCaret+"\r"))
+				var $skipEmpty : Boolean:=False:C215
+				var $lenMethod : Integer:=Length:C16($method)
+				
+				// Keep the original intent (avoid redundant leading empties), but use
+				// explicit suffix checks — never wildcard string comparisons with '@'.
+				If ($lenMethod>=2)
 					
-					// Skip
+					$skipEmpty:=(Substring:C12($method; $lenMethod-1; 2)="\r\r")
 					
-				Else 
+				End if 
+				
+				If (Not:C34($skipEmpty))
 					
 					$method+="\r"
 					
@@ -1442,8 +1450,18 @@ Function _apply()
 	
 	If (Bool:C1537($options.trimEmptyLines))
 		
+		// Collapse runs of 2+ blank lines into a single one (keeps deliberate blank
+		// lines between statements).
 		$method:=This:C1470.rgx.setTarget($method).setPattern("\\r{2,}").substitute("\r\r")
-		$method:=This:C1470.rgx.setTarget($method).setPattern("(\\r*)$").substitute("")
+		
+		// Trim trailing carriage returns ONLY. A regex "(\r*)$" is applied in multiline
+		// mode by the rgx wrapper, so it also matched the CRs of blank lines BETWEEN
+		// statements and silently removed them — hence the trailing tail is trimmed here.
+		While ((Length:C16($method)>0) && (Substring:C12($method; Length:C16($method); 1)="\r"))
+			
+			$method:=Delete string:C232($method; Length:C16($method); 1)
+			
+		End while 
 		
 	End if 
 	
@@ -1734,13 +1752,16 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is object:K8:27
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)\\"+$t+"[-+:]=\"[^\"]*\""+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $line; 1))
+		: (Match regex:C1019("(?m-si)\\"+$t+"[-+:]=\"[^\"]*\""+"|"+Command name:C538(16)+"\\(\\"+$t+"\\)"; $line; 1))\
+			 || (Match regex:C1019("(?m-si)\\"+$t+"\\s*[#=<>]=?\\s*\""; $line; 1))\
+			 || (Match regex:C1019("(?m-si)\"[^\"]*\"\\s*[#=<>]=?\\s*\\"+$t+"\\b"; $line; 1))
 			
 			return Is text:K8:3
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		: (Match regex:C1019("(?mi-s)\\"+$t+"[-+/\\*:]=-*\\d+\\.\\d*"; $line; 1))\
 			 || (Match regex:C1019("(?mi-s)\\"+$t+"[:><]?[=><]?\\d+\\.\\d*"; $line; 1))\
+			 || (Match regex:C1019("(?mi-s)\\"+$t+":=[^\"\\r\\n]*\\d+\\.\\d+"; $line; 1))\
 			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("Pi:K30:1"); $line; 1))\
 			 || (Match regex:C1019("[-+/\\*:]==\\s*"+Parse formula:C1576("Degree:K30:2"); $line; 1))\
 			 || (Match regex:C1019("[-+/\\*:]=\\s*"+Parse formula:C1576("Radian:K30:3"); $line; 1))\
@@ -1807,7 +1828,7 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is boolean:K8:9
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		Else   // For each variables, then the session syntax store
+		Else   // For each variables, the session syntax store, then numeric arithmetic
 			
 			var $forEach : Integer:=This:C1470._forEachType($text)
 			
@@ -1817,7 +1838,26 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 				
 			End if 
 			
-			return This:C1470._syntax.guessType($text; $line)
+			var $type : Integer:=This:C1470._syntax.guessType($text; $line)
+			
+			If ($type#0)
+				
+				return $type
+				
+			End if 
+			
+/* Fallback: a quote-free arithmetic right-hand side → Real, 4D's default
+			number type. * / % are unambiguous numeric operators; + and - only count
+			when combined with a numeric literal, so text concatenation ($a+$b) is not
+			mistyped as a number. */
+			If ((Match regex:C1019("(?m-si)\\"+$t+":=[^\"\\r\\n]*[/*%][^\"\\r\\n]*$"; $line; 1))\
+				 || (Match regex:C1019("(?m-si)\\"+$t+":=[^\"\\r\\n]*(?:[-+]\\s*\\d|\\d\\s*[-+])[^\"\\r\\n]*$"; $line; 1)))
+				
+				return Is real:K8:4
+				
+			End if 
+			
+			return $type
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	End case 
@@ -1964,21 +2004,99 @@ Function _returnClassOf($code : Text) : Text
 	// break an end-of-expression anchor)
 Function _cleanCode($text : Text) : Text
 	
-	var $pos; $len : Integer
+	// Strips // line comments and /* */ block comments, but leaves comment markers
+	// that appear INSIDE string literals untouched (e.g. an URL "file:///a" or
+	// "https://x" must not be truncated — otherwise the type inference misreads it).
+	var $out : Text:=""
+	var $i : Integer:=1
+	var $n : Integer:=Length:C16($text)
+	var $code; $nextCode : Integer
+	var $inString; $inBlock : Boolean
 	
-	While (Match regex:C1019("(?s)/\\*.*?\\*/"; $text; 1; $pos; $len))
+	While ($i<=$n)
 		
-		$text:=Delete string:C232($text; $pos; $len)
+		$code:=Character code:C91($text[[$i]])
+		$nextCode:=($i<$n) ? Character code:C91($text[[$i+1]]) : 0
 		
+		Case of 
+				
+				//___________________
+			: ($inBlock)
+				
+				If (($code=42) && ($nextCode=47))  // */
+					
+					$inBlock:=False:C215
+					$i+=2
+					
+				Else 
+					
+					$i+=1
+					
+				End if 
+				
+				//___________________
+			: ($inString)
+				
+				$out:=$out+$text[[$i]]
+				
+				Case of 
+						
+						//...............
+					: ($code=92)  // backslash escapes the next character
+						
+						If ($i<$n)
+							
+							$out:=$out+$text[[$i+1]]
+							
+						End if 
+						
+						$i+=2
+						
+						//...............
+					: ($code=34)  // closing double quote
+						
+						$inString:=False:C215
+						$i+=1
+						
+						//...............
+					Else 
+						
+						$i+=1
+						
+				End case 
+				
+				//___________________
+			: ($code=34)  // opening double quote
+				
+				$inString:=True:C214
+				$out:=$out+$text[[$i]]
+				$i+=1
+				
+				//___________________
+			: (($code=47) && ($nextCode=47))  // // line comment → skip to end of line
+				
+				While (($i<=$n) && (Character code:C91($text[[$i]])#13) && (Character code:C91($text[[$i]])#10))
+					
+					$i+=1
+					
+				End while 
+				
+				//___________________
+			: (($code=47) && ($nextCode=42))  // /* block comment
+				
+				$inBlock:=True:C214
+				$i+=2
+				
+				//___________________
+			Else 
+				
+				$out:=$out+$text[[$i]]
+				$i+=1
+				
+		End case 
 	End while 
 	
-	While (Match regex:C1019("//[^\r\n]*"; $text; 1; $pos; $len))
-		
-		$text:=Delete string:C232($text; $pos; $len)
-		
-	End while 
-	
-	return $text
+	return $out
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Function _loadIcons()
