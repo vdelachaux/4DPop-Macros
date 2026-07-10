@@ -4,16 +4,45 @@
 > Faire `git pull` avant de commencer.
 
 ## À faire (prochaine session)
-- **Sortir `_loadIcons()` de `declaration`** vers une classe `shared singleton` :
-  les icônes de type sont des constantes de session rechargées à chaque
-  `cs.declaration.new()`. Les charger une seule fois par session.
-  (`_loadGramSyntax()` a déjà été sorti → remplacé par `cs.syntax`, voir plus bas.)
+- ✅ **FAIT (2026-07-10)** — `_loadIcons()` sorti de `declaration` vers le
+  `shared singleton` `cs.fieldIcons` (chargement 1×/session, **caché par color
+  scheme** light/dark pour supporter un switch en cours de session).
+  `declaration._loadIcons()` délègue désormais (`This.types:=cs.fieldIcons.me.types`
+  + `This.classIcon:=cs.fieldIcons.me.classIcon`).
+- Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
+  formulaires.
+- **Compat 21.1 à retirer** quand le support 21.1 sera abandonné : `field_class_dark.svg`
+  (couleurs dark en dur) + la sélection explicite light/dark du chemin d'icône (le
+  rendu SVG light/dark natif n'existe qu'à partir de 21R3) → revenir à un seul SVG
+  géré via `@media (prefers-color-scheme: dark)`.
 
 ## État actuel (branche `main`, synchronisée avec `origin/main`)
 
 Chantier : modernisation du composant, suppression des actions obsolètes en
 mode projet, remplacement des variables interprocess (`<>x` / `◊`) par des
 propriétés `Form` ou des objets locaux.
+
+### Correctifs clairvoyance récents (commit `374089c`, 2026-07-10, validés en 4D 21.1)
+- **Code MULTI-LIGNES (continuation `\`)** : `parse()` replie les lignes physiques
+  `\`-continuées en une **ligne logique** (helpers `_logicalLineAt` /
+  `_stripContinuation`, champ `line.logical` routé vers `_clairvoyant` /
+  `_getTypeFromDeclaration` / `_parseParameters`) pour voir tout l'énoncé d'un coup
+  (l'indice de type sur une ligne ultérieure — `Length($v)`, `$v:="x"` — n'était
+  plus raté) ; chaque ligne physique reste dans `_output` pour une sortie fidèle.
+  ⚠️ précédence 4D : parenthéser `($i<(This.lines.length-1))`.
+- **Commentaire de fin** cassait l'ancre de fin dans le bloc EXTRACT d'inférence de
+  classe → nettoyage (`_cleanCode`+`_trimLine`) : `.membre(...)$` résout à nouveau la
+  classe de retour (ex `.file` → 4D.File).
+- **Commandes françaises → anglais** (clairvoyance en réglages régionaux FR) : seul
+  le français localise les noms de commande. `cs.syntax` construit une map paresseuse
+  `frToEn` depuis le fichier livré par 4D `fr.lproj/4D_CommandsFR.xlf` (`<source>`=EN,
+  `<target>`=FR, 1430 commandes), bâtie au 1er échec de résolution EN (un projet
+  anglais ne paie qu'au pire un parse/session). `commandReturnType`/`commandParamType`
+  passent par `_toEnglishCommand` ; on ne traduit que les noms non résolus en EN
+  (zéro collision avec les homographes). L'utilitaire dev `createFR2USMacro` (générateur
+  de la macro FR→US, à lancer manuellement pour publier la macro) a été restauré.
+- Antérieurs : `$o.count:=1`→Object, condition While/Until→Booléen, hoisting
+  Repeat/Until, alerte base binaire non supportée.
 
 ### Commits récents
 - `145074f` — refactor(macros): integrate COMMENTS into macro class and drop
@@ -363,7 +392,14 @@ propriétés `Form` ou des objets locaux.
 ## À faire / pistes pour la suite
 - Poursuivre la migration interprocess → `Form` / objets locaux sur les autres
   formulaires.
-- Passer au direct typing pour pouvoir retirer `v1..v4` de COMPILER_component.
+- **Compat 21.1** : retirer `field_class_dark.svg` + la sélection light/dark du
+  chemin d'icône quand le support 21.1 sera abandonné (SVG light/dark natif ≥ 21R3).
+- Heuristique de classe par priorité (`memberReceiverClass` / `_returnClassOf`) peut
+  se tromper sur un membre ambigu (`.extension` → 4D.File même sur un Folder) :
+  corrigé par l'utilisateur au dialogue (dropdown de classes) — compromis assumé.
+- ✅ **FAIT (2026-07-10)** — commandes **françaises** (réglages régionaux) mappées vers
+  l'anglais via `fr.lproj/4D_CommandsFR.xlf` (map paresseuse `cs.syntax.frToEn`), donc
+  la clairvoyance type aussi le code en commandes françaises.
 
 ## Rappels techniques
 - Compiler dans 4D pour valider (pas de compilateur 4D dans l'environnement).

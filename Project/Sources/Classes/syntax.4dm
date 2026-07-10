@@ -11,9 +11,12 @@ property data : Object
 // In the JSON, both the command names AND the type strings are always in English
 // (only the descriptions are localized), so the English file is the canonical
 // source whatever the current 4D language. Command names written in English and
-// every class attribute / function therefore resolve; French command names (used
-// only when 4D runs with the legacy "regional system settings" option) do not and
-// simply fall back to the declaration dialog, as before when gram.4dsyntax failed.
+// every class attribute / function therefore resolve. French command names (used
+// only when 4D runs with the legacy "regional system settings" option) are mapped
+// back to English on demand via 4D's own fr.lproj/4D_CommandsFR.xlf (source=EN,
+// target=FR), loaded lazily the first time an English command lookup misses — so an
+// English project never pays that cost. Only French localizes command names; the
+// other languages already use English.
 
 shared singleton Class constructor()
 	
@@ -185,13 +188,13 @@ Function guessType($var : Text; $line : Text) : Integer
 	// Return type of a command (0 if unknown)
 Function commandReturnType($name : Text) : Integer
 	
-	return Num:C11(This:C1470.data.commands[Lowercase:C14($name)].ret)
+	return Num:C11(This:C1470.data.commands[This:C1470._toEnglishCommand($name)].ret)
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
 	// Type of the argument at position $index (0-based) of a command (0 if unknown)
 Function commandParamType($name : Text; $index : Integer) : Integer
 	
-	var $params : Collection:=This:C1470.data.commands[Lowercase:C14($name)].params
+	var $params : Collection:=This:C1470.data.commands[This:C1470._toEnglishCommand($name)].params
 	
 	If (($params=Null:C1517) || ($index<0) || ($index>=$params.length))
 		
@@ -397,6 +400,84 @@ Function _returnTypeString($entry : Object) : Text
 Function _syntaxFile() : 4D:C1709.File
 	
 	var $rel : Text:="en.lproj/syntaxEN.json"
+	
+	return Is macOS:C1572\
+		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/"+$rel)\
+		 : File:C1566(Application file:C491; fk platform path:K87:2).parent.file("Resources/"+$rel)
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Lowercased English command KEY for a (possibly French) command name. Returns the
+	// name as-is when it is already a known English command; otherwise translates via
+	// the French map (built lazily on the first miss); "" when unknown (so the caller's
+	// data.commands[""] lookup yields Null → type 0).
+Function _toEnglishCommand($name : Text) : Text
+	
+	var $key : Text:=Lowercase:C14($name)
+	
+	// Already an English command name → keep it (English projects never build the map)
+	If (This:C1470.data.commands[$key]#Null:C1517)
+		
+		return $key
+		
+	End if 
+	
+	// Not English: a French command name (legacy "regional settings") or an unknown
+	// token (user method, plugin…). Build the FR→EN map once, then translate.
+	If (This:C1470.data.frToEn=Null:C1517)
+		
+		This:C1470._buildFrenchMap()
+		
+	End if 
+	
+	return String:C10(This:C1470.data.frToEn[$key])
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// Builds {lowercased French name: lowercased English name} from 4D's own commands
+	// translation file (fr.lproj/4D_CommandsFR.xlf: <source> = EN, <target> = FR).
+	// Stored on the shared singleton so it is parsed at most once per session. Empty
+	// (but non-Null) when the file is absent → never rebuilt.
+Function _buildFrenchMap()
+	
+	var $map : Object:={}
+	var $file : 4D:C1709.File:=This:C1470._commandsFile()
+	
+	If ($file.exists)
+		
+		var $xml : Text:=$file.getText()
+		ARRAY LONGINT:C221($pos; 0)
+		ARRAY LONGINT:C221($len; 0)
+		var $start : Integer:=1
+		
+		// Each translated command is a <source>EN</source> immediately followed by a
+		// <target>FR</target>; empty (self-closed) trans-units have neither and are
+		// naturally skipped. Command names carry no XML entities, so a regex is safe.
+		While (Match regex:C1019("(?s-i)<source\\b[^>]*>(.*?)</source>\\s*<target\\b[^>]*>(.*?)</target>"; $xml; $start; $pos; $len))
+			
+			var $en : Text:=This:C1470._trim(Substring:C12($xml; $pos{1}; $len{1}))
+			var $fr : Text:=This:C1470._trim(Substring:C12($xml; $pos{2}; $len{2}))
+			
+			If ((Length:C16($en)>0) && (Length:C16($fr)>0))
+				
+				$map[Lowercase:C14($fr)]:=Lowercase:C14($en)
+				
+			End if 
+			
+			$start:=$pos{0}+$len{0}
+			
+		End while 
+	End if 
+	
+	Use (This:C1470.data)
+		
+		This:C1470.data.frToEn:=OB Copy:C1225($map; ck shared:K85:29; This:C1470)
+		
+	End use 
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === === ===
+	// 4D's French command-name translation file inside the running 4D application
+Function _commandsFile() : 4D:C1709.File
+	
+	var $rel : Text:="fr.lproj/4D_CommandsFR.xlf"
 	
 	return Is macOS:C1572\
 		 ? Folder:C1567(Application file:C491; fk platform path:K87:2).file("Contents/Resources/"+$rel)\

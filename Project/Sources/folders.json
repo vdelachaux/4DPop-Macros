@@ -28,6 +28,7 @@
 			"00_convertComments",
 			"00_RUN",
 			"00_TESTS",
+			"createFR2USMacro",
 			"createSymbolicLink"
 		]
 	},
