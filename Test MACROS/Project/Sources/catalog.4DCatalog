@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base name="Test MACROS" uuid="AB556C1350954198AA0B94E0B419FD33" collation_locale="en">
+	<schema name="DEFAULT_SCHEMA"/>
+	<base_extra>
+		<journal_file filepath="./data.journal" sequence_number="1" datalink="4B4908C8C2514EC49C79E9979CBD379A" journal_file_enabled="false"/>
+	</base_extra>
+</base>

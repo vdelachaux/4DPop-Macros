@@ -322,6 +322,14 @@ No longer available, possibly because it has been integrated into 4D</target>
           <source>No variable is unused.</source>
           <target>No variable is unused.</target>
         </trans-unit>
+        <trans-unit id="msg_showDeductionLine" resname="showDeductionLine">
+          <source>Deduction line</source>
+          <target>Deduction line</target>
+        </trans-unit>
+        <trans-unit id="msg_showFirstUseLine" resname="showFirstUseLine">
+          <source>First occurrence</source>
+          <target>First occurrence</target>
+        </trans-unit>
         <trans-unit id="msg_notAConstant" resname="notAConstant">
           <source>does not seem to be a constant!</source>
           <target>does not seem to be a constant!</target>

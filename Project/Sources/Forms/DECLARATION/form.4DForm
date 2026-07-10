@@ -426,7 +426,7 @@
 					"top": 361,
 					"width": 294,
 					"height": 33,
-					"dataSource": "Form:C1466.current.code",
+					"dataSource": "Form:C1466.line",
 					"enterable": false,
 					"contextMenu": "automatic",
 					"borderStyle": "none",
@@ -437,6 +437,36 @@
 					"sizingX": "grow",
 					"showSelection": true,
 					"textAlign": "center"
+				},
+				"deductionRadio": {
+					"type": "radio",
+					"text": ":xliff:showDeductionLine",
+					"top": 420,
+					"left": 19,
+					"width": 150,
+					"height": 16,
+					"events": [
+						"onClick"
+					],
+					"focusable": false,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "lineMode",
+					"sizingY": "move"
+				},
+				"firstUseRadio": {
+					"type": "radio",
+					"text": ":xliff:showFirstUseLine",
+					"top": 420,
+					"left": 177,
+					"width": 150,
+					"height": 16,
+					"events": [
+						"onClick"
+					],
+					"focusable": false,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "lineMode",
+					"sizingY": "move"
 				},
 				"classPopup": {
 					"type": "dropdown",
@@ -454,7 +484,7 @@
 			}
 		}
 	],
-	"geometryStamp": 486,
+	"geometryStamp": 512,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",

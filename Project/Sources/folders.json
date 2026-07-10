@@ -1,39 +1,4 @@
 {
-	"_TESTS": {
-		"groups": [
-			"Beautifier",
-			"Clairvoyance"
-		],
-		"methods": [
-			"__test",
-			"_TEST",
-			"_test_choose",
-			"00_test_Dot_Notation",
-			"CODE_TO_EXECUTE_FORMULA_test",
-			"createFR2USMacro",
-			"DECLARATION_Formula",
-			"DECLARATION_Test",
-			"DECLARE",
-			"literals",
-			"Method120",
-			"Method123",
-			"Method124",
-			"Method2",
-			"Method3",
-			"Method6",
-			"Method7",
-			"Method89",
-			"test_replace_o",
-			"TrueMethod"
-		],
-		"forms": [
-			"TEST"
-		],
-		"classes": [
-			"myClass",
-			"test_"
-		]
-	},
 	"(_o_)": {
 		"methods": [
 			"(4DPop_MACROS_SETTINGS)"
@@ -115,41 +80,6 @@
 		"methods": [
 			"_4DPopMacros",
 			"options"
-		]
-	},
-	"Beautifier": {
-		"methods": [
-			"BEAUTIFIER_TEST",
-			"beautifier_test_12",
-			"beautifier_test_13",
-			"beautifier_test_14",
-			"beautifier_test_15",
-			"beautifier_test_16",
-			"beautifier_test_17",
-			"beautifier_test_2",
-			"beautifier_test_3",
-			"beautifier_test_4",
-			"beautifier_test_5",
-			"beautifier_test_6",
-			"beautifier_test_7",
-			"beautifier_test_8",
-			"beautifier_test_9",
-			"beautifier_test_splitKeysValues",
-			"beutifier_OB"
-		]
-	},
-	"Clairvoyance": {
-		"methods": [
-			"clairvoyance_test",
-			"clairvoyance_test_classes",
-			"clairvoyance_test_collections",
-			"clairvoyance_test_literals",
-			"clairvoyance_test_members",
-			"clairvoyance_test_params",
-			"clairvoyance_test_returns",
-			"clairvoyance_test2",
-			"clairvoyance_test3",
-			"Clairvoyance_test4"
 		]
 	},
 	"FORMS": {

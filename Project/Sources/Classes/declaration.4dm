@@ -24,6 +24,11 @@ property _notforArray:=["collection"; "variant"]
 // Current scope source with comments stripped (used by the clairvoyance scope scans)
 property _scopeCode : Text
 
+// Line that let clairvoyance deduce the current variable's type (set by scope scans
+// such as $v[n], For each, member access — otherwise empty and the first-use line is
+// shown). Read right after each _clairvoyant() call and stored on the variable.
+property _typeEvidence : Text
+
 property windowRef : Integer
 
 // MARK: Regex patterns (raw, loaded from /RESOURCES/regex/declaration.txt)
@@ -57,6 +62,18 @@ Class constructor
 		This:C1470.settings:={}
 		
 	End try
+	
+	// Make sure the options sub-object always exists (older settings files or the
+	// empty fallback) so the dialog can bind and persist toggles safely.
+	This:C1470.settings:=This:C1470.settings || {}
+	This:C1470.settings.options:=This:C1470.settings.options || {}
+	
+	// Show the deduction line by default when the option was never set
+	If (This:C1470.settings.options.showDeductionLine=Null:C1517)
+		
+		This:C1470.settings.options.showDeductionLine:=True:C214
+		
+	End if 
 	
 	This:C1470._notforArray:=["collection"; "variant"]
 	
@@ -479,6 +496,12 @@ declaration macro must omit the parameters of a formula
 								// Let's take a guess
 								$parameter.type:=This:C1470._clairvoyant($t; $line.code)
 								
+								If (Length:C16(This:C1470._typeEvidence)>0)
+									
+									$parameter.typeCode:=This:C1470._typeEvidence
+									
+								End if 
+								
 							End if 
 						End if 
 					End for each 
@@ -680,6 +703,14 @@ declaration macro must omit the parameters of a formula
 											
 											// Let's take a guess
 											$var.type:=This:C1470._clairvoyant($t; $line.code)
+											
+											// Remember the line that let clairvoyance deduce the type when a
+											// whole-scope scan matched a line other than the first use
+											If (Length:C16(This:C1470._typeEvidence)>0)
+												
+												$var.typeCode:=This:C1470._typeEvidence
+												
+											End if 
 											
 											If ($var.type=0)
 												
@@ -1711,6 +1742,10 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 	
 	$line:=This:C1470._cleanCode($line)  // drop inline comments so the scans don't trip on "//"
 	
+	// Reset the "line that determined the type": scope scans below set it to the
+	// matched scope line; when it stays empty the first-use line is displayed.
+	This:C1470._typeEvidence:=""
+	
 	// MARK:- Literal syntax
 	Case of 
 			
@@ -1791,8 +1826,9 @@ Function _clairvoyant($text : Text; $line : Text) : Integer
 			return Is boolean:K8:9
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-		: (Match regex:C1019("(?m-si)\\"+$t+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1))  // $var[<number>] → collection element access (scans the whole scope)
+		: (Match regex:C1019("(?m-si)\\"+$t+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1; $pos; $len))  // $var[<number>] → collection element access (scans the whole scope)
 			
+			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is collection:K8:32
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -1874,11 +1910,19 @@ Function _forEachType($var : Text) : Integer
 	var $esc : Text:="\\"+$var
 	
 	// $var is the loop variable: For each ( $var ; … )
-	If (Match regex:C1019("(?m-si)(?:For each|Pour chaque)\\s*\\(\\s*"+$esc+"\\s*;"; This:C1470._scopeCode; 1))
+	If (Match regex:C1019("(?m-si)(?:For each|Pour chaque)\\s*\\(\\s*"+$esc+"\\s*;"; This:C1470._scopeCode; 1; $pos; $len))
 		
-		var $element : Integer:=This:C1470._loopVarType($var)
+		var $element : Integer:=This:C1470._loopVarType($var)  // may set _typeEvidence to the usage line
 		
-		return ($element#0) ? $element : Is text:K8:3
+		If ($element=0)
+			
+			// No usage evidence → the For each line itself is what determined the type
+			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
+			return Is text:K8:3
+			
+		End if 
+		
+		return $element
 		
 	End if 
 	
@@ -1886,8 +1930,11 @@ Function _forEachType($var : Text) : Integer
 	If (Match regex:C1019("(?m-si)(?:For each|Pour chaque)\\s*\\(\\s*(\\$\\w+)\\s*;\\s*"+$esc+"\\s*(?:;|\\))"; This:C1470._scopeCode; 1; $pos; $len))
 		
 		var $loopVar : Text:=Substring:C12(This:C1470._scopeCode; $pos{1}; $len{1})
+		var $iterated : Integer:=(This:C1470._loopVarType($loopVar)#0) ? Is collection:K8:32 : Is object:K8:27
 		
-		return (This:C1470._loopVarType($loopVar)#0) ? Is collection:K8:32 : Is object:K8:27
+		// The For each line is the determining line for the iterated expression
+		This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
+		return $iterated
 		
 	End if 
 	
@@ -1900,22 +1947,27 @@ Function _forEachType($var : Text) : Integer
 Function _loopVarType($var : Text) : Integer
 	
 	var $esc : Text:="\\"+$var
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
 	
 	Case of 
 			
 			//___________________
-		: (Match regex:C1019("(?m-si)"+$esc+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1))
+		: (Match regex:C1019("(?m-si)"+$esc+"\\s*\\[\\s*-?\\d"; This:C1470._scopeCode; 1; $pos; $len))
 			
+			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is collection:K8:32
 			
 			//___________________
-		: (Match regex:C1019("(?m-si)"+$esc+"\\."; This:C1470._scopeCode; 1))
+		: (Match regex:C1019("(?m-si)"+$esc+"\\."; This:C1470._scopeCode; 1; $pos; $len))
 			
+			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is object:K8:27
 			
 			//___________________
-		: (Match regex:C1019("(?m-si)(?:"+$esc+"\\s*[-+/\\*%<>]|[-+/\\*%]=?\\s*"+$esc+"\\b|[<>]=?\\s*"+$esc+"\\b)"; This:C1470._scopeCode; 1))
+		: (Match regex:C1019("(?m-si)(?:"+$esc+"\\s*[-+/\\*%<>]|[-+/\\*%]=?\\s*"+$esc+"\\b|[<>]=?\\s*"+$esc+"\\b)"; This:C1470._scopeCode; 1; $pos; $len))
 			
+			This:C1470._typeEvidence:=This:C1470._lineAt(This:C1470._scopeCode; $pos{0})
 			return Is real:K8:4
 			
 			//___________________
@@ -1925,6 +1977,89 @@ Function _loopVarType($var : Text) : Integer
 			
 			//___________________
 	End case 
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Full (trimmed) line of $text that contains the character at position $pos. Used
+	// to report the line that let clairvoyance deduce a type from a whole-scope scan.
+Function _lineAt($text : Text; $pos : Integer) : Text
+	
+	If (($pos<1) || ($pos>Length:C16($text)))
+		
+		return ""
+		
+	End if 
+	
+	var $start : Integer:=$pos
+	While ($start>1)
+		
+		var $cc : Integer:=Character code:C91($text[[$start-1]])
+		If (($cc=Carriage return:K15:38) || ($cc=Line feed:K15:40))
+			
+			break
+			
+		End if 
+		$start-=1
+		
+	End while 
+	
+	var $end : Integer:=$pos
+	var $n : Integer:=Length:C16($text)
+	While ($end<$n)
+		
+		var $c2 : Integer:=Character code:C91($text[[$end+1]])
+		If (($c2=Carriage return:K15:38) || ($c2=Line feed:K15:40))
+			
+			break
+			
+		End if 
+		$end+=1
+		
+	End while 
+	
+	return This:C1470._trimLine(Substring:C12($text; $start; $end-$start+1))
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Trims leading/trailing whitespace (tabs & spaces) for a clean one-line display
+Function _trimLine($text : Text) : Text
+	
+	ARRAY LONGINT:C221($pos; 0)
+	ARRAY LONGINT:C221($len; 0)
+	
+	If (Match regex:C1019("(?m-si)^\\s*(.*?)\\s*$"; $text; 1; $pos; $len))
+		
+		return Substring:C12($text; $pos{1}; $len{1})
+		
+	End if 
+	
+	return $text
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Persists a declaration option both in memory and in the shared settings file
+	// (under declaration.options). Used by the dialog toggles so the choice is saved.
+Function _saveOption($key : Text; $value)
+	
+	This:C1470.settings.options[$key]:=$value
+	
+	Try
+		
+		var $file : 4D:C1709.File:=Folder:C1567(fk user preferences folder:K87:10).file("4DPop/4DPop Macros.settings")
+		$file:=$file.original || $file
+		
+		If ($file.exists)
+			
+			var $all : Object:=JSON Parse:C1218($file.getText())
+			$all.declaration:=$all.declaration || {}
+			$all.declaration.options:=$all.declaration.options || {}
+			$all.declaration.options[$key]:=$value
+			$file.setText(JSON Stringify:C1217($all; *))
+			
+		End if 
+		
+	Catch
+		
+		// Persistence failure is non-fatal: the in-memory value still applies
+		
+	End try 
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Type constant for a variable used as the receiver of a member ($var.member):

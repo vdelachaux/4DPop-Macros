@@ -285,21 +285,16 @@ Function _receiverClass($owners : Collection) : Text
 	
 	var $o : Collection:=$owners.distinct()
 	
-	Case of 
-			
-			//______________________________________________________
-		: ($o.length=0) || ($o.length>3)
-			
-			return ""
-			
-			//______________________________________________________
-		: ($o.length=1)
-			
-			return $o[0]
-			
-			//______________________________________________________
-	End case 
+	If (($o.length=0) || ($o.length>3))
+		
+		return ""
+		
+	End if 
 	
+	// Only infer a receiver class for "common" classes: a member name that resolves
+	// to one of these is a reliable signal. Members of rarer classes (e.g. HTTPAgent's
+	// "params", CryptoKey's "pem"…) look like ordinary object property names, so a
+	// bare "$x.params" access must NOT specialise $x to 4D.HTTPAgent — keep it generic.
 	var $priority : Collection:=["Collection"; "4D.File"; "4D.Folder"; "4D.Entity"; "4D.EntitySelection"; "Object"; "4D.Blob"]
 	var $p : Text
 	For each ($p; $priority)
@@ -375,11 +370,11 @@ Function _returnTypeString($entry : Object) : Text
 		var $row : Collection
 		For each ($row; $entry.Params)
 			
-			var $label : Text:=Lowercase:C14(String:C10($row[0]))
+			var $label : Text:=Lowercase:C14(($row.length>0) ? String:C10($row[0]) : "")
 			
 			If (($label="function result") || ($label="result") || ($label="résultat"))
 				
-				return This:C1470._firstToken(String:C10($row[1]))
+				return This:C1470._firstToken(($row.length>1) ? String:C10($row[1]) : "")
 				
 			End if 
 		End for each 
@@ -417,11 +412,11 @@ Function _returnType($entry : Object) : Integer
 		var $row : Collection
 		For each ($row; $entry.Params)
 			
-			var $label : Text:=Lowercase:C14(String:C10($row[0]))
+			var $label : Text:=Lowercase:C14(($row.length>0) ? String:C10($row[0]) : "")
 			
 			If (($label="function result") || ($label="result") || ($label="résultat"))
 				
-				return This:C1470._const(String:C10($row[1]))
+				return This:C1470._const(($row.length>1) ? String:C10($row[1]) : "")
 				
 			End if 
 		End for each 
@@ -456,7 +451,7 @@ Function _paramTypes($entry : Object) : Collection
 	var $row : Collection
 	For each ($row; $entry.Params)
 		
-		var $label : Text:=Lowercase:C14(String:C10($row[0]))
+		var $label : Text:=Lowercase:C14(($row.length>0) ? String:C10($row[0]) : "")
 		
 		If (($label="function result") || ($label="result") || ($label="résultat"))
 			
@@ -464,7 +459,9 @@ Function _paramTypes($entry : Object) : Collection
 			
 		End if 
 		
-		$types.push(This:C1470._const(String:C10($row[1])))  // "*" operator → 0
+		// A row without a type column (e.g. the "*" operator in 21.1's syntax file)
+		// → no usable type (0), keeping its positional slot.
+		$types.push(This:C1470._const(($row.length>1) ? String:C10($row[1]) : ""))
 		
 	End for each 
 	

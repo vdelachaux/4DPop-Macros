@@ -52,6 +52,16 @@ Case of
 		Form:C1466.refresh:=Formula:C1597(declaration_UI("refresh"))
 		OBJECT SET SCROLLBAR:C843(*; "declarationList"; 0; 2)
 		
+		var $group:=cs:C1710.ui.group.new()
+		cs:C1710.ui.button.new("deductionRadio").addToGroup($group)
+		cs:C1710.ui.button.new("firstUseRadio").addToGroup($group)
+		$group.distributeLeftToRight()
+		Form:C1466.isSelected.add($group)
+		
+		var $deduce : Boolean:=Bool:C1537(Form:C1466.settings.options.showDeductionLine)
+		OBJECT SET VALUE:C1742("deductionRadio"; $deduce)
+		OBJECT SET VALUE:C1742("firstUseRadio"; Not:C34($deduce))
+		
 		var $o : Object
 		For each ($o; Form:C1466.variables)
 			
@@ -185,6 +195,18 @@ Case of
 			: (Form:C1466.filter.catch($e))
 				
 				declaration_UI("filter")
+				
+				//======================================
+			: ($e.objectName="deductionRadio")
+				
+				// Show the line that let clairvoyance deduce the type
+				Form:C1466._saveOption("showDeductionLine"; True:C214)
+				
+				//======================================
+			: ($e.objectName="firstUseRadio")
+				
+				// Show the variable's first-use line
+				Form:C1466._saveOption("showDeductionLine"; False:C215)
 				
 				//======================================
 		End case 

@@ -3,16 +3,15 @@
 their class name (File/Folder detected specifically; cs.xxx.new() records the user
 class). Each is assigned → declaration merged with the assignment. */
 
-/*
-$file:=File("/PACKAGE/data.json")  // 4D.File
-$folder:=Folder(fk database folder)  // 4D.Folder
+$file:=File:C1566("/PACKAGE/data.json")  // 4D.File
+$folder:=Folder:C1567(fk database folder:K87:14)  // 4D.Folder
 
-$obj:=cs.myClass.new()  // cs.myClass
+$obj:=cs:C1710.myClass.new()  // cs.myClass
 
-EXPORT STRUCTURE($xmlStructure)
-$xml:=cs.svgx.xml.new($xmlStructure)
+EXPORT STRUCTURE:C1311($xmlStructure)
+$xml:=cs:C1710.svgx.xml.new($xmlStructure)
 $structure:=$xml.toObject()
-$svg:=cs.svgx.svg.new()
+$svg:=cs:C1710.svgx.svg.new()
 $xml.close()
 
 /*
@@ -27,6 +26,5 @@ var $xml : cs.svgx.xml:=cs.svgx.xml.new($xmlStructure)
 var $structure : Object:=$xml.toObject()
 var $svg : cs.svgx.svg:=cs.svgx.svg.new()
 $xml.close()
-*/
 */
 

@@ -85,6 +85,13 @@ Case of
 		
 		Form:C1466.isSelected.show()
 		
+		// Line shown under the list: the line that let clairvoyance DEDUCE the type
+		// (typeCode) when the "showDeductionLine" option is on and such a line exists;
+		// otherwise the variable's FIRST-USE line (code).
+		Form:C1466.line:=(Bool:C1537(Form:C1466.settings.options.showDeductionLine) && (Length:C16(String:C10($o.typeCode))>0))\
+			 ? String:C10($o.typeCode)\
+			 : String:C10($o.code)
+		
 		var $t : Text
 		
 		For each ($t; Form:C1466.types.query("value!=null").extract("name"))
