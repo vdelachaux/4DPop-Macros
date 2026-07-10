@@ -22,7 +22,7 @@ Once the component is loaded, the macros are installed automatically — no manu
 
 ## Highlights
 
-- **Declarations…**: analyses the selected code, deduces the type of parameters and local variables, and writes the declarations using the modern `var` keyword.
+- **Declarations…**: analyses the code, deduces the type — including `4D.x` / `cs.x` classes — of parameters and local variables, lets you review and adjust each type in an interactive dialog, and writes the declarations using the modern `var` keyword, inserted right before each variable's first use.
 - **Beautifier…**: a configurable code formatter.
 - **Comments**: intelligent comment / uncomment (single-line, block or intra-line).
 - **Compiler directive…**: wraps a selection with `//%W-` … `//%W+` directives to selectively disable compiler warnings.
@@ -87,7 +87,7 @@ That's why they have an associated shortcut 😉
 
 ## <a name="declaration">Declaration…</a>
 
-This tool operate on the selected text of the frontmost method (or on the whole method if there is no selection\*). It extract the parameters and local variables, then tries to discover their type and displays the list of elements found, allowing you to change their type. Once validated, the declarations are placed at the top of the method or selection according to your choice. The declaration tool is able to parse the [C_xxx directives](https://doc.4d.com/4Dv19/4D/19/Compiler-Commands.300-5392141.en.html) and replace it using the [`var` keyword](https://developer.4d.com/docs/en/Concepts/variables.html#using-the-var-keyword).
+This tool operate on the selected text of the frontmost method (or on the whole method if there is no selection\*). It extract the parameters and local variables, then tries to discover their type and displays the list of elements found, allowing you to change their type. Once validated, each declaration is inserted just before the variable's first use. The declaration tool is able to parse the [C_xxx directives](https://doc.4d.com/4Dv19/4D/19/Compiler-Commands.300-5392141.en.html) and replace it using the [`var` keyword](https://developer.4d.com/docs/en/Concepts/variables.html#using-the-var-keyword).
 
 \*Not yet for a class method, so it's best to work with the selection for now. 
 
@@ -99,22 +99,24 @@ This tool operate on the selected text of the frontmost method (or on the whole 
 	* Items that were found in a statement instruction, but are not used, are displayed in orange. They will not be included in the created directives.
 	* Arrays are underlined.
 
-* ② The line of code in which the first occurrence of the element was found is displayed under the list
-	* The same information is available via the tooltip.
+* ② A relevant line of code is displayed under the list. Two radio buttons let you choose which one — and your choice is saved:
+	* **Deduction line** (default): the line that allowed the tool to deduce the type — for example the indexed access `$row[1]` that reveals a **Collection**, or the assignment that reveals a simple type.
+	* **First occurrence**: the first line where the element appears.
+	* The first-occurrence line is also available via the tooltip.
 	
 	<p align="center"><img src="./Documentation/tooltip.png" width="300"></p>
 
 
 * ③ To the right are the available types. 
 	* The shortcut for each type is `option + the underlined letter` of the label
-	* The class is displayed when relevant. 
+	* When the type is **Object**, a class picker drop-down appears, listing the 4D classes (`4D.x`), `Object` (a plain object) and the `cs.x` / `4D.x` classes referenced in the code, so you can type the variable precisely (e.g. `4D.File`). A dedicated icon marks variables carrying a class.
 
 
 * ④ The Filter menu allows you to display only certain items.
 
 <p align="center"><img src="./Documentation/filter.png" width="200"></p>
 
-* ⑤ If you validate, the directives are pasted at the top of the method or selection, before the first line which is not a comment. Untyped or unused variables are ignored, declarations that have been made throughout the method, as well as all previous declarative blocks are deleted.
+* ⑤ If you validate, each declaration is inserted just before the variable's first use (named parameters are grouped at the top). When a variable's first use is its own assignment, the declaration and the assignment are merged on a single line (`var $x : Text:=…`). Variables of the same type inserted at the same place are grouped on one `var` line. Untyped or unused variables are ignored, and declarations made throughout the method, as well as all previous declarative blocks, are removed.
 	* If you close the window with the close box, the method is not changed.
 
 **Arrays**:

@@ -7,14 +7,7 @@
 // Tests if the language of the system and the language of the macros are the same.
 // If not, installs a localized file if any
 // ----------------------------------------------------
-// Declarations
-var $content; $language; $root : Text
-var $i : Integer
-var $file; $src : 4D:C1709.File
-
-ARRAY TEXT:C222($nodes; 0)
-ARRAY LONGINT:C221($childTypes; 0)
-
+var $file : 4D:C1709.File
 $file:=File:C1566("/PACKAGE/Macros v2/4DPop_Macros.xml")
 
 If ($file.original#Null:C1517)
@@ -25,15 +18,20 @@ End if
 
 If ($file.exists)
 	
+	var $content : Text
 	$content:=$file.getText()
+	var $root : Text
 	$root:=DOM Parse XML variable:C720($content)
 	
 	If (OK=1)
 		
+		ARRAY LONGINT:C221($childTypes; 0)
+		ARRAY TEXT:C222($nodes; 0)
 		DOM GET XML CHILD NODES:C1081(DOM Get XML document ref:C1088($root); $childTypes; $nodes)
 		
 		Repeat 
 			
+			var $i : Integer
 			$i:=Find in array:C230($childTypes; XML comment:K45:8; $i+1)
 			
 			If ($i>0)
@@ -42,6 +40,7 @@ If ($file.exists)
 				
 				If ($groups.length>0)
 					
+					var $language : Text
 					$language:=$groups[0]
 					break
 					
@@ -56,6 +55,7 @@ End if
 
 If ($language#Get database localization:C1009(User system localization:K5:23))
 	
+	var $src : 4D:C1709.File
 	$src:=File:C1566(Localized document path:C1105("4DPop_Macros.xml"); fk platform path:K87:2)
 	
 	If (Bool:C1537($src.exists))

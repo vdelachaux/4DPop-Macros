@@ -308,6 +308,26 @@ N'est plus disponible, éventuellement parce qu'elle a été intégrée à 4D</t
         <trans-unit id="msg_noVariableToDeclare" resname="noVariableToDeclare">
           <source>No local variable or parameter to declare!</source>
           <target>Aucune variable locale ou paramètre à déclarer !</target>
+        </trans-unit>        
+        <trans-unit id="msg_allDeclarationsVerified" resname="allDeclarationsVerified">
+          <source>All declarations have been verified.</source>
+          <target>Toutes les déclarations ont été vérifiées.</target>
+        </trans-unit>
+        <trans-unit id="msg_allVariablesDeclared" resname="allVariablesDeclared">
+          <source>All variables are declared.</source>
+          <target>Toutes les variables sont déclarées.</target>
+        </trans-unit>
+        <trans-unit id="msg_noUnusedVariable" resname="noUnusedVariable">
+          <source>No variable is unused.</source>
+          <target>Aucune variable n'est inutilisée.</target>
+        </trans-unit>
+        <trans-unit id="msg_showDeductionLine" resname="showDeductionLine">
+          <source>Deduction line</source>
+          <target>Ligne de déduction</target>
+        </trans-unit>
+        <trans-unit id="msg_showFirstUseLine" resname="showFirstUseLine">
+          <source>First occurrence</source>
+          <target>Première occurrence</target>
         </trans-unit>
         <trans-unit id="msg_notAConstant" resname="notAConstant">
           <source>does not seem to be a constant!</source>

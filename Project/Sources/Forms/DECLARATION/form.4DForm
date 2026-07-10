@@ -5,7 +5,7 @@
 	},
 	"windowSizingX": "variable",
 	"windowSizingY": "variable",
-	"windowMinWidth": 470,
+	"windowMinWidth": 550,
 	"windowMinHeight": 459,
 	"windowMaxWidth": 800,
 	"windowMaxHeight": 32767,
@@ -52,6 +52,7 @@
 					"scrollbarVertical": "visible",
 					"hideSystemHighlight": true,
 					"resizingMode": "legacy",
+					"horizontalPadding": 2,
 					"columns": [
 						{
 							"header": {
@@ -340,9 +341,9 @@
 				"ok": {
 					"type": "button",
 					"top": 417,
-					"left": 352,
+					"left": 432,
 					"width": 80,
-					"height": 22,
+					"height": 23,
 					"sizingX": "move",
 					"sizingY": "move",
 					"dataSource": "OK",
@@ -354,11 +355,11 @@
 				},
 				"Line": {
 					"type": "line",
-					"top": 399,
+					"top": 400,
 					"left": 19,
-					"width": 431,
-					"height": 1,
-					"startPoint": "bottomLeft",
+					"width": 512,
+					"height": 0,
+					"startPoint": "topLeft",
 					"sizingX": "grow",
 					"sizingY": "move",
 					"stroke": "#c0c0c0"
@@ -386,7 +387,7 @@
 					"type": "line",
 					"top": 33,
 					"left": 335,
-					"width": 115,
+					"width": 196,
 					"height": 0,
 					"startPoint": "topLeft",
 					"sizingX": "move",
@@ -397,7 +398,7 @@
 					"type": "line",
 					"top": 63,
 					"left": 335,
-					"width": 115,
+					"width": 196,
 					"height": 0,
 					"startPoint": "topLeft",
 					"sizingX": "move",
@@ -425,7 +426,7 @@
 					"top": 361,
 					"width": 294,
 					"height": 33,
-					"dataSource": "Form:C1466.current.code",
+					"dataSource": "Form:C1466.line",
 					"enterable": false,
 					"contextMenu": "automatic",
 					"borderStyle": "none",
@@ -437,27 +438,53 @@
 					"showSelection": true,
 					"textAlign": "center"
 				},
-				"Input1": {
-					"type": "input",
-					"left": 362,
-					"top": 222,
-					"width": 101,
-					"height": 14,
-					"dataSource": "Form:C1466.current.class",
-					"enterable": false,
+				"deductionRadio": {
+					"type": "radio",
+					"text": ":xliff:showDeductionLine",
+					"top": 420,
+					"left": 19,
+					"width": 150,
+					"height": 16,
+					"events": [
+						"onClick"
+					],
 					"focusable": false,
-					"contextMenu": "none",
-					"borderStyle": "none",
-					"fill": "transparent",
-					"fontStyle": "italic",
-					"stroke": "#b1c4dd",
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "lineMode",
+					"sizingY": "move"
+				},
+				"firstUseRadio": {
+					"type": "radio",
+					"text": ":xliff:showFirstUseLine",
+					"top": 420,
+					"left": 177,
+					"width": 150,
+					"height": 16,
+					"events": [
+						"onClick"
+					],
+					"focusable": false,
+					"dataSourceTypeHint": "boolean",
+					"radioGroup": "lineMode",
+					"sizingY": "move"
+				},
+				"classPopup": {
+					"type": "dropdown",
+					"left": 416,
+					"top": 204,
+					"width": 118,
+					"height": 18,
+					"dataSource": "Form:C1466.classDrop.data",
+					"events": [
+						"onDataChange"
+					],
 					"fontSize": 10,
 					"sizingX": "move"
 				}
 			}
 		}
 	],
-	"geometryStamp": 452,
+	"geometryStamp": 512,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",
@@ -466,7 +493,7 @@
 		}
 	},
 	"method": "method.4dm",
-	"width": 470,
+	"width": 550,
 	"height": 459,
 	"memorizeGeometry": true
 }

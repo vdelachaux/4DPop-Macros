@@ -23,9 +23,6 @@
 	"(Tools)": {},
 	"(xml (thread-safe))": {},
 	"# 🚧 DEV": {
-		"groups": [
-			"TESTS"
-		],
 		"methods": [
 			"0_DOCUMENTATION",
 			"00_convertComments",
@@ -64,6 +61,7 @@
 			"preferences",
 			"settings",
 			"specialPaste",
+			"syntax",
 			"xml"
 		]
 	},
@@ -108,59 +106,6 @@
 			"Init",
 			"INSTALL_LOCALIZED_MACROS",
 			"Install_resources"
-		]
-	},
-	"TESTS": {
-		"methods": [
-			"__test",
-			"_TEST",
-			"_test_choose",
-			"00_test_Dot_Notation",
-			"BEAUTIFIER_TEST",
-			"beautifier_test_12",
-			"beautifier_test_13",
-			"beautifier_test_14",
-			"beautifier_test_15",
-			"beautifier_test_16",
-			"beautifier_test_17",
-			"beautifier_test_2",
-			"beautifier_test_3",
-			"beautifier_test_4",
-			"beautifier_test_5",
-			"beautifier_test_6",
-			"beautifier_test_7",
-			"beautifier_test_8",
-			"beautifier_test_9",
-			"beautifier_test_splitKeysValues",
-			"beutifier_OB",
-			"CODE_TO_EXECUTE_FORMULA_test",
-			"createFR2USMacro",
-			"DECLARATION_Formula",
-			"DECLARATION_Test",
-			"DECLARE",
-			"literals",
-			"Method1",
-			"Method120",
-			"Method121",
-			"Method122",
-			"Method123",
-			"Method124",
-			"Method132",
-			"Method2",
-			"Method3",
-			"Method4",
-			"Method5",
-			"Method6",
-			"Method7",
-			"Method89",
-			"test_replace_o",
-			"TrueMethod"
-		],
-		"forms": [
-			"TEST"
-		],
-		"classes": [
-			"test_"
 		]
 	},
 	"trash": {

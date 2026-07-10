@@ -3,6 +3,12 @@
 > Contexte de modernisation. À reprendre demain sur une autre machine.
 > Faire `git pull` avant de commencer.
 
+## À faire (prochaine session)
+- **Sortir `_loadIcons()` de `declaration`** vers une classe `shared singleton` :
+  les icônes de type sont des constantes de session rechargées à chaque
+  `cs.declaration.new()`. Les charger une seule fois par session.
+  (`_loadGramSyntax()` a déjà été sorti → remplacé par `cs.syntax`, voir plus bas.)
+
 ## État actuel (branche `main`, synchronisée avec `origin/main`)
 
 Chantier : modernisation du composant, suppression des actions obsolètes en
@@ -18,6 +24,108 @@ propriétés `Form` ou des objets locaux.
   only what's still needed (−18 lignes)
 
 ### Changements réalisés
+- **Clairvoyance `declaration` basée sur `syntaxEN.json` (nouveau `cs.syntax`)** :
+  la détection du type des variables non déclarées ne s'appuie plus sur
+  `gram.4dsyntax` mais sur le fichier `…/Resources/en.lproj/syntaxEN.json` livré
+  avec 4D. Nouveau `shared singleton` `Classes/syntax.4dm` (`cs.syntax.me`) chargé
+  et parsé UNE fois par session : construit les tables `commands`
+  (nom→{ret, params[]}) et `members` (nom→type de retour). API `guessType($var;$line)`,
+  `commandReturnType`, `commandParamType($name;$index)`, `memberReturnType`. La
+  clairvoyance type désormais une variable à **n'importe quelle position d'argument**
+  d'une commande (pas seulement le 1er param) : `params` est la liste ordonnée des
+  types (ligne *result* exclue, opérateur `*` = slot 0), et `_argIndex` déduit la
+  position en comptant les `;` avant la variable (littéraux `"…"` retirés). Dans
+  `declaration` : `property gramSyntax` + `Function _loadGramSyntax()` SUPPRIMÉS,
+  la branche `Else` de `_clairvoyant` délègue à `This._syntax.guessType(...)`
+  (les heuristiques littérales — littéraux `{}`/`[]`, `.membre`, dates/heures,
+  pointeurs, `For`, `If/Not` — restent inline). `$pos`/`$len` sont déclarés en
+  `ARRAY LONGINT` et les regex à groupe capturant sont lues via `{1}`/`{2}`.
+  - **Sortie enrichie** (`_apply` + `_groupDeclarations`) : les variables de même
+    type inférées au même point d'insertion sont regroupées sur une seule ligne
+    (`var $a; $b : Text`) ; et si la 1ʳᵉ utilisation d'une variable est sa propre
+    affectation, la déclaration et l'affectation sont fusionnées
+    (`$x:=…` → `var $x : Type := …`). Les tableaux restent individuels.
+  - **Inférence de CLASSE depuis les membres** : `cs.syntax` construit aussi
+    `memberClass` (classe du récepteur d'un membre) et `memberReturnClass` (classe
+    de retour). Ex : `$file.getText()` → `$file : 4D.File`, `$col.length` →
+    `$col : Collection`, `$folder.file("x")` → `$folder : 4D.Folder` et le résultat
+    `$child : 4D.File`. Un membre présent sur >3 classes est jugé trop générique
+    (pas de classe : `.size`, `.name`) ; sinon la classe est choisie par priorité
+    (`Collection`, `4D.File`, `4D.Folder`, `4D.Entity`, `4D.EntitySelection`,
+    `Object`, `4D.Blob`). ⚠️ Heuristique : peut se tromper pour un membre ambigu
+    (`.extension` deviné `4D.File` même sur un `Folder`) — à revoir au dialogue.
+    API `memberReceiverClass($name)`, `memberReturnClass($name)`. Côté
+    `declaration` : `_memberReceiver`/`_receiverClassOf` (récepteur) et
+    `_returnClassOf` (classe de retour dans le bloc EXTRACT).
+  - **Sélecteur de classe dans le dialogue** : dans le formulaire `DECLARATION`,
+    l'ancien `Input1` (affichage figé de `Form.current.class`) est remplacé par une
+    dropdown `classPopup` (`cs.ui.dropDown`, datasource `Form.classDrop.data`),
+    visible seulement pour les variables typées Object. Elle liste toutes les classes
+    4D (via `cs.syntax.classNames()`, issu de `syntaxEN.json`) + `Object` (= objet nu)
+    + les classes `cs.*`/`4D.*` référencées dans le code (`_classChoices()`). La classe
+    trouvée est pré-sélectionnée ; si l'utilisateur en choisit une autre, elle est
+    écrite dans `Form.current.class` et prise en compte par `_buildDeclaration`
+    (`var $x : 4D.File`). Choisir `Object` remet une déclaration objet nue.
+    ⚠️ Nécessite que la dépendance UI-with-Classes fournisse la classe `dropDown`.
+  - ⚠️ Découverte : les fichiers `syntax<LANG>.json` de TOUTES les locales ont des
+    clés de commande IDENTIQUES en anglais (seules les descriptions sont traduites)
+    et des types neutres. On charge donc TOUJOURS `syntaxEN.json`. Conséquence : les
+    noms de commandes anglais + tous les attributs/functions (toujours anglais) se
+    résolvent ; les noms de commandes FRANÇAIS (option héritée « réglages
+    régionaux ») ne se résolvent pas et retombent sur le dialogue, comme avant.
+- **`declaration` par fonction sur une classe entière** : quand la fenêtre est
+  une classe ET qu'il n'y a **pas de sélection**, `declaration` traite désormais
+  chaque `Function` / `Class constructor` séparément (le préambule — `property`,
+  `Class extends` — reste intact). Le constructeur aiguille vers `_processClass()`
+  (découpe en blocs via `isFunction`/`isConstructor`, `_reset()` + `parse()` +
+  `_dialog()` par bloc, réassemblage, un seul `kCaret` conservé) ou `_processScope()`
+  (comportement historique : méthode entière ou sélection). Avec sélection dans une
+  classe → `_processScope()` (scope sélectionné). Nouvelles fonctions : `_processScope`,
+  `_processClass`, `_reset`, `_dialog`. Réutilise `paste`/`split`/`isFunction`/
+  `isConstructor`/`class`/`withSelection` hérités de `macro`.
+  - **UX** : le titre de la fenêtre du dialogue affiche la fonction courante
+    (`SET WINDOW TITLE` via `_dialog($title)` + `_scopeName()`) pour savoir sur
+    quelle fonction on définit les types.
+  - **Déclarations au plus près de l'usage** : les variables locales SANS
+    affectation ne sont plus remontées en bloc en tête ; `_apply` construit une
+    déclaration par variable (`_buildDeclaration`) et l'insère juste avant sa
+    première utilisation (`_firstUseIndex`, avec remontée au début d'une
+    instruction multi-lignes `\` pour ne pas la casser). Les paramètres restent
+    dans la signature ; les rares variables sans usage localisé (`$orphans`)
+    restent en tête. Suppression du groupage `numberOfVariablePerLine`.
+  - **Fix parse** : un paramètre nommé référencé uniquement dans une ligne de
+    déclaration (`var $x:=…($param…)`) était compté 0 fois (rapporté « non
+    utilisé »). La branche DECLARATION LINE de `parse()` teste désormais
+    `This.parameters` avant de créer un local (comme le fait déjà la branche
+    EXTRACT LOCAL VARIABLES).
+  - **Dialogue seulement si nécessaire** (`_needsDialog()`) : on n'ouvre le
+    dialogue que si une déclaration MANQUE (local utilisé jamais déclaré) ou si
+    une variable est INUTILISÉE (count 0, hors valeur de retour). Sinon on
+    applique les règles en silence (`_apply` direct). Fonction sans variable →
+    laissée intacte. Si AUCUNE fonction n'a eu besoin du dialogue → une seule
+    alerte « Toutes les déclarations ont été vérifiées » (clé XLIFF
+    `allDeclarationsVerified`, en+fr). Correctif au passage : les fonctions sans
+    variable n'étaient plus réinsérées dans la classe (Else manquant) — corrigé
+    via un `Case of`.
+  - ⚠️ Limite connue : la branche DECLARATION LINE de `parse()` ne distingue pas
+    le LHS du RHS. Un token utilisé uniquement dans l'initialiseur d'un autre
+    `var` (`var $token:=Substring($result;…)`) ne doit PAS être considéré comme
+    déclaré — d'où le fait qu'on n'y force PAS `inDeclaration` sur les locals
+    déjà connus (sinon `_needsDialog` afficherait « vérifié » alors que `_apply`
+    ajoute quand même la déclaration).
+  - **Message « vérifié » informatif** : 3 lignes (`allDeclarationsVerified` +
+    `allVariablesDeclared` + `noUnusedVariable`, clés XLIFF en+fr) via
+    `_verifiedMessage()`.
+  - **Lignes vides parasites (méthode projet)** : deux corrections dans `_apply`.
+    (1) Si rien à remonter en tête (aucun paramètre, locals au fil de l'eau) on
+    n'exécute plus la logique de placement (qui insérait `\r` + caret → lignes
+    vides) ; `$method:=""`. (2) La boucle restore supprime les lignes vides
+    situées **dans la zone de déclarations en tête** — c.-à-d. entre la première
+    déclaration retirée (déplacée au fil de l'eau) et la première ligne de code
+    (`$removedDeclSeen && Not($codeSeen)`). Les blancs AVANT cette zone (après
+    l'en-tête de fonction) ou APRÈS du vrai code sont préservés. (Une 1re version
+    qui supprimait tout blanc jouxtant une déclaration retirée effaçait à tort les
+    blancs structurels d'une fonction déjà propre — remplacée par la règle de zone.)
 - **Regex externalisées — `declaration` (registre uniquement)** : le registre
   `_patterns` du constructeur (détection de type des `var`, gabarit `{type}`) migré
   vers `Resources/regex/declaration.txt` (`_dx` : `varType`/`classType`/
@@ -57,10 +165,8 @@ propriétés `Form` ou des objets locaux.
 - **Notation littérale objet/collection** : remplacement de `New object(...)` /
   `New collection(...)` par `{clé: valeur; …}` / `[…]` dans tout le code
   production (classes `settings`, `specialPaste`, `macro` ; formulaires `SETTINGS`,
-  `COMMENTS`, `DECLARATIONS_SETTINGS`). Non converti quand les clés ne sont pas des
-  identifiants valides : `declaration.gramSyntax` (clés numériques
-  `String(Is object…)`). `New shared object/collection` inchangés (pas de littéral
-  partagé).
+  `COMMENTS`, `DECLARATIONS_SETTINGS`). `New shared object/collection` inchangés
+  (pas de littéral partagé).
 - **Option « Method syntax » (déclaration) supprimée** : avec le direct typing,
   l'option `methodDeclaration` (bloc `If(False)` de directives de compilation
   `4d:C…(nom;$0)` inséré en tête des méthodes projet) est obsolète. Retirée

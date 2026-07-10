@@ -38,9 +38,8 @@ Function group($name : Text) : Object
 Function _parse($text : Text) : Object
 	
 	var $o : Object:={}
-	var $line; $key : Text
-	var $tab : Integer
 	
+	var $line : Text
 	For each ($line; Split string:C1554($text; "\n"))
 		
 		$line:=Replace string:C233($line; "\r"; "")
@@ -51,10 +50,12 @@ Function _parse($text : Text) : Object
 			
 		End if 
 		
+		var $tab : Integer
 		$tab:=Position:C15("\t"; $line)
 		
 		If ($tab>0)
 			
+			var $key : Text
 			$key:=Substring:C12($line; 1; $tab-1)
 			$o[$key]:=This:C1470._resolve(Substring:C12($line; $tab+1))
 			
@@ -68,11 +69,11 @@ Function _parse($text : Text) : Object
 	//  {commentMark} -> the comment marker ; {cmdNNN} -> the localized name of command NNN
 Function _resolve($pattern : Text) : Text
 	
-	var $result : Text:=Replace string:C233($pattern; "{commentMark}"; kCommentMark)
+	var $result : Text
+	$result:=Replace string:C233($pattern; "{commentMark}"; kCommentMark)
 	
-	ARRAY LONGINT:C221($pos; 0)
 	ARRAY LONGINT:C221($len; 0)
-	
+	ARRAY LONGINT:C221($pos; 0)
 	While (Match regex:C1019("(?m-s)\\{cmd(\\d+)\\}"; $result; 1; $pos; $len))
 		
 		var $token : Text:=Substring:C12($result; $pos{0}; $len{0})
@@ -82,3 +83,4 @@ Function _resolve($pattern : Text) : Text
 	End while 
 	
 	return $result
+	

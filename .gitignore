@@ -15,7 +15,7 @@
 #--------------------------------
 # Ignore derived data
 #--------------------------------
-Project/DerivedData/
+**/Project/DerivedData/
 
 #--------------------------------
 # Ignore settings & preferences
@@ -31,7 +31,7 @@ userPreferences.*/
 #--------------------------------
 # Ignore Trash
 #--------------------------------
-Project/Trash/
+**/Project/Trash/
 
 #--------------------------------
 # Ignore backup

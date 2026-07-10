@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="13">
+	<com.4d>
+		<general execute_host_database_event="true"/>
+		<compiler>
+			<typage default_for_button="2"/>
+			<options compilation_path="4" symbol_file="true" target="all"/>
+			<method_suffix arrays="" interprocess_arrays="" interprocess_variables="" methods="" variables=""/>
+		</compiler>
+		<server>
+			<network>
+				<options/>
+				<client_server/>
+			</network>
+		</server>
+		<web>
+			<standalone_server>
+				<configuration port_number="80"/>
+				<options>
+					<cache cache_max_size="524288"/>
+				</options>
+				<webservices>
+					<server name="A_WebService"/>
+				</webservices>
+			</standalone_server>
+		</web>
+		<sql>
+			<publication/>
+		</sql>
+		<php/>
+		<interface>
+			<shortcuts>
+				<accept_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+				<cancel_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+				<add_subform alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+			</shortcuts>
+			<user/>
+		</interface>
+		<database>
+			<cache flush_buffer_delay="20s"/>
+			<misc mac_use_lf="true" no_bom="true" non_blocking_printing="false" prefer_null_than_blank_values="false" split_catalog="false" standard_xpath="true" use_ast_interpreter="false"/>
+		</database>
+	</com.4d>
+</preferences>
