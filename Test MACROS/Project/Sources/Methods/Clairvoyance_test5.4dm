@@ -1,19 +1,18 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-//// A "If" statement should never omit "Else"
-//#DECLARE($a : Text)
-//If (False)
-//C_TEXT(Method123; $1)
-//End if
-//var $x : Blob
-//var $o : Object
-//$o:=New object
-//SET BLOB SIZE($x; 0)
-//If (True)
-//Else
-//// A "If" statement should never omit "Else"
-//End if
-var $Dom_note; $Dom_source; $Dom_target; $Dom_unit; $File_xlf; $Txt_source : Text
-var $Txt_state; $Txt_target; $Txt_value : Text
+// A "If" statement should never omit "Else"
+#DECLARE($a : Text)
+
+var $x : Blob
+var $o : Object
+$o:=New object:C1471
+SET BLOB SIZE:C606($x; 0)
+If (True:C214)
+	
+	// 
+	
+Else 
+	// A "If" statement should never omit "Else"
+End if 
 
 $Dom_note:=""
 $Dom_source:=""
@@ -26,11 +25,12 @@ $Txt_target:=""
 $Txt_value:=""
 
 
+$pi:=Pi:K30:1
+
 // The declaration must win
 //%W-550.4
-var $pi : Real
 var $toto : Integer
-var $x : Object
+var $s : Object
 var $y : Collection
 //var $catalog; $datastore : cs.catalog
 

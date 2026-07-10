@@ -118,7 +118,8 @@ Function _processScope()
 	
 	If (This:C1470.variables.length=0)
 		
-		ALERT:C41(This:C1470._verifiedMessage())
+		// No local variable or parameter at all in this scope
+		ALERT:C41(Localized string:C991("noVariableToDeclare"))
 		return 
 		
 	End if 
@@ -2253,7 +2254,11 @@ Function _loadIcons()
 		arrayCommand: 1221; \
 		directive: 1216}
 	
-	READ PICTURE FILE:C678($root.file("field_class.svg").platformPath; $icon)
+	// Class icon: field_class.svg embeds a light/dark media query (works on 21R3+),
+	// but SVG light/dark rendering is unavailable on 21.1, so pick the explicit
+	// _dark variant by color scheme (like the PNG icons). Remove field_class_dark.svg
+	// and this suffix once 21.1 support is dropped.
+	READ PICTURE FILE:C678($root.file("field_class"+((Get Application color scheme:C1763(*)="dark") ? "_dark" : "")+".svg").platformPath; $icon)
 	This:C1470.classIcon:=$icon
 	
 	READ PICTURE FILE:C678($root.file("field_"+String:C10(Is collection:K8:32; "00")+$suffix).platformPath; $icon)

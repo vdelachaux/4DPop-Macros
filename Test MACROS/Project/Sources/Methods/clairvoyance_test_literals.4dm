@@ -2,11 +2,10 @@
 /* Clairvoyance test — LITERAL syntax & operators (no syntax file needed).
 Each variable is assigned on its own line → declaration merged with the assignment. */
 
-/*
 $n:=42  // Integer
 $r:=3.14  // Real
 $s:="hello"  // Text
-$b:=True  // Boolean
+$b:=True:C214  // Boolean
 $obj:={name: "x"}  // Object
 $col:=[1; 2; 3]  // Collection
 $d:=!2024-12-25!  // Date
@@ -23,6 +22,5 @@ var $col : Collection:=[1; 2; 3]  // Collection
 var $d : Date:=!2024-12-25!  // Date
 var $h : Time:=?12:30:00?  // Time
 var $p : Pointer:=->$s  // Pointer
-*/
 */
 
