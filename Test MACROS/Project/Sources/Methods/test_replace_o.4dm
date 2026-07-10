@@ -1,44 +1,44 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
 
-//If (True)
+If (True:C214)
+	
+	_O_DISABLE BUTTON:C193(OK)
+	
+	_O_DISABLE BUTTON:C193(*; "monBouton")
+	
+End if 
 
-//_O_DISABLE BUTTON(OK)
-
-//_O_DISABLE BUTTON(*; "monBouton")
-
-//End if 
-
-//If (True)
-
-
-//_O_ENABLE BUTTON(OK)
-
-//_O_ENABLE BUTTON(*; "monBouton")
-
-//End if 
-
-
-//If (True)
-
-//_O_C_STRING(10; $string)
-
-//_O_C_STRING(test_replace_o; 10; $string; $string; $string)
-
-//End if 
+If (True:C214)
+	
+	
+	_O_ENABLE BUTTON:C192(OK)
+	
+	_O_ENABLE BUTTON:C192(*; "monBouton")
+	
+End if 
 
 
-//If (True)
+If (True:C214)
+	
+	_O_C_STRING:C293(10; $string)
+	
+	_O_C_STRING:C293(test_replace_o; 10; $string; $string; $string)
+	
+End if 
 
-//_O_C_INTEGER($integer)
 
-//_O_C_INTEGER(test_replace_o; $integer; $string; $string)
+If (True:C214)
+	
+	_O_C_INTEGER:C282($integer)
+	
+	_O_C_INTEGER:C282(test_replace_o; $integer; $string; $string)
+	
+End if 
 
-//End if 
-
-//If (True)
-
-//_O_ARRAY STRING(10; $array; 0)
-
-//_O_ARRAY STRING(10; $array; 0; 0)
-
-//End if 
+If (True:C214)
+	
+	_O_ARRAY STRING:C218(10; $array; 0)
+	
+	_O_ARRAY STRING:C218(10; $array; 0; 0)
+	
+End if 

@@ -37,6 +37,11 @@
 			"Clairvoyance_test5"
 		]
 	},
+	"Declarations": {
+		"methods": [
+			"test_replace_o"
+		]
+	},
 	"trash": {
 		"groups": [
 			"(_TESTS)"

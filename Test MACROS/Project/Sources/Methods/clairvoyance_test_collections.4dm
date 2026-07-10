@@ -8,23 +8,47 @@ type is inferred from how it is used inside the block (undefined if no hint). */
 the 2nd parameter type of a For each is a collection or an object
 the 1st parameter type is Text for an object else depend of the usage into the block
 */
-/*
+
+var $collection : Collection
+var $item : Object
 For each ($item; $collection)  // Object, Collection
-
-$name:=$item.name  // Not defined, but will be typed as Text below
-$type:=Num($item.type)  // Integer
-
+	
+	var $name : Text:=$item.name  // Not defined, but will be typed as Text below
+	var $type : Real:=Num:C11($item.type)  // Integer
+	
 End for each 
 
+var $key : Text
+var $o : Object
 For each ($key; $o)  // Text, Object
-
-$name:=$key  // Text
-
+	
+	$name:=$key  // Text
+	
 End for each 
 
+var $num : Real
 For each ($num; $collection)  // Real, Collection
+	
+	var $sum : Real
+	$sum+=$num  // Real
+	
+End for each 
 
+/*
+var $collection : Collection
+var $item : Object
+For each ($item; $collection)  // Object, Collection
+var $name : Text:=$item.name  // Not defined, but will be typed as Text below
+var $type : Real:=Num($item.type)  // Integer
+End for each 
+var $key : Text
+var $o : Object
+For each ($key; $o)  // Text, Object
+$name:=$key  // Text
+End for each 
+var $num : Real
+For each ($num; $collection)  // Real, Collection
+var $sum : Real
 $sum+=$num  // Real
-
 End for each 
 */

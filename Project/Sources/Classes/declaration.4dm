@@ -351,11 +351,40 @@ Function parse() : cs:C1710.declaration
 	This:C1470.split()
 	This:C1470._scopeCode:=This:C1470._cleanCode(This:C1470.method)
 	
-	var $text : Text
-	For each ($text; This:C1470.lines)
+	var $lineIndex : Integer
+	var $continuation : Boolean:=False:C215
+	
+	For ($lineIndex; 0; This:C1470.lines.length-1; 1)
+		
+		var $text : Text:=This:C1470.lines[$lineIndex]
+		
+		// A physical line ending with "\" continues on the next one. Every physical
+		// line is kept verbatim in _output for faithful reconstruction, but for
+		// PARSING/inference the whole statement must be read at once — otherwise type
+		// evidence carried on a later physical line (e.g. Length($v), $v:="x") is
+		// missed. So \-continued physical lines are folded into a single logical line;
+		// the trailing continuation lines are emitted as-is and skipped for parsing.
+		If ($continuation)
+			
+			$continuation:=This:C1470.isMultiline($text)
+			This:C1470._output.push({code: $text; type: "continuation"})
+			continue
+			
+		End if 
+		
+		var $foldable : Boolean:=(Not:C34(This:C1470.isCommentBlock)) && (This:C1470.isNotComment($text))
+		$continuation:=$foldable && (This:C1470.isMultiline($text))
 		
 		var $line:={code: $text}
 		var $comment:=""
+		
+		If ($continuation)
+			
+			$text:=This:C1470._logicalLineAt($lineIndex)
+			
+		End if 
+		
+		$line.logical:=$text
 		
 		This:C1470.rgx.setTarget($text)
 		
@@ -495,7 +524,7 @@ declaration macro must omit the parameters of a formula
 							Else 
 								
 								// Let's take a guess
-								$parameter.type:=This:C1470._clairvoyant($t; $line.code)
+								$parameter.type:=This:C1470._clairvoyant($t; $line.logical)
 								
 								If (Length:C16(This:C1470._typeEvidence)>0)
 									
@@ -569,7 +598,7 @@ declaration macro must omit the parameters of a formula
 										
 										$var:={\
 											value: $t; \
-											code: $line.code; \
+code: $line.logical; \
 											count: 0; \
 											label: $t; \
 											inDeclaration: True:C214\
@@ -636,7 +665,7 @@ declaration macro must omit the parameters of a formula
 							
 						End if 
 						
-						$t:=Substring:C12($line.code; $pos{1}; $len{1})
+						$t:=Substring:C12($text; $pos{1}; $len{1})
 						$var:=This:C1470.locales.query("value=:1"; $t).first()
 						
 						If ($var=Null:C1517)
@@ -703,7 +732,7 @@ declaration macro must omit the parameters of a formula
 										If ($var.type=Null:C1517)
 											
 											// Let's take a guess
-											$var.type:=This:C1470._clairvoyant($t; $line.code)
+											$var.type:=This:C1470._clairvoyant($t; $line.logical)
 											
 											// Remember the line that let clairvoyance deduce the type when a
 											// whole-scope scan matched a line other than the first use
@@ -746,13 +775,11 @@ declaration macro must omit the parameters of a formula
 													
 												Else 
 													
-													$var.type:=This:C1470._getTypeFromDeclaration($line.code)
-													
-													If ($var.type#0)
-														
-														If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.code; 1))
+															$var.type:=This:C1470._getTypeFromDeclaration($line.logical)
 															
-															$var.array:=True:C214
+															If ($var.type#0)
+																
+																If (Match regex:C1019("(?m-si)^(?:ARRAY|TABLEAU)\\s[^(]*\\([^;]*;[^;]*(?:;([^;]*))?\\)"; $line.logical; 1))
 															
 														End if 
 													End if 
@@ -774,6 +801,11 @@ declaration macro must omit the parameters of a formula
 										
 										var $class : Object:=This:C1470.classes.query("value = :1"; $var.value).first()
 										
+										// Comment-free, trimmed line: the class triggers below are anchored at
+										// the END of the line (…member(…)$), so a trailing "// …" comment must
+										// not be present or the anchor fails.
+										var $code : Text:=This:C1470._trimLine(This:C1470._cleanCode($line.code))
+										
 										Case of 
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
@@ -782,25 +814,25 @@ declaration macro must omit the parameters of a formula
 												$var.class:=$class.class
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("File:C1566")+"\\([^)]*\\)(?!\\.)"; $line.code; 1; *))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("File:C1566")+"\\([^)]*\\)(?!\\.)"; $code; 1; *))
 												
 												$var.class:="4D.File"
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Folder:C1567")+"\\([^)]*\\)(?!\\.)"; $line.code; 1; *))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Folder:C1567")+"\\([^)]*\\)(?!\\.)"; $code; 1; *))
 												
 												$var.class:="4D.Folder"
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Formula:C1597")+"\\([^)]*\\)(?!\\.)"; $line.code; 1; *))\
-												 || (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Formula from string:C1601")+"\\([^)]*\\)(?!\\.)"; $line.code; 1; *))
+											: (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Formula:C1597")+"\\([^)]*\\)(?!\\.)"; $code; 1; *))\
+												 || (Match regex:C1019("(?mi-s)\\"+$var.value+":="+Parse formula:C1576("Formula from string:C1601")+"\\([^)]*\\)(?!\\.)"; $code; 1; *))
 												
 												$var.class:="4D.Function"
 												
 												//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
-											: (Match regex:C1019("(?mi-s).*\\.\\w*(?:\\([^\\)]*\\))$"; $line.code; 1; *))
+											: (Match regex:C1019("(?mi-s).*\\.\\w*(?:\\([^\\)]*\\))$"; $code; 1; *))
 												
-												var $retClass : Text:=This:C1470._returnClassOf($line.code)
+												var $retClass : Text:=This:C1470._returnClassOf($code)
 												
 												Case of 
 														
@@ -848,7 +880,7 @@ declaration macro must omit the parameters of a formula
 		
 		This:C1470._output.push($line)
 		
-	End for each 
+	End for 
 	
 	This:C1470.localeNumber:=This:C1470.locales.length
 	This:C1470.parameterNumber:=This:C1470.parameters.length
@@ -878,7 +910,8 @@ Function _parseParameters($line : Object)
 	var $parameter : Object
 	var $c : Collection
 	
-	var $rgx : cs:C1710.rgx.regex:=This:C1470.rgx.setTarget($line.code)
+	var $src : Text:=(Length:C16(String:C10($line.logical))>0) ? $line.logical : $line.code
+	var $rgx : cs:C1710.rgx.regex:=This:C1470.rgx.setTarget($src)
 	
 	Case of 
 			
@@ -927,7 +960,7 @@ Function _parseParameters($line : Object)
 				$parameter:={\
 					parameter: True:C214; \
 					value: Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-					code: $line.code; \
+					code: $src; \
 					type: $c.length=1 ? Is variant:K8:33 : This:C1470._getTypeFromDeclaration($t); \
 					count: 0; \
 					order: $index}
@@ -958,7 +991,7 @@ Function _parseParameters($line : Object)
 				parameter: True:C214; \
 				return: True:C214; \
 				value: Split string:C1554($c[0]; " "; sk ignore empty strings:K86:1).join(""); \
-				code: $line.code; \
+				code: $src; \
 				type: $c.length=1 ? Is variant:K8:33 : This:C1470._getTypeFromDeclaration($rgx.matches[4].data); \
 				count: 0; \
 				order: 0}
@@ -1707,6 +1740,46 @@ Function _firstUseIndex($var : Object) : Integer
 				
 			End while 
 			
+			// If the first use is the CLOSING condition of a Repeat…Until, the
+			// declaration must go BEFORE the Repeat, not inside the loop (just before
+			// Until). Walk back to the matching Repeat, honouring nested loops.
+			If (Match regex:C1019("(?mi-s)^\\s*(?:Until|Jusque)\\b"; String:C10($o.code); 1))
+				
+				var $depth : Integer:=1
+				var $back : Integer:=$index-1
+				
+				While ($back>=0)
+					
+					var $backCode : Text:=String:C10(This:C1470._output[$back].code)
+					
+					Case of 
+							
+							//___________________
+						: (Match regex:C1019("(?mi-s)^\\s*(?:Until|Jusque)\\b"; $backCode; 1))
+							
+							$depth:=$depth+1
+							
+							//___________________
+						: (Match regex:C1019("(?mi-s)^\\s*(?:Repeat|Répéter|Repeter)\\b"; $backCode; 1))
+							
+							$depth:=$depth-1
+							
+							If ($depth=0)
+								
+								$index:=$back
+								break
+								
+							End if 
+							
+							//___________________
+					End case 
+					
+					$back:=$back-1
+					
+				End while 
+				
+			End if 
+			
 			return $index
 			
 		End if 
@@ -2153,6 +2226,37 @@ Function _returnClassOf($code : Text) : Text
 	End if 
 	
 	return ""
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Folds the physical line at $index with the following \-continued lines into a
+	// single logical statement (continuation backslashes removed) so type inference
+	// can read the whole instruction at once. _output keeps each physical line as-is.
+Function _logicalLineAt($index : Integer) : Text
+	
+	var $out : Text:=This:C1470._stripContinuation(This:C1470.lines[$index])
+	
+	While (($index<(This:C1470.lines.length-1)) && (This:C1470.isMultiline(This:C1470.lines[$index])))
+		
+		$index:=$index+1
+		$out:=$out+" "+This:C1470._stripContinuation(This:C1470.lines[$index])
+		
+	End while 
+	
+	return $out
+	
+	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+	// Removes a trailing line-continuation backslash from a physical line
+Function _stripContinuation($line : Text) : Text
+	
+	var $n : Integer:=Length:C16($line)
+	
+	If (($n>0) && ($line[[$n]]="\\"))
+		
+		return Substring:C12($line; 1; $n-1)
+		
+	End if 
+	
+	return $line
 	
 	// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 	// Removes /* … */ and // comments so the clairvoyance scans are not fooled by them

@@ -1,8 +1,7 @@
 //%attributes = {}
-/*
-$date:=Current date  // Date pour laquelle la phase de la lune est calculée
+$date:=Current date:C33  // Date pour laquelle la phase de la lune est calculée
 
-$julian_day:=(Year of($date)*365)+(Month of($date)*30)+(Day of($date)-678912)  // Convertir la date en jours julien
+$julian_day:=(Year of:C25($date)*365)+(Month of:C24($date)*30)+(Day of:C23($date)-678912)  // Convertir la date en jours julien
 
 $days_since_2000:=$julian_day-2451545  // Calculer le nombre de jours depuis le 1er janvier 2000
 
@@ -11,13 +10,12 @@ $l:=(280.46+0.9856474*$days_since_2000)%360  // Calculer la longitude moyenne de
 $lp:=(218.32+13.1763966*$days_since_2000)%360  // Calculer l'anomalie moyenne de la lune en degrés
 $d:=($lp-$l+360)%360  // Calculer la différence entre la longitude et l'anomalie moyenne en degrés
 $f:=(83.353+0.1114036*$days_since_2000)%360  // Calculer l'élongation moyenne de la lune en degrés
-$longitude:=$l+1.915*Sin($d)+0.02*Sin(2*$d)  // Calculer la longitude vraie de la lune en degrés
-$latitude:=$f-0.026*Sin($d)  // Calculer la latitude vraie de la lune en degrés
-$distance:=(60.4-3.3*Cos($d))-(0.6*Cos(2*$d))-(0.5*Cos($f-$d))  // Calculer la distance de la lune en kilomètres
-$phase:=((1-Cos($f-$l))/2)*100  // Calculer la phase de la lune en pourcentage
+$longitude:=$l+1.915*Sin:C17($d)+0.02*Sin:C17(2*$d)  // Calculer la longitude vraie de la lune en degrés
+$latitude:=$f-0.026*Sin:C17($d)  // Calculer la latitude vraie de la lune en degrés
+$distance:=(60.4-3.3*Cos:C18($d))-(0.6*Cos:C18(2*$d))-(0.5*Cos:C18($f-$d))  // Calculer la distance de la lune en kilomètres
+$phase:=((1-Cos:C18($f-$l))/2)*100  // Calculer la phase de la lune en pourcentage
 
-ALERT("Phase de la lune le "+String($date)+" : "+String($phase)+"%")  // Afficher la phase de la lune pour la date donnée
-*/
+ALERT:C41("Phase de la lune le "+String:C10($date)+" : "+String:C10($phase)+"%")  // Afficher la phase de la lune pour la date donnée
 
 /*
 var $date : Date:=Current date  // Date pour laquelle la phase de la lune est calculée

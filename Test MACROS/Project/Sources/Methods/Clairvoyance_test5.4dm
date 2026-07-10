@@ -2,7 +2,7 @@
 // A "If" statement should never omit "Else"
 #DECLARE($a : Text)
 
-var $x : Blob
+//var $x : Blob
 var $o : Object
 $o:=New object:C1471
 SET BLOB SIZE:C606($x; 0)
@@ -27,19 +27,39 @@ $Txt_value:=""
 
 $pi:=Pi:K30:1
 
-// The declaration must win
-//%W-550.4
-var $toto : Integer
-var $s : Object
-var $y : Collection
-//var $catalog; $datastore : cs.catalog
+var $toto : Integer  // Unused
+var $s : Object  // Unused
+var $y; $c : Collection  // Unused
 
-//$datastore:=cs.catalog.new()
-//$catalog:=cs.catalog.new()
+$c:=[]
 
-//$y:=cs.catalog.new().buildExposedCatalog()
-//$toto:=1
-//$pi:=3.14116
+/*
+// A "If" statement should never omit "Else"
+#DECLARE($a : Text)
 
-//$x:=cs.catalog.new().buildExposedDatastore()
-//%W+550.4
+//var $x : Blob
+var $o : Object:=New object
+var $x : Blob
+SET BLOB SIZE($x; 0)
+If (True)
+
+//
+
+Else 
+// A "If" statement should never omit "Else"
+End if 
+
+var $Dom_note : Text:=""
+var $Dom_source : Text:=""
+var $Dom_target : Text:=""
+var $Dom_unit : Text:=""
+var $File_xlf : Text:=""
+var $Txt_source : Text:=""
+var $Txt_state : Text:=""
+var $Txt_target : Text:=""
+var $Txt_value : Text:=""
+
+var $pi : Real:=Pi
+
+var $c : Collection:=[]
+*/
