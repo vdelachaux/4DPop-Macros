@@ -308,10 +308,12 @@ N'est plus disponible, éventuellement parce qu'elle a été intégrée à 4D</t
         <trans-unit id="msg_noVariableToDeclare" resname="noVariableToDeclare">
           <source>No local variable or parameter to declare!</source>
           <target>Aucune variable locale ou paramètre à déclarer !</target>
-        </trans-unit>                <trans-unit id="msg_binaryDatabaseNotSupported" resname="binaryDatabaseNotSupported">
+        </trans-unit>
+        <trans-unit id="msg_binaryDatabaseNotSupported" resname="binaryDatabaseNotSupported">
           <source>The Declarations macro is not available for binary databases. It only supports project mode.</source>
           <target>La macro Déclarations n'est pas disponible pour les bases binaires. Elle ne prend en charge que le mode projet.</target>
-        </trans-unit>        <trans-unit id="msg_allDeclarationsVerified" resname="allDeclarationsVerified">
+        </trans-unit>
+        <trans-unit id="msg_allDeclarationsVerified" resname="allDeclarationsVerified">
           <source>All declarations have been verified.</source>
           <target>Toutes les déclarations ont été vérifiées.</target>
         </trans-unit>
