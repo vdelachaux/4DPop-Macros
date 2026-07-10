@@ -145,13 +145,13 @@
 			}
 		],
 		"options": {
-			"methodDeclaration": true,
 			"oneLinePerVariable": false,
 			"trimEmptyLines": true,
 			"replaceObsoleteTypes": false,
 			"generateComments": true,
 			"ignoreDeclarations": true,
-			"numberOfVariablePerLine": 6
+			"numberOfVariablePerLine": 6,
+			"showDeductionLine": true
 		}
 	},
 	"beautifier": {

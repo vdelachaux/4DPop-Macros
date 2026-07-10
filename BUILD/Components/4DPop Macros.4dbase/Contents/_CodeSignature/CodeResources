@@ -10,63 +10,11 @@
 		</data>
 		<key>Resources/4DPop_Macros.xml</key>
 		<data>
-		XyuLszQANT+ZqUMHwZf7WVteDRk=
-		</data>
-		<key>Resources/Images/Action.png</key>
-		<data>
-		YjNVHk8XGumpctwf1JtJDcoZmsA=
-		</data>
-		<key>Resources/Images/AddFile.png</key>
-		<data>
-		Bsq8olr89fQ6+dBbBm3yk0oaVXM=
-		</data>
-		<key>Resources/Images/AddTransunit.png</key>
-		<data>
-		moN7TwQNoBaQCQkjoF6OcWdDRv4=
-		</data>
-		<key>Resources/Images/Close.4pct</key>
-		<data>
-		6WxSvxxPrLmchmGLqFL55WU0YMI=
-		</data>
-		<key>Resources/Images/Delete.png</key>
-		<data>
-		jFy9LOjOiMANyPeRznj1OrD1m7k=
-		</data>
-		<key>Resources/Images/FootColor.png</key>
-		<data>
-		u7WbxrkVcCbEa6SLrHuSZxjYhNs=
-		</data>
-		<key>Resources/Images/FooterBack.tiff</key>
-		<data>
-		yclnIulsgypHlfZFC2/migW1G3k=
-		</data>
-		<key>Resources/Images/FooterButtonBack.png</key>
-		<data>
-		gkKZ76WVLySRv6QHpBnYKcjpP34=
-		</data>
-		<key>Resources/Images/Preferences.png</key>
-		<data>
-		oGqf5InQUowGRT/DClWlsGRzcrk=
+		BMU81CG2OBVjU1/6iZMvRR/yXwU=
 		</data>
 		<key>Resources/Images/Scomber Scombrus.png</key>
 		<data>
 		wqrunuf6hvvaeDDeNHqgpQpYMzA=
-		</data>
-		<key>Resources/Images/Spinner.gif</key>
-		<data>
-		OMOTRAjpfd3SHeujyE8ik0hBM38=
-		</data>
-		<key>Resources/Images/SpinnerMac.png</key>
-		<data>
-		2I2HrkyVU8R4MyZCckMLrz8jcBU=
-		</data>
-		<key>Resources/Images/SplitterVerticalHandle.tiff</key>
-		<data>
-		ODoaE/isLT6aKvemngCwAqxKzZA=
-		</data>
-		<key>Resources/Images/ToolbarBackground.png</key>
-		<data>
-		T6ayH0YWdmvrfxVA0fWmS/tZ++Y=
 		</data>
 		<key>Resources/Images/fieldIcons/field_00.png</key>
 		<data>
@@ -204,6 +152,14 @@
 		<data>
 		cvMZIE5X99wCPMKea8SbqmGGm9w=
 		</data>
+		<key>Resources/Images/fieldIcons/field_class.svg</key>
+		<data>
+		/Q2Nsqt4fdG7yAE25fJXtU1rFQQ=
+		</data>
+		<key>Resources/Images/fieldIcons/field_class_dark.svg</key>
+		<data>
+		05W1+ePWox1rlhWE/fo1XeIL7jQ=
+		</data>
 		<key>Resources/Images/filter.png</key>
 		<data>
 		tdpDj3cCqCeK1YuaBZhwwlDQINk=
@@ -212,85 +168,9 @@
 		<data>
 		mhD+W0gr1WpSPnziMeSGu8fWJxA=
 		</data>
-		<key>Resources/Images/genericFile.png</key>
-		<data>
-		MAwKqfIYHoF29YW85YMT4tsjx9k=
-		</data>
-		<key>Resources/Images/genericFolder.png</key>
-		<data>
-		4cI8AJRpF4zXmsW0zTJOZvz3Tms=
-		</data>
-		<key>Resources/Images/genericHardDrive.png</key>
-		<data>
-		JIxfLSahPWAnXC23luxj73rg128=
-		</data>
-		<key>Resources/Images/types/field_0.png</key>
-		<data>
-		Jgn1p0U0IkQ6jDS6okzX3FN3O1c=
-		</data>
-		<key>Resources/Images/types/field_1.png</key>
-		<data>
-		Xdham7YBdO9hHz9pu3JwI3RxzwA=
-		</data>
-		<key>Resources/Images/types/field_10.png</key>
-		<data>
-		RBFnw3kTv5k8T6SMUJCwzqRNDbQ=
-		</data>
-		<key>Resources/Images/types/field_11.png</key>
-		<data>
-		VVPMDjde6HVaO/+4FaQgJNd3yEU=
-		</data>
-		<key>Resources/Images/types/field_12.png</key>
-		<data>
-		uqCQJfWQl6LHH7yJfK08g098syU=
-		</data>
-		<key>Resources/Images/types/field_13.png</key>
-		<data>
-		//TtVtOPJeHzA+8hHxVzcI0uSZo=
-		</data>
-		<key>Resources/Images/types/field_14.png</key>
-		<data>
-		z5iRXguamXMJkzlrirtSUpXOqgY=
-		</data>
-		<key>Resources/Images/types/field_15.png</key>
-		<data>
-		F1HGnlK0Pj1xVBnPc2OQgOHDurs=
-		</data>
-		<key>Resources/Images/types/field_2.png</key>
-		<data>
-		BsQsfCQL7g79/hNSV/3jj2qjaY0=
-		</data>
-		<key>Resources/Images/types/field_3.png</key>
-		<data>
-		2yt8aw96M2XVx+eR0GtlFxJQLoI=
-		</data>
-		<key>Resources/Images/types/field_4.png</key>
-		<data>
-		EPoeutAMyJUs5fTlv3VLBJE0Kms=
-		</data>
-		<key>Resources/Images/types/field_5.png</key>
-		<data>
-		ETvgikqdg49Jmk/16DOVlKPgHeg=
-		</data>
-		<key>Resources/Images/types/field_6.png</key>
-		<data>
-		GsutoOCbHzyqxv2YpOxYTYxdHow=
-		</data>
-		<key>Resources/Images/types/field_7.png</key>
-		<data>
-		LhnStdcj1YFs6UAMi+U4Xc7Jjk8=
-		</data>
-		<key>Resources/Images/types/field_8.png</key>
-		<data>
-		LhS49O/YINS4pVd2ddVJtLsM1mI=
-		</data>
-		<key>Resources/Images/types/field_9.png</key>
-		<data>
-		7nj/vKfKe01w+5woEL6pRcUYBpA=
-		</data>
 		<key>Resources/InfoPlist.strings</key>
 		<data>
-		VdcFGZrVjYNiYJLfufl6mMYQ7xU=
+		t6oVU9AjmIaxFLp36fBjIAmkLx4=
 		</data>
 		<key>Resources/constants.xlf</key>
 		<data>
@@ -300,19 +180,15 @@
 		<data>
 		HlETIFJ1e09gRTTgtEe3A+RU7XY=
 		</data>
-		<key>Resources/declarations.settings</key>
-		<data>
-		YBQubJG+TqjoG6cqY5/JfZT7PCk=
-		</data>
 		<key>Resources/default.settings</key>
 		<data>
-		uOsBIL+Lqz7moZJ4OjxUC/5wn5Y=
+		xdnJtV9e2RQtVUTyu1for7BOc7c=
 		</data>
 		<key>Resources/en.lproj/4DPop Macros.xlf</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WJotgRqupa4YYyvcdONqqHg5vO4=
+			LkfKOpDA/i/Pqu27oxz6NHX7kZE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -321,7 +197,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			r5lvTRDjltp2APHFBN1AfgoQpAU=
+			2YEBys+HX0Vv2M+UwV10OQ3fyuE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -330,7 +206,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Cvs95n77k3Bf5KOBhw0Cc41TxIo=
+			807lilROOuaB5/grbRtlGAhtuHU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -339,7 +215,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gF4dnCWCODrc149PRCVY2a9Flpg=
+			aTbjb99gYMUDyiIzg3GuMOxp+3I=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -348,7 +224,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			thMrmv3sfmuPzxcd6Ny9jxVFs/M=
+			od8bJxzwxpAOuNrI10R0kpKIgrE=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -361,13 +237,21 @@
 		<data>
 		zYxHLoEdJcwZdU+13C8V5uUle4A=
 		</data>
-		<key>Resources/php.ini</key>
-		<data>
-		zOLB4Lkaw2fxFSEtn2x8FK/7xg0=
-		</data>
 		<key>Resources/preferences.template</key>
 		<data>
 		uPoAdz4VXgPejkHR2R7jgZwFWoM=
+		</data>
+		<key>Resources/regex/beautifier.txt</key>
+		<data>
+		2E0UtKxeA1VjYWO75mvlq8k8LqE=
+		</data>
+		<key>Resources/regex/declaration.txt</key>
+		<data>
+		qnlC+oNcjebNAgxEhyhAHhBP9rw=
+		</data>
+		<key>Resources/regex/macro.txt</key>
+		<data>
+		cQKcSONZ7nQjETLfaoaHTkntOBE=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -376,12 +260,215 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			9uhaYqRgwS05iTyAtxpAMsp4Shw=
+			JSVHy6/DOU+4s1vjs7UMIcgz7Y0=
 			</data>
 			<key>requirement</key>
 			<string>identifier "4DPop Macros.4DZ" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DYRKW64QA9</string>
 		</dict>
+		<key>Documentation/Classes/beautifier.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TPZ/ldJ1pMghHasTbGee7vJfOQkMfr0BMDPiL5ePJd8=
+			</data>
+		</dict>
+		<key>Documentation/Classes/controlFlow.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wE4Od0j9Qz/L/OvtiWHbwC7QylMd7hPP/5QG5LHPeYI=
+			</data>
+		</dict>
+		<key>Documentation/Classes/declaration.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EJ4A9JND7gmjoBh/GwQCW7aAsWbYJlzyoZW2/AWHd3w=
+			</data>
+		</dict>
+		<key>Documentation/Classes/invertExpression.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Z8gKqX/2rclzDcVCH5BNl+UJFIhtM2ektjd1VXAmR8c=
+			</data>
+		</dict>
+		<key>Documentation/Classes/log.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Lhg0kZe9xa1/NhN277KM7e92+x/FZ85HEZw/o5SIq00=
+			</data>
+		</dict>
+		<key>Documentation/Classes/macro.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kj3tIY7ol0GEXUhcO4Rhh0z+6tBFdGo1wyAMaaVsp+U=
+			</data>
+		</dict>
+		<key>Documentation/Classes/method.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/ioNXPAKwNCDVlgjLYR4Nbqhz/zYioLBfV+Xo9ncEVA=
+			</data>
+		</dict>
+		<key>Documentation/Classes/patterns.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eONEAaFyZNHMncVwQ8sMjuiVTpEkkHoPbTLsWcHFWDY=
+			</data>
+		</dict>
+		<key>Documentation/Classes/preferences.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GBFflwbsX0AsOWzbGR7j1Wcpfx6vned+wO1t+qzz6i8=
+			</data>
+		</dict>
+		<key>Documentation/Classes/settings.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ZdGsh6XcH7V9njDMKWlf+U4oPNfiegvzu1cAvrBANEM=
+			</data>
+		</dict>
+		<key>Documentation/Classes/specialPaste.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7CQm+8G9tgeX4OslfuG3KRlUfuK7Tu+kwmB+/2B37W8=
+			</data>
+		</dict>
+		<key>Documentation/Classes/xml.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3DI/L7ciExB89sY/RHHq5y911YVciAuNE5FWLF0etD0=
+			</data>
+		</dict>
+		<key>Documentation/Methods/4DPop_TEST_Macros.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FJ2xd2Unz9KPGJZdID5HZ+JY6aYpzuMyA+Tfvq/6R7M=
+			</data>
+		</dict>
+		<key>Documentation/Methods/ABOUT.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WocS23LX0rFc+TEaATitM90dV+PVVD+XaHluaz+vEFk=
+			</data>
+		</dict>
+		<key>Documentation/Methods/CODE_TO_EXECUTE.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QdKo4N6tG2+pwMrhNG1KjSZOr62DFGBq2DEQgFgemYo=
+			</data>
+		</dict>
+		<key>Documentation/Methods/CODE_TO_EXECUTE_FORMULA.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RnFpKnbFxoBWiYyX9z88/61KniLICfm88a0UXCyP0so=
+			</data>
+		</dict>
+		<key>Documentation/Methods/DOT_NOTATION.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wOL0w7UoXo8nodQNyX4Giul6OdZocmzqQqXbKdB8M0U=
+			</data>
+		</dict>
+		<key>Documentation/Methods/INSTALL_LOCALIZED_MACROS.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mNkGZaucxh+SX/6T0hRS13Sy7WHiJeqiofgeXIyKGmE=
+			</data>
+		</dict>
+		<key>Documentation/Methods/Init.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QaslKLcTBU3Ur1NsQtk9l+1rU+wrm/JQ+of9j8nBFII=
+			</data>
+		</dict>
+		<key>Documentation/Methods/Install_resources.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VpIxjf9q2446KtPV6DHlrE+MUuUkAR7E2DRmcPl1Ur8=
+			</data>
+		</dict>
+		<key>Documentation/Methods/_4DPopMacros.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zCmC7SxG8E9VYHxu74rasfgU45hUoy8Z5n1tzTy0JDY=
+			</data>
+		</dict>
+		<key>Documentation/Methods/_runMacro.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aDO4QdisJ7D8u7JEsdrqt0lv5SAe2XAAA26S8UUAY/o=
+			</data>
+		</dict>
+		<key>Documentation/Methods/codeForCollection.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jDzt9OzKfkIQtqXJxBnNNSw2nqUPTIYcNzTsirPwpo0=
+			</data>
+		</dict>
+		<key>Documentation/Methods/codeForObject.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5gTAhfptqmA0m7MXTG8gCJg4ARDggGS58qQ+6jzEGpg=
+			</data>
+		</dict>
+		<key>Documentation/Methods/declaration_UI.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			L3oEtTl5Od2KlnKFfaDUD6NX04iolq4PExvCdleE4OA=
+			</data>
+		</dict>
+		<key>Documentation/Methods/getResource.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			w3/p76R0u55W31/goJoyKmYq2FeeHvychRzUkr+0V6o=
+			</data>
+		</dict>
+		<key>Documentation/Methods/options.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GtcoPz5gLI6Opj4dPfQzHV2YqJKibn+/il8K12VvElk=
+			</data>
+		</dict>
+		<key>Documentation/Methods/win_NOT_UNDER_TOOLBAR.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qDNfBRHL02mZsJW/9XCf2ZBHBgqXQrfoBwpj2ahoDL0=
+			</data>
+		</dict>
 		<key>Documentation/declaration.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oMQNvkHwJ3BjRZrolMWTiky96NOVgsbAg94rWVBhFEw=
+			</data>
+		</dict>
+		<key>Documentation/declaration_old.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
@@ -441,7 +528,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bmd+1rvGMEymfFo2HVClUJLAd0H6hFs8dpgSjp44H4I=
+			ckkTty00bEqxpTgJTSMKu7j3fYLtLM4cxm9IH7G5vQY=
 			</data>
 		</dict>
 		<key>Resources/4DPop.json</key>
@@ -455,70 +542,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EVI4nwlO4Hgy2tu5p5CZ/MdC9kkrFeDRwYBEt2vihGk=
-			</data>
-		</dict>
-		<key>Resources/Images/Action.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CHruGMzGksWYa1+bCBHZ0QO2yZ70q09j+7Vdv0u9f58=
-			</data>
-		</dict>
-		<key>Resources/Images/AddFile.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Jq7OLkrcqU2Wa0qtBumZUGbbrBZFlbFYN0FgWedqvns=
-			</data>
-		</dict>
-		<key>Resources/Images/AddTransunit.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TZhnqItrlMq8ORcXL//QFesOc6qL93W54XAYRA96Too=
-			</data>
-		</dict>
-		<key>Resources/Images/Close.4pct</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FZbCsvkpGGitcjupRFtz/W+lSzRezgPywDew8re+mas=
-			</data>
-		</dict>
-		<key>Resources/Images/Delete.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1vjU9+tg9qxa5V9Tf7GKunD5k09hHbRrjdzrjszO3js=
-			</data>
-		</dict>
-		<key>Resources/Images/FootColor.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			h4qMpA+xBgcObBr3C2VLVbPwSzl/T40nEa8D9LPaQh4=
-			</data>
-		</dict>
-		<key>Resources/Images/FooterBack.tiff</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			/wJSKGSR3aZQ2DcRcT4Mz7Ze2wSxV7SLSntZhHRvdt8=
-			</data>
-		</dict>
-		<key>Resources/Images/FooterButtonBack.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			UDsJe+9m3FMVGq4VFvTI60peKsKvDYadZZvvXimw7vI=
-			</data>
-		</dict>
-		<key>Resources/Images/Preferences.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FCLf3mA/Ru9orrITbStbJH/9RTMbhzfDa1sbi2FpgB8=
+			69yVjgIq7WNbDzsu0IwcNpd/Nv7uEDhvet46Vf11sqk=
 			</data>
 		</dict>
 		<key>Resources/Images/Scomber Scombrus.png</key>
@@ -526,34 +550,6 @@
 			<key>hash2</key>
 			<data>
 			tjyNAwYzEdjuwaB7llvALM6uvUao89nJ3bLgxBAssUY=
-			</data>
-		</dict>
-		<key>Resources/Images/Spinner.gif</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			526UcR/YfumoXEtl0hMK1Q4dbRARflvT2u1OOBuHCLU=
-			</data>
-		</dict>
-		<key>Resources/Images/SpinnerMac.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			/+Lg+0LLiw/2U9Y7Wp/sKvUnnU3eC1KCSWDUhGFU0B8=
-			</data>
-		</dict>
-		<key>Resources/Images/SplitterVerticalHandle.tiff</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HLRc9LfGnQYUeSTfpXu5HtoSkzZ2bFebp4E3HiEYFOk=
-			</data>
-		</dict>
-		<key>Resources/Images/ToolbarBackground.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			wcAus8BLBh0h4j4FV0jJ1tUlW1jzCpbA9Xxpm2yrmbY=
 			</data>
 		</dict>
 		<key>Resources/Images/fieldIcons/field_00.png</key>
@@ -794,6 +790,20 @@
 			wv4V65c+w+ujj3KNQkC2HEx44DMBgjQHxFvjWFOuktk=
 			</data>
 		</dict>
+		<key>Resources/Images/fieldIcons/field_class.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ItdoBGfkWYHQCPAr61jFBTjAjDE7kbcWpbo9kgNXpyE=
+			</data>
+		</dict>
+		<key>Resources/Images/fieldIcons/field_class_dark.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BMOR6yotdAKT87yuva0wxBd91+H//6+oG6ci4uFPa/8=
+			</data>
+		</dict>
 		<key>Resources/Images/filter.png</key>
 		<dict>
 			<key>hash2</key>
@@ -808,144 +818,11 @@
 			3MaJGLFbdk2rdA5KdLFLqik4neruQSVgi0sqTli8cYY=
 			</data>
 		</dict>
-		<key>Resources/Images/genericFile.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Yi+ze5HqWDtbiQlvkqubjQ7iOLITnWspRKHSRH7Db3U=
-			</data>
-		</dict>
-		<key>Resources/Images/genericFolder.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			AFFQsMJEuQWHWnCnc9GTx7Yog8wSEyqD4dwb64SJkyc=
-			</data>
-		</dict>
-		<key>Resources/Images/genericHardDrive.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lO6t/T06mMhIe6kqsQfZ3j5elFeUIm57ftTH/wvB/7Q=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_0.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HZ7mZswEe3NILliG2RnxaHhXM6IfQ3ix3Y3xEnzBGPQ=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_1.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TrpzHgo9oH+Dvp8sFNJ41e99Dbacr0g98j8bPNPYXEA=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_10.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			J9StZqp3H4S9hauBBWw/GyfnFc4FOnBpsnyZudcpfIY=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_11.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			IffzjSWc41vcj5yEZlpYiyuGq498mVKe3huxEjsvmV4=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_12.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			skXN3JxkZamLCu0bZ/kGsrp3B3hk3PKEWTMDXKtEaPM=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_13.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			YvZ1g5BUWKk9C+Tz8bRWaQ/5fQ+vaBfdFwAQz6u6758=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_14.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Dv2q05eI7QTwA41Mi8X+OXKRaWcwPfo1Q68y4y0UdgY=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_15.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			kG4Dmyg7hEv8R/Qah2IStt8eGF6qHkWWB+EGi+a7z4c=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_2.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			E724wFugux7v75OmnU3bGRO9pJUnaoziooTqnBuV97A=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_3.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1OMbaC2wVHUUU30gXx3U7piJsw8aK8KK+F6KOqbTqpA=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_4.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2ld5c+3wNHdVnghc5ljivRo17LU+mtZJWepbdZoTcsU=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_5.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			RxXse1vQJSnMR3dtYS1xLVx8DJGhNdVftEQmPAAOmJk=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_6.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			UKomJLZx3XUsaJXRQFWbJPG0cU2E1tzLwT/68a16lNg=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_7.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			GB96YKXB6lukbecqUWidrhnek72oSK+xYiJP39jxhmE=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_8.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Q+huqo1QhzGgfhferrSVajYsRwrDT/IZjU22Qc73pTA=
-			</data>
-		</dict>
-		<key>Resources/Images/types/field_9.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			KVB9AtEP5sBt+fCXX9qh/rd3ZlcHO/Oa3Xoqu0jbeHQ=
-			</data>
-		</dict>
 		<key>Resources/InfoPlist.strings</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UqZnC3QS2y0dusdWu0XkUQHFRG6M+3i4dwnOjNzWvDo=
+			al9iM+c9dNVblW4Qo+HAVWWIkAoh2AewzJuB+ANvNh0=
 			</data>
 		</dict>
 		<key>Resources/constants.xlf</key>
@@ -962,25 +839,18 @@
 			Bwj6g7OqoU1jAtpsfs+9kTERuGuMOnBDKAFQ2Q2P1Q4=
 			</data>
 		</dict>
-		<key>Resources/declarations.settings</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			F/BQJJqIHaBs96Da6h02djhe2rtJGJSkwC9mSbpic30=
-			</data>
-		</dict>
 		<key>Resources/default.settings</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VCcRhMzLp0OsEcj1wwxiuVhNCS+CdfzXbNrpJqq4LsY=
+			/K5RYWSp+BeSJHsLVWo8XDMBPMzQ1hsZrWd9UhOozZo=
 			</data>
 		</dict>
 		<key>Resources/en.lproj/4DPop Macros.xlf</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			f7s5+ij6pFec8IlgQj+NunOej8XFdqj5unQM0Kg4/7M=
+			nTuwwYdMnZqC/C+9/1yBkl8Szu7XeD3qjnRr+ngcOno=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -989,7 +859,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cWuUJ0Qf9VaI3KL5M5t/KmVZmvOWgQ5JqrTuqyBlNpg=
+			Wdso+3wBfA/ilSTcqKqHt5eKKr+WOFT9GfUuGUXzaqQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -998,7 +868,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SuA0QdYEzOg4kDfr6Dpap3VGfigqnBfti75PnbeJQLM=
+			9GK7n8GBAVVxusF2eJW9hVSEdiZ7nf1rFFqvlwXcstY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1007,7 +877,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			M7qIcntnQD+PEANl5G87D6ug20u7uVJWgWlYsYy16gI=
+			8/v1MQWiFT1meaL4WTTPlQ/K7GF+4rLQDNKZufzRcsg=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1016,7 +886,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rdC5wKx89odnVnNWAvcngRGF9t3jUQQUo+oFnMB/oPA=
+			+FVwUUQ9L9dSA6cDlfMN7M8kpfTyQeSdVbRHClnmfm4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1035,18 +905,32 @@
 			btQD9DcHNendeRUyYwDGXJUYXa7AIbDLPfleQ4WPWL4=
 			</data>
 		</dict>
-		<key>Resources/php.ini</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TZLcGaHIOQ1RE+hg4bpFD3CAzmDZG8v54zM5RQNdMdM=
-			</data>
-		</dict>
 		<key>Resources/preferences.template</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			x3PIpORF2tG8URmuB5p710lid7OzQTv+w4wvQWnT5go=
+			</data>
+		</dict>
+		<key>Resources/regex/beautifier.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FF9eCmNgJ6b6300+A4R6SONUY/D3Ayg+5rLpkyODy6c=
+			</data>
+		</dict>
+		<key>Resources/regex/declaration.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VsIwdBaCKzEi5UbuGVWre3fG2dHvYAstoVyShexycyo=
+			</data>
+		</dict>
+		<key>Resources/regex/macro.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KxNO8MShJ9DJaYbSau95qEpWky4t0QzdCCFxHP+tBCo=
 			</data>
 		</dict>
 	</dict>
